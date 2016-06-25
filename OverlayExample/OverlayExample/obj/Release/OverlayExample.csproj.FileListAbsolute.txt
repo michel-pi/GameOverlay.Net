@@ -1,0 +1,4 @@
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\bin\Release\OverlayExample.exe.config
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\bin\Release\OverlayExample.exe
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\bin\Release\DirectXOverlayWindow.dll
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\obj\Release\OverlayExample.exe

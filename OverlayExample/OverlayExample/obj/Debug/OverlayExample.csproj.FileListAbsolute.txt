@@ -1,0 +1,7 @@
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\bin\Debug\OverlayExample.exe.config
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\obj\Debug\OverlayExample.csprojResolveAssemblyReference.cache
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\bin\Debug\OverlayExample.exe
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\bin\Debug\OverlayExample.pdb
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\bin\Debug\DirectXOverlayWindow.dll
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\obj\Debug\OverlayExample.exe
+c:\users\michel\documents\visual studio 2013\Projects\OverlayExample\OverlayExample\obj\Debug\OverlayExample.pdb
