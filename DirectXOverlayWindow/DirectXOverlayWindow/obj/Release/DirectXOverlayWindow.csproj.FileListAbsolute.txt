@@ -1,9 +1,0 @@
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\obj\Release\DirectXOverlayWindow.csprojResolveAssemblyReference.cache
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\bin\Release\DirectXOverlayWindow.dll
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\bin\Release\SharpDX.Direct2D1.dll
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\bin\Release\SharpDX.dll
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\bin\Release\SharpDX.DXGI.dll
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\bin\Release\SharpDX.xml
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\bin\Release\SharpDX.Direct2D1.xml
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\bin\Release\SharpDX.DXGI.xml
-c:\users\michel\documents\visual studio 2013\Projects\DirectXOverlayWindow\DirectXOverlayWindow\obj\Release\DirectXOverlayWindow.dll
