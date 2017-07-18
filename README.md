@@ -1,4 +1,4 @@
 # DirectXOverlay
 
-References:
+Dependencies:
 SharpDX (Direct2D), System.Drawing
