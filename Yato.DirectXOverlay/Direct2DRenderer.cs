@@ -217,7 +217,6 @@ namespace Yato.DirectXOverlay
         public Direct2DScene UseScene()
         {
             // really expensive to use but i like the pattern
-            BeginScene();
             return new Direct2DScene(this);
         }
 
@@ -258,6 +257,11 @@ namespace Yato.DirectXOverlay
         public void ClearScene(Direct2DColor color)
         {
             device.Clear(color);
+        }
+
+        public void ClearScene(Direct2DBrush brush)
+        {
+            device.Clear(brush);
         }
 
         #endregion
@@ -1047,14 +1051,6 @@ namespace Yato.DirectXOverlay
 
         #region Text
 
-        //public void DrawText(string text, float x, float y, Direct2DColor color)
-        //{
-        //    if (sharedFont == null) throw new Exception("Use Direct2DRenderer.SetSharedFont before using this overload");
-
-        //    sharedBrush.Color = color;
-        //    device.DrawText(text, text.Length, sharedFont, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), sharedBrush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
-        //}
-
         public void DrawText(string text, float x, float y, Direct2DFont font, Direct2DColor color)
         {
             sharedBrush.Color = color;
@@ -1065,21 +1061,6 @@ namespace Yato.DirectXOverlay
         {
             device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), brush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
-
-        //public void DrawTextEx(string text, float x, float y, float fontSize, Direct2DColor color)
-        //{
-        //    if (sharedFont == null) throw new Exception("Use Direct2DRenderer.SetSharedFont before using this overload");
-
-        //    sharedBrush.Color = color;
-
-        //    var layout = new TextLayout(fontFactory, text, sharedFont, float.MaxValue, float.MaxValue);
-
-        //    layout.SetFontSize(fontSize, new TextRange(0, text.Length));
-
-        //    device.DrawTextLayout(new RawVector2(x, y), layout, sharedBrush, DrawTextOptions.NoSnap);
-
-        //    layout.Dispose();
-        //}
 
         public void DrawTextEx(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color)
         {
@@ -1096,9 +1077,7 @@ namespace Yato.DirectXOverlay
 
         public void DrawTextEx(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush)
         {
-            if (sharedFont == null) throw new Exception("Use Direct2DRenderer.SetSharedFont before using this overload");
-
-            var layout = new TextLayout(fontFactory, text, sharedFont, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
@@ -1106,25 +1085,6 @@ namespace Yato.DirectXOverlay
 
             layout.Dispose();
         }
-
-        //public void DrawTextWithBackground(string text, float x, float y, Direct2DColor color, Direct2DColor backgroundColor)
-        //{
-        //    if (sharedFont == null) throw new Exception("Use Direct2DRenderer.SetSharedFont before using this overload");
-
-        //    var layout = new TextLayout(fontFactory, text, sharedFont, float.MaxValue, float.MaxValue);
-
-        //    float modifier = layout.FontSize / 4.0f;
-
-        //    sharedBrush.Color = backgroundColor;
-
-        //    device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), sharedBrush);
-
-        //    sharedBrush.Color = color;
-
-        //    device.DrawTextLayout(new RawVector2(x, y), layout, sharedBrush, DrawTextOptions.NoSnap);
-
-        //    layout.Dispose();
-        //}
 
         public void DrawTextWithBackground(string text, float x, float y, Direct2DFont font, Direct2DColor color, Direct2DColor backgroundColor)
         {
@@ -1148,6 +1108,40 @@ namespace Yato.DirectXOverlay
             var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             float modifier = layout.FontSize / 4.0f;
+
+            device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), backgroundBrush);
+
+            device.DrawTextLayout(new RawVector2(x, y), layout, brush, DrawTextOptions.NoSnap);
+
+            layout.Dispose();
+        }
+
+        public void DrawTextWithBackground(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color, Direct2DColor backgroundColor)
+        {
+            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
+
+            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
+
+            float modifier = fontSize / 4.0f;
+
+            sharedBrush.Color = backgroundColor;
+
+            device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), sharedBrush);
+
+            sharedBrush.Color = color;
+
+            device.DrawTextLayout(new RawVector2(x, y), layout, sharedBrush, DrawTextOptions.NoSnap);
+
+            layout.Dispose();
+        }
+
+        public void DrawTextWithBackground(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush, Direct2DBrush backgroundBrush)
+        {
+            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
+
+            layout.SetFontSize(fontSize, new TextRange(0, text.Length);
+
+            float modifier = fontSize / 4.0f;
 
             device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), backgroundBrush);
 
@@ -1334,6 +1328,11 @@ namespace Yato.DirectXOverlay
         {
             return brush.Color;
         }
+
+        public static implicit operator RawColor4(Direct2DBrush brush)
+        {
+            return brush.Color;
+        }
     }
 
     public class Direct2DFont
@@ -1473,7 +1472,10 @@ namespace Yato.DirectXOverlay
 
         public Direct2DScene(Direct2DRenderer renderer)
         {
+            GC.SuppressFinalize(this);
+
             Renderer = renderer;
+            renderer.BeginScene();
         }
 
         ~Direct2DScene()
@@ -1506,7 +1508,6 @@ namespace Yato.DirectXOverlay
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
         #endregion
     }
