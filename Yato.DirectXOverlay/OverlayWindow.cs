@@ -68,7 +68,7 @@ namespace Yato.DirectXOverlay
 
                 if (PInvoke.PeekMessageW(ref message, WindowHandle, 0, 0, 1) != 0)
                 {
-                    if (message.Msg == PInvoke.WindowsMessage.WM_QUIT) return;
+                    if (message.Msg == PInvoke.WindowsMessage.WM_QUIT) continue;
 
                     PInvoke.TranslateMessage(ref message);
                     PInvoke.DispatchMessage(ref message);
@@ -148,6 +148,11 @@ namespace Yato.DirectXOverlay
                     extendFrameIntoClientArea();
                     return (IntPtr)0;
                 default: break;
+            }
+
+            if((int)msg == 0x02E0) // DPI Changed
+            {
+                return (IntPtr)0;
             }
 
             return PInvoke.DefWindowProc(hwnd, msg, wParam, lParam);

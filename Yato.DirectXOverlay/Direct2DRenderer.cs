@@ -151,7 +151,7 @@ namespace Yato.DirectXOverlay
             var renderProperties = new RenderTargetProperties(
                 RenderTargetType.Default,
                 new PixelFormat(Format.R8G8B8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
-                0.0f, 0.0f,
+                96.0f, 96.0f,
                 RenderTargetUsage.None,
                 FeatureLevel.Level_DEFAULT);
 
