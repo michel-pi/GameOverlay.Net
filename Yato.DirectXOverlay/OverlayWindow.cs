@@ -128,8 +128,6 @@ namespace Yato.DirectXOverlay
                 IntPtr.Zero
                 );
 
-            // cannot find wnd class
-
             PInvoke.SetLayeredWindowAttributes(WindowHandle, 0, 255, /*0x1 |*/ 0x2);
             extendFrameIntoClientArea();
             PInvoke.UpdateWindow(WindowHandle);
