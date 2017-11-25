@@ -151,7 +151,7 @@ namespace Yato.DirectXOverlay
             var renderProperties = new RenderTargetProperties(
                 RenderTargetType.Default,
                 new PixelFormat(Format.R8G8B8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
-                96.0f, 96.0f,
+                96.0f, 96.0f, // May need to change window and render targets dpi according to windows. but this seems to fix it at least for me (looks better somehow)
                 RenderTargetUsage.None,
                 FeatureLevel.Level_DEFAULT);
 

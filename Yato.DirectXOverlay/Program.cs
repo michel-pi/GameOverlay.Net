@@ -7,7 +7,7 @@ namespace Yato.DirectXOverlay
     {
         static void Main(string[] args)
         {
-            bool runExample = false;
+            bool runExample = true;
 
             if(runExample) example();
 
