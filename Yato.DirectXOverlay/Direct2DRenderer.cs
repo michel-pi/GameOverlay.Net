@@ -133,7 +133,7 @@ namespace Yato.DirectXOverlay
 
             PInvoke.RECT bounds = new PInvoke.RECT();
 
-            if (PInvoke.GetWindowRect(options.Hwnd, out bounds) == 0) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
+            if (PInvoke.GetRealWindowRect(options.Hwnd, out bounds) == 0) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
 
             this.Width = bounds.Right - bounds.Left;
             this.Height = bounds.Bottom - bounds.Top;

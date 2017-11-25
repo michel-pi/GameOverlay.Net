@@ -5,6 +5,43 @@ namespace Yato.DirectXOverlay
 {
     internal static class PInvoke
     {
+        public static int GetRealWindowRect(IntPtr hwnd, out RECT rect)
+        {
+            RECT windowRect = new RECT();
+            RECT clientRect = new RECT();
+
+            int result = GetWindowRect(hwnd, out windowRect);
+            if(GetClientRect(hwnd, out clientRect) == 0)
+            {
+                rect = windowRect;
+                return result;
+            }
+
+            int windowWidth = windowRect.Right - windowRect.Left;
+            int windowHeight = windowRect.Bottom - windowRect.Top;
+
+            if (windowWidth == clientRect.Right && windowHeight == clientRect.Bottom)
+            {
+                rect = windowRect;
+                return result;
+            }
+
+            int dif_x = windowWidth > clientRect.Right ? windowWidth - clientRect.Right : clientRect.Right - windowWidth;
+            int dif_y = windowHeight > clientRect.Bottom ? windowHeight - clientRect.Bottom : clientRect.Bottom - windowHeight;
+
+            dif_x /= 2;
+            dif_y /= 2;
+
+            windowRect.Left += dif_x;
+            windowRect.Top += dif_y;
+
+            windowRect.Right -= dif_x;
+            windowRect.Bottom -= dif_y;
+
+            rect = windowRect;
+            return result;
+        }
+
         #region User32
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
@@ -70,6 +107,9 @@ namespace Yato.DirectXOverlay
 
         public delegate int GetWindowRect_t(IntPtr hwnd, out RECT lpRect);
         public static GetWindowRect_t GetWindowRect = WinApi.GetMethod<GetWindowRect_t>("user32.dll", "GetWindowRect");
+
+        public delegate int GetClientRect_t(IntPtr hwnd, out RECT lpRect);
+        public static GetClientRect_t GetClientRect = WinApi.GetMethod<GetClientRect_t>("user32.dll", "GetClientRect");
 
         public delegate int IsWindowVisible_t(IntPtr hwnd);
         public static IsWindowVisible_t IsWindowVisible = WinApi.GetMethod<IsWindowVisible_t>("user32.dll", "IsWindowVisible");

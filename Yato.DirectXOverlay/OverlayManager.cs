@@ -50,7 +50,7 @@ namespace Yato.DirectXOverlay
             if (PInvoke.IsWindow(parentWindowHandle) == 0) throw new Exception("The parent window does not exist");
 
             PInvoke.RECT bounds = new PInvoke.RECT();
-            PInvoke.GetWindowRect(parentWindowHandle, out bounds);
+            PInvoke.GetRealWindowRect(parentWindowHandle, out bounds);
 
             int x = bounds.Left;
             int y = bounds.Top;
@@ -91,7 +91,7 @@ namespace Yato.DirectXOverlay
 
                 if (!Window.IsVisible) Window.ShowWindow();
 
-                PInvoke.GetWindowRect(ParentWindowHandle, out bounds);
+                PInvoke.GetRealWindowRect(ParentWindowHandle, out bounds);
 
                 int x = bounds.Left;
                 int y = bounds.Top;
