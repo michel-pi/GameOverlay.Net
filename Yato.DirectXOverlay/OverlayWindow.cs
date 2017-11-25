@@ -16,8 +16,6 @@ namespace Yato.DirectXOverlay
         private Thread windowThread;
 
         private string randomClassName;
-        private string randomMenuName;
-        private string randomWindowName;
 
         public IntPtr WindowHandle { get; private set; }
 
@@ -89,8 +87,8 @@ namespace Yato.DirectXOverlay
             Height = height;
 
             randomClassName = generateRandomString(5, 11);
-            randomMenuName = generateRandomString(5, 11);
-            randomWindowName = generateRandomString(5, 11);
+            string randomMenuName = generateRandomString(5, 11);
+            string randomWindowName = generateRandomString(5, 11);
 
             // prepare method
             wndProc = windowProcedure;
