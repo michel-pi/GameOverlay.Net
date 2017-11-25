@@ -55,6 +55,7 @@
     <Compile Include="Direct2DRenderer.cs" />
     <Compile Include="OverlayManager.cs" />
     <Compile Include="OverlayWindow.cs" />
+    <Compile Include="PInvoke.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

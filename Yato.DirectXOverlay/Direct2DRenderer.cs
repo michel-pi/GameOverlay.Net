@@ -129,11 +129,11 @@ namespace Yato.DirectXOverlay
 
             if (options.Hwnd == IntPtr.Zero) throw new ArgumentNullException(nameof(options.Hwnd));
 
-            if (IsWindow(options.Hwnd) == 0) throw new ArgumentException("The window does not exist (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
+            if (PInvoke.IsWindow(options.Hwnd) == 0) throw new ArgumentException("The window does not exist (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
 
-            RECT bounds = default(RECT);
+            PInvoke.RECT bounds = new PInvoke.RECT();
 
-            if (GetWindowRect(options.Hwnd, out bounds) == 0) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
+            if (PInvoke.GetWindowRect(options.Hwnd, out bounds) == 0) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
 
             this.Width = bounds.Right - bounds.Left;
             this.Height = bounds.Bottom - bounds.Top;
@@ -1174,25 +1174,6 @@ namespace Yato.DirectXOverlay
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        #endregion
-
-        #region NativeMethods
-
-        [DllImport("user32.dll", SetLastError = false)]
-        private static extern int GetWindowRect(IntPtr hwnd, out RECT lpRect);
-
-        [DllImport("user32.dll", SetLastError = false)]
-        private static extern int IsWindow(IntPtr hwnd);
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RECT
-        {
-            public int Left;        // x position of upper-left corner
-            public int Top;         // y position of upper-left corner
-            public int Right;       // x position of lower-right corner
-            public int Bottom;      // y position of lower-right corner
-        }
-
         #endregion
     }
 

@@ -47,10 +47,10 @@ namespace Yato.DirectXOverlay
         {
             ParentWindowHandle = parentWindowHandle;
 
-            if (IsWindow(parentWindowHandle) == 0) throw new Exception("The parent window does not exist");
+            if (PInvoke.IsWindow(parentWindowHandle) == 0) throw new Exception("The parent window does not exist");
 
-            RECT bounds = new RECT();
-            GetWindowRect(parentWindowHandle, out bounds);
+            PInvoke.RECT bounds = new PInvoke.RECT();
+            PInvoke.GetWindowRect(parentWindowHandle, out bounds);
 
             int x = bounds.Left;
             int y = bounds.Top;
@@ -75,13 +75,13 @@ namespace Yato.DirectXOverlay
 
         private void windowServiceThread()
         {
-            RECT bounds = new RECT();
+            PInvoke.RECT bounds = new PInvoke.RECT();
 
             while (!exitThread)
             {
                 Thread.Sleep(100);
 
-                IsParentWindowVisible = IsWindowVisible(ParentWindowHandle) != 0;
+                IsParentWindowVisible = PInvoke.IsWindowVisible(ParentWindowHandle) != 0;
 
                 if (!IsParentWindowVisible)
                 {
@@ -91,7 +91,7 @@ namespace Yato.DirectXOverlay
 
                 if (!Window.IsVisible) Window.ShowWindow();
 
-                GetWindowRect(ParentWindowHandle, out bounds);
+                PInvoke.GetWindowRect(ParentWindowHandle, out bounds);
 
                 int x = bounds.Left;
                 int y = bounds.Top;
@@ -149,28 +149,6 @@ namespace Yato.DirectXOverlay
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        #endregion
-
-        #region NativeMethods
-
-        [DllImport("user32.dll", SetLastError = false)]
-        private static extern int GetWindowRect(IntPtr hwnd, out RECT lpRect);
-
-        [DllImport("user32.dll", SetLastError = false)]
-        private static extern int IsWindowVisible(IntPtr hwnd);
-
-        [DllImport("user32.dll", SetLastError = false)]
-        private static extern int IsWindow(IntPtr hwnd);
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RECT
-        {
-            public int Left;        // x position of upper-left corner
-            public int Top;         // y position of upper-left corner
-            public int Right;       // x position of lower-right corner
-            public int Bottom;      // y position of lower-right corner
-        }
-
         #endregion
     }
 }
