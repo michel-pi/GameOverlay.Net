@@ -1139,7 +1139,7 @@ namespace Yato.DirectXOverlay
         {
             var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
 
-            layout.SetFontSize(fontSize, new TextRange(0, text.Length);
+            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
             float modifier = fontSize / 4.0f;
 
