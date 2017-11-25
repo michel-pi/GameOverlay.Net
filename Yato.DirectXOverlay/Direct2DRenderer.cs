@@ -1062,7 +1062,7 @@ namespace Yato.DirectXOverlay
             device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), brush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
-        public void DrawTextEx(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color)
+        public void DrawText(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color)
         {
             sharedBrush.Color = color;
 
@@ -1075,7 +1075,7 @@ namespace Yato.DirectXOverlay
             layout.Dispose();
         }
 
-        public void DrawTextEx(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush)
+        public void DrawText(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush)
         {
             var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
 
