@@ -10,11 +10,11 @@ Check the example (It's a console app)
 Copy paste this into your app.manifest
 
 <pre>
-<application xmlns="urn:schemas-microsoft-com:asm.v3">
-    <windowsSettings>
-      <dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true</dpiAware>
-	</windowsSettings>
-</application>
+\<application xmlns="urn:schemas-microsoft-com:asm.v3">
+    \<windowsSettings>
+      \<dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true</dpiAware>
+	\</windowsSettings>
+\</application>
 </pre>
 
 # How to include
