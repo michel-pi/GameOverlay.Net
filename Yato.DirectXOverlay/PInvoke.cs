@@ -117,6 +117,12 @@ namespace Yato.DirectXOverlay
         public delegate int IsWindow_t(IntPtr hwnd);
         public static IsWindow_t IsWindow = WinApi.GetMethod<IsWindow_t>("user32.dll", "IsWindow");
 
+        public delegate int SetWindowPos_t(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int cx, int cy, uint flags);
+        public static SetWindowPos_t SetWindowPos = WinApi.GetMethod<SetWindowPos_t>("user32.dll", "SetWindowPos");
+
+        public delegate IntPtr GetWindow_t(IntPtr hwnd, uint cmd);
+        public static GetWindow_t GetWindow = WinApi.GetMethod<GetWindow_t>("user32.dll", "GetWindow");
+
         #endregion
 
         #region DwmApi

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Yato.DirectXOverlay
 {
-    public enum OverlayWindowName
+    public enum OverlayWindowNameGenerator
     {
         None,
         Random,
@@ -16,7 +16,7 @@ namespace Yato.DirectXOverlay
 
     public class OverlayWindow : IDisposable
     {
-        public static OverlayWindowName WindowNameGenerator = OverlayWindowName.Random;
+        public static OverlayWindowNameGenerator WindowNameGenerator = OverlayWindowNameGenerator.Random;
         public static string CustomWindowName = string.Empty;
         public static bool BypassTopmost = false;
 
@@ -106,19 +106,19 @@ namespace Yato.DirectXOverlay
 
             switch (WindowNameGenerator)
             {
-                case OverlayWindowName.None:
+                case OverlayWindowNameGenerator.None:
                     randomWindowName = string.Empty;
                     break;
-                case OverlayWindowName.Random:
+                case OverlayWindowNameGenerator.Random:
                     randomWindowName = generateRandomString(5, 11);
                     break;
-                case OverlayWindowName.Legit:
+                case OverlayWindowNameGenerator.Legit:
                     randomWindowName = getLegitWindowName();
                     break;
-                case OverlayWindowName.Executable:
+                case OverlayWindowNameGenerator.Executable:
                     randomWindowName = getExecutableName();
                     break;
-                case OverlayWindowName.Custom:
+                case OverlayWindowNameGenerator.Custom:
                     randomWindowName = CustomWindowName;
                     break;
                 default:
@@ -175,6 +175,10 @@ namespace Yato.DirectXOverlay
 
             PInvoke.SetLayeredWindowAttributes(WindowHandle, 0, 255, /*0x1 |*/ 0x2);
             PInvoke.UpdateWindow(WindowHandle);
+
+            // TODO: If window is incompatible on some platforms use SetWindowLong to set the style again and UpdateWindow
+            // If you have changed certain window data using SetWindowLong, you must call SetWindowPos for the changes to take effect. Use the following combination for uFlags: SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED. 
+
             extendFrameIntoClientArea();
         }
 

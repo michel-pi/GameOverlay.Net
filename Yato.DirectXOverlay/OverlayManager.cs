@@ -81,15 +81,23 @@ namespace Yato.DirectXOverlay
             {
                 Thread.Sleep(100);
 
-                IsParentWindowVisible = PInvoke.IsWindowVisible(ParentWindowHandle) != 0;
-
-                if (!IsParentWindowVisible)
+                if (PInvoke.IsWindowVisible(ParentWindowHandle) == 0)
                 {
                     if (Window.IsVisible) Window.HideWindow();
                     continue;
                 }
 
                 if (!Window.IsVisible) Window.ShowWindow();
+
+                if(OverlayWindow.BypassTopmost)
+                {
+                    IntPtr windowAboveParentWindow = PInvoke.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
+
+                    if (windowAboveParentWindow != Window.WindowHandle)
+                    {
+                        PInvoke.SetWindowPos(Window.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
+                    }
+                }
 
                 PInvoke.GetRealWindowRect(ParentWindowHandle, out bounds);
 
