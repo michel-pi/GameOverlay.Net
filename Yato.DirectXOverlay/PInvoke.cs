@@ -123,6 +123,9 @@ namespace Yato.DirectXOverlay
         public delegate IntPtr GetWindow_t(IntPtr hwnd, uint cmd);
         public static GetWindow_t GetWindow = WinApi.GetMethod<GetWindow_t>("user32.dll", "GetWindow");
 
+        public delegate int IsProcessDPIAware_t();
+        public static IsProcessDPIAware_t IsProcessDPIAware = WinApi.GetMethod<IsProcessDPIAware_t>("user32.dll", "IsProcessDPIAware");
+
         #endregion
 
         #region DwmApi

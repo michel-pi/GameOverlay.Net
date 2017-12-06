@@ -151,7 +151,7 @@ namespace Yato.DirectXOverlay
             var renderProperties = new RenderTargetProperties(
                 RenderTargetType.Default,
                 new PixelFormat(Format.R8G8B8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
-                96.0f, 96.0f, // May need to change window and render targets dpi according to windows. but this seems to fix it at least for me (looks better somehow)
+                96.0f, 96.0f, // we use 96.0f because it's the default value. This will scale every drawing by 1.0f (it obviously does not scale anything). Our drawing will be dpi aware!
                 RenderTargetUsage.None,
                 FeatureLevel.Level_DEFAULT);
 
