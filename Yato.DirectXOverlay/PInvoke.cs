@@ -135,12 +135,9 @@ namespace Yato.DirectXOverlay
             public WindowsMessage Msg;
             public IntPtr lParam;
             public IntPtr wParam;
-            //public IntPtr Result;
-
             public uint Time;
             public int X;
             public int Y;
-
         }
 
         public enum WindowsMessage : uint

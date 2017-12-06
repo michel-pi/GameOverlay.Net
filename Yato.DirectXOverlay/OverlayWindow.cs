@@ -5,8 +5,21 @@ using System.Runtime.CompilerServices;
 
 namespace Yato.DirectXOverlay
 {
+    public enum OverlayWindowName
+    {
+        None,
+        Random,
+        Legit,
+        Executable,
+        Custom
+    }
+
     public class OverlayWindow : IDisposable
     {
+        public static OverlayWindowName WindowNameGenerator = OverlayWindowName.Random;
+        public static string CustomWindowName = string.Empty;
+        public static bool BypassTopmost = false;
+
         private Random rng;
         private delegate IntPtr WndProc(IntPtr hWnd, PInvoke.WindowsMessage msg, IntPtr wParam, IntPtr lParam);
 
@@ -79,7 +92,7 @@ namespace Yato.DirectXOverlay
         private void setupInstance(int x = 0, int y = 0, int width = 800, int height = 600)
         {
             IsVisible = true;
-            Topmost = true;
+            Topmost = BypassTopmost ? true : false;
 
             X = x;
             Y = y;
@@ -88,7 +101,30 @@ namespace Yato.DirectXOverlay
 
             randomClassName = generateRandomString(5, 11);
             string randomMenuName = generateRandomString(5, 11);
-            string randomWindowName = generateRandomString(5, 11);
+
+            string randomWindowName = string.Empty;//generateRandomString(5, 11);
+
+            switch (WindowNameGenerator)
+            {
+                case OverlayWindowName.None:
+                    randomWindowName = string.Empty;
+                    break;
+                case OverlayWindowName.Random:
+                    randomWindowName = generateRandomString(5, 11);
+                    break;
+                case OverlayWindowName.Legit:
+                    randomWindowName = getLegitWindowName();
+                    break;
+                case OverlayWindowName.Executable:
+                    randomWindowName = getExecutableName();
+                    break;
+                case OverlayWindowName.Custom:
+                    randomWindowName = CustomWindowName;
+                    break;
+                default:
+                    randomWindowName = string.Empty;
+                    break;
+            }
 
             // prepare method
             wndProc = windowProcedure;
@@ -113,11 +149,22 @@ namespace Yato.DirectXOverlay
 
             PInvoke.RegisterClassEx(ref wndClassEx);
 
+            uint exStyle;
+
+            if(BypassTopmost)
+            {
+                exStyle = 0x20 | 0x80000 | 0x80 | 0x8000000;
+            }
+            else
+            {
+                exStyle = 0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000; // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
+            }
+
             WindowHandle = PInvoke.CreateWindowEx(
-                0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000, // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW
+                exStyle, // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
                 randomClassName,
                 randomWindowName,
-                0x80000000 | 0x10000000,
+                0x80000000 | 0x10000000, // WS_POPUP | WS_VISIBLE
                 X, Y,
                 Width, Height,
                 IntPtr.Zero,
@@ -127,8 +174,8 @@ namespace Yato.DirectXOverlay
                 );
 
             PInvoke.SetLayeredWindowAttributes(WindowHandle, 0, 255, /*0x1 |*/ 0x2);
-            extendFrameIntoClientArea();
             PInvoke.UpdateWindow(WindowHandle);
+            extendFrameIntoClientArea();
         }
 
         private IntPtr windowProcedure(IntPtr hwnd, PInvoke.WindowsMessage msg, IntPtr wParam, IntPtr lParam)
@@ -152,7 +199,7 @@ namespace Yato.DirectXOverlay
 
             if((int)msg == 0x02E0) // DPI Changed
             {
-                return (IntPtr)0;
+                return (IntPtr)0; // block DPI Changed message
             }
 
             return PInvoke.DefWindowProc(hwnd, msg, wParam, lParam);
@@ -193,6 +240,33 @@ namespace Yato.DirectXOverlay
             }
 
             return new string(chars);
+        }
+
+        private string getLegitWindowName()
+        {
+            string[] legitWindows = new string[]
+            {
+                "Teamspeak 3",
+                "Steam",
+                "Discord",
+                "Mozilla Firefox"
+            };
+
+            return legitWindows[rng.Next(0, legitWindows.Length)]; // Note: random max value is exclusive ;)
+        }
+
+        private string getExecutableName()
+        {
+            var proc = System.Diagnostics.Process.GetCurrentProcess();
+            var mod = proc.MainModule;
+
+            string name = mod.FileName;
+
+            mod.Dispose();
+            proc.Dispose();
+
+            // Path class tends to throw errors. microsoft is lazy af
+            return name.Contains(@"\") ? System.IO.Path.GetFileNameWithoutExtension(name) : name;
         }
 
         public void ShowWindow()
