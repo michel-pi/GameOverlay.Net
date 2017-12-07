@@ -9,12 +9,15 @@ Check the example (It's a console app)
 
 Copy paste this into your app.manifest
 
-\<application xmlns="urn:schemas-microsoft-com:asm.v3">
-    \<windowsSettings>
-      \<dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true</dpiAware>
-	\</windowsSettings>
-\</application>
+\<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
+   \<asmv3:application>
+      \<asmv3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">
+         \<dpiAware>true</dpiAware>
+      \</asmv3:windowsSettings>
+   \</asmv3:application>
+\</assembly>
 
 # How to include
 
+(May not be up 2 date! use project files instead)
 To include this project into yours copy and paste the Yato.DirectXOverlay.Include.cs into your project.
