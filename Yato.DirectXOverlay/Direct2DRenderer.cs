@@ -158,7 +158,15 @@ namespace Yato.DirectXOverlay
             factory = new Factory();
             fontFactory = new FontFactory();
 
-            device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
+            try
+            {
+                device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
+            }
+            catch(SharpDXException) // D2DERR_UNSUPPORTED_PIXEL_FORMAT
+            {
+                renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
+                device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
+            }
 
             device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
             // other than in the documentation: Cleartype is much faster for me than GrayScale
