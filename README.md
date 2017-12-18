@@ -19,5 +19,4 @@ Copy paste this into your app.manifest
 
 # How to include
 
-(May not be up 2 date! use project files instead)
 To include this project into yours copy and paste the Yato.DirectXOverlay.Include.cs into your project.
