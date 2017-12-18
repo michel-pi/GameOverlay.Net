@@ -117,12 +117,20 @@ namespace Yato.DirectXOverlay
             var renderProperties = new RenderTargetProperties(
                 RenderTargetType.Default,
                 new PixelFormat(Format.R8G8B8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
-                96.0f, 96.0f, // May need to change window and render targets dpi according to windows. but this seems to fix it at least for me (looks better somehow)
+                96.0f, 96.0f, // we use 96.0f because it's the default value. This will scale every drawing by 1.0f (it obviously does not scale anything). Our drawing will be dpi aware!
                 RenderTargetUsage.None,
                 FeatureLevel.Level_DEFAULT);
             factory = new Factory();
             fontFactory = new FontFactory();
-            device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
+            try
+            {
+                device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
+            }
+            catch(SharpDXException) // D2DERR_UNSUPPORTED_PIXEL_FORMAT
+            {
+                renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
+                device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
+            }
             device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
             // other than in the documentation: Cleartype is much faster for me than GrayScale
             device.TextAntialiasMode = options.AntiAliasing ? SharpDX.Direct2D1.TextAntialiasMode.Cleartype : SharpDX.Direct2D1.TextAntialiasMode.Aliased;
@@ -1225,13 +1233,20 @@ namespace Yato.DirectXOverlay
             while (!exitThread)
             {
                 Thread.Sleep(100);
-                IsParentWindowVisible = PInvoke.IsWindowVisible(ParentWindowHandle) != 0;
-                if (!IsParentWindowVisible)
+                if (PInvoke.IsWindowVisible(ParentWindowHandle) == 0)
                 {
                     if (Window.IsVisible) Window.HideWindow();
                     continue;
                 }
                 if (!Window.IsVisible) Window.ShowWindow();
+                if(OverlayWindow.BypassTopmost)
+                {
+                    IntPtr windowAboveParentWindow = PInvoke.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
+                    if (windowAboveParentWindow != Window.WindowHandle)
+                    {
+                        PInvoke.SetWindowPos(Window.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
+                    }
+                }
                 PInvoke.GetRealWindowRect(ParentWindowHandle, out bounds);
                 int x = bounds.Left;
                 int y = bounds.Top;
@@ -1282,8 +1297,19 @@ namespace Yato.DirectXOverlay
 }
 namespace Yato.DirectXOverlay
 {
+    public enum OverlayWindowNameGenerator
+    {
+        None,
+        Random,
+        Legit,
+        Executable,
+        Custom
+    }
     public class OverlayWindow : IDisposable
     {
+        public static OverlayWindowNameGenerator WindowNameGenerator = OverlayWindowNameGenerator.Random;
+        public static string CustomWindowName = string.Empty;
+        public static bool BypassTopmost = false;
         private Random rng;
         private delegate IntPtr WndProc(IntPtr hWnd, PInvoke.WindowsMessage msg, IntPtr wParam, IntPtr lParam);
         private IntPtr wndProcPointer;
@@ -1339,14 +1365,35 @@ namespace Yato.DirectXOverlay
         private void setupInstance(int x = 0, int y = 0, int width = 800, int height = 600)
         {
             IsVisible = true;
-            Topmost = true;
+            Topmost = BypassTopmost ? true : false;
             X = x;
             Y = y;
             Width = width;
             Height = height;
             randomClassName = generateRandomString(5, 11);
             string randomMenuName = generateRandomString(5, 11);
-            string randomWindowName = generateRandomString(5, 11);
+            string randomWindowName = string.Empty;//generateRandomString(5, 11);
+            switch (WindowNameGenerator)
+            {
+                case OverlayWindowNameGenerator.None:
+                    randomWindowName = string.Empty;
+                    break;
+                case OverlayWindowNameGenerator.Random:
+                    randomWindowName = generateRandomString(5, 11);
+                    break;
+                case OverlayWindowNameGenerator.Legit:
+                    randomWindowName = getLegitWindowName();
+                    break;
+                case OverlayWindowNameGenerator.Executable:
+                    randomWindowName = getExecutableName();
+                    break;
+                case OverlayWindowNameGenerator.Custom:
+                    randomWindowName = CustomWindowName;
+                    break;
+                default:
+                    randomWindowName = string.Empty;
+                    break;
+            }
             // prepare method
             wndProc = windowProcedure;
             RuntimeHelpers.PrepareDelegate(wndProc);
@@ -1367,11 +1414,20 @@ namespace Yato.DirectXOverlay
                 hIconSm = IntPtr.Zero
             };
             PInvoke.RegisterClassEx(ref wndClassEx);
+            uint exStyle;
+            if(BypassTopmost)
+            {
+                exStyle = 0x20 | 0x80000 | 0x80 | 0x8000000;
+            }
+            else
+            {
+                exStyle = 0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000; // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
+            }
             WindowHandle = PInvoke.CreateWindowEx(
-                0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000, // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW
+                exStyle, // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
                 randomClassName,
                 randomWindowName,
-                0x80000000 | 0x10000000,
+                0x80000000 | 0x10000000, // WS_POPUP | WS_VISIBLE
                 X, Y,
                 Width, Height,
                 IntPtr.Zero,
@@ -1380,8 +1436,10 @@ namespace Yato.DirectXOverlay
                 IntPtr.Zero
                 );
             PInvoke.SetLayeredWindowAttributes(WindowHandle, 0, 255, /*0x1 |*/ 0x2);
-            extendFrameIntoClientArea();
             PInvoke.UpdateWindow(WindowHandle);
+            // TODO: If window is incompatible on some platforms use SetWindowLong to set the style again and UpdateWindow
+            // If you have changed certain window data using SetWindowLong, you must call SetWindowPos for the changes to take effect. Use the following combination for uFlags: SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED. 
+            extendFrameIntoClientArea();
         }
         private IntPtr windowProcedure(IntPtr hwnd, PInvoke.WindowsMessage msg, IntPtr wParam, IntPtr lParam)
         {
@@ -1403,7 +1461,7 @@ namespace Yato.DirectXOverlay
             }
             if((int)msg == 0x02E0) // DPI Changed
             {
-                return (IntPtr)0;
+                return (IntPtr)0; // block DPI Changed message
             }
             return PInvoke.DefWindowProc(hwnd, msg, wParam, lParam);
         }
@@ -1435,6 +1493,27 @@ namespace Yato.DirectXOverlay
                 chars[i] = (char)rng.Next(97, 123);
             }
             return new string(chars);
+        }
+        private string getLegitWindowName()
+        {
+            string[] legitWindows = new string[]
+            {
+                "Teamspeak 3",
+                "Steam",
+                "Discord",
+                "Mozilla Firefox"
+            };
+            return legitWindows[rng.Next(0, legitWindows.Length)]; // Note: random max value is exclusive ;)
+        }
+        private string getExecutableName()
+        {
+            var proc = System.Diagnostics.Process.GetCurrentProcess();
+            var mod = proc.MainModule;
+            string name = mod.FileName;
+            mod.Dispose();
+            proc.Dispose();
+            // Path class tends to throw errors. microsoft is lazy af
+            return name.Contains(@"\") ? System.IO.Path.GetFileNameWithoutExtension(name) : name;
         }
         public void ShowWindow()
         {
@@ -1591,6 +1670,12 @@ namespace Yato.DirectXOverlay
         public static IsWindowVisible_t IsWindowVisible = WinApi.GetMethod<IsWindowVisible_t>("user32.dll", "IsWindowVisible");
         public delegate int IsWindow_t(IntPtr hwnd);
         public static IsWindow_t IsWindow = WinApi.GetMethod<IsWindow_t>("user32.dll", "IsWindow");
+        public delegate int SetWindowPos_t(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int cx, int cy, uint flags);
+        public static SetWindowPos_t SetWindowPos = WinApi.GetMethod<SetWindowPos_t>("user32.dll", "SetWindowPos");
+        public delegate IntPtr GetWindow_t(IntPtr hwnd, uint cmd);
+        public static GetWindow_t GetWindow = WinApi.GetMethod<GetWindow_t>("user32.dll", "GetWindow");
+        public delegate int IsProcessDPIAware_t();
+        public static IsProcessDPIAware_t IsProcessDPIAware = WinApi.GetMethod<IsProcessDPIAware_t>("user32.dll", "IsProcessDPIAware");
         #endregion
         #region DwmApi
         public delegate void DwmExtendFrameIntoClientArea_t(IntPtr hWnd, ref MARGIN pMargins);
@@ -1604,7 +1689,6 @@ namespace Yato.DirectXOverlay
             public WindowsMessage Msg;
             public IntPtr lParam;
             public IntPtr wParam;
-            //public IntPtr Result;
             public uint Time;
             public int X;
             public int Y;
