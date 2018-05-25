@@ -64,7 +64,7 @@ namespace Yato.DirectXOverlay.Windows
         private void SetupInstance(int x = 0, int y = 0, int width = 800, int height = 600)
         {
             IsVisible = true;
-            Topmost = true;
+            Topmost = BypassTopmost ? false : true;
 
             X = x;
             Y = y;
