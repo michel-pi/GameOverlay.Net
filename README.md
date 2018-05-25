@@ -16,7 +16,3 @@ Copy paste this into your app.manifest
       \</asmv3:windowsSettings>
    \</asmv3:application>
 \</assembly>
-
-# How to include
-
-To include this project into yours copy and paste the Yato.DirectXOverlay.Include.cs into your project.
