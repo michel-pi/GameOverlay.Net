@@ -11,7 +11,7 @@ namespace Yato.DirectXOverlay.Windows
         private IntPtr InternalParentWindowHandle;
         private Thread ServiceThread;
 
-        public StickyOverlayWindow()
+        private StickyOverlayWindow()
         {
         }
 
@@ -55,24 +55,6 @@ namespace Yato.DirectXOverlay.Windows
             get
             {
                 return InternalParentWindowHandle;
-            }
-            set
-            {
-                if (value == IntPtr.Zero)
-                {
-                    UnInstall();
-
-                    InternalParentWindowHandle = value;
-
-                    return;
-                }
-                else
-                {
-                    InternalParentWindowHandle = value;
-
-                    UnInstall();
-                    Install();
-                }
             }
         }
 

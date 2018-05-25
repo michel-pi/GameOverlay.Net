@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrameTimer.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="ObfuscationSettings.cs" />
