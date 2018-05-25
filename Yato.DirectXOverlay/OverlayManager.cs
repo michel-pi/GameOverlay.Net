@@ -41,7 +41,7 @@ namespace Yato.DirectXOverlay
         public bool IsParentWindowVisible { get; private set; }
         public IntPtr ParentWindowHandle { get; private set; }
 
-        public OldOverlayWindow Window { get; private set; }
+        public OverlayWindow Window { get; private set; }
 
         private void SetupInstance(IntPtr parentWindowHandle, RendererOptions options)
         {
@@ -58,7 +58,7 @@ namespace Yato.DirectXOverlay
             int width = bounds.Right - x;
             int height = bounds.Bottom - y;
 
-            Window = new OldOverlayWindow(x, y, width, height);
+            Window = new OverlayWindow(x, y, width, height);
 
             options.Hwnd = Window.WindowHandle;
 
@@ -89,15 +89,15 @@ namespace Yato.DirectXOverlay
 
                 if (!Window.IsVisible) Window.ShowWindow();
 
-                if (OldOverlayWindow.BypassTopmost)
-                {
-                    IntPtr windowAboveParentWindow = User32.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
+                //if (OverlayWindow.BypassTopmost)
+                //{
+                //    IntPtr windowAboveParentWindow = User32.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
 
-                    if (windowAboveParentWindow != Window.WindowHandle)
-                    {
-                        User32.SetWindowPos(Window.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
-                    }
-                }
+                //    if (windowAboveParentWindow != Window.WindowHandle)
+                //    {
+                //        User32.SetWindowPos(Window.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
+                //    }
+                //}
 
                 HelperMethods.GetRealWindowRect(ParentWindowHandle, out bounds);
 
