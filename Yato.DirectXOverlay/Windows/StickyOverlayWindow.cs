@@ -19,7 +19,24 @@ namespace Yato.DirectXOverlay.Windows
         {
             InternalParentWindowHandle = parentWindowHandle;
 
-            Install();
+            var options = new OverlayCreationOptions()
+            {
+                BypassTopmost = false,
+                Height = 600,
+                Width = 800,
+                WindowTitle = null,
+                X = 0,
+                Y = 0
+            };
+
+            Install(options);
+        }
+
+        public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayCreationOptions options)
+        {
+            InternalParentWindowHandle = parentWindowHandle;
+
+            Install(options);
         }
 
         ~StickyOverlayWindow()
@@ -125,9 +142,17 @@ namespace Yato.DirectXOverlay.Windows
             }
         }
 
-        public void Install()
+        public void Install(OverlayCreationOptions options)
         {
-            if (OverlayWindow == null) OverlayWindow = new OverlayWindow();
+            if (OverlayWindow == null)
+            {
+                OverlayWindow = new OverlayWindow(options);
+            }
+            else
+            {
+                OverlayWindow.Dispose();
+                OverlayWindow = new OverlayWindow(options);
+            }
 
             if (ParentWindowHandle == IntPtr.Zero || ExitServiceThread || ServiceThread != null) return;
 

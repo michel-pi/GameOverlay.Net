@@ -61,6 +61,7 @@
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="ObfuscationSettings.cs" />
+    <Compile Include="Windows\OverlayCreationOptions.cs" />
     <Compile Include="Windows\OverlayWindow.cs" />
     <Compile Include="PInvoke\DwmApi.cs" />
     <Compile Include="PInvoke\User32.cs" />
