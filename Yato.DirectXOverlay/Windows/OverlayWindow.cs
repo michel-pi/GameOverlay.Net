@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 using Yato.DirectXOverlay.PInvoke;
 
-namespace Yato.DirectXOverlay
+namespace Yato.DirectXOverlay.Windows
 {
     public class OverlayWindow : IDisposable
     {
