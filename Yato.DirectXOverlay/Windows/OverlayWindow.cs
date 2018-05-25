@@ -43,6 +43,21 @@ namespace Yato.DirectXOverlay.Windows
             while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
 
+        public OverlayWindow(OverlayCreationOptions options)
+        {
+            WindowTitle = options.WindowTitle;
+            BypassTopmost = options.BypassTopmost;
+
+            WindowThread = new Thread(() => WindowThreadProcedure(options.X, options.Y, options.Width, options.Height))
+            {
+                IsBackground = true,
+                Priority = ThreadPriority.BelowNormal
+            };
+            WindowThread.Start();
+
+            while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
+        }
+
         ~OverlayWindow()
         {
             Dispose(false);
@@ -74,7 +89,7 @@ namespace Yato.DirectXOverlay.Windows
             WindowClassName = HelperMethods.GenerateRandomString(5, 11);
             string randomMenuName = HelperMethods.GenerateRandomString(5, 11);
 
-            WindowTitle = HelperMethods.GenerateRandomString(5, 11);
+            if (WindowTitle == null) WindowTitle = HelperMethods.GenerateRandomString(5, 11);
 
             // prepare method
             WindowProc = WindowProcedure;
