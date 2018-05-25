@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Direct2DRenderer.cs" />
+    <Compile Include="Library.cs" />
+    <Compile Include="ObfuscationSettings.cs" />
     <Compile Include="OverlayManager.cs" />
     <Compile Include="OverlayWindow.cs" />
     <Compile Include="PInvoke.cs" />
