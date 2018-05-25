@@ -4,7 +4,7 @@ using Yato.DirectXOverlay.PInvoke;
 
 namespace Yato.DirectXOverlay
 {
-    public static class HelperMethods
+    internal static class HelperMethods
     {
         private static Random rng = new Random();
 
