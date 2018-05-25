@@ -1,4 +1,5 @@
 ﻿using System;
+
 using SharpDX.Mathematics.Interop;
 
 namespace Yato.DirectXOverlay.Renderer

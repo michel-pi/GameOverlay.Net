@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 using SharpDX;
 using SharpDX.Direct2D1;
