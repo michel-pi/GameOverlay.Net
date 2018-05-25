@@ -15,8 +15,10 @@ namespace Yato.DirectXOverlay.Windows
 
         private Thread WindowThread;
 
-        public OverlayWindow()
+        public OverlayWindow(bool bypassTopmost = false)
         {
+            BypassTopmost = bypassTopmost;
+
             WindowThread = new Thread(() => WindowThreadProcedure())
             {
                 IsBackground = true,
@@ -27,8 +29,10 @@ namespace Yato.DirectXOverlay.Windows
             while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
 
-        public OverlayWindow(int x, int y, int width, int height)
+        public OverlayWindow(int x, int y, int width, int height, bool bypassTopmost = false)
         {
+            BypassTopmost = bypassTopmost;
+
             WindowThread = new Thread(() => WindowThreadProcedure(x, y, width, height))
             {
                 IsBackground = true,
@@ -46,6 +50,7 @@ namespace Yato.DirectXOverlay.Windows
 
         private delegate IntPtr WndProc(IntPtr hWnd, WindowsMessage msg, IntPtr wParam, IntPtr lParam);
 
+        public bool BypassTopmost { get; private set; }
         public int Height { get; private set; }
         public bool IsVisible { get; private set; }
         public bool Topmost { get; private set; }
@@ -96,14 +101,14 @@ namespace Yato.DirectXOverlay.Windows
 
             uint exStyle;
 
-            //if (BypassTopmost)
-            //{
-            //    exStyle = 0x20 | 0x80000 | 0x80 | 0x8000000;
-            //}
-            //else
-            //{
-            exStyle = 0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000; // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
-            //}
+            if (BypassTopmost)
+            {
+                exStyle = 0x20 | 0x80000 | 0x80 | 0x8000000;
+            }
+            else
+            {
+                exStyle = 0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000; // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
+            }
 
             WindowHandle = User32.CreateWindowEx(
                 exStyle, // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
@@ -121,10 +126,10 @@ namespace Yato.DirectXOverlay.Windows
             User32.SetLayeredWindowAttributes(WindowHandle, 0, 255, /*0x1 |*/ 0x2);
             User32.UpdateWindow(WindowHandle);
 
-            // TODO: If window is incompatible on some platforms use SetWindowLong to set the style
-            //       again and UpdateWindow If you have changed certain window data using
-            // SetWindowLong, you must call SetWindowPos for the changes to take effect. Use the
-            // following combination for uFlags: SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED.
+            // If window is incompatible on some platforms use SetWindowLong to set the style again
+            // and UpdateWindow If you have changed certain window data using SetWindowLong, you must
+            // call SetWindowPos for the changes to take effect. Use the following combination for
+            // uFlags: SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED.
 
             ExtendFrameIntoClientArea();
         }
