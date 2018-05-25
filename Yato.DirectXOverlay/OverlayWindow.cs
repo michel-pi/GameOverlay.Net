@@ -3,6 +3,8 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
+using Yato.DirectXOverlay.PInvoke;
+
 namespace Yato.DirectXOverlay
 {
     public enum OverlayWindowNameGenerator
@@ -27,7 +29,7 @@ namespace Yato.DirectXOverlay
 
         public OverlayWindow()
         {
-            windowThread = new Thread(() => windowThreadMethod())
+            windowThread = new Thread(() => WindowThreadProcedure())
             {
                 IsBackground = true,
                 Priority = ThreadPriority.BelowNormal
@@ -39,7 +41,7 @@ namespace Yato.DirectXOverlay
 
         public OverlayWindow(int x, int y, int width, int height)
         {
-            windowThread = new Thread(() => windowThreadMethod(x, y, width, height))
+            windowThread = new Thread(() => WindowThreadProcedure(x, y, width, height))
             {
                 IsBackground = true,
                 Priority = ThreadPriority.BelowNormal
@@ -65,7 +67,7 @@ namespace Yato.DirectXOverlay
         public int X { get; private set; }
         public int Y { get; private set; }
 
-        private string generateRandomString(int minlen, int maxlen)
+        private string GenerateRandomString(int minlen, int maxlen)
         {
             if (rng == null) rng = new Random();
 
@@ -81,7 +83,7 @@ namespace Yato.DirectXOverlay
             return new string(chars);
         }
 
-        private string getExecutableName()
+        private string GetExecutableName()
         {
             var proc = System.Diagnostics.Process.GetCurrentProcess();
             var mod = proc.MainModule;
@@ -95,7 +97,7 @@ namespace Yato.DirectXOverlay
             return name.Contains(@"\") ? System.IO.Path.GetFileNameWithoutExtension(name) : name;
         }
 
-        private string getLegitWindowName()
+        private string GetLegitWindowName()
         {
             string[] legitWindows = new string[]
             {
@@ -108,7 +110,7 @@ namespace Yato.DirectXOverlay
             return legitWindows[rng.Next(0, legitWindows.Length)]; // Note: random max value is exclusive ;)
         }
 
-        private void setupInstance(int x = 0, int y = 0, int width = 800, int height = 600)
+        private void SetupInstance(int x = 0, int y = 0, int width = 800, int height = 600)
         {
             IsVisible = true;
             Topmost = BypassTopmost ? true : false;
@@ -118,8 +120,8 @@ namespace Yato.DirectXOverlay
             Width = width;
             Height = height;
 
-            randomClassName = generateRandomString(5, 11);
-            string randomMenuName = generateRandomString(5, 11);
+            randomClassName = GenerateRandomString(5, 11);
+            string randomMenuName = GenerateRandomString(5, 11);
 
             string randomWindowName = string.Empty;//generateRandomString(5, 11);
 
@@ -130,15 +132,15 @@ namespace Yato.DirectXOverlay
                     break;
 
                 case OverlayWindowNameGenerator.Random:
-                    randomWindowName = generateRandomString(5, 11);
+                    randomWindowName = GenerateRandomString(5, 11);
                     break;
 
                 case OverlayWindowNameGenerator.Legit:
-                    randomWindowName = getLegitWindowName();
+                    randomWindowName = GetLegitWindowName();
                     break;
 
                 case OverlayWindowNameGenerator.Executable:
-                    randomWindowName = getExecutableName();
+                    randomWindowName = GetExecutableName();
                     break;
 
                 case OverlayWindowNameGenerator.Custom:
@@ -151,13 +153,13 @@ namespace Yato.DirectXOverlay
             }
 
             // prepare method
-            wndProc = windowProcedure;
+            wndProc = WindowProcedure;
             RuntimeHelpers.PrepareDelegate(wndProc);
             wndProcPointer = Marshal.GetFunctionPointerForDelegate(wndProc);
 
-            PInvoke.WNDCLASSEX wndClassEx = new PInvoke.WNDCLASSEX()
+            WNDCLASSEX wndClassEx = new WNDCLASSEX()
             {
-                cbSize = PInvoke.WNDCLASSEX.Size(),
+                cbSize = WNDCLASSEX.Size(),
                 style = 0,
                 lpfnWndProc = wndProcPointer,
                 cbClsExtra = 0,
@@ -171,7 +173,7 @@ namespace Yato.DirectXOverlay
                 hIconSm = IntPtr.Zero
             };
 
-            PInvoke.RegisterClassEx(ref wndClassEx);
+            User32.RegisterClassEx(ref wndClassEx);
 
             uint exStyle;
 
@@ -184,7 +186,7 @@ namespace Yato.DirectXOverlay
                 exStyle = 0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000; // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
             }
 
-            WindowHandle = PInvoke.CreateWindowEx(
+            WindowHandle = User32.CreateWindowEx(
                 exStyle, // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
                 randomClassName,
                 randomWindowName,
@@ -197,36 +199,36 @@ namespace Yato.DirectXOverlay
                 IntPtr.Zero
                 );
 
-            PInvoke.SetLayeredWindowAttributes(WindowHandle, 0, 255, /*0x1 |*/ 0x2);
-            PInvoke.UpdateWindow(WindowHandle);
+            User32.SetLayeredWindowAttributes(WindowHandle, 0, 255, /*0x1 |*/ 0x2);
+            User32.UpdateWindow(WindowHandle);
 
             // TODO: If window is incompatible on some platforms use SetWindowLong to set the style
             //       again and UpdateWindow If you have changed certain window data using
             // SetWindowLong, you must call SetWindowPos for the changes to take effect. Use the
             // following combination for uFlags: SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED.
 
-            extendFrameIntoClientArea();
+            ExtendFrameIntoClientArea();
         }
 
-        private IntPtr windowProcedure(IntPtr hwnd, PInvoke.WindowsMessage msg, IntPtr wParam, IntPtr lParam)
+        private IntPtr WindowProcedure(IntPtr hwnd, WindowsMessage msg, IntPtr wParam, IntPtr lParam)
         {
             switch (msg)
             {
-                case PInvoke.WindowsMessage.WM_DESTROY:
+                case WindowsMessage.WM_DESTROY:
                     return (IntPtr)0;
 
-                case PInvoke.WindowsMessage.WM_ERASEBKGND:
-                    PInvoke.SendMessage(WindowHandle, PInvoke.WindowsMessage.WM_PAINT, (IntPtr)0, (IntPtr)0);
+                case WindowsMessage.WM_ERASEBKGND:
+                    User32.SendMessage(WindowHandle, WindowsMessage.WM_PAINT, (IntPtr)0, (IntPtr)0);
                     break;
 
-                case PInvoke.WindowsMessage.WM_KEYDOWN:
+                case WindowsMessage.WM_KEYDOWN:
                     return (IntPtr)0;
 
-                case PInvoke.WindowsMessage.WM_PAINT:
+                case WindowsMessage.WM_PAINT:
                     return (IntPtr)0;
 
-                case PInvoke.WindowsMessage.WM_DWMCOMPOSITIONCHANGED: // needed for windows 7 support
-                    extendFrameIntoClientArea();
+                case WindowsMessage.WM_DWMCOMPOSITIONCHANGED: // needed for windows 7 support
+                    ExtendFrameIntoClientArea();
                     return (IntPtr)0;
 
                 default: break;
@@ -237,30 +239,30 @@ namespace Yato.DirectXOverlay
                 return (IntPtr)0; // block DPI Changed message
             }
 
-            return PInvoke.DefWindowProc(hwnd, msg, wParam, lParam);
+            return User32.DefWindowProc(hwnd, msg, wParam, lParam);
         }
 
-        private void windowThreadMethod(int x = 0, int y = 0, int width = 800, int height = 600)
+        private void WindowThreadProcedure(int x = 0, int y = 0, int width = 800, int height = 600)
         {
-            setupInstance(x, y, width, height);
+            SetupInstance(x, y, width, height);
 
             while (true)
             {
-                PInvoke.WaitMessage();
+                User32.WaitMessage();
 
                 PInvoke.Message message = new PInvoke.Message();
 
-                if (PInvoke.PeekMessageW(ref message, WindowHandle, 0, 0, 1) != 0)
+                if (User32.PeekMessageW(ref message, WindowHandle, 0, 0, 1) != 0)
                 {
                     if (message.Msg == PInvoke.WindowsMessage.WM_QUIT) continue;
 
-                    PInvoke.TranslateMessage(ref message);
-                    PInvoke.DispatchMessage(ref message);
+                    User32.TranslateMessage(ref message);
+                    User32.DispatchMessage(ref message);
                 }
             }
         }
 
-        public void extendFrameIntoClientArea()
+        public void ExtendFrameIntoClientArea()
         {
             //var margin = new MARGIN
             //{
@@ -278,49 +280,49 @@ namespace Yato.DirectXOverlay
                 cyTopHeight = -1
             };
 
-            PInvoke.DwmExtendFrameIntoClientArea(WindowHandle, ref margin);
+            DwmApi.DwmExtendFrameIntoClientArea(WindowHandle, ref margin);
         }
 
         public void HideWindow()
         {
             if (!IsVisible) return;
 
-            PInvoke.ShowWindow(WindowHandle, 0);
+            User32.ShowWindow(WindowHandle, 0);
             IsVisible = false;
         }
 
         public void MoveWindow(int x, int y)
         {
-            PInvoke.MoveWindow(WindowHandle, x, y, Width, Height, 1);
+            User32.MoveWindow(WindowHandle, x, y, Width, Height, 1);
             X = x;
             Y = y;
-            extendFrameIntoClientArea();
+            ExtendFrameIntoClientArea();
         }
 
         public void ResizeWindow(int width, int height)
         {
-            PInvoke.MoveWindow(WindowHandle, X, Y, width, height, 1);
+            User32.MoveWindow(WindowHandle, X, Y, width, height, 1);
             Width = width;
             Height = height;
-            extendFrameIntoClientArea();
+            ExtendFrameIntoClientArea();
         }
 
         public void SetWindowBounds(int x, int y, int width, int height)
         {
-            PInvoke.MoveWindow(WindowHandle, x, y, width, height, 1);
+            User32.MoveWindow(WindowHandle, x, y, width, height, 1);
             X = x;
             Y = y;
             Width = width;
             Height = height;
-            extendFrameIntoClientArea();
+            ExtendFrameIntoClientArea();
         }
 
         public void ShowWindow()
         {
             if (IsVisible) return;
 
-            PInvoke.ShowWindow(WindowHandle, 5);
-            extendFrameIntoClientArea();
+            User32.ShowWindow(WindowHandle, 5);
+            ExtendFrameIntoClientArea();
             IsVisible = true;
         }
 
@@ -347,8 +349,8 @@ namespace Yato.DirectXOverlay
                 {
                 }
 
-                PInvoke.DestroyWindow(WindowHandle);
-                PInvoke.UnregisterClass(randomClassName, IntPtr.Zero);
+                User32.DestroyWindow(WindowHandle);
+                User32.UnregisterClass(randomClassName, IntPtr.Zero);
 
                 disposedValue = true;
             }

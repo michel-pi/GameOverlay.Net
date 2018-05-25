@@ -12,326 +12,10 @@ using SharpDX.Mathematics.Interop;
 using FontFactory = SharpDX.DirectWrite.Factory;
 using Factory = SharpDX.Direct2D1.Factory;
 
-namespace Yato.DirectXOverlay
+using Yato.DirectXOverlay.PInvoke;
+
+namespace Yato.DirectXOverlay.Renderer
 {
-    public enum CrosshairStyle
-    {
-        Dot,
-        Plus,
-        Cross,
-        Gap,
-        Diagonal,
-        Swastika
-    }
-
-    public struct Direct2DColor
-    {
-        public float Alpha;
-        public float Blue;
-        public float Green;
-        public float Red;
-
-        public Direct2DColor(int red, int green, int blue)
-        {
-            Red = red / 255.0f;
-            Green = green / 255.0f;
-            Blue = blue / 255.0f;
-            Alpha = 1.0f;
-        }
-
-        public Direct2DColor(int red, int green, int blue, int alpha)
-        {
-            Red = red / 255.0f;
-            Green = green / 255.0f;
-            Blue = blue / 255.0f;
-            Alpha = alpha / 255.0f;
-        }
-
-        public Direct2DColor(float red, float green, float blue)
-        {
-            Red = red;
-            Green = green;
-            Blue = blue;
-            Alpha = 1.0f;
-        }
-
-        public Direct2DColor(float red, float green, float blue, float alpha)
-        {
-            Red = red;
-            Green = green;
-            Blue = blue;
-            Alpha = alpha;
-        }
-
-        public static implicit operator Direct2DColor(RawColor4 color)
-        {
-            return new Direct2DColor(color.R, color.G, color.B, color.A);
-        }
-
-        public static implicit operator RawColor4(Direct2DColor color)
-        {
-            return new RawColor4(color.Red, color.Green, color.Blue, color.Alpha);
-        }
-    }
-
-    public struct Direct2DRendererOptions
-    {
-        public bool AntiAliasing;
-        public IntPtr Hwnd;
-        public bool MeasureFps;
-        public bool VSync;
-    }
-
-    public class Direct2DBitmap
-    {
-        private static SharpDX.WIC.ImagingFactory factory = new SharpDX.WIC.ImagingFactory();
-
-        public Bitmap SharpDXBitmap;
-
-        private Direct2DBitmap()
-        {
-        }
-
-        public Direct2DBitmap(RenderTarget device, byte[] bytes)
-        {
-            loadBitmap(device, bytes);
-        }
-
-        public Direct2DBitmap(RenderTarget device, string file)
-        {
-            loadBitmap(device, File.ReadAllBytes(file));
-        }
-
-        ~Direct2DBitmap()
-        {
-            SharpDXBitmap.Dispose();
-        }
-
-        private void loadBitmap(RenderTarget device, byte[] bytes)
-        {
-            var stream = new MemoryStream(bytes);
-            SharpDX.WIC.BitmapDecoder decoder = new SharpDX.WIC.BitmapDecoder(factory, stream, SharpDX.WIC.DecodeOptions.CacheOnDemand);
-            var frame = decoder.GetFrame(0);
-            SharpDX.WIC.FormatConverter converter = new SharpDX.WIC.FormatConverter(factory);
-            try
-            {
-                // normal ARGB images (Bitmaps / png tested)
-                converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGBA1010102);
-            }
-            catch
-            {
-                // falling back to RGB if unsupported
-                converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGB);
-            }
-            SharpDXBitmap = Bitmap.FromWicBitmap(device, converter);
-
-            converter.Dispose();
-            frame.Dispose();
-            decoder.Dispose();
-            stream.Dispose();
-        }
-
-        public static implicit operator Bitmap(Direct2DBitmap bmp)
-        {
-            return bmp.SharpDXBitmap;
-        }
-    }
-
-    public class Direct2DBrush
-    {
-        public SolidColorBrush Brush;
-
-        private Direct2DBrush()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Direct2DBrush(RenderTarget renderTarget)
-        {
-            Brush = new SolidColorBrush(renderTarget, default(RawColor4));
-        }
-
-        public Direct2DBrush(RenderTarget renderTarget, Direct2DColor color)
-        {
-            Brush = new SolidColorBrush(renderTarget, color);
-        }
-
-        ~Direct2DBrush()
-        {
-            Brush.Dispose();
-        }
-
-        public Direct2DColor Color
-        {
-            get
-            {
-                return Brush.Color;
-            }
-            set
-            {
-                Brush.Color = value;
-            }
-        }
-
-        public static implicit operator Direct2DColor(Direct2DBrush brush)
-        {
-            return brush.Color;
-        }
-
-        public static implicit operator RawColor4(Direct2DBrush brush)
-        {
-            return brush.Color;
-        }
-
-        public static implicit operator SolidColorBrush(Direct2DBrush brush)
-        {
-            return brush.Brush;
-        }
-    }
-
-    public class Direct2DFont
-    {
-        private FontFactory factory;
-
-        public TextFormat Font;
-
-        private Direct2DFont()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Direct2DFont(TextFormat font)
-        {
-            Font = font;
-        }
-
-        public Direct2DFont(FontFactory factory, string fontFamilyName, float size, bool bold = false, bool italic = false)
-        {
-            this.factory = factory;
-            Font = new TextFormat(factory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
-            Font.WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap;
-        }
-
-        ~Direct2DFont()
-        {
-            Font.Dispose();
-        }
-
-        public bool Bold
-        {
-            get
-            {
-                return Font.FontWeight == FontWeight.Bold;
-            }
-            set
-            {
-                string familyName = FontFamilyName;
-                float size = FontSize;
-                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
-                bool wordWrapping = WordWrapping;
-
-                Font.Dispose();
-
-                Font = new TextFormat(factory, familyName, value ? FontWeight.Bold : FontWeight.Normal, style, size);
-                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public string FontFamilyName
-        {
-            get
-            {
-                return Font.FontFamilyName;
-            }
-            set
-            {
-                float size = FontSize;
-                bool bold = Bold;
-                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
-                bool wordWrapping = WordWrapping;
-
-                Font.Dispose();
-
-                Font = new TextFormat(factory, value, bold ? FontWeight.Bold : FontWeight.Normal, style, size);
-                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public float FontSize
-        {
-            get
-            {
-                return Font.FontSize;
-            }
-            set
-            {
-                string familyName = FontFamilyName;
-                bool bold = Bold;
-                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
-                bool wordWrapping = WordWrapping;
-
-                Font.Dispose();
-
-                Font = new TextFormat(factory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, style, value);
-                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public bool Italic
-        {
-            get
-            {
-                return Font.FontStyle == FontStyle.Italic;
-            }
-            set
-            {
-                string familyName = FontFamilyName;
-                float size = FontSize;
-                bool bold = Bold;
-                bool wordWrapping = WordWrapping;
-
-                Font.Dispose();
-
-                Font = new TextFormat(factory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, value ? FontStyle.Italic : FontStyle.Normal, size);
-                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public bool WordWrapping
-        {
-            get
-            {
-                return Font.WordWrapping != SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-            set
-            {
-                Font.WordWrapping = value ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public static implicit operator TextFormat(Direct2DFont font)
-        {
-            return font.Font;
-        }
-    }
-
-    public class Direct2DFontCreationOptions
-    {
-        public bool Bold;
-        public string FontFamilyName;
-
-        public float FontSize;
-        public bool Italic;
-
-        public bool WordWrapping;
-
-        public FontStyle GetStyle()
-        {
-            if (Italic) return FontStyle.Italic;
-            return FontStyle.Normal;
-        }
-    }
-
     public class Direct2DRenderer : IDisposable
     {
         #region private vars
@@ -342,7 +26,7 @@ namespace Yato.DirectXOverlay
         private FontFactory fontFactory;
         private int internalFps;
         private bool isDrawing;
-        private Direct2DRendererOptions rendererOptions;
+        private RendererOptions rendererOptions;
         private bool resize;
         private int resizeHeight;
         private int resizeWidth;
@@ -372,55 +56,55 @@ namespace Yato.DirectXOverlay
 
         public Direct2DRenderer(IntPtr hwnd)
         {
-            var options = new Direct2DRendererOptions()
+            var options = new RendererOptions()
             {
                 Hwnd = hwnd,
                 VSync = false,
                 MeasureFps = false,
                 AntiAliasing = false
             };
-            setupInstance(options);
+            SetupInstance(options);
         }
 
         public Direct2DRenderer(IntPtr hwnd, bool vsync)
         {
-            var options = new Direct2DRendererOptions()
+            var options = new RendererOptions()
             {
                 Hwnd = hwnd,
                 VSync = vsync,
                 MeasureFps = false,
                 AntiAliasing = false
             };
-            setupInstance(options);
+            SetupInstance(options);
         }
 
         public Direct2DRenderer(IntPtr hwnd, bool vsync, bool measureFps)
         {
-            var options = new Direct2DRendererOptions()
+            var options = new RendererOptions()
             {
                 Hwnd = hwnd,
                 VSync = vsync,
                 MeasureFps = measureFps,
                 AntiAliasing = false
             };
-            setupInstance(options);
+            SetupInstance(options);
         }
 
         public Direct2DRenderer(IntPtr hwnd, bool vsync, bool measureFps, bool antiAliasing)
         {
-            var options = new Direct2DRendererOptions()
+            var options = new RendererOptions()
             {
                 Hwnd = hwnd,
                 VSync = vsync,
                 MeasureFps = measureFps,
                 AntiAliasing = antiAliasing
             };
-            setupInstance(options);
+            SetupInstance(options);
         }
 
-        public Direct2DRenderer(Direct2DRendererOptions options)
+        public Direct2DRenderer(RendererOptions options)
         {
-            setupInstance(options);
+            SetupInstance(options);
         }
 
         ~Direct2DRenderer()
@@ -432,7 +116,7 @@ namespace Yato.DirectXOverlay
 
         #region init & delete
 
-        private void deleteInstance()
+        private void DestroyInstance()
         {
             try
             {
@@ -446,17 +130,17 @@ namespace Yato.DirectXOverlay
             }
         }
 
-        private void setupInstance(Direct2DRendererOptions options)
+        private void SetupInstance(RendererOptions options)
         {
             rendererOptions = options;
 
             if (options.Hwnd == IntPtr.Zero) throw new ArgumentNullException(nameof(options.Hwnd));
 
-            if (PInvoke.IsWindow(options.Hwnd) == 0) throw new ArgumentException("The window does not exist (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
+            if (User32.IsWindow(options.Hwnd) == 0) throw new ArgumentException("The window does not exist (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
 
-            PInvoke.RECT bounds = new PInvoke.RECT();
+            RECT bounds = new RECT();
 
-            if (PInvoke.GetRealWindowRect(options.Hwnd, out bounds) == 0) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
+            if (HelperMethods.GetRealWindowRect(options.Hwnd, out bounds) == 0) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
 
             this.Width = bounds.Right - bounds.Left;
             this.Height = bounds.Bottom - bounds.Top;
@@ -543,13 +227,12 @@ namespace Yato.DirectXOverlay
             if (device == null) return;
             if (!isDrawing) return;
 
-            long tag_0 = 0L, tag_1 = 0L;
-            var result = device.TryEndDraw(out tag_0, out tag_1);
+            var result = device.TryEndDraw(out long tag_0, out long tag_1);
 
             if (result.Failure)
             {
-                deleteInstance();
-                setupInstance(rendererOptions);
+                DestroyInstance();
+                SetupInstance(rendererOptions);
             }
 
             if (MeasureFPS && stopwatch.IsRunning)
@@ -604,10 +287,12 @@ namespace Yato.DirectXOverlay
             return new Direct2DFont(fontFactory, fontFamilyName, size, bold, italic);
         }
 
-        public Direct2DFont CreateFont(Direct2DFontCreationOptions options)
+        public Direct2DFont CreateFont(FontCreationOptions options)
         {
-            TextFormat font = new TextFormat(fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize);
-            font.WordWrapping = options.WordWrapping ? WordWrapping.Wrap : WordWrapping.NoWrap;
+            TextFormat font = new TextFormat(fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize)
+            {
+                WordWrapping = options.WordWrapping ? WordWrapping.Wrap : WordWrapping.NoWrap
+            };
             return new Direct2DFont(font);
         }
 
@@ -623,8 +308,10 @@ namespace Yato.DirectXOverlay
 
         public void SetSharedFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
-            sharedFont = new TextFormat(fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
-            sharedFont.WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap;
+            sharedFont = new TextFormat(fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size)
+            {
+                WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap
+            };
         }
 
         #endregion Fonts & Brushes & Bitmaps
@@ -1484,7 +1171,7 @@ namespace Yato.DirectXOverlay
                     // Free managed objects
                 }
 
-                deleteInstance();
+                DestroyInstance();
 
                 disposedValue = true;
             }
@@ -1494,59 +1181,6 @@ namespace Yato.DirectXOverlay
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        #endregion IDisposable Support
-    }
-
-    public class Direct2DScene : IDisposable
-    {
-        private Direct2DScene()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Direct2DScene(Direct2DRenderer renderer)
-        {
-            GC.SuppressFinalize(this);
-
-            Renderer = renderer;
-            renderer.BeginScene();
-        }
-
-        ~Direct2DScene()
-        {
-            Dispose(false);
-        }
-
-        public Direct2DRenderer Renderer { get; private set; }
-
-        public static implicit operator Direct2DRenderer(Direct2DScene scene)
-        {
-            return scene.Renderer;
-        }
-
-        #region IDisposable Support
-
-        private bool disposedValue = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                }
-
-                Renderer.EndScene();
-
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
         }
 
         #endregion IDisposable Support

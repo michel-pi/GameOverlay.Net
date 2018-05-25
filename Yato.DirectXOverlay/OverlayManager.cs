@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
-using System.Runtime.InteropServices;
+
+using Yato.DirectXOverlay.PInvoke;
+using Yato.DirectXOverlay.Renderer;
 
 namespace Yato.DirectXOverlay
 {
@@ -15,19 +17,19 @@ namespace Yato.DirectXOverlay
 
         public OverlayManager(IntPtr parentWindowHandle, bool vsync = false, bool measurefps = false, bool antialiasing = true)
         {
-            Direct2DRendererOptions options = new Direct2DRendererOptions()
+            RendererOptions options = new RendererOptions()
             {
                 AntiAliasing = antialiasing,
                 Hwnd = IntPtr.Zero,
                 MeasureFps = measurefps,
                 VSync = vsync
             };
-            setupInstance(parentWindowHandle, options);
+            SetupInstance(parentWindowHandle, options);
         }
 
-        public OverlayManager(IntPtr parentWindowHandle, Direct2DRendererOptions options)
+        public OverlayManager(IntPtr parentWindowHandle, RendererOptions options)
         {
-            setupInstance(parentWindowHandle, options);
+            SetupInstance(parentWindowHandle, options);
         }
 
         ~OverlayManager()
@@ -41,14 +43,14 @@ namespace Yato.DirectXOverlay
 
         public OverlayWindow Window { get; private set; }
 
-        private void setupInstance(IntPtr parentWindowHandle, Direct2DRendererOptions options)
+        private void SetupInstance(IntPtr parentWindowHandle, RendererOptions options)
         {
             ParentWindowHandle = parentWindowHandle;
 
-            if (PInvoke.IsWindow(parentWindowHandle) == 0) throw new Exception("The parent window does not exist");
+            if (User32.IsWindow(parentWindowHandle) == 0) throw new Exception("The parent window does not exist");
 
-            PInvoke.RECT bounds = new PInvoke.RECT();
-            PInvoke.GetRealWindowRect(parentWindowHandle, out bounds);
+            RECT bounds = new RECT();
+            HelperMethods.GetRealWindowRect(parentWindowHandle, out bounds);
 
             int x = bounds.Left;
             int y = bounds.Top;
@@ -62,7 +64,7 @@ namespace Yato.DirectXOverlay
 
             Graphics = new Direct2DRenderer(options);
 
-            serviceThread = new Thread(new ThreadStart(windowServiceThread))
+            serviceThread = new Thread(new ThreadStart(WindowServiceMethod))
             {
                 IsBackground = true,
                 Priority = ThreadPriority.BelowNormal
@@ -71,15 +73,15 @@ namespace Yato.DirectXOverlay
             serviceThread.Start();
         }
 
-        private void windowServiceThread()
+        private void WindowServiceMethod()
         {
-            PInvoke.RECT bounds = new PInvoke.RECT();
+            RECT bounds = new RECT();
 
             while (!exitThread)
             {
                 Thread.Sleep(100);
 
-                if (PInvoke.IsWindowVisible(ParentWindowHandle) == 0)
+                if (User32.IsWindowVisible(ParentWindowHandle) == 0)
                 {
                     if (Window.IsVisible) Window.HideWindow();
                     continue;
@@ -89,15 +91,15 @@ namespace Yato.DirectXOverlay
 
                 if (OverlayWindow.BypassTopmost)
                 {
-                    IntPtr windowAboveParentWindow = PInvoke.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
+                    IntPtr windowAboveParentWindow = User32.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
 
                     if (windowAboveParentWindow != Window.WindowHandle)
                     {
-                        PInvoke.SetWindowPos(Window.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
+                        User32.SetWindowPos(Window.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
                     }
                 }
 
-                PInvoke.GetRealWindowRect(ParentWindowHandle, out bounds);
+                HelperMethods.GetRealWindowRect(ParentWindowHandle, out bounds);
 
                 int x = bounds.Left;
                 int y = bounds.Top;
