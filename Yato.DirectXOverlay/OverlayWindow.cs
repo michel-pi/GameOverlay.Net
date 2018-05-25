@@ -7,56 +7,16 @@ using Yato.DirectXOverlay.PInvoke;
 
 namespace Yato.DirectXOverlay
 {
-    public enum OverlayWindowNameGenerator
-    {
-        None,
-        Random,
-        Legit,
-        Executable,
-        Custom
-    }
-
     public class OverlayWindow : IDisposable
     {
-        private string randomClassName;
-        private Random rng;
-        private Thread windowThread;
-        private WndProc wndProc;
-        private IntPtr wndProcPointer;
-        public static bool BypassTopmost = false;
-        public static string CustomWindowName = string.Empty;
-        public static OverlayWindowNameGenerator WindowNameGenerator = OverlayWindowNameGenerator.Random;
-
-        public OverlayWindow()
-        {
-            windowThread = new Thread(() => WindowThreadProcedure())
-            {
-                IsBackground = true,
-                Priority = ThreadPriority.BelowNormal
-            };
-            windowThread.Start();
-
-            while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
-        }
-
-        public OverlayWindow(int x, int y, int width, int height)
-        {
-            windowThread = new Thread(() => WindowThreadProcedure(x, y, width, height))
-            {
-                IsBackground = true,
-                Priority = ThreadPriority.BelowNormal
-            };
-            windowThread.Start();
-
-            while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
-        }
-
-        ~OverlayWindow()
-        {
-            Dispose(false);
-        }
-
         private delegate IntPtr WndProc(IntPtr hWnd, PInvoke.WindowsMessage msg, IntPtr wParam, IntPtr lParam);
+
+        private Thread WindowThread;
+        private WndProc WindowProc;
+        private IntPtr WindowProcPtr;
+
+        public string WindowClassName { get; private set; }
+        public string WindowTitle { get; private set; }
 
         public int Height { get; private set; }
         public bool IsVisible { get; private set; }
@@ -67,101 +27,60 @@ namespace Yato.DirectXOverlay
         public int X { get; private set; }
         public int Y { get; private set; }
 
-        private string GenerateRandomString(int minlen, int maxlen)
+        public OverlayWindow()
         {
-            if (rng == null) rng = new Random();
-
-            int len = rng.Next(minlen, maxlen);
-
-            char[] chars = new char[len];
-
-            for (int i = 0; i < chars.Length; i++)
+            WindowThread = new Thread(() => WindowThreadProcedure())
             {
-                chars[i] = (char)rng.Next(97, 123);
-            }
-
-            return new string(chars);
-        }
-
-        private string GetExecutableName()
-        {
-            var proc = System.Diagnostics.Process.GetCurrentProcess();
-            var mod = proc.MainModule;
-
-            string name = mod.FileName;
-
-            mod.Dispose();
-            proc.Dispose();
-
-            // Path class tends to throw errors. microsoft is lazy af
-            return name.Contains(@"\") ? System.IO.Path.GetFileNameWithoutExtension(name) : name;
-        }
-
-        private string GetLegitWindowName()
-        {
-            string[] legitWindows = new string[]
-            {
-                "Teamspeak 3",
-                "Steam",
-                "Discord",
-                "Mozilla Firefox"
+                IsBackground = true,
+                Priority = ThreadPriority.BelowNormal
             };
+            WindowThread.Start();
 
-            return legitWindows[rng.Next(0, legitWindows.Length)]; // Note: random max value is exclusive ;)
+            while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
+        }
+
+        public OverlayWindow(int x, int y, int width, int height)
+        {
+            WindowThread = new Thread(() => WindowThreadProcedure(x, y, width, height))
+            {
+                IsBackground = true,
+                Priority = ThreadPriority.BelowNormal
+            };
+            WindowThread.Start();
+
+            while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
+        }
+
+        ~OverlayWindow()
+        {
+            Dispose(false);
         }
 
         private void SetupInstance(int x = 0, int y = 0, int width = 800, int height = 600)
         {
             IsVisible = true;
-            Topmost = BypassTopmost ? true : false;
+            Topmost = true;
 
             X = x;
             Y = y;
             Width = width;
             Height = height;
 
-            randomClassName = GenerateRandomString(5, 11);
-            string randomMenuName = GenerateRandomString(5, 11);
+            WindowClassName = HelperMethods.GenerateRandomString(5, 11);
+            string randomMenuName = HelperMethods.GenerateRandomString(5, 11);
 
-            string randomWindowName = string.Empty;//generateRandomString(5, 11);
-
-            switch (WindowNameGenerator)
-            {
-                case OverlayWindowNameGenerator.None:
-                    randomWindowName = string.Empty;
-                    break;
-
-                case OverlayWindowNameGenerator.Random:
-                    randomWindowName = GenerateRandomString(5, 11);
-                    break;
-
-                case OverlayWindowNameGenerator.Legit:
-                    randomWindowName = GetLegitWindowName();
-                    break;
-
-                case OverlayWindowNameGenerator.Executable:
-                    randomWindowName = GetExecutableName();
-                    break;
-
-                case OverlayWindowNameGenerator.Custom:
-                    randomWindowName = CustomWindowName;
-                    break;
-
-                default:
-                    randomWindowName = string.Empty;
-                    break;
-            }
+            WindowTitle = HelperMethods.GenerateRandomString(5, 11);
 
             // prepare method
-            wndProc = WindowProcedure;
-            RuntimeHelpers.PrepareDelegate(wndProc);
-            wndProcPointer = Marshal.GetFunctionPointerForDelegate(wndProc);
+            WindowProc = WindowProcedure;
+            RuntimeHelpers.PrepareDelegate(WindowProc);
+            WindowProcPtr = Marshal.GetFunctionPointerForDelegate(WindowProc);
 
             WNDCLASSEX wndClassEx = new WNDCLASSEX()
             {
                 cbSize = WNDCLASSEX.Size(),
                 style = 0,
-                lpfnWndProc = wndProcPointer,
+                lpfnWndProc = WindowProcPtr,
                 cbClsExtra = 0,
                 cbWndExtra = 0,
                 hInstance = IntPtr.Zero,
@@ -169,7 +88,7 @@ namespace Yato.DirectXOverlay
                 hCursor = IntPtr.Zero,
                 hbrBackground = IntPtr.Zero,
                 lpszMenuName = randomMenuName,
-                lpszClassName = randomClassName,
+                lpszClassName = WindowClassName,
                 hIconSm = IntPtr.Zero
             };
 
@@ -177,19 +96,19 @@ namespace Yato.DirectXOverlay
 
             uint exStyle;
 
-            if (BypassTopmost)
-            {
-                exStyle = 0x20 | 0x80000 | 0x80 | 0x8000000;
-            }
-            else
-            {
-                exStyle = 0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000; // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
-            }
+            //if (BypassTopmost)
+            //{
+            //    exStyle = 0x20 | 0x80000 | 0x80 | 0x8000000;
+            //}
+            //else
+            //{
+            exStyle = 0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000; // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
+            //}
 
             WindowHandle = User32.CreateWindowEx(
                 exStyle, // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
-                randomClassName,
-                randomWindowName,
+                WindowClassName,
+                WindowTitle,
                 0x80000000 | 0x10000000, // WS_POPUP | WS_VISIBLE
                 X, Y,
                 Width, Height,
@@ -250,11 +169,11 @@ namespace Yato.DirectXOverlay
             {
                 User32.WaitMessage();
 
-                PInvoke.Message message = new PInvoke.Message();
+                Message message = new Message();
 
                 if (User32.PeekMessageW(ref message, WindowHandle, 0, 0, 1) != 0)
                 {
-                    if (message.Msg == PInvoke.WindowsMessage.WM_QUIT) continue;
+                    if (message.Msg == WindowsMessage.WM_QUIT) continue;
 
                     User32.TranslateMessage(ref message);
                     User32.DispatchMessage(ref message);
@@ -264,14 +183,6 @@ namespace Yato.DirectXOverlay
 
         public void ExtendFrameIntoClientArea()
         {
-            //var margin = new MARGIN
-            //{
-            //    cxLeftWidth = this.X,
-            //    cxRightWidth = this.Width,
-            //    cyBottomHeight = this.Height,
-            //    cyTopHeight = this.Y
-            //};
-
             var margin = new PInvoke.MARGIN
             {
                 cxLeftWidth = -1,
@@ -336,21 +247,20 @@ namespace Yato.DirectXOverlay
             {
                 if (disposing)
                 {
-                    rng = null;
                 }
 
-                if (windowThread != null) windowThread.Abort();
+                if (WindowThread != null) WindowThread.Abort();
 
                 try
                 {
-                    windowThread.Join();
+                    WindowThread.Join();
                 }
                 catch
                 {
                 }
 
                 User32.DestroyWindow(WindowHandle);
-                User32.UnregisterClass(randomClassName, IntPtr.Zero);
+                User32.UnregisterClass(WindowClassName, IntPtr.Zero);
 
                 disposedValue = true;
             }

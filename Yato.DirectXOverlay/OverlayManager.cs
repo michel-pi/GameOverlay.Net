@@ -41,7 +41,7 @@ namespace Yato.DirectXOverlay
         public bool IsParentWindowVisible { get; private set; }
         public IntPtr ParentWindowHandle { get; private set; }
 
-        public OverlayWindow Window { get; private set; }
+        public OldOverlayWindow Window { get; private set; }
 
         private void SetupInstance(IntPtr parentWindowHandle, RendererOptions options)
         {
@@ -58,7 +58,7 @@ namespace Yato.DirectXOverlay
             int width = bounds.Right - x;
             int height = bounds.Bottom - y;
 
-            Window = new OverlayWindow(x, y, width, height);
+            Window = new OldOverlayWindow(x, y, width, height);
 
             options.Hwnd = Window.WindowHandle;
 
@@ -89,7 +89,7 @@ namespace Yato.DirectXOverlay
 
                 if (!Window.IsVisible) Window.ShowWindow();
 
-                if (OverlayWindow.BypassTopmost)
+                if (OldOverlayWindow.BypassTopmost)
                 {
                     IntPtr windowAboveParentWindow = User32.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
 
