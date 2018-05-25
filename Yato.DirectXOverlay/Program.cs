@@ -1,17 +1,19 @@
-﻿using System;
+﻿#if DEBUG
+
+using System;
 using System.Diagnostics;
 
 namespace Yato.DirectXOverlay
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             hakenkreuz();
 
             bool runExample = false;
 
-            if(runExample) example();
+            if (runExample) example();
 
             overlay_manager_example(Process.GetCurrentProcess().MainWindowHandle);
         }
@@ -52,7 +54,7 @@ namespace Yato.DirectXOverlay
             }
         }
 
-        static void example()
+        private static void example()
         {
             var overlay = new OverlayWindow(0, 0, 800, 600);
 
@@ -75,7 +77,7 @@ namespace Yato.DirectXOverlay
 
             var font = d2d.CreateFont("Consolas", 22);
 
-            while(true)
+            while (true)
             {
                 d2d.BeginScene();
                 d2d.ClearScene(whiteSmoke);
@@ -92,7 +94,7 @@ namespace Yato.DirectXOverlay
             }
         }
 
-        static void overlay_manager_example(IntPtr parentWindowHandle)
+        private static void overlay_manager_example(IntPtr parentWindowHandle)
         {
             Console.SetWindowSize(Console.LargestWindowWidth / 2, Console.LargestWindowHeight / 2);
 
@@ -138,3 +140,5 @@ namespace Yato.DirectXOverlay
         }
     }
 }
+
+#endif

@@ -14,45 +14,354 @@ using Factory = SharpDX.Direct2D1.Factory;
 
 namespace Yato.DirectXOverlay
 {
+    public enum CrosshairStyle
+    {
+        Dot,
+        Plus,
+        Cross,
+        Gap,
+        Diagonal,
+        Swastika
+    }
+
+    public struct Direct2DColor
+    {
+        public float Alpha;
+        public float Blue;
+        public float Green;
+        public float Red;
+
+        public Direct2DColor(int red, int green, int blue)
+        {
+            Red = red / 255.0f;
+            Green = green / 255.0f;
+            Blue = blue / 255.0f;
+            Alpha = 1.0f;
+        }
+
+        public Direct2DColor(int red, int green, int blue, int alpha)
+        {
+            Red = red / 255.0f;
+            Green = green / 255.0f;
+            Blue = blue / 255.0f;
+            Alpha = alpha / 255.0f;
+        }
+
+        public Direct2DColor(float red, float green, float blue)
+        {
+            Red = red;
+            Green = green;
+            Blue = blue;
+            Alpha = 1.0f;
+        }
+
+        public Direct2DColor(float red, float green, float blue, float alpha)
+        {
+            Red = red;
+            Green = green;
+            Blue = blue;
+            Alpha = alpha;
+        }
+
+        public static implicit operator Direct2DColor(RawColor4 color)
+        {
+            return new Direct2DColor(color.R, color.G, color.B, color.A);
+        }
+
+        public static implicit operator RawColor4(Direct2DColor color)
+        {
+            return new RawColor4(color.Red, color.Green, color.Blue, color.Alpha);
+        }
+    }
+
+    public struct Direct2DRendererOptions
+    {
+        public bool AntiAliasing;
+        public IntPtr Hwnd;
+        public bool MeasureFps;
+        public bool VSync;
+    }
+
+    public class Direct2DBitmap
+    {
+        private static SharpDX.WIC.ImagingFactory factory = new SharpDX.WIC.ImagingFactory();
+
+        public Bitmap SharpDXBitmap;
+
+        private Direct2DBitmap()
+        {
+        }
+
+        public Direct2DBitmap(RenderTarget device, byte[] bytes)
+        {
+            loadBitmap(device, bytes);
+        }
+
+        public Direct2DBitmap(RenderTarget device, string file)
+        {
+            loadBitmap(device, File.ReadAllBytes(file));
+        }
+
+        ~Direct2DBitmap()
+        {
+            SharpDXBitmap.Dispose();
+        }
+
+        private void loadBitmap(RenderTarget device, byte[] bytes)
+        {
+            var stream = new MemoryStream(bytes);
+            SharpDX.WIC.BitmapDecoder decoder = new SharpDX.WIC.BitmapDecoder(factory, stream, SharpDX.WIC.DecodeOptions.CacheOnDemand);
+            var frame = decoder.GetFrame(0);
+            SharpDX.WIC.FormatConverter converter = new SharpDX.WIC.FormatConverter(factory);
+            try
+            {
+                // normal ARGB images (Bitmaps / png tested)
+                converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGBA1010102);
+            }
+            catch
+            {
+                // falling back to RGB if unsupported
+                converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGB);
+            }
+            SharpDXBitmap = Bitmap.FromWicBitmap(device, converter);
+
+            converter.Dispose();
+            frame.Dispose();
+            decoder.Dispose();
+            stream.Dispose();
+        }
+
+        public static implicit operator Bitmap(Direct2DBitmap bmp)
+        {
+            return bmp.SharpDXBitmap;
+        }
+    }
+
+    public class Direct2DBrush
+    {
+        public SolidColorBrush Brush;
+
+        private Direct2DBrush()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Direct2DBrush(RenderTarget renderTarget)
+        {
+            Brush = new SolidColorBrush(renderTarget, default(RawColor4));
+        }
+
+        public Direct2DBrush(RenderTarget renderTarget, Direct2DColor color)
+        {
+            Brush = new SolidColorBrush(renderTarget, color);
+        }
+
+        ~Direct2DBrush()
+        {
+            Brush.Dispose();
+        }
+
+        public Direct2DColor Color
+        {
+            get
+            {
+                return Brush.Color;
+            }
+            set
+            {
+                Brush.Color = value;
+            }
+        }
+
+        public static implicit operator Direct2DColor(Direct2DBrush brush)
+        {
+            return brush.Color;
+        }
+
+        public static implicit operator RawColor4(Direct2DBrush brush)
+        {
+            return brush.Color;
+        }
+
+        public static implicit operator SolidColorBrush(Direct2DBrush brush)
+        {
+            return brush.Brush;
+        }
+    }
+
+    public class Direct2DFont
+    {
+        private FontFactory factory;
+
+        public TextFormat Font;
+
+        private Direct2DFont()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Direct2DFont(TextFormat font)
+        {
+            Font = font;
+        }
+
+        public Direct2DFont(FontFactory factory, string fontFamilyName, float size, bool bold = false, bool italic = false)
+        {
+            this.factory = factory;
+            Font = new TextFormat(factory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
+            Font.WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap;
+        }
+
+        ~Direct2DFont()
+        {
+            Font.Dispose();
+        }
+
+        public bool Bold
+        {
+            get
+            {
+                return Font.FontWeight == FontWeight.Bold;
+            }
+            set
+            {
+                string familyName = FontFamilyName;
+                float size = FontSize;
+                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
+                bool wordWrapping = WordWrapping;
+
+                Font.Dispose();
+
+                Font = new TextFormat(factory, familyName, value ? FontWeight.Bold : FontWeight.Normal, style, size);
+                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
+            }
+        }
+
+        public string FontFamilyName
+        {
+            get
+            {
+                return Font.FontFamilyName;
+            }
+            set
+            {
+                float size = FontSize;
+                bool bold = Bold;
+                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
+                bool wordWrapping = WordWrapping;
+
+                Font.Dispose();
+
+                Font = new TextFormat(factory, value, bold ? FontWeight.Bold : FontWeight.Normal, style, size);
+                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
+            }
+        }
+
+        public float FontSize
+        {
+            get
+            {
+                return Font.FontSize;
+            }
+            set
+            {
+                string familyName = FontFamilyName;
+                bool bold = Bold;
+                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
+                bool wordWrapping = WordWrapping;
+
+                Font.Dispose();
+
+                Font = new TextFormat(factory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, style, value);
+                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
+            }
+        }
+
+        public bool Italic
+        {
+            get
+            {
+                return Font.FontStyle == FontStyle.Italic;
+            }
+            set
+            {
+                string familyName = FontFamilyName;
+                float size = FontSize;
+                bool bold = Bold;
+                bool wordWrapping = WordWrapping;
+
+                Font.Dispose();
+
+                Font = new TextFormat(factory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, value ? FontStyle.Italic : FontStyle.Normal, size);
+                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
+            }
+        }
+
+        public bool WordWrapping
+        {
+            get
+            {
+                return Font.WordWrapping != SharpDX.DirectWrite.WordWrapping.NoWrap;
+            }
+            set
+            {
+                Font.WordWrapping = value ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
+            }
+        }
+
+        public static implicit operator TextFormat(Direct2DFont font)
+        {
+            return font.Font;
+        }
+    }
+
+    public class Direct2DFontCreationOptions
+    {
+        public bool Bold;
+        public string FontFamilyName;
+
+        public float FontSize;
+        public bool Italic;
+
+        public bool WordWrapping;
+
+        public FontStyle GetStyle()
+        {
+            if (Italic) return FontStyle.Italic;
+            return FontStyle.Normal;
+        }
+    }
+
     public class Direct2DRenderer : IDisposable
     {
         #region private vars
 
-        private Direct2DRendererOptions rendererOptions;
-
         private WindowRenderTarget device;
         private HwndRenderTargetProperties deviceProperties;
-
-        private FontFactory fontFactory;
         private Factory factory;
-
+        private FontFactory fontFactory;
+        private int internalFps;
+        private bool isDrawing;
+        private Direct2DRendererOptions rendererOptions;
+        private bool resize;
+        private int resizeHeight;
+        private int resizeWidth;
         private SolidColorBrush sharedBrush;
         private TextFormat sharedFont;
-
-        private bool isDrawing;
-
-        private bool resize;
-        private int resizeWidth;
-        private int resizeHeight;
-
         private Stopwatch stopwatch = new Stopwatch();
 
-        private int internalFps;
-
-        #endregion
+        #endregion private vars
 
         #region public vars
 
+        public int FPS { get; private set; }
+        public int Height { get; private set; }
+        public bool MeasureFPS { get; set; }
         public IntPtr RenderTargetHwnd { get; private set; }
         public bool VSync { get; private set; }
-        public int FPS { get; private set; }
-
-        public bool MeasureFPS { get; set; }
-
         public int Width { get; private set; }
-        public int Height { get; private set; }
 
-        #endregion
+        #endregion public vars
 
         #region construct & destruct
 
@@ -119,9 +428,23 @@ namespace Yato.DirectXOverlay
             Dispose(false);
         }
 
-        #endregion
+        #endregion construct & destruct
 
         #region init & delete
+
+        private void deleteInstance()
+        {
+            try
+            {
+                sharedBrush.Dispose();
+                fontFactory.Dispose();
+                factory.Dispose();
+                device.Dispose();
+            }
+            catch
+            {
+            }
+        }
 
         private void setupInstance(Direct2DRendererOptions options)
         {
@@ -162,7 +485,7 @@ namespace Yato.DirectXOverlay
             {
                 device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
             }
-            catch(SharpDXException) // D2DERR_UNSUPPORTED_PIXEL_FORMAT
+            catch (SharpDXException) // D2DERR_UNSUPPORTED_PIXEL_FORMAT
             {
                 renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
                 device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
@@ -175,31 +498,9 @@ namespace Yato.DirectXOverlay
             sharedBrush = new SolidColorBrush(device, default(RawColor4));
         }
 
-        private void deleteInstance()
-        {
-            try
-            {
-                sharedBrush.Dispose();
-                fontFactory.Dispose();
-                factory.Dispose();
-                device.Dispose();
-            }
-            catch
-            {
-
-            }
-        }
-
-        #endregion
+        #endregion init & delete
 
         #region Scenes
-
-        public void Resize(int width, int height)
-        {
-            resizeWidth = width;
-            resizeHeight = height;
-            resize = true;
-        }
 
         public void BeginScene()
         {
@@ -222,10 +523,19 @@ namespace Yato.DirectXOverlay
             isDrawing = true;
         }
 
-        public Direct2DScene UseScene()
+        public void ClearScene()
         {
-            // really expensive to use but i like the pattern
-            return new Direct2DScene(this);
+            device.Clear(null);
+        }
+
+        public void ClearScene(Direct2DColor color)
+        {
+            device.Clear(color);
+        }
+
+        public void ClearScene(Direct2DBrush brush)
+        {
+            device.Clear(brush);
         }
 
         public void EndScene()
@@ -257,30 +567,22 @@ namespace Yato.DirectXOverlay
             isDrawing = false;
         }
 
-        public void ClearScene()
+        public void Resize(int width, int height)
         {
-            device.Clear(null);
+            resizeWidth = width;
+            resizeHeight = height;
+            resize = true;
         }
 
-        public void ClearScene(Direct2DColor color)
+        public Direct2DScene UseScene()
         {
-            device.Clear(color);
+            // really expensive to use but i like the pattern
+            return new Direct2DScene(this);
         }
 
-        public void ClearScene(Direct2DBrush brush)
-        {
-            device.Clear(brush);
-        }
-
-        #endregion
+        #endregion Scenes
 
         #region Fonts & Brushes & Bitmaps
-
-        public void SetSharedFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
-        {
-            sharedFont = new TextFormat(fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
-            sharedFont.WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap;
-        }
 
         public Direct2DBrush CreateBrush(Direct2DColor color)
         {
@@ -319,9 +621,37 @@ namespace Yato.DirectXOverlay
             return new Direct2DBitmap(device, bytes);
         }
 
-        #endregion
+        public void SetSharedFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
+        {
+            sharedFont = new TextFormat(fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
+            sharedFont.WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap;
+        }
+
+        #endregion Fonts & Brushes & Bitmaps
 
         #region Primitives
+
+        public void DrawCircle(float x, float y, float radius, float stroke, Direct2DBrush brush)
+        {
+            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush, stroke);
+        }
+
+        public void DrawCircle(float x, float y, float radius, float stroke, Direct2DColor color)
+        {
+            sharedBrush.Color = color;
+            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), sharedBrush, stroke);
+        }
+
+        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DBrush brush)
+        {
+            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush, stroke);
+        }
+
+        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DColor color)
+        {
+            sharedBrush.Color = color;
+            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), sharedBrush, stroke);
+        }
 
         public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DBrush brush)
         {
@@ -425,42 +755,9 @@ namespace Yato.DirectXOverlay
             device.DrawLine(first, third, sharedBrush, stroke);
         }
 
-        public void DrawCircle(float x, float y, float radius, float stroke, Direct2DBrush brush)
-        {
-            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush, stroke);
-        }
-
-        public void DrawCircle(float x, float y, float radius, float stroke, Direct2DColor color)
-        {
-            sharedBrush.Color = color;
-            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), sharedBrush, stroke);
-        }
-
-        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DBrush brush)
-        {
-            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush, stroke);
-        }
-
-        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DColor color)
-        {
-            sharedBrush.Color = color;
-            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), sharedBrush, stroke);
-        }
-
-        #endregion
+        #endregion Primitives
 
         #region Filled
-
-        public void FillRectangle(float x, float y, float width, float height, Direct2DBrush brush)
-        {
-            device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), brush);
-        }
-
-        public void FillRectangle(float x, float y, float width, float height, Direct2DColor color)
-        {
-            sharedBrush.Color = color;
-            device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), sharedBrush);
-        }
 
         public void FillCircle(float x, float y, float radius, Direct2DBrush brush)
         {
@@ -484,9 +781,62 @@ namespace Yato.DirectXOverlay
             device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), sharedBrush);
         }
 
-        #endregion
+        public void FillRectangle(float x, float y, float width, float height, Direct2DBrush brush)
+        {
+            device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), brush);
+        }
+
+        public void FillRectangle(float x, float y, float width, float height, Direct2DColor color)
+        {
+            sharedBrush.Color = color;
+            device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), sharedBrush);
+        }
+
+        #endregion Filled
 
         #region Bordered
+
+        public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DColor color, Direct2DColor borderColor)
+        {
+            sharedBrush.Color = color;
+
+            var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
+
+            device.DrawEllipse(ellipse, sharedBrush, stroke);
+
+            float half = stroke / 2.0f;
+
+            sharedBrush.Color = borderColor;
+
+            ellipse.RadiusX += half;
+            ellipse.RadiusY += half;
+
+            device.DrawEllipse(ellipse, sharedBrush, half);
+
+            ellipse.RadiusX -= stroke;
+            ellipse.RadiusY -= stroke;
+
+            device.DrawEllipse(ellipse, sharedBrush, half);
+        }
+
+        public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
+        {
+            var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
+
+            device.DrawEllipse(ellipse, brush, stroke);
+
+            float half = stroke / 2.0f;
+
+            ellipse.RadiusX += half;
+            ellipse.RadiusY += half;
+
+            device.DrawEllipse(ellipse, borderBrush, half);
+
+            ellipse.RadiusX -= stroke;
+            ellipse.RadiusY -= stroke;
+
+            device.DrawEllipse(ellipse, borderBrush, half);
+        }
 
         public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DColor color, Direct2DColor borderColor)
         {
@@ -578,49 +928,7 @@ namespace Yato.DirectXOverlay
             device.DrawRectangle(new RawRectangleF(x, y, width, height), brush, half);
         }
 
-        public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DColor color, Direct2DColor borderColor)
-        {
-            sharedBrush.Color = color;
-
-            var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
-
-            device.DrawEllipse(ellipse, sharedBrush, stroke);
-
-            float half = stroke / 2.0f;
-
-            sharedBrush.Color = borderColor;
-
-            ellipse.RadiusX += half;
-            ellipse.RadiusY += half;
-
-            device.DrawEllipse(ellipse, sharedBrush, half);
-
-            ellipse.RadiusX -= stroke;
-            ellipse.RadiusY -= stroke;
-
-            device.DrawEllipse(ellipse, sharedBrush, half);
-        }
-
-        public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
-        {
-            var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
-
-            device.DrawEllipse(ellipse, brush, stroke);
-
-            float half = stroke / 2.0f;
-
-            ellipse.RadiusX += half;
-            ellipse.RadiusY += half;
-
-            device.DrawEllipse(ellipse, borderBrush, half);
-
-            ellipse.RadiusX -= stroke;
-            ellipse.RadiusY -= stroke;
-
-            device.DrawEllipse(ellipse, borderBrush, half);
-        }
-
-        #endregion
+        #endregion Bordered
 
         #region Geometry
 
@@ -704,57 +1012,15 @@ namespace Yato.DirectXOverlay
             geometry.Dispose();
         }
 
-        #endregion
+        #endregion Geometry
 
         #region Special
 
-        public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
-        {
-            var geometry = new PathGeometry(factory);
+        private int lastTime = 0;
 
-            var sink = geometry.Open();
+        private float rotationState = 0.0f;
 
-            sink.BeginFigure(new RawVector2(x, y), FigureBegin.Filled);
-            sink.AddLine(new RawVector2(x + width, y));
-            sink.AddLine(new RawVector2(x + width, y + height));
-            sink.AddLine(new RawVector2(x, y + height));
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            sharedBrush.Color = color;
-
-            device.DrawGeometry(geometry, sharedBrush, stroke);
-
-            sharedBrush.Color = interiorColor;
-
-            device.FillGeometry(geometry, sharedBrush);
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
-
-        public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
-        {
-            var geometry = new PathGeometry(factory);
-
-            var sink = geometry.Open();
-
-            sink.BeginFigure(new RawVector2(x, y), FigureBegin.Filled);
-            sink.AddLine(new RawVector2(x + width, y));
-            sink.AddLine(new RawVector2(x + width, y + height));
-            sink.AddLine(new RawVector2(x, y + height));
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            device.DrawGeometry(geometry, brush, stroke);
-
-            device.FillGeometry(geometry, interiorBrush);
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
+        private Stopwatch swastikaDeltaTimer = new Stopwatch();
 
         public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, Direct2DColor color)
         {
@@ -810,87 +1076,64 @@ namespace Yato.DirectXOverlay
             FillTriangle(start_x, start_y, xm, ym, xn, yn, brush);
         }
 
-        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
+        public void DrawBitmap(Direct2DBitmap bmp, float x, float y, float opacity)
         {
-            float half = stroke / 2.0f;
-            float quarter = half / 2.0f;
+            Bitmap bitmap = bmp;
+            device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
+        }
+
+        public void DrawBitmap(Direct2DBitmap bmp, float opacity, float x, float y, float width, float height)
+        {
+            Bitmap bitmap = bmp;
+            device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
+        }
+
+        public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
+        {
+            var geometry = new PathGeometry(factory);
+
+            var sink = geometry.Open();
+
+            sink.BeginFigure(new RawVector2(x, y), FigureBegin.Filled);
+            sink.AddLine(new RawVector2(x + width, y));
+            sink.AddLine(new RawVector2(x + width, y + height));
+            sink.AddLine(new RawVector2(x, y + height));
+            sink.EndFigure(FigureEnd.Closed);
+
+            sink.Close();
 
             sharedBrush.Color = color;
 
-            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
-
-            device.DrawRectangle(rect, sharedBrush, half);
-
-            if (percentage == 0.0f) return;
-
-            rect.Left += quarter;
-            rect.Right -= width - (width / 100.0f * percentage) + quarter;
-            rect.Top += quarter;
-            rect.Bottom -= quarter;
+            device.DrawGeometry(geometry, sharedBrush, stroke);
 
             sharedBrush.Color = interiorColor;
 
-            device.FillRectangle(rect, sharedBrush);
+            device.FillGeometry(geometry, sharedBrush);
+
+            sink.Dispose();
+            geometry.Dispose();
         }
 
-        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
+        public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
         {
-            float half = stroke / 2.0f;
-            float quarter = half / 2.0f;
+            var geometry = new PathGeometry(factory);
 
-            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+            var sink = geometry.Open();
 
-            device.DrawRectangle(rect, brush, half);
+            sink.BeginFigure(new RawVector2(x, y), FigureBegin.Filled);
+            sink.AddLine(new RawVector2(x + width, y));
+            sink.AddLine(new RawVector2(x + width, y + height));
+            sink.AddLine(new RawVector2(x, y + height));
+            sink.EndFigure(FigureEnd.Closed);
 
-            if (percentage == 0.0f) return;
+            sink.Close();
 
-            rect.Left += quarter;
-            rect.Right -= width - (width / 100.0f * percentage) + quarter;
-            rect.Top += quarter;
-            rect.Bottom -= quarter;
+            device.DrawGeometry(geometry, brush, stroke);
 
-            device.FillRectangle(rect, interiorBrush);
-        }
+            device.FillGeometry(geometry, interiorBrush);
 
-        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
-        {
-            float half = stroke / 2.0f;
-
-            sharedBrush.Color = color;
-
-            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
-
-            device.DrawRectangle(rect, sharedBrush, stroke);
-
-            if (percentage == 0.0f) return;
-
-            rect.Left += half;
-            rect.Right -= half;
-            rect.Top += height - (height / 100.0f * percentage) + half;
-            rect.Bottom -= half;
-
-            sharedBrush.Color = interiorColor;
-
-            device.FillRectangle(rect, sharedBrush);
-        }
-
-        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
-        {
-            float half = stroke / 2.0f;
-            float quarter = half / 2.0f;
-
-            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
-
-            device.DrawRectangle(rect, brush, half);
-
-            if (percentage == 0.0f) return;
-
-            rect.Left += quarter;
-            rect.Right -= quarter;
-            rect.Top += height - (height / 100.0f * percentage) + quarter;
-            rect.Bottom -= quarter;
-
-            device.FillRectangle(rect, interiorBrush);
+            sink.Dispose();
+            geometry.Dispose();
         }
 
         public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, Direct2DColor color)
@@ -999,9 +1242,89 @@ namespace Yato.DirectXOverlay
             }
         }
 
-        private Stopwatch swastikaDeltaTimer = new Stopwatch();
-        float rotationState = 0.0f;
-        int lastTime = 0;
+        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
+        {
+            float half = stroke / 2.0f;
+
+            sharedBrush.Color = color;
+
+            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+
+            device.DrawRectangle(rect, sharedBrush, stroke);
+
+            if (percentage == 0.0f) return;
+
+            rect.Left += half;
+            rect.Right -= half;
+            rect.Top += height - (height / 100.0f * percentage) + half;
+            rect.Bottom -= half;
+
+            sharedBrush.Color = interiorColor;
+
+            device.FillRectangle(rect, sharedBrush);
+        }
+
+        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
+        {
+            float half = stroke / 2.0f;
+            float quarter = half / 2.0f;
+
+            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+
+            device.DrawRectangle(rect, brush, half);
+
+            if (percentage == 0.0f) return;
+
+            rect.Left += quarter;
+            rect.Right -= quarter;
+            rect.Top += height - (height / 100.0f * percentage) + quarter;
+            rect.Bottom -= quarter;
+
+            device.FillRectangle(rect, interiorBrush);
+        }
+
+        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
+        {
+            float half = stroke / 2.0f;
+            float quarter = half / 2.0f;
+
+            sharedBrush.Color = color;
+
+            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+
+            device.DrawRectangle(rect, sharedBrush, half);
+
+            if (percentage == 0.0f) return;
+
+            rect.Left += quarter;
+            rect.Right -= width - (width / 100.0f * percentage) + quarter;
+            rect.Top += quarter;
+            rect.Bottom -= quarter;
+
+            sharedBrush.Color = interiorColor;
+
+            device.FillRectangle(rect, sharedBrush);
+        }
+
+        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
+        {
+            float half = stroke / 2.0f;
+            float quarter = half / 2.0f;
+
+            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+
+            device.DrawRectangle(rect, brush, half);
+
+            if (percentage == 0.0f) return;
+
+            rect.Left += quarter;
+            rect.Right -= width - (width / 100.0f * percentage) + quarter;
+            rect.Top += quarter;
+            rect.Bottom -= quarter;
+
+            device.FillRectangle(rect, interiorBrush);
+        }
+
         public void RotateSwastika(float x, float y, float size, float stroke, Direct2DColor color)
         {
             if (!swastikaDeltaTimer.IsRunning) swastikaDeltaTimer.Start();
@@ -1043,19 +1366,7 @@ namespace Yato.DirectXOverlay
             device.DrawLine(first, haken_4, sharedBrush, stroke);
         }
 
-        public void DrawBitmap(Direct2DBitmap bmp, float x, float y, float opacity)
-        {
-            Bitmap bitmap = bmp;
-            device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
-        }
-
-        public void DrawBitmap(Direct2DBitmap bmp, float opacity, float x, float y, float width, float height)
-        {
-            Bitmap bitmap = bmp;
-            device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
-        }
-
-        #endregion
+        #endregion Special
 
         #region Text
 
@@ -1158,9 +1469,10 @@ namespace Yato.DirectXOverlay
             layout.Dispose();
         }
 
-        #endregion
+        #endregion Text
 
         #region IDisposable Support
+
         private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
@@ -1177,283 +1489,18 @@ namespace Yato.DirectXOverlay
                 disposedValue = true;
             }
         }
+
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        #endregion
-    }
 
-    public enum CrosshairStyle
-    {
-        Dot,
-        Plus,
-        Cross,
-        Gap,
-        Diagonal,
-        Swastika
-    }
-
-    public struct Direct2DRendererOptions
-    {
-        public IntPtr Hwnd;
-        public bool VSync;
-        public bool MeasureFps;
-        public bool AntiAliasing;
-    }
-
-    public class Direct2DFontCreationOptions
-    {
-        public string FontFamilyName;
-
-        public float FontSize;
-
-        public bool Bold;
-
-        public bool Italic;
-
-        public bool WordWrapping;
-
-        public FontStyle GetStyle()
-        {
-            if (Italic) return FontStyle.Italic;
-            return FontStyle.Normal;
-        }
-    }
-
-    public struct Direct2DColor
-    {
-        public float Red;
-        public float Green;
-        public float Blue;
-        public float Alpha;
-
-        public Direct2DColor(int red, int green, int blue)
-        {
-            Red = red / 255.0f;
-            Green = green / 255.0f;
-            Blue = blue / 255.0f;
-            Alpha = 1.0f;
-        }
-
-        public Direct2DColor(int red, int green, int blue, int alpha)
-        {
-            Red = red / 255.0f;
-            Green = green / 255.0f;
-            Blue = blue / 255.0f;
-            Alpha = alpha / 255.0f;
-        }
-
-        public Direct2DColor(float red, float green, float blue)
-        {
-            Red = red;
-            Green = green;
-            Blue = blue;
-            Alpha = 1.0f;
-        }
-
-        public Direct2DColor(float red, float green, float blue, float alpha)
-        {
-            Red = red;
-            Green = green;
-            Blue = blue;
-            Alpha = alpha;
-        }
-
-        public static implicit operator RawColor4(Direct2DColor color)
-        {
-            return new RawColor4(color.Red, color.Green, color.Blue, color.Alpha);
-        }
-
-        public static implicit operator Direct2DColor(RawColor4 color)
-        {
-            return new Direct2DColor(color.R, color.G, color.B, color.A);
-        }
-    }
-
-    public class Direct2DBrush
-    {
-        public Direct2DColor Color
-        {
-            get
-            {
-                return Brush.Color;
-            }
-            set
-            {
-                Brush.Color = value;
-            }
-        }
-
-        public SolidColorBrush Brush;
-
-        private Direct2DBrush()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Direct2DBrush(RenderTarget renderTarget)
-        {
-            Brush = new SolidColorBrush(renderTarget, default(RawColor4));
-        }
-
-        public Direct2DBrush(RenderTarget renderTarget, Direct2DColor color)
-        {
-            Brush = new SolidColorBrush(renderTarget, color);
-        }
-
-        ~Direct2DBrush()
-        {
-            Brush.Dispose();
-        }
-
-        public static implicit operator SolidColorBrush(Direct2DBrush brush)
-        {
-            return brush.Brush;
-        }
-
-        public static implicit operator Direct2DColor(Direct2DBrush brush)
-        {
-            return brush.Color;
-        }
-
-        public static implicit operator RawColor4(Direct2DBrush brush)
-        {
-            return brush.Color;
-        }
-    }
-
-    public class Direct2DFont
-    {
-        private FontFactory factory;
-
-        public TextFormat Font;
-
-        public string FontFamilyName
-        {
-            get
-            {
-                return Font.FontFamilyName;
-            }
-            set
-            {
-                float size = FontSize;
-                bool bold = Bold;
-                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
-                bool wordWrapping = WordWrapping;
-
-                Font.Dispose();
-
-                Font = new TextFormat(factory, value, bold ? FontWeight.Bold : FontWeight.Normal, style, size);
-                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public float FontSize
-        {
-            get
-            {
-                return Font.FontSize;
-            }
-            set
-            {
-                string familyName = FontFamilyName;
-                bool bold = Bold;
-                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
-                bool wordWrapping = WordWrapping;
-
-                Font.Dispose();
-
-                Font = new TextFormat(factory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, style, value);
-                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public bool Bold
-        {
-            get
-            {
-                return Font.FontWeight == FontWeight.Bold;
-            }
-            set
-            {
-                string familyName = FontFamilyName;
-                float size = FontSize;
-                FontStyle style = Italic ? FontStyle.Italic : FontStyle.Normal;
-                bool wordWrapping = WordWrapping;
-
-                Font.Dispose();
-
-                Font = new TextFormat(factory, familyName, value ? FontWeight.Bold : FontWeight.Normal, style, size);
-                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public bool Italic
-        {
-            get
-            {
-                return Font.FontStyle == FontStyle.Italic;
-            }
-            set
-            {
-                string familyName = FontFamilyName;
-                float size = FontSize;
-                bool bold = Bold;
-                bool wordWrapping = WordWrapping;
-
-                Font.Dispose();
-
-                Font = new TextFormat(factory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, value ? FontStyle.Italic : FontStyle.Normal, size);
-                Font.WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        public bool WordWrapping
-        {
-            get
-            {
-                return Font.WordWrapping != SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-            set
-            {
-                Font.WordWrapping = value ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap;
-            }
-        }
-
-        private Direct2DFont()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Direct2DFont(TextFormat font)
-        {
-            Font = font;
-        }
-
-        public Direct2DFont(FontFactory factory, string fontFamilyName, float size, bool bold = false, bool italic = false)
-        {
-            this.factory = factory;
-            Font = new TextFormat(factory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
-            Font.WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap;
-        }
-
-        ~Direct2DFont()
-        {
-            Font.Dispose();
-        }
-
-        public static implicit operator TextFormat(Direct2DFont font)
-        {
-            return font.Font;
-        }
+        #endregion IDisposable Support
     }
 
     public class Direct2DScene : IDisposable
     {
-        public Direct2DRenderer Renderer { get; private set; }
-
         private Direct2DScene()
         {
             throw new NotImplementedException();
@@ -1472,12 +1519,15 @@ namespace Yato.DirectXOverlay
             Dispose(false);
         }
 
+        public Direct2DRenderer Renderer { get; private set; }
+
         public static implicit operator Direct2DRenderer(Direct2DScene scene)
         {
             return scene.Renderer;
         }
 
         #region IDisposable Support
+
         private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
@@ -1498,62 +1548,7 @@ namespace Yato.DirectXOverlay
         {
             Dispose(true);
         }
-        #endregion
-    }
 
-    public class Direct2DBitmap
-    {
-        private static SharpDX.WIC.ImagingFactory factory = new SharpDX.WIC.ImagingFactory();
-
-        public Bitmap SharpDXBitmap;
-
-        private Direct2DBitmap()
-        {
-
-        }
-
-        public Direct2DBitmap(RenderTarget device, byte[] bytes)
-        {
-            loadBitmap(device, bytes);
-        }
-
-        public Direct2DBitmap(RenderTarget device, string file)
-        {
-            loadBitmap(device, File.ReadAllBytes(file));
-        }
-
-        ~Direct2DBitmap()
-        {
-            SharpDXBitmap.Dispose();
-        }
-
-        private void loadBitmap(RenderTarget device, byte[] bytes)
-        {
-            var stream = new MemoryStream(bytes);
-            SharpDX.WIC.BitmapDecoder decoder = new SharpDX.WIC.BitmapDecoder(factory, stream, SharpDX.WIC.DecodeOptions.CacheOnDemand);
-            var frame = decoder.GetFrame(0);
-            SharpDX.WIC.FormatConverter converter = new SharpDX.WIC.FormatConverter(factory);
-            try
-            {
-                // normal ARGB images (Bitmaps / png tested)
-                converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGBA1010102);
-            }
-            catch
-            {
-                // falling back to RGB if unsupported
-                converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGB);
-            }
-            SharpDXBitmap = Bitmap.FromWicBitmap(device, converter);
-
-            converter.Dispose();
-            frame.Dispose();
-            decoder.Dispose();
-            stream.Dispose();
-        }
-
-        public static implicit operator Bitmap(Direct2DBitmap bmp)
-        {
-            return bmp.SharpDXBitmap;
-        }
+        #endregion IDisposable Support
     }
 }

@@ -9,16 +9,8 @@ namespace Yato.DirectXOverlay
         private bool exitThread;
         private Thread serviceThread;
 
-        public IntPtr ParentWindowHandle { get; private set; }
-
-        public OverlayWindow Window { get; private set; }
-        public Direct2DRenderer Graphics { get; private set; }
-
-        public bool IsParentWindowVisible { get; private set; }
-
         private OverlayManager()
         {
-
         }
 
         public OverlayManager(IntPtr parentWindowHandle, bool vsync = false, bool measurefps = false, bool antialiasing = true)
@@ -42,6 +34,12 @@ namespace Yato.DirectXOverlay
         {
             Dispose(false);
         }
+
+        public Direct2DRenderer Graphics { get; private set; }
+        public bool IsParentWindowVisible { get; private set; }
+        public IntPtr ParentWindowHandle { get; private set; }
+
+        public OverlayWindow Window { get; private set; }
 
         private void setupInstance(IntPtr parentWindowHandle, Direct2DRendererOptions options)
         {
@@ -89,7 +87,7 @@ namespace Yato.DirectXOverlay
 
                 if (!Window.IsVisible) Window.ShowWindow();
 
-                if(OverlayWindow.BypassTopmost)
+                if (OverlayWindow.BypassTopmost)
                 {
                     IntPtr windowAboveParentWindow = PInvoke.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
 
@@ -118,6 +116,7 @@ namespace Yato.DirectXOverlay
         }
 
         #region IDisposable Support
+
         private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
@@ -141,7 +140,6 @@ namespace Yato.DirectXOverlay
                     }
                     catch
                     {
-
                     }
                 }
 
@@ -157,6 +155,7 @@ namespace Yato.DirectXOverlay
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        #endregion
+
+        #endregion IDisposable Support
     }
 }
