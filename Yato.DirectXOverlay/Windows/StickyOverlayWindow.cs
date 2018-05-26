@@ -8,7 +8,6 @@ namespace Yato.DirectXOverlay.Windows
     public class StickyOverlayWindow : IDisposable
     {
         private bool ExitServiceThread;
-        private IntPtr InternalParentWindowHandle;
         private Thread ServiceThread;
 
         private StickyOverlayWindow()
@@ -17,7 +16,7 @@ namespace Yato.DirectXOverlay.Windows
 
         public StickyOverlayWindow(IntPtr parentWindowHandle)
         {
-            InternalParentWindowHandle = parentWindowHandle;
+            ParentWindowHandle = parentWindowHandle;
 
             var options = new OverlayCreationOptions()
             {
@@ -34,7 +33,7 @@ namespace Yato.DirectXOverlay.Windows
 
         public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayCreationOptions options)
         {
-            InternalParentWindowHandle = parentWindowHandle;
+            ParentWindowHandle = parentWindowHandle;
 
             Install(options);
         }
@@ -50,13 +49,9 @@ namespace Yato.DirectXOverlay.Windows
 
         public OverlayWindow OverlayWindow { get; private set; }
 
-        public IntPtr ParentWindowHandle
-        {
-            get
-            {
-                return InternalParentWindowHandle;
-            }
-        }
+        public IntPtr OverlayWindowHandle => OverlayWindow.WindowHandle == IntPtr.Zero ? IntPtr.Zero : OverlayWindow.WindowHandle;
+
+        public IntPtr ParentWindowHandle { get; private set; }
 
         private void ExitThread()
         {
