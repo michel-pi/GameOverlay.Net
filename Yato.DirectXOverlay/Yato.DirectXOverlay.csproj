@@ -62,6 +62,7 @@
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="ObfuscationSettings.cs" />
+    <Compile Include="Windows\StickyOverlayWindow.cs" />
     <Compile Include="Windows\OverlayCreationOptions.cs" />
     <Compile Include="Windows\OverlayWindow.cs" />
     <Compile Include="PInvoke\DwmApi.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="Renderer\Direct2DScene.cs" />
     <Compile Include="Renderer\FontCreationOptions.cs" />
     <Compile Include="Renderer\RendererOptions.cs" />
-    <Compile Include="Windows\StickyOverlayWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

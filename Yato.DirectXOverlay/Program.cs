@@ -22,7 +22,7 @@ namespace Yato.DirectXOverlay
 
             OverlayCreationOptions overlayOptions = new OverlayCreationOptions()
             {
-                BypassTopmost = false,
+                BypassTopmost = true,
                 Height = 600,
                 Width = 600,
                 WindowTitle = HelperMethods.GenerateRandomString(5, 11),
@@ -32,10 +32,12 @@ namespace Yato.DirectXOverlay
 
             StickyOverlayWindow overlay = new StickyOverlayWindow(Process.GetCurrentProcess().MainWindowHandle, overlayOptions);
 
+            overlay.OnWindowBoundsChanged += Overlay_OnWindowBoundsChanged;
+
             RendererOptions rendererOptions = new RendererOptions()
             {
                 AntiAliasing = true,
-                Hwnd = overlay.OverlayWindowHandle,
+                Hwnd = overlay.WindowHandle,
                 MeasureFps = true,
                 VSync = false
             };
@@ -58,6 +60,11 @@ namespace Yato.DirectXOverlay
 
             gfx.Dispose();
             overlay.Dispose();
+        }
+
+        private static void Overlay_OnWindowBoundsChanged(int x, int y, int width, int height)
+        {
+            Console.WriteLine($"{x}, {y}, {width}, {height}");
         }
 
         private static void Timer_OnFrameStart()
