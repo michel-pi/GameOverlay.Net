@@ -1,13 +1,17 @@
 # DirectXOverlay
 
-Dependencies:
-SharpDX.Direct2D1 (you may need to rebuild the packages)
+Dependencies: SharpDX.Direct2D1, SharpDX.DXGI, SharpDX.
 
-Check the example (It's a console app)
+Example:
+Compile in Debug Mode as Consol Application. It will execute the "Program.cs".
+
+Ignore or remove "ObfuscationSettings.cs". It's important for me.
 
 # DPI Awareness
 
-Copy paste this into your app.manifest
+If you don't want your drawing to be scaled with DPI or the monitors scale factor.
+
+Copy paste this into your app.manifest.
 
 \<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
    \<asmv3:application>
