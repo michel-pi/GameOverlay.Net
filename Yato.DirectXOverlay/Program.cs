@@ -64,7 +64,7 @@ namespace Yato.DirectXOverlay
 
         private static void Overlay_OnWindowBoundsChanged(int x, int y, int width, int height)
         {
-            Console.WriteLine($"{x}, {y}, {width}, {height}");
+            gfx.Resize(width, height);
         }
 
         private static void Timer_OnFrameStart()
