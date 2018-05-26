@@ -7,7 +7,6 @@ namespace Yato.DirectXOverlay
     public class FrameTimer
     {
         private bool exitTimerThread;
-        private bool pause;
         private Stopwatch stopwatch;
         private Thread timerThread;
 
@@ -33,13 +32,13 @@ namespace Yato.DirectXOverlay
 
         public int FPS { get; set; }
 
-        public bool IsPaused => pause;
+        public bool IsPaused { get; private set; }
 
         private void FrameTimerMethod()
         {
             while (!exitTimerThread)
             {
-                while (pause)
+                while (IsPaused)
                 {
                     Thread.Sleep(100);
                 }
@@ -75,12 +74,12 @@ namespace Yato.DirectXOverlay
 
         public void Pause()
         {
-            pause = true;
+            IsPaused = true;
         }
 
         public void Resume()
         {
-            pause = false;
+            IsPaused = false;
         }
 
         public void Start()
