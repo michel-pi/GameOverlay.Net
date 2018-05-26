@@ -5,7 +5,7 @@ Dependencies: SharpDX.Direct2D1, SharpDX.DXGI, SharpDX.
 Example:
 Compile in Debug Mode as Consol Application. It will execute the "Program.cs".
 
-Ignore or remove "ObfuscationSettings.cs". It's important for me.
+Ignore or remove "ObfuscationSettings.cs". It's important for my Obfuscator.
 
 # DPI Awareness
 
