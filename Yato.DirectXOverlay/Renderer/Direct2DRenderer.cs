@@ -250,6 +250,8 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void Resize(int width, int height)
         {
+            if (Width == width && height == Height) return;
+
             resizeWidth = width;
             resizeHeight = height;
             resize = true;
