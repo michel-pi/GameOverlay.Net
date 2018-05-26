@@ -5,33 +5,29 @@ using Yato.DirectXOverlay.PInvoke;
 
 namespace Yato.DirectXOverlay.Windows
 {
-    public class StickyOverlayWindow : IDisposable
+    public class StickyOverlayWindow : OverlayWindow
     {
+        private static OverlayCreationOptions DefaultOptions = new OverlayCreationOptions()
+        {
+            BypassTopmost = false,
+            Height = 600,
+            Width = 800,
+            WindowTitle = HelperMethods.GenerateRandomString(5, 11),
+            X = 0,
+            Y = 0
+        };
+
         private bool ExitServiceThread;
         private Thread ServiceThread;
 
-        private StickyOverlayWindow()
-        {
-        }
-
-        public StickyOverlayWindow(IntPtr parentWindowHandle)
+        public StickyOverlayWindow(IntPtr parentWindowHandle) : base(DefaultOptions)
         {
             ParentWindowHandle = parentWindowHandle;
 
-            var options = new OverlayCreationOptions()
-            {
-                BypassTopmost = false,
-                Height = 600,
-                Width = 800,
-                WindowTitle = null,
-                X = 0,
-                Y = 0
-            };
-
-            Install(options);
+            Install(DefaultOptions);
         }
 
-        public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayCreationOptions options)
+        public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayCreationOptions options) : base(options)
         {
             ParentWindowHandle = parentWindowHandle;
 
@@ -46,10 +42,6 @@ namespace Yato.DirectXOverlay.Windows
         public delegate void WindowBoundsChanged(int x, int y, int width, int height);
 
         public event WindowBoundsChanged OnWindowBoundsChanged;
-
-        public OverlayWindow OverlayWindow { get; private set; }
-
-        public IntPtr OverlayWindowHandle => OverlayWindow.WindowHandle == IntPtr.Zero ? IntPtr.Zero : OverlayWindow.WindowHandle;
 
         public IntPtr ParentWindowHandle { get; private set; }
 
@@ -82,21 +74,21 @@ namespace Yato.DirectXOverlay.Windows
 
                 if (User32.IsWindowVisible(ParentWindowHandle) == 0)
                 {
-                    if (OverlayWindow.IsVisible) OverlayWindow.HideWindow();
+                    if (base.IsVisible) base.HideWindow();
                     continue;
                 }
                 else
                 {
-                    if (!OverlayWindow.IsVisible) OverlayWindow.ShowWindow();
+                    if (!base.IsVisible) base.ShowWindow();
                 }
 
-                if (OverlayWindow.BypassTopmost)
+                if (base.BypassTopmost)
                 {
                     IntPtr windowAboveParentWindow = User32.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
 
-                    if (windowAboveParentWindow != OverlayWindow.WindowHandle)
+                    if (windowAboveParentWindow != base.WindowHandle)
                     {
-                        User32.SetWindowPos(OverlayWindow.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
+                        User32.SetWindowPos(base.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
                     }
                 }
 
@@ -108,32 +100,29 @@ namespace Yato.DirectXOverlay.Windows
                 int width = bounds.Right - x;
                 int height = bounds.Bottom - y;
 
-                if (OverlayWindow.X == x
-                    && OverlayWindow.Y == y
-                    && OverlayWindow.Width == width
-                    && OverlayWindow.Height == height) continue;
+                if (base.X == x
+                    && base.Y == y
+                    && base.Width == width
+                    && base.Height == height) continue;
 
-                OverlayWindow.SetWindowBounds(x, y, width, height);
+                base.SetWindowBounds(x, y, width, height);
 
                 OnWindowBoundsChanged?.Invoke(x, y, width, height);
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            UnInstall();
+
+            base.Dispose(disposing);
+        }
+
         public void Install(OverlayCreationOptions options)
         {
-            if (OverlayWindow == null)
-            {
-                OverlayWindow = new OverlayWindow(options);
-            }
-            else
-            {
-                OverlayWindow.Dispose();
-                OverlayWindow = new OverlayWindow(options);
-            }
-
             if (ParentWindowHandle == IntPtr.Zero || ExitServiceThread || ServiceThread != null) return;
 
-            OverlayWindow.ShowWindow();
+            base.ShowWindow();
 
             ExitServiceThread = false;
 
@@ -148,44 +137,13 @@ namespace Yato.DirectXOverlay.Windows
 
         public void UnInstall()
         {
-            if (OverlayWindow == null) return;
             if (ParentWindowHandle == IntPtr.Zero) return;
             if (ExitServiceThread) return;
             if (ServiceThread == null) return;
 
             ExitThread();
 
-            OverlayWindow.HideWindow();
+            base.HideWindow();
         }
-
-        #region IDisposable Support
-
-        private bool disposedValue = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                }
-
-                UnInstall();
-
-                OverlayWindow.Dispose();
-
-                OverlayWindow = null;
-
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion IDisposable Support
     }
 }
