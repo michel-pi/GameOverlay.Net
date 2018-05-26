@@ -49,6 +49,8 @@ namespace Yato.DirectXOverlay
                 if (currentFps == 0)
                 {
                     OnFrameStart?.Invoke();
+
+                    continue;
                 }
 
                 int sleepTimePerFrame = 1000 / currentFps;
@@ -66,10 +68,6 @@ namespace Yato.DirectXOverlay
                     if (currentSleepTime >= 0)
                     {
                         Thread.Sleep(currentSleepTime);
-                    }
-                    else
-                    {
-                        Thread.Sleep(sleepTimePerFrame);
                     }
                 }
             }
