@@ -10,6 +10,14 @@ namespace Yato.DirectXOverlay
         private Stopwatch stopwatch;
         private Thread timerThread;
 
+        public delegate void FrameStart();
+
+        public event FrameStart OnFrameStart;
+
+        public int FPS { get; set; }
+
+        public bool IsPaused { get; private set; }
+
         public FrameTimer()
         {
             stopwatch = new Stopwatch();
@@ -24,52 +32,6 @@ namespace Yato.DirectXOverlay
         ~FrameTimer()
         {
             stopwatch.Stop();
-        }
-
-        public delegate void FrameStart();
-
-        public event FrameStart OnFrameStart;
-
-        public int FPS { get; set; }
-
-        public bool IsPaused { get; private set; }
-
-        private void FrameTimerMethod()
-        {
-            while (!exitTimerThread)
-            {
-                while (IsPaused)
-                {
-                    Thread.Sleep(100);
-                }
-
-                int currentFps = FPS;
-
-                if (currentFps == 0)
-                {
-                    OnFrameStart?.Invoke();
-
-                    continue;
-                }
-
-                int sleepTimePerFrame = 1000 / currentFps;
-
-                for (int i = 0; i < currentFps; i++)
-                {
-                    stopwatch.Restart();
-
-                    OnFrameStart?.Invoke();
-
-                    stopwatch.Stop();
-
-                    int currentSleepTime = sleepTimePerFrame - (int)stopwatch.ElapsedMilliseconds;
-
-                    if (currentSleepTime >= 0)
-                    {
-                        Thread.Sleep(currentSleepTime);
-                    }
-                }
-            }
         }
 
         public void Pause()
@@ -112,6 +74,44 @@ namespace Yato.DirectXOverlay
 
             exitTimerThread = false;
             timerThread = null;
+        }
+
+        private void FrameTimerMethod()
+        {
+            while (!exitTimerThread)
+            {
+                while (IsPaused)
+                {
+                    Thread.Sleep(100);
+                }
+
+                int currentFps = FPS;
+
+                if (currentFps == 0)
+                {
+                    OnFrameStart?.Invoke();
+
+                    continue;
+                }
+
+                int sleepTimePerFrame = 1000 / currentFps;
+
+                for (int i = 0; i < currentFps; i++)
+                {
+                    stopwatch.Restart();
+
+                    OnFrameStart?.Invoke();
+
+                    stopwatch.Stop();
+
+                    int currentSleepTime = sleepTimePerFrame - (int)stopwatch.ElapsedMilliseconds;
+
+                    if (currentSleepTime >= 0)
+                    {
+                        Thread.Sleep(currentSleepTime);
+                    }
+                }
+            }
         }
     }
 }

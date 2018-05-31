@@ -4,6 +4,8 @@ namespace Yato.DirectXOverlay.Renderer
 {
     public class Direct2DScene : IDisposable
     {
+        public Direct2DRenderer Renderer { get; private set; }
+
         private Direct2DScene()
         {
             throw new NotImplementedException();
@@ -19,8 +21,6 @@ namespace Yato.DirectXOverlay.Renderer
         {
             Dispose(false);
         }
-
-        public Direct2DRenderer Renderer { get; private set; }
 
         public static implicit operator Direct2DRenderer(Direct2DScene scene)
         {

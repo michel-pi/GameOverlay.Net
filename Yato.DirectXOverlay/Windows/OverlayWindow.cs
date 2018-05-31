@@ -9,11 +9,24 @@ namespace Yato.DirectXOverlay.Windows
 {
     public class OverlayWindow : IDisposable
     {
+        private delegate IntPtr WndProc(IntPtr hWnd, WindowsMessage msg, IntPtr wParam, IntPtr lParam);
+
         private WndProc WindowProc;
 
         private IntPtr WindowProcPtr;
 
         private Thread WindowThread;
+
+        public bool BypassTopmost { get; private set; }
+        public int Height { get; private set; }
+        public bool IsVisible { get; private set; }
+        public bool Topmost { get; private set; }
+        public int Width { get; private set; }
+        public string WindowClassName { get; private set; }
+        public IntPtr WindowHandle { get; private set; }
+        public string WindowTitle { get; private set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
 
         public OverlayWindow(bool bypassTopmost = false)
         {
@@ -62,19 +75,6 @@ namespace Yato.DirectXOverlay.Windows
         {
             Dispose(false);
         }
-
-        private delegate IntPtr WndProc(IntPtr hWnd, WindowsMessage msg, IntPtr wParam, IntPtr lParam);
-
-        public bool BypassTopmost { get; private set; }
-        public int Height { get; private set; }
-        public bool IsVisible { get; private set; }
-        public bool Topmost { get; private set; }
-        public int Width { get; private set; }
-        public string WindowClassName { get; private set; }
-        public IntPtr WindowHandle { get; private set; }
-        public string WindowTitle { get; private set; }
-        public int X { get; private set; }
-        public int Y { get; private set; }
 
         private void SetupInstance(int x = 0, int y = 0, int width = 800, int height = 600)
         {

@@ -20,6 +20,12 @@ namespace Yato.DirectXOverlay.Windows
         private bool ExitServiceThread;
         private Thread ServiceThread;
 
+        public delegate void WindowBoundsChanged(int x, int y, int width, int height);
+
+        public event WindowBoundsChanged OnWindowBoundsChanged;
+
+        public IntPtr ParentWindowHandle { get; private set; }
+
         public StickyOverlayWindow(IntPtr parentWindowHandle) : base(DefaultOptions)
         {
             ParentWindowHandle = parentWindowHandle;
@@ -39,11 +45,33 @@ namespace Yato.DirectXOverlay.Windows
             Dispose(false);
         }
 
-        public delegate void WindowBoundsChanged(int x, int y, int width, int height);
+        public void Install(OverlayCreationOptions options)
+        {
+            if (ParentWindowHandle == IntPtr.Zero || ExitServiceThread || ServiceThread != null) return;
 
-        public event WindowBoundsChanged OnWindowBoundsChanged;
+            base.ShowWindow();
 
-        public IntPtr ParentWindowHandle { get; private set; }
+            ExitServiceThread = false;
+
+            ServiceThread = new Thread(WindowService)
+            {
+                IsBackground = true,
+                Priority = ThreadPriority.BelowNormal
+            };
+
+            ServiceThread.Start();
+        }
+
+        public void UnInstall()
+        {
+            if (ParentWindowHandle == IntPtr.Zero) return;
+            if (ExitServiceThread) return;
+            if (ServiceThread == null) return;
+
+            ExitThread();
+
+            base.HideWindow();
+        }
 
         private void ExitThread()
         {
@@ -116,34 +144,6 @@ namespace Yato.DirectXOverlay.Windows
             UnInstall();
 
             base.Dispose(disposing);
-        }
-
-        public void Install(OverlayCreationOptions options)
-        {
-            if (ParentWindowHandle == IntPtr.Zero || ExitServiceThread || ServiceThread != null) return;
-
-            base.ShowWindow();
-
-            ExitServiceThread = false;
-
-            ServiceThread = new Thread(WindowService)
-            {
-                IsBackground = true,
-                Priority = ThreadPriority.BelowNormal
-            };
-
-            ServiceThread.Start();
-        }
-
-        public void UnInstall()
-        {
-            if (ParentWindowHandle == IntPtr.Zero) return;
-            if (ExitServiceThread) return;
-            if (ServiceThread == null) return;
-
-            ExitThread();
-
-            base.HideWindow();
         }
     }
 }
