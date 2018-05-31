@@ -48,7 +48,7 @@ namespace Yato.DirectXOverlay
             brush = gfx.CreateBrush(255, 0, 0, 255);
             backgroundBrush = gfx.CreateBrush(0xCC, 0xCC, 0xCC, 80);
 
-            FrameTimer timer = new FrameTimer(0);
+            FrameTimer timer = new FrameTimer(60);
 
             timer.OnFrameStart += Timer_OnFrameStart;
 
