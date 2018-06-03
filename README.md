@@ -1,20 +1,30 @@
-# DirectXOverlay
+# Yato.DirectXOverlay
 
-Dependencies: SharpDX.Direct2D1, SharpDX.DXGI, SharpDX.
+Yato.DirectXOverlay offers an easy to use interface for basic Direct2D drawing on any Window.
+You can also create transparent windows to do your drawing on top of any other window.
+Transparent windows optionally stick to their parent.
 
-Example:
-Compile in Debug Mode as Consol Application. It will execute the "Program.cs".
+### Features
 
-# DPI Awareness
+- Supports Windows 7, 8, 8.1 and 10
+- Draw basic shapes like lines, rectangles and triangles
+- Draw Text with any installed font
+- Draw .bmp, .png and .jpg images
+- Create transparent windows
+- Limit your frames per second dynamically
+- Overall great performance (hardware accelerated)
 
-If you don't want your drawing to be scaled with DPI or the monitors scale factor.
+### Dependencies
 
-Copy paste this into your app.manifest.
+SharpDX.Direct2D1, SharpDX.DXGI, SharpDX
 
-\<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
-   \<asmv3:application>
-      \<asmv3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">
-         \<dpiAware>true</dpiAware>
-      \</asmv3:windowsSettings>
-   \</asmv3:application>
-\</assembly>
+### License
+
+[Yato.DirectXOverlay License](https://github.com/YatoDev/Yato.DirectXOverlay/blob/master/LICENSE.md "Yato.DirectXOverlay License")
+[SharpDX License](https://github.com/sharpdx/SharpDX/blob/master/License.txt "SharpDX License")
+
+### Special Thanks
+
+[BigMo (Zat)](https://github.com/BigMo "BigMo (Zat)") for his [SharpDXRenderer](https://github.com/BigMo/ExternalUtilsCSharp/tree/master/ExternalUtilsCSharp.SharpDXRenderer "SharpDXRenderer")
+[ReactiioN](https://github.com/ReactiioN1337 "ReactiioN") for his [C++ aero-overlay (Outdated for newer windows versions)](https://github.com/ReactiioN1337/aero-overlay "C++ aero-overlay")
+[SharpDX](http://sharpdx.org/ "SharpDX") for their open source DirectX wrapper
