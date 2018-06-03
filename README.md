@@ -8,6 +8,10 @@ You can also create transparent windows to do your drawing on top of any other w
 
 Transparent windows optionally stick to their parent.
 
+### NuGet
+
+    Install-Package Yato.DirectXOverlay
+
 ### Features
 
 - Supports Windows 7, 8, 8.1 and 10
