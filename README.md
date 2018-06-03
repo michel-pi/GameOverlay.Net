@@ -1,7 +1,11 @@
 # Yato.DirectXOverlay
 
 Yato.DirectXOverlay offers an easy to use interface for basic Direct2D drawing on any Window.
+
+
 You can also create transparent windows to do your drawing on top of any other window.
+
+
 Transparent windows optionally stick to their parent.
 
 ### Features
@@ -20,11 +24,11 @@ SharpDX.Direct2D1, SharpDX.DXGI, SharpDX
 
 ### License
 
-[Yato.DirectXOverlay License](https://github.com/YatoDev/Yato.DirectXOverlay/blob/master/LICENSE.md "Yato.DirectXOverlay License")
-[SharpDX License](https://github.com/sharpdx/SharpDX/blob/master/License.txt "SharpDX License")
+- [Yato.DirectXOverlay License](https://github.com/YatoDev/Yato.DirectXOverlay/blob/master/LICENSE.md "Yato.DirectXOverlay License")
+- [SharpDX License](https://github.com/sharpdx/SharpDX/blob/master/License.txt "SharpDX License")
 
 ### Special Thanks
 
-[BigMo (Zat)](https://github.com/BigMo "BigMo (Zat)") for his [SharpDXRenderer](https://github.com/BigMo/ExternalUtilsCSharp/tree/master/ExternalUtilsCSharp.SharpDXRenderer "SharpDXRenderer")
-[ReactiioN](https://github.com/ReactiioN1337 "ReactiioN") for his [C++ aero-overlay (Outdated for newer windows versions)](https://github.com/ReactiioN1337/aero-overlay "C++ aero-overlay")
-[SharpDX](http://sharpdx.org/ "SharpDX") for their open source DirectX wrapper
+- [BigMo (Zat)](https://github.com/BigMo "BigMo (Zat)") for his [SharpDXRenderer](https://github.com/BigMo/ExternalUtilsCSharp/tree/master/ExternalUtilsCSharp.SharpDXRenderer "SharpDXRenderer")
+- [ReactiioN](https://github.com/ReactiioN1337 "ReactiioN") for his [C++ aero-overlay (Outdated for newer windows versions)](https://github.com/ReactiioN1337/aero-overlay "C++ aero-overlay")
+- [SharpDX](http://sharpdx.org/ "SharpDX") for their open source DirectX wrapper
