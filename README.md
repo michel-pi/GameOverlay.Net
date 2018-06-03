@@ -34,5 +34,5 @@ SharpDX.Direct2D1, SharpDX.DXGI, SharpDX
 ### Special Thanks
 
 - [BigMo (Zat)](https://github.com/BigMo "BigMo (Zat)") for his [SharpDXRenderer](https://github.com/BigMo/ExternalUtilsCSharp/tree/master/ExternalUtilsCSharp.SharpDXRenderer "SharpDXRenderer")
-- [ReactiioN](https://github.com/ReactiioN1337 "ReactiioN") for his [C++ aero-overlay (Outdated for newer windows versions)](https://github.com/ReactiioN1337/aero-overlay "C++ aero-overlay")
+- [ReactiioN](https://github.com/ReactiioN1337 "ReactiioN") for his [C++ aero-overlay](https://github.com/ReactiioN1337/aero-overlay "C++ aero-overlay")
 - [SharpDX](http://sharpdx.org/ "SharpDX") for their open source DirectX wrapper
