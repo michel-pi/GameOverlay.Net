@@ -289,10 +289,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         public Direct2DFont CreateFont(FontCreationOptions options)
         {
-            TextFormat font = new TextFormat(_fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize)
-            {
-                WordWrapping = options.WordWrapping ? WordWrapping.Wrap : WordWrapping.NoWrap
-            };
+            TextFormat font = new TextFormat(_fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize);
             return new Direct2DFont(font);
         }
 
@@ -308,10 +305,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void SetSharedFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
-            _sharedFont = new TextFormat(_fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size)
-            {
-                WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap
-            };
+            _sharedFont = new TextFormat(_fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
         }
 
         #endregion Fonts & Brushes & Bitmaps
