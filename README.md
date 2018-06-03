@@ -2,7 +2,6 @@
 
 Yato.DirectXOverlay offers an easy to use interface for basic Direct2D drawing on any Window.
 
-
 You can also create transparent windows to do your drawing on top of any other window.
 
 
