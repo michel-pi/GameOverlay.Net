@@ -14,6 +14,12 @@ namespace Yato.DirectXOverlay.PInvoke
         [DllImport("kernel32.dll", EntryPoint = "GetModuleHandleW", SetLastError = false, CharSet = CharSet.Unicode)]
         private static extern IntPtr InternalGetModuleHandleW(string modulename);
 
+        /// <summary>
+        /// Returns the function pointer of an exported native method
+        /// </summary>
+        /// <param name="modulename">The modulename (with .dll)</param>
+        /// <param name="procname">Function name</param>
+        /// <returns>Function pointer</returns>
         public static IntPtr GetProcAddress(string modulename, string procname)
         {
             IntPtr hModule = InternalGetModuleHandleW(modulename);
@@ -23,6 +29,14 @@ namespace Yato.DirectXOverlay.PInvoke
             return InternalGetProcAddress(hModule, procname);
         }
 
+        /// <summary>
+        /// Returns a <c>delegate</c> of an exported native method
+        /// </summary>
+        /// <typeparam name="T"><c>delegate</c></typeparam>
+        /// <param name="modulename">The modulename (with .dll)</param>
+        /// <param name="procname">Function name</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">module: " + modulename + "\tproc: " + procname</exception>
         public static T GetMethod<T>(string modulename, string procname)
         {
             IntPtr hModule = InternalGetModuleHandleW(modulename);

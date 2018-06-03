@@ -5,6 +5,9 @@ namespace Yato.DirectXOverlay
 {
     public static class Library
     {
+        /// <summary>
+        /// Returns the Author of this Library
+        /// </summary>
         public static string Author
         {
             get
@@ -13,6 +16,9 @@ namespace Yato.DirectXOverlay
             }
         }
 
+        /// <summary>
+        /// Returns the Library Name
+        /// </summary>
         public static string Name
         {
             get
@@ -21,6 +27,9 @@ namespace Yato.DirectXOverlay
             }
         }
 
+        /// <summary>
+        /// Returns the URL of the Github Repository
+        /// </summary>
         public static string URL
         {
             get
@@ -29,6 +38,9 @@ namespace Yato.DirectXOverlay
             }
         }
 
+        /// <summary>
+        /// Returns the <c>AssemblyVersion</c> of this Library
+        /// </summary>
         public static string Version
         {
             get

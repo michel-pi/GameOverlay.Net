@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace Yato.DirectXOverlay.PInvoke
 {
+    /// <summary>
+    /// <c>MARGIN</c> struct used with DesktopWindowManager
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct MARGIN
     {

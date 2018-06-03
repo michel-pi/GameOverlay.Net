@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace Yato.DirectXOverlay.PInvoke
 {
+    /// <summary>
+    /// All WindowsMessages
+    /// </summary>
     public enum WindowsMessage : uint
     {
         WM_NULL = 0x0000,
@@ -267,6 +270,9 @@ namespace Yato.DirectXOverlay.PInvoke
         WM_REFLECT = WM_USER + 0x1C00,
     }
 
+    /// <summary>
+    /// Contains a WindowsMessage
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Message
     {
@@ -279,6 +285,9 @@ namespace Yato.DirectXOverlay.PInvoke
         public int Y;
     }
 
+    /// <summary>
+    /// X and Y desktop coordinates
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct POINT
     {
@@ -286,6 +295,9 @@ namespace Yato.DirectXOverlay.PInvoke
         public int Y;
     }
 
+    /// <summary>
+    /// Contains Desktop Coordinates
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct RECT
     {
@@ -295,6 +307,9 @@ namespace Yato.DirectXOverlay.PInvoke
         public int Bottom;      // y position of lower-right corner
     }
 
+    /// <summary>
+    /// Stores information for window creation
+    /// </summary>
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public struct WNDCLASSEX
     {

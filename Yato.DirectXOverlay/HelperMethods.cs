@@ -4,6 +4,9 @@ using Yato.DirectXOverlay.PInvoke;
 
 namespace Yato.DirectXOverlay
 {
+    /// <summary>
+    /// Useful Methods
+    /// </summary>
     public static class HelperMethods
     {
         private static Random _rng = new Random();
@@ -16,6 +19,12 @@ namespace Yato.DirectXOverlay
                 "Mozilla Firefox"
             };
 
+        /// <summary>
+        /// Generates a random string
+        /// </summary>
+        /// <param name="minlen">Minimum Length</param>
+        /// <param name="maxlen">Maximum Length</param>
+        /// <returns>A Random <c>string</c></returns>
         public static string GenerateRandomString(int minlen, int maxlen)
         {
             if (_rng == null) _rng = new Random();
@@ -32,6 +41,10 @@ namespace Yato.DirectXOverlay
             return new string(chars);
         }
 
+        /// <summary>
+        /// Gets the name of the executable
+        /// </summary>
+        /// <returns></returns>
         public static string GetExecutableName()
         {
             var proc = System.Diagnostics.Process.GetCurrentProcess();
@@ -46,11 +59,21 @@ namespace Yato.DirectXOverlay
             return name.Contains(@"\") ? System.IO.Path.GetFileNameWithoutExtension(name) : name;
         }
 
+        /// <summary>
+        /// Returns a legit window name
+        /// </summary>
+        /// <returns></returns>
         public static string GetLegitWindowName()
         {
             return legitWindows[_rng.Next(0, legitWindows.Length)]; // Note: random max value is exclusive ;)
         }
 
+        /// <summary>
+        /// Gets the real window rect.
+        /// </summary>
+        /// <param name="hwnd">Window Handle</param>
+        /// <param name="rect">Real window bounds</param>
+        /// <returns>Non-zero on success</returns>
         public static int GetRealWindowRect(IntPtr hwnd, out RECT rect)
         {
             RECT windowRect = new RECT();
