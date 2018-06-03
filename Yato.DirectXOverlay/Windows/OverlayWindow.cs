@@ -11,11 +11,11 @@ namespace Yato.DirectXOverlay.Windows
     {
         private delegate IntPtr WndProc(IntPtr hWnd, WindowsMessage msg, IntPtr wParam, IntPtr lParam);
 
-        private WndProc WindowProc;
+        private WndProc _windowProc;
 
-        private IntPtr WindowProcPtr;
+        private IntPtr _windowProcPtr;
 
-        private Thread WindowThread;
+        private Thread _windowThread;
 
         public bool BypassTopmost { get; private set; }
         public int Height { get; private set; }
@@ -32,12 +32,12 @@ namespace Yato.DirectXOverlay.Windows
         {
             BypassTopmost = bypassTopmost;
 
-            WindowThread = new Thread(() => WindowThreadProcedure())
+            _windowThread = new Thread(() => WindowThreadProcedure())
             {
                 IsBackground = true,
                 Priority = ThreadPriority.BelowNormal
             };
-            WindowThread.Start();
+            _windowThread.Start();
 
             while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
@@ -46,12 +46,12 @@ namespace Yato.DirectXOverlay.Windows
         {
             BypassTopmost = bypassTopmost;
 
-            WindowThread = new Thread(() => WindowThreadProcedure(x, y, width, height))
+            _windowThread = new Thread(() => WindowThreadProcedure(x, y, width, height))
             {
                 IsBackground = true,
                 Priority = ThreadPriority.BelowNormal
             };
-            WindowThread.Start();
+            _windowThread.Start();
 
             while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
@@ -61,12 +61,12 @@ namespace Yato.DirectXOverlay.Windows
             WindowTitle = options.WindowTitle;
             BypassTopmost = options.BypassTopmost;
 
-            WindowThread = new Thread(() => WindowThreadProcedure(options.X, options.Y, options.Width, options.Height))
+            _windowThread = new Thread(() => WindowThreadProcedure(options.X, options.Y, options.Width, options.Height))
             {
                 IsBackground = true,
                 Priority = ThreadPriority.BelowNormal
             };
-            WindowThread.Start();
+            _windowThread.Start();
 
             while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
@@ -92,15 +92,15 @@ namespace Yato.DirectXOverlay.Windows
             if (WindowTitle == null) WindowTitle = HelperMethods.GenerateRandomString(5, 11);
 
             // prepare method
-            WindowProc = WindowProcedure;
-            RuntimeHelpers.PrepareDelegate(WindowProc);
-            WindowProcPtr = Marshal.GetFunctionPointerForDelegate(WindowProc);
+            _windowProc = WindowProcedure;
+            RuntimeHelpers.PrepareDelegate(_windowProc);
+            _windowProcPtr = Marshal.GetFunctionPointerForDelegate(_windowProc);
 
             WNDCLASSEX wndClassEx = new WNDCLASSEX()
             {
                 cbSize = WNDCLASSEX.Size(),
                 style = 0,
-                lpfnWndProc = WindowProcPtr,
+                lpfnWndProc = _windowProcPtr,
                 cbClsExtra = 0,
                 cbWndExtra = 0,
                 hInstance = IntPtr.Zero,
@@ -269,11 +269,11 @@ namespace Yato.DirectXOverlay.Windows
                 {
                 }
 
-                if (WindowThread != null) WindowThread.Abort();
+                if (_windowThread != null) _windowThread.Abort();
 
                 try
                 {
-                    WindowThread.Join();
+                    _windowThread.Join();
                 }
                 catch
                 {

@@ -8,7 +8,7 @@ namespace Yato.DirectXOverlay.Renderer
 {
     public class Direct2DFont
     {
-        private FontFactory FontFactory;
+        private FontFactory _fontFactory;
 
         public TextFormat Font;
 
@@ -24,7 +24,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         public Direct2DFont(FontFactory factory, string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
-            this.FontFactory = factory;
+            _fontFactory = factory;
             Font = new TextFormat(factory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size)
             {
                 WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap
@@ -51,7 +51,7 @@ namespace Yato.DirectXOverlay.Renderer
 
                 Font.Dispose();
 
-                Font = new TextFormat(FontFactory, familyName, value ? FontWeight.Bold : FontWeight.Normal, style, size)
+                Font = new TextFormat(_fontFactory, familyName, value ? FontWeight.Bold : FontWeight.Normal, style, size)
                 {
                     WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap
                 };
@@ -73,7 +73,7 @@ namespace Yato.DirectXOverlay.Renderer
 
                 Font.Dispose();
 
-                Font = new TextFormat(FontFactory, value, bold ? FontWeight.Bold : FontWeight.Normal, style, size)
+                Font = new TextFormat(_fontFactory, value, bold ? FontWeight.Bold : FontWeight.Normal, style, size)
                 {
                     WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap
                 };
@@ -95,7 +95,7 @@ namespace Yato.DirectXOverlay.Renderer
 
                 Font.Dispose();
 
-                Font = new TextFormat(FontFactory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, style, value)
+                Font = new TextFormat(_fontFactory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, style, value)
                 {
                     WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap
                 };
@@ -117,7 +117,7 @@ namespace Yato.DirectXOverlay.Renderer
 
                 Font.Dispose();
 
-                Font = new TextFormat(FontFactory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, value ? FontStyle.Italic : FontStyle.Normal, size)
+                Font = new TextFormat(_fontFactory, familyName, bold ? FontWeight.Bold : FontWeight.Normal, value ? FontStyle.Italic : FontStyle.Normal, size)
                 {
                     WordWrapping = wordWrapping ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap
                 };

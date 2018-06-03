@@ -17,8 +17,8 @@ namespace Yato.DirectXOverlay.Windows
             Y = 0
         };
 
-        private bool ExitServiceThread;
-        private Thread ServiceThread;
+        private bool _exitServiceThread;
+        private Thread _serviceThread;
 
         public delegate void WindowBoundsChanged(int x, int y, int width, int height);
 
@@ -47,26 +47,26 @@ namespace Yato.DirectXOverlay.Windows
 
         public void Install(OverlayCreationOptions options)
         {
-            if (ParentWindowHandle == IntPtr.Zero || ExitServiceThread || ServiceThread != null) return;
+            if (ParentWindowHandle == IntPtr.Zero || _exitServiceThread || _serviceThread != null) return;
 
             base.ShowWindow();
 
-            ExitServiceThread = false;
+            _exitServiceThread = false;
 
-            ServiceThread = new Thread(WindowService)
+            _serviceThread = new Thread(WindowService)
             {
                 IsBackground = true,
                 Priority = ThreadPriority.BelowNormal
             };
 
-            ServiceThread.Start();
+            _serviceThread.Start();
         }
 
         public void UnInstall()
         {
             if (ParentWindowHandle == IntPtr.Zero) return;
-            if (ExitServiceThread) return;
-            if (ServiceThread == null) return;
+            if (_exitServiceThread) return;
+            if (_serviceThread == null) return;
 
             ExitThread();
 
@@ -75,28 +75,28 @@ namespace Yato.DirectXOverlay.Windows
 
         private void ExitThread()
         {
-            if (ExitServiceThread) return;
-            if (ServiceThread == null) return;
+            if (_exitServiceThread) return;
+            if (_serviceThread == null) return;
 
-            ExitServiceThread = true;
+            _exitServiceThread = true;
 
             try
             {
-                ServiceThread.Join();
+                _serviceThread.Join();
             }
             catch
             {
             }
 
-            ServiceThread = null;
-            ExitServiceThread = false;
+            _serviceThread = null;
+            _exitServiceThread = false;
         }
 
         private void WindowService()
         {
             RECT bounds = new RECT();
 
-            while (!ExitServiceThread)
+            while (!_exitServiceThread)
             {
                 Thread.Sleep(100);
 

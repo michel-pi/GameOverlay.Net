@@ -6,19 +6,27 @@ namespace Yato.DirectXOverlay
 {
     public static class HelperMethods
     {
-        private static Random rng = new Random();
+        private static Random _rng = new Random();
+
+        private static string[] legitWindows = new string[]
+            {
+                "Teamspeak 3",
+                "Steam",
+                "Discord",
+                "Mozilla Firefox"
+            };
 
         public static string GenerateRandomString(int minlen, int maxlen)
         {
-            if (rng == null) rng = new Random();
+            if (_rng == null) _rng = new Random();
 
-            int len = rng.Next(minlen, maxlen);
+            int len = _rng.Next(minlen, maxlen);
 
             char[] chars = new char[len];
 
             for (int i = 0; i < chars.Length; i++)
             {
-                chars[i] = (char)rng.Next(97, 123);
+                chars[i] = (char)_rng.Next(97, 123);
             }
 
             return new string(chars);
@@ -40,15 +48,7 @@ namespace Yato.DirectXOverlay
 
         public static string GetLegitWindowName()
         {
-            string[] legitWindows = new string[]
-            {
-                "Teamspeak 3",
-                "Steam",
-                "Discord",
-                "Mozilla Firefox"
-            };
-
-            return legitWindows[rng.Next(0, legitWindows.Length)]; // Note: random max value is exclusive ;)
+            return legitWindows[_rng.Next(0, legitWindows.Length)]; // Note: random max value is exclusive ;)
         }
 
         public static int GetRealWindowRect(IntPtr hwnd, out RECT rect)

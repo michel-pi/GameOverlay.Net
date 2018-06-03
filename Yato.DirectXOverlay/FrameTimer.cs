@@ -6,9 +6,9 @@ namespace Yato.DirectXOverlay
 {
     public class FrameTimer
     {
-        private bool exitTimerThread;
-        private Stopwatch stopwatch;
-        private Thread timerThread;
+        private bool _exitTimerThread;
+        private Stopwatch _stopwatch;
+        private Thread _timerThread;
 
         public delegate void FrameStart();
 
@@ -20,18 +20,18 @@ namespace Yato.DirectXOverlay
 
         public FrameTimer()
         {
-            stopwatch = new Stopwatch();
+            _stopwatch = new Stopwatch();
         }
 
         public FrameTimer(int fps)
         {
             FPS = fps;
-            stopwatch = new Stopwatch();
+            _stopwatch = new Stopwatch();
         }
 
         ~FrameTimer()
         {
-            stopwatch.Stop();
+            _stopwatch.Stop();
         }
 
         public void Pause()
@@ -46,39 +46,39 @@ namespace Yato.DirectXOverlay
 
         public void Start()
         {
-            if (exitTimerThread) return;
-            if (timerThread != null) return;
+            if (_exitTimerThread) return;
+            if (_timerThread != null) return;
 
-            timerThread = new Thread(FrameTimerMethod)
+            _timerThread = new Thread(FrameTimerMethod)
             {
                 IsBackground = true
             };
 
-            timerThread.Start();
+            _timerThread.Start();
         }
 
         public void Stop()
         {
-            if (exitTimerThread) return;
-            if (timerThread == null) return;
+            if (_exitTimerThread) return;
+            if (_timerThread == null) return;
 
-            exitTimerThread = true;
+            _exitTimerThread = true;
 
             try
             {
-                timerThread.Join();
+                _timerThread.Join();
             }
             catch
             {
             }
 
-            exitTimerThread = false;
-            timerThread = null;
+            _exitTimerThread = false;
+            _timerThread = null;
         }
 
         private void FrameTimerMethod()
         {
-            while (!exitTimerThread)
+            while (!_exitTimerThread)
             {
                 while (IsPaused)
                 {
@@ -98,13 +98,13 @@ namespace Yato.DirectXOverlay
 
                 for (int i = 0; i < currentFps; i++)
                 {
-                    stopwatch.Restart();
+                    _stopwatch.Restart();
 
                     OnFrameStart?.Invoke();
 
-                    stopwatch.Stop();
+                    _stopwatch.Stop();
 
-                    int currentSleepTime = sleepTimePerFrame - (int)stopwatch.ElapsedMilliseconds;
+                    int currentSleepTime = sleepTimePerFrame - (int)_stopwatch.ElapsedMilliseconds;
 
                     if (currentSleepTime >= 0)
                     {

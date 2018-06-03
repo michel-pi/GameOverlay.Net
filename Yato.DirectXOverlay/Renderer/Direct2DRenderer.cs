@@ -18,19 +18,19 @@ namespace Yato.DirectXOverlay.Renderer
     {
         #region private vars
 
-        private WindowRenderTarget device;
-        private HwndRenderTargetProperties deviceProperties;
-        private Factory factory;
-        private FontFactory fontFactory;
-        private int internalFps;
-        private bool isDrawing;
-        private RendererOptions rendererOptions;
-        private bool resize;
-        private int resizeHeight;
-        private int resizeWidth;
-        private SolidColorBrush sharedBrush;
-        private TextFormat sharedFont;
-        private Stopwatch stopwatch = new Stopwatch();
+        private WindowRenderTarget _device;
+        private HwndRenderTargetProperties _deviceProperties;
+        private Factory _factory;
+        private FontFactory _fontFactory;
+        private int _internalFps;
+        private bool _isDrawing;
+        private RendererOptions _rendererOptions;
+        private bool _resize;
+        private int _resizeHeight;
+        private int _resizeWidth;
+        private SolidColorBrush _sharedBrush;
+        private TextFormat _sharedFont;
+        private Stopwatch _stopwatch = new Stopwatch();
 
         #endregion private vars
 
@@ -118,10 +118,10 @@ namespace Yato.DirectXOverlay.Renderer
         {
             try
             {
-                sharedBrush.Dispose();
-                fontFactory.Dispose();
-                factory.Dispose();
-                device.Dispose();
+                _sharedBrush.Dispose();
+                _fontFactory.Dispose();
+                _factory.Dispose();
+                _device.Dispose();
             }
             catch
             {
@@ -130,7 +130,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         private void SetupInstance(RendererOptions options)
         {
-            rendererOptions = options;
+            _rendererOptions = options;
 
             if (options.Hwnd == IntPtr.Zero) throw new ArgumentNullException(nameof(options.Hwnd));
 
@@ -146,7 +146,7 @@ namespace Yato.DirectXOverlay.Renderer
             this.VSync = options.VSync;
             this.MeasureFPS = options.MeasureFps;
 
-            deviceProperties = new HwndRenderTargetProperties()
+            _deviceProperties = new HwndRenderTargetProperties()
             {
                 Hwnd = options.Hwnd,
                 PixelSize = new Size2(this.Width, this.Height),
@@ -160,24 +160,24 @@ namespace Yato.DirectXOverlay.Renderer
                 RenderTargetUsage.None,
                 FeatureLevel.Level_DEFAULT);
 
-            factory = new Factory();
-            fontFactory = new FontFactory();
+            _factory = new Factory();
+            _fontFactory = new FontFactory();
 
             try
             {
-                device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
+                _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
             }
             catch (SharpDXException) // D2DERR_UNSUPPORTED_PIXEL_FORMAT
             {
                 renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
-                device = new WindowRenderTarget(factory, renderProperties, deviceProperties);
+                _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
             }
 
-            device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
+            _device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
             // other than in the documentation: Cleartype is much faster for me than GrayScale
-            device.TextAntialiasMode = options.AntiAliasing ? SharpDX.Direct2D1.TextAntialiasMode.Cleartype : SharpDX.Direct2D1.TextAntialiasMode.Aliased;
+            _device.TextAntialiasMode = options.AntiAliasing ? SharpDX.Direct2D1.TextAntialiasMode.Cleartype : SharpDX.Direct2D1.TextAntialiasMode.Aliased;
 
-            sharedBrush = new SolidColorBrush(device, default(RawColor4));
+            _sharedBrush = new SolidColorBrush(_device, default(RawColor4));
         }
 
         #endregion init & delete
@@ -186,75 +186,75 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void BeginScene()
         {
-            if (device == null) return;
-            if (isDrawing) return;
+            if (_device == null) return;
+            if (_isDrawing) return;
 
-            if (MeasureFPS && !stopwatch.IsRunning)
+            if (MeasureFPS && !_stopwatch.IsRunning)
             {
-                stopwatch.Restart();
+                _stopwatch.Restart();
             }
 
-            if (resize)
+            if (_resize)
             {
-                device.Resize(new Size2(resizeWidth, resizeHeight));
-                resize = false;
+                _device.Resize(new Size2(_resizeWidth, _resizeHeight));
+                _resize = false;
             }
 
-            device.BeginDraw();
+            _device.BeginDraw();
 
-            isDrawing = true;
+            _isDrawing = true;
         }
 
         public void ClearScene()
         {
-            device.Clear(null);
+            _device.Clear(null);
         }
 
         public void ClearScene(Direct2DColor color)
         {
-            device.Clear(color);
+            _device.Clear(color);
         }
 
         public void ClearScene(Direct2DBrush brush)
         {
-            device.Clear(brush);
+            _device.Clear(brush);
         }
 
         public void EndScene()
         {
-            if (device == null) return;
-            if (!isDrawing) return;
+            if (_device == null) return;
+            if (!_isDrawing) return;
 
-            var result = device.TryEndDraw(out long tag_0, out long tag_1);
+            var result = _device.TryEndDraw(out long tag_0, out long tag_1);
 
             if (result.Failure)
             {
                 DestroyInstance();
-                SetupInstance(rendererOptions);
+                SetupInstance(_rendererOptions);
             }
 
-            if (MeasureFPS && stopwatch.IsRunning)
+            if (MeasureFPS && _stopwatch.IsRunning)
             {
-                internalFps++;
+                _internalFps++;
 
-                if (stopwatch.ElapsedMilliseconds > 1000)
+                if (_stopwatch.ElapsedMilliseconds > 1000)
                 {
-                    FPS = internalFps;
-                    internalFps = 0;
-                    stopwatch.Stop();
+                    FPS = _internalFps;
+                    _internalFps = 0;
+                    _stopwatch.Stop();
                 }
             }
 
-            isDrawing = false;
+            _isDrawing = false;
         }
 
         public void Resize(int width, int height)
         {
             if (Width == width && height == Height) return;
 
-            resizeWidth = width;
-            resizeHeight = height;
-            resize = true;
+            _resizeWidth = width;
+            _resizeHeight = height;
+            _resize = true;
         }
 
         public Direct2DScene UseScene()
@@ -269,27 +269,27 @@ namespace Yato.DirectXOverlay.Renderer
 
         public Direct2DBrush CreateBrush(Direct2DColor color)
         {
-            return new Direct2DBrush(device, color);
+            return new Direct2DBrush(_device, color);
         }
 
         public Direct2DBrush CreateBrush(int r, int g, int b, int a = 255)
         {
-            return new Direct2DBrush(device, new Direct2DColor(r, g, b, a));
+            return new Direct2DBrush(_device, new Direct2DColor(r, g, b, a));
         }
 
         public Direct2DBrush CreateBrush(float r, float g, float b, float a = 1.0f)
         {
-            return new Direct2DBrush(device, new Direct2DColor(r, g, b, a));
+            return new Direct2DBrush(_device, new Direct2DColor(r, g, b, a));
         }
 
         public Direct2DFont CreateFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
-            return new Direct2DFont(fontFactory, fontFamilyName, size, bold, italic);
+            return new Direct2DFont(_fontFactory, fontFamilyName, size, bold, italic);
         }
 
         public Direct2DFont CreateFont(FontCreationOptions options)
         {
-            TextFormat font = new TextFormat(fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize)
+            TextFormat font = new TextFormat(_fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize)
             {
                 WordWrapping = options.WordWrapping ? WordWrapping.Wrap : WordWrapping.NoWrap
             };
@@ -298,17 +298,17 @@ namespace Yato.DirectXOverlay.Renderer
 
         public Direct2DBitmap LoadBitmap(string file)
         {
-            return new Direct2DBitmap(device, file);
+            return new Direct2DBitmap(_device, file);
         }
 
         public Direct2DBitmap LoadBitmap(byte[] bytes)
         {
-            return new Direct2DBitmap(device, bytes);
+            return new Direct2DBitmap(_device, bytes);
         }
 
         public void SetSharedFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
-            sharedFont = new TextFormat(fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size)
+            _sharedFont = new TextFormat(_fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size)
             {
                 WordWrapping = SharpDX.DirectWrite.WordWrapping.NoWrap
             };
@@ -320,46 +320,46 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void DrawCircle(float x, float y, float radius, float stroke, Direct2DBrush brush)
         {
-            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush, stroke);
+            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush, stroke);
         }
 
         public void DrawCircle(float x, float y, float radius, float stroke, Direct2DColor color)
         {
-            sharedBrush.Color = color;
-            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), sharedBrush, stroke);
+            _sharedBrush.Color = color;
+            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush, stroke);
         }
 
         public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DBrush brush)
         {
-            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush, stroke);
+            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush, stroke);
         }
 
         public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DColor color)
         {
-            sharedBrush.Color = color;
-            device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), sharedBrush, stroke);
+            _sharedBrush.Color = color;
+            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush, stroke);
         }
 
         public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DBrush brush)
         {
-            device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush, stroke);
+            _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush, stroke);
         }
 
         public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DColor color)
         {
-            sharedBrush.Color = color;
-            device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), sharedBrush, stroke);
+            _sharedBrush.Color = color;
+            _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), _sharedBrush, stroke);
         }
 
         public void DrawRectangle(float x, float y, float width, float height, float stroke, Direct2DBrush brush)
         {
-            device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), brush, stroke);
+            _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), brush, stroke);
         }
 
         public void DrawRectangle(float x, float y, float width, float height, float stroke, Direct2DColor color)
         {
-            sharedBrush.Color = color;
-            device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), sharedBrush, stroke);
+            _sharedBrush.Color = color;
+            _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush, stroke);
         }
 
         public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, Direct2DBrush brush)
@@ -370,16 +370,16 @@ namespace Yato.DirectXOverlay.Renderer
             RawVector2 second = new RawVector2(x, y + length);
             RawVector2 third = new RawVector2(x + length, y);
 
-            device.DrawLine(first, second, brush, stroke);
-            device.DrawLine(first, third, brush, stroke);
+            _device.DrawLine(first, second, brush, stroke);
+            _device.DrawLine(first, third, brush, stroke);
 
             first.Y += height;
             second.Y = first.Y - length;
             third.Y = first.Y;
             third.X = first.X + length;
 
-            device.DrawLine(first, second, brush, stroke);
-            device.DrawLine(first, third, brush, stroke);
+            _device.DrawLine(first, second, brush, stroke);
+            _device.DrawLine(first, third, brush, stroke);
 
             first.X = x + width;
             first.Y = y;
@@ -388,8 +388,8 @@ namespace Yato.DirectXOverlay.Renderer
             third.X = first.X;
             third.Y = first.Y + length;
 
-            device.DrawLine(first, second, brush, stroke);
-            device.DrawLine(first, third, brush, stroke);
+            _device.DrawLine(first, second, brush, stroke);
+            _device.DrawLine(first, third, brush, stroke);
 
             first.Y += height;
             second.X += length;
@@ -397,13 +397,13 @@ namespace Yato.DirectXOverlay.Renderer
             third.Y = first.Y;
             third.X = first.X - length;
 
-            device.DrawLine(first, second, brush, stroke);
-            device.DrawLine(first, third, brush, stroke);
+            _device.DrawLine(first, second, brush, stroke);
+            _device.DrawLine(first, third, brush, stroke);
         }
 
         public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, Direct2DColor color)
         {
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
             int length = (int)(((width + height) / 2.0f) * 0.2f);
 
@@ -411,16 +411,16 @@ namespace Yato.DirectXOverlay.Renderer
             RawVector2 second = new RawVector2(x, y + length);
             RawVector2 third = new RawVector2(x + length, y);
 
-            device.DrawLine(first, second, sharedBrush, stroke);
-            device.DrawLine(first, third, sharedBrush, stroke);
+            _device.DrawLine(first, second, _sharedBrush, stroke);
+            _device.DrawLine(first, third, _sharedBrush, stroke);
 
             first.Y += height;
             second.Y = first.Y - length;
             third.Y = first.Y;
             third.X = first.X + length;
 
-            device.DrawLine(first, second, sharedBrush, stroke);
-            device.DrawLine(first, third, sharedBrush, stroke);
+            _device.DrawLine(first, second, _sharedBrush, stroke);
+            _device.DrawLine(first, third, _sharedBrush, stroke);
 
             first.X = x + width;
             first.Y = y;
@@ -429,8 +429,8 @@ namespace Yato.DirectXOverlay.Renderer
             third.X = first.X;
             third.Y = first.Y + length;
 
-            device.DrawLine(first, second, sharedBrush, stroke);
-            device.DrawLine(first, third, sharedBrush, stroke);
+            _device.DrawLine(first, second, _sharedBrush, stroke);
+            _device.DrawLine(first, third, _sharedBrush, stroke);
 
             first.Y += height;
             second.X += length;
@@ -438,8 +438,8 @@ namespace Yato.DirectXOverlay.Renderer
             third.Y = first.Y;
             third.X = first.X - length;
 
-            device.DrawLine(first, second, sharedBrush, stroke);
-            device.DrawLine(first, third, sharedBrush, stroke);
+            _device.DrawLine(first, second, _sharedBrush, stroke);
+            _device.DrawLine(first, third, _sharedBrush, stroke);
         }
 
         #endregion Primitives
@@ -448,35 +448,35 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void FillCircle(float x, float y, float radius, Direct2DBrush brush)
         {
-            device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush);
+            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush);
         }
 
         public void FillCircle(float x, float y, float radius, Direct2DColor color)
         {
-            sharedBrush.Color = color;
-            device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), sharedBrush);
+            _sharedBrush.Color = color;
+            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush);
         }
 
         public void FillEllipse(float x, float y, float radius_x, float radius_y, Direct2DBrush brush)
         {
-            device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush);
+            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush);
         }
 
         public void FillEllipse(float x, float y, float radius_x, float radius_y, Direct2DColor color)
         {
-            sharedBrush.Color = color;
-            device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), sharedBrush);
+            _sharedBrush.Color = color;
+            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush);
         }
 
         public void FillRectangle(float x, float y, float width, float height, Direct2DBrush brush)
         {
-            device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), brush);
+            _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), brush);
         }
 
         public void FillRectangle(float x, float y, float width, float height, Direct2DColor color)
         {
-            sharedBrush.Color = color;
-            device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), sharedBrush);
+            _sharedBrush.Color = color;
+            _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush);
         }
 
         #endregion Filled
@@ -485,49 +485,49 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DColor color, Direct2DColor borderColor)
         {
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
             var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
 
-            device.DrawEllipse(ellipse, sharedBrush, stroke);
+            _device.DrawEllipse(ellipse, _sharedBrush, stroke);
 
             float half = stroke / 2.0f;
 
-            sharedBrush.Color = borderColor;
+            _sharedBrush.Color = borderColor;
 
             ellipse.RadiusX += half;
             ellipse.RadiusY += half;
 
-            device.DrawEllipse(ellipse, sharedBrush, half);
+            _device.DrawEllipse(ellipse, _sharedBrush, half);
 
             ellipse.RadiusX -= stroke;
             ellipse.RadiusY -= stroke;
 
-            device.DrawEllipse(ellipse, sharedBrush, half);
+            _device.DrawEllipse(ellipse, _sharedBrush, half);
         }
 
         public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
         {
             var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
 
-            device.DrawEllipse(ellipse, brush, stroke);
+            _device.DrawEllipse(ellipse, brush, stroke);
 
             float half = stroke / 2.0f;
 
             ellipse.RadiusX += half;
             ellipse.RadiusY += half;
 
-            device.DrawEllipse(ellipse, borderBrush, half);
+            _device.DrawEllipse(ellipse, borderBrush, half);
 
             ellipse.RadiusX -= stroke;
             ellipse.RadiusY -= stroke;
 
-            device.DrawEllipse(ellipse, borderBrush, half);
+            _device.DrawEllipse(ellipse, borderBrush, half);
         }
 
         public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DColor color, Direct2DColor borderColor)
         {
-            var geometry = new PathGeometry(factory);
+            var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
 
@@ -544,13 +544,13 @@ namespace Yato.DirectXOverlay.Renderer
 
             sink.Close();
 
-            sharedBrush.Color = borderColor;
+            _sharedBrush.Color = borderColor;
 
-            device.DrawGeometry(geometry, sharedBrush, half);
+            _device.DrawGeometry(geometry, _sharedBrush, half);
 
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
-            device.FillGeometry(geometry, sharedBrush);
+            _device.FillGeometry(geometry, _sharedBrush);
 
             sink.Dispose();
             geometry.Dispose();
@@ -558,7 +558,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
         {
-            var geometry = new PathGeometry(factory);
+            var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
 
@@ -575,9 +575,9 @@ namespace Yato.DirectXOverlay.Renderer
 
             sink.Close();
 
-            device.DrawGeometry(geometry, borderBrush, half);
+            _device.DrawGeometry(geometry, borderBrush, half);
 
-            device.FillGeometry(geometry, brush);
+            _device.FillGeometry(geometry, brush);
 
             sink.Dispose();
             geometry.Dispose();
@@ -590,15 +590,15 @@ namespace Yato.DirectXOverlay.Renderer
             width += x;
             height += y;
 
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
-            device.DrawRectangle(new RawRectangleF(x, y, width, height), sharedBrush, half);
+            _device.DrawRectangle(new RawRectangleF(x, y, width, height), _sharedBrush, half);
 
-            sharedBrush.Color = borderColor;
+            _sharedBrush.Color = borderColor;
 
-            device.DrawRectangle(new RawRectangleF(x - half, y - half, width + half, height + half), sharedBrush, half);
+            _device.DrawRectangle(new RawRectangleF(x - half, y - half, width + half, height + half), _sharedBrush, half);
 
-            device.DrawRectangle(new RawRectangleF(x + half, y + half, width - half, height - half), sharedBrush, half);
+            _device.DrawRectangle(new RawRectangleF(x + half, y + half, width - half, height - half), _sharedBrush, half);
         }
 
         public void BorderedRectangle(float x, float y, float width, float height, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
@@ -608,11 +608,11 @@ namespace Yato.DirectXOverlay.Renderer
             width += x;
             height += y;
 
-            device.DrawRectangle(new RawRectangleF(x - half, y - half, width + half, height + half), borderBrush, half);
+            _device.DrawRectangle(new RawRectangleF(x - half, y - half, width + half, height + half), borderBrush, half);
 
-            device.DrawRectangle(new RawRectangleF(x + half, y + half, width - half, height - half), borderBrush, half);
+            _device.DrawRectangle(new RawRectangleF(x + half, y + half, width - half, height - half), borderBrush, half);
 
-            device.DrawRectangle(new RawRectangleF(x, y, width, height), brush, half);
+            _device.DrawRectangle(new RawRectangleF(x, y, width, height), brush, half);
         }
 
         #endregion Bordered
@@ -621,7 +621,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, Direct2DBrush brush)
         {
-            var geometry = new PathGeometry(factory);
+            var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
 
@@ -632,7 +632,7 @@ namespace Yato.DirectXOverlay.Renderer
 
             sink.Close();
 
-            device.DrawGeometry(geometry, brush, stroke);
+            _device.DrawGeometry(geometry, brush, stroke);
 
             sink.Dispose();
             geometry.Dispose();
@@ -640,9 +640,9 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, Direct2DColor color)
         {
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
-            var geometry = new PathGeometry(factory);
+            var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
 
@@ -653,7 +653,7 @@ namespace Yato.DirectXOverlay.Renderer
 
             sink.Close();
 
-            device.DrawGeometry(geometry, sharedBrush, stroke);
+            _device.DrawGeometry(geometry, _sharedBrush, stroke);
 
             sink.Dispose();
             geometry.Dispose();
@@ -661,7 +661,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, Direct2DBrush brush)
         {
-            var geometry = new PathGeometry(factory);
+            var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
 
@@ -672,7 +672,7 @@ namespace Yato.DirectXOverlay.Renderer
 
             sink.Close();
 
-            device.FillGeometry(geometry, brush);
+            _device.FillGeometry(geometry, brush);
 
             sink.Dispose();
             geometry.Dispose();
@@ -680,9 +680,9 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, Direct2DColor color)
         {
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
-            var geometry = new PathGeometry(factory);
+            var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
 
@@ -693,7 +693,7 @@ namespace Yato.DirectXOverlay.Renderer
 
             sink.Close();
 
-            device.FillGeometry(geometry, sharedBrush);
+            _device.FillGeometry(geometry, _sharedBrush);
 
             sink.Dispose();
             geometry.Dispose();
@@ -766,18 +766,18 @@ namespace Yato.DirectXOverlay.Renderer
         public void DrawBitmap(Direct2DBitmap bmp, float x, float y, float opacity)
         {
             Bitmap bitmap = bmp;
-            device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
+            _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
         }
 
         public void DrawBitmap(Direct2DBitmap bmp, float opacity, float x, float y, float width, float height)
         {
             Bitmap bitmap = bmp;
-            device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
+            _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
         }
 
         public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
         {
-            var geometry = new PathGeometry(factory);
+            var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
 
@@ -789,13 +789,13 @@ namespace Yato.DirectXOverlay.Renderer
 
             sink.Close();
 
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
-            device.DrawGeometry(geometry, sharedBrush, stroke);
+            _device.DrawGeometry(geometry, _sharedBrush, stroke);
 
-            sharedBrush.Color = interiorColor;
+            _sharedBrush.Color = interiorColor;
 
-            device.FillGeometry(geometry, sharedBrush);
+            _device.FillGeometry(geometry, _sharedBrush);
 
             sink.Dispose();
             geometry.Dispose();
@@ -803,7 +803,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
         {
-            var geometry = new PathGeometry(factory);
+            var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
 
@@ -815,9 +815,9 @@ namespace Yato.DirectXOverlay.Renderer
 
             sink.Close();
 
-            device.DrawGeometry(geometry, brush, stroke);
+            _device.DrawGeometry(geometry, brush, stroke);
 
-            device.FillGeometry(geometry, interiorBrush);
+            _device.FillGeometry(geometry, interiorBrush);
 
             sink.Dispose();
             geometry.Dispose();
@@ -825,7 +825,7 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, Direct2DColor color)
         {
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
             if (style == CrosshairStyle.Dot)
             {
@@ -867,13 +867,13 @@ namespace Yato.DirectXOverlay.Renderer
                 RawVector2 haken_3 = new RawVector2(fourth.X - size, fourth.Y);
                 RawVector2 haken_4 = new RawVector2(first.X, first.Y - size);
 
-                device.DrawLine(first, second, sharedBrush, stroke);
-                device.DrawLine(third, fourth, sharedBrush, stroke);
+                _device.DrawLine(first, second, _sharedBrush, stroke);
+                _device.DrawLine(third, fourth, _sharedBrush, stroke);
 
-                device.DrawLine(third, haken_1, sharedBrush, stroke);
-                device.DrawLine(second, haken_2, sharedBrush, stroke);
-                device.DrawLine(fourth, haken_3, sharedBrush, stroke);
-                device.DrawLine(first, haken_4, sharedBrush, stroke);
+                _device.DrawLine(third, haken_1, _sharedBrush, stroke);
+                _device.DrawLine(second, haken_2, _sharedBrush, stroke);
+                _device.DrawLine(fourth, haken_3, _sharedBrush, stroke);
+                _device.DrawLine(first, haken_4, _sharedBrush, stroke);
             }
         }
 
@@ -919,13 +919,13 @@ namespace Yato.DirectXOverlay.Renderer
                 RawVector2 haken_3 = new RawVector2(fourth.X - size, fourth.Y);
                 RawVector2 haken_4 = new RawVector2(first.X, first.Y - size);
 
-                device.DrawLine(first, second, brush, stroke);
-                device.DrawLine(third, fourth, brush, stroke);
+                _device.DrawLine(first, second, brush, stroke);
+                _device.DrawLine(third, fourth, brush, stroke);
 
-                device.DrawLine(third, haken_1, brush, stroke);
-                device.DrawLine(second, haken_2, brush, stroke);
-                device.DrawLine(fourth, haken_3, brush, stroke);
-                device.DrawLine(first, haken_4, brush, stroke);
+                _device.DrawLine(third, haken_1, brush, stroke);
+                _device.DrawLine(second, haken_2, brush, stroke);
+                _device.DrawLine(fourth, haken_3, brush, stroke);
+                _device.DrawLine(first, haken_4, brush, stroke);
             }
         }
 
@@ -933,11 +933,11 @@ namespace Yato.DirectXOverlay.Renderer
         {
             float half = stroke / 2.0f;
 
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
             var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
 
-            device.DrawRectangle(rect, sharedBrush, stroke);
+            _device.DrawRectangle(rect, _sharedBrush, stroke);
 
             if (percentage == 0.0f) return;
 
@@ -946,9 +946,9 @@ namespace Yato.DirectXOverlay.Renderer
             rect.Top += height - (height / 100.0f * percentage) + half;
             rect.Bottom -= half;
 
-            sharedBrush.Color = interiorColor;
+            _sharedBrush.Color = interiorColor;
 
-            device.FillRectangle(rect, sharedBrush);
+            _device.FillRectangle(rect, _sharedBrush);
         }
 
         public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
@@ -958,7 +958,7 @@ namespace Yato.DirectXOverlay.Renderer
 
             var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
 
-            device.DrawRectangle(rect, brush, half);
+            _device.DrawRectangle(rect, brush, half);
 
             if (percentage == 0.0f) return;
 
@@ -967,7 +967,7 @@ namespace Yato.DirectXOverlay.Renderer
             rect.Top += height - (height / 100.0f * percentage) + quarter;
             rect.Bottom -= quarter;
 
-            device.FillRectangle(rect, interiorBrush);
+            _device.FillRectangle(rect, interiorBrush);
         }
 
         public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
@@ -975,11 +975,11 @@ namespace Yato.DirectXOverlay.Renderer
             float half = stroke / 2.0f;
             float quarter = half / 2.0f;
 
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
             var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
 
-            device.DrawRectangle(rect, sharedBrush, half);
+            _device.DrawRectangle(rect, _sharedBrush, half);
 
             if (percentage == 0.0f) return;
 
@@ -988,9 +988,9 @@ namespace Yato.DirectXOverlay.Renderer
             rect.Top += quarter;
             rect.Bottom -= quarter;
 
-            sharedBrush.Color = interiorColor;
+            _sharedBrush.Color = interiorColor;
 
-            device.FillRectangle(rect, sharedBrush);
+            _device.FillRectangle(rect, _sharedBrush);
         }
 
         public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
@@ -1000,7 +1000,7 @@ namespace Yato.DirectXOverlay.Renderer
 
             var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
 
-            device.DrawRectangle(rect, brush, half);
+            _device.DrawRectangle(rect, brush, half);
 
             if (percentage == 0.0f) return;
 
@@ -1009,7 +1009,7 @@ namespace Yato.DirectXOverlay.Renderer
             rect.Top += quarter;
             rect.Bottom -= quarter;
 
-            device.FillRectangle(rect, interiorBrush);
+            _device.FillRectangle(rect, interiorBrush);
         }
 
         public void RotateSwastika(float x, float y, float size, float stroke, Direct2DColor color)
@@ -1031,7 +1031,7 @@ namespace Yato.DirectXOverlay.Renderer
                 rotationState = size * -1.0f;
             }
 
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
             RawVector2 first = new RawVector2(x - size, y - rotationState);
             RawVector2 second = new RawVector2(x + size, y + rotationState);
@@ -1044,13 +1044,13 @@ namespace Yato.DirectXOverlay.Renderer
             RawVector2 haken_3 = new RawVector2(fourth.X - size, fourth.Y - rotationState);
             RawVector2 haken_4 = new RawVector2(first.X + rotationState, first.Y - size);
 
-            device.DrawLine(first, second, sharedBrush, stroke);
-            device.DrawLine(third, fourth, sharedBrush, stroke);
+            _device.DrawLine(first, second, _sharedBrush, stroke);
+            _device.DrawLine(third, fourth, _sharedBrush, stroke);
 
-            device.DrawLine(third, haken_1, sharedBrush, stroke);
-            device.DrawLine(second, haken_2, sharedBrush, stroke);
-            device.DrawLine(fourth, haken_3, sharedBrush, stroke);
-            device.DrawLine(first, haken_4, sharedBrush, stroke);
+            _device.DrawLine(third, haken_1, _sharedBrush, stroke);
+            _device.DrawLine(second, haken_2, _sharedBrush, stroke);
+            _device.DrawLine(fourth, haken_3, _sharedBrush, stroke);
+            _device.DrawLine(first, haken_4, _sharedBrush, stroke);
         }
 
         #endregion Special
@@ -1059,99 +1059,99 @@ namespace Yato.DirectXOverlay.Renderer
 
         public void DrawText(string text, float x, float y, Direct2DFont font, Direct2DColor color)
         {
-            sharedBrush.Color = color;
-            device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), sharedBrush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
+            _sharedBrush.Color = color;
+            _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), _sharedBrush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
         public void DrawText(string text, float x, float y, Direct2DFont font, Direct2DBrush brush)
         {
-            device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), brush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
+            _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), brush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
         public void DrawText(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color)
         {
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
-            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
-            device.DrawTextLayout(new RawVector2(x, y), layout, sharedBrush, DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, _sharedBrush, DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
 
         public void DrawText(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush)
         {
-            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
-            device.DrawTextLayout(new RawVector2(x, y), layout, brush, DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush, DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
 
         public void DrawTextWithBackground(string text, float x, float y, Direct2DFont font, Direct2DColor color, Direct2DColor backgroundColor)
         {
-            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             float modifier = layout.FontSize / 4.0f;
 
-            sharedBrush.Color = backgroundColor;
+            _sharedBrush.Color = backgroundColor;
 
-            device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), sharedBrush);
+            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), _sharedBrush);
 
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
-            device.DrawTextLayout(new RawVector2(x, y), layout, sharedBrush, DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, _sharedBrush, DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
 
         public void DrawTextWithBackground(string text, float x, float y, Direct2DFont font, Direct2DBrush brush, Direct2DBrush backgroundBrush)
         {
-            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             float modifier = layout.FontSize / 4.0f;
 
-            device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), backgroundBrush);
+            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), backgroundBrush);
 
-            device.DrawTextLayout(new RawVector2(x, y), layout, brush, DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush, DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
 
         public void DrawTextWithBackground(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color, Direct2DColor backgroundColor)
         {
-            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
             float modifier = fontSize / 4.0f;
 
-            sharedBrush.Color = backgroundColor;
+            _sharedBrush.Color = backgroundColor;
 
-            device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), sharedBrush);
+            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), _sharedBrush);
 
-            sharedBrush.Color = color;
+            _sharedBrush.Color = color;
 
-            device.DrawTextLayout(new RawVector2(x, y), layout, sharedBrush, DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, _sharedBrush, DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
 
         public void DrawTextWithBackground(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush, Direct2DBrush backgroundBrush)
         {
-            var layout = new TextLayout(fontFactory, text, font, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
             float modifier = fontSize / 4.0f;
 
-            device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), backgroundBrush);
+            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), backgroundBrush);
 
-            device.DrawTextLayout(new RawVector2(x, y), layout, brush, DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush, DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
