@@ -4,6 +4,9 @@ using SharpDX.Mathematics.Interop;
 
 namespace Yato.DirectXOverlay.Renderer
 {
+    /// <summary>
+    /// Represents a ARGB color
+    /// </summary>
     public struct Direct2DColor
     {
         public float Alpha;
@@ -11,6 +14,12 @@ namespace Yato.DirectXOverlay.Renderer
         public float Green;
         public float Red;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DColor"/> struct with an alpha of 255
+        /// </summary>
+        /// <param name="red">Red 0 - 255</param>
+        /// <param name="green">Green 0 - 255</param>
+        /// <param name="blue">Blue 0 - 255</param>
         public Direct2DColor(int red, int green, int blue)
         {
             Red = red / 255.0f;
@@ -19,6 +28,13 @@ namespace Yato.DirectXOverlay.Renderer
             Alpha = 1.0f;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DColor"/> struct
+        /// </summary>
+        /// <param name="red">Red 0 - 255</param>
+        /// <param name="green">Green 0 - 255</param>
+        /// <param name="blue">Blue 0 - 255.</param>
+        /// <param name="alpha">Alpha 0 - 255</param>
         public Direct2DColor(int red, int green, int blue, int alpha)
         {
             Red = red / 255.0f;
@@ -27,6 +43,12 @@ namespace Yato.DirectXOverlay.Renderer
             Alpha = alpha / 255.0f;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DColor"/> struct with an alpha of 1.0f
+        /// </summary>
+        /// <param name="red">Red 0.0f - 1.0f</param>
+        /// <param name="green">Green 0.0f - 1.0f</param>
+        /// <param name="blue">Blue 0.0f - 1.0f</param>
         public Direct2DColor(float red, float green, float blue)
         {
             Red = red;
@@ -35,6 +57,13 @@ namespace Yato.DirectXOverlay.Renderer
             Alpha = 1.0f;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DColor"/> struct
+        /// </summary>
+        /// <param name="red">Red 0.0f - 1.0f</param>
+        /// <param name="green">Green 0.0f - 1.0f</param>
+        /// <param name="blue">Blue 0.0f - 1.0f</param>
+        /// <param name="alpha">Alpha 0.0f - 1.0f</param>
         public Direct2DColor(float red, float green, float blue, float alpha)
         {
             Red = red;

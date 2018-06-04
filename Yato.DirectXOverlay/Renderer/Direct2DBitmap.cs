@@ -5,21 +5,37 @@ using SharpDX.Direct2D1;
 
 namespace Yato.DirectXOverlay.Renderer
 {
+    /// <summary>
+    /// Stores a Bitmap compatible with <c>Direct2DRenderer</c>
+    /// </summary>
     public class Direct2DBitmap
     {
         private static SharpDX.WIC.ImagingFactory ImagingFactory = new SharpDX.WIC.ImagingFactory();
 
+        /// <summary>
+        /// A <c>SharpDX.Direct2D1.Bitmap</c> object
+        /// </summary>
         public Bitmap SharpDXBitmap;
 
         private Direct2DBitmap()
         {
         }
 
+        /// <summary>
+        /// Internal use only
+        /// </summary>
+        /// <param name="device"><c>RenderTarget</c> device</param>
+        /// <param name="bytes"><c>Bitmap</c> bytes</param>
         public Direct2DBitmap(RenderTarget device, byte[] bytes)
         {
             LoadBitmap(device, bytes);
         }
 
+        /// <summary>
+        /// Internal use only
+        /// </summary>
+        /// <param name="device"><c>RenderTarget</c> device</param>
+        /// <param name="file">Path to an image file</param>
         public Direct2DBitmap(RenderTarget device, string file)
         {
             LoadBitmap(device, File.ReadAllBytes(file));

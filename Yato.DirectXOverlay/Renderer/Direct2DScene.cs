@@ -2,8 +2,15 @@
 
 namespace Yato.DirectXOverlay.Renderer
 {
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="System.IDisposable"/>
     public class Direct2DScene : IDisposable
     {
+        /// <summary>
+        /// Gets the renderer.
+        /// </summary>
+        /// <value>The renderer.</value>
         public Direct2DRenderer Renderer { get; private set; }
 
         private Direct2DScene()
@@ -11,6 +18,10 @@ namespace Yato.DirectXOverlay.Renderer
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DScene"/> class.
+        /// </summary>
+        /// <param name="renderer">The renderer.</param>
         public Direct2DScene(Direct2DRenderer renderer)
         {
             Renderer = renderer;
@@ -45,6 +56,10 @@ namespace Yato.DirectXOverlay.Renderer
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);

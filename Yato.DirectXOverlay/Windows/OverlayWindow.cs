@@ -7,6 +7,9 @@ using Yato.DirectXOverlay.PInvoke;
 
 namespace Yato.DirectXOverlay.Windows
 {
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="System.IDisposable"/>
     public class OverlayWindow : IDisposable
     {
         private delegate IntPtr WndProc(IntPtr hWnd, WindowsMessage msg, IntPtr wParam, IntPtr lParam);
@@ -17,17 +20,70 @@ namespace Yato.DirectXOverlay.Windows
 
         private Thread _windowThread;
 
+        /// <summary>
+        /// Gets a value indicating whether [bypass topmost].
+        /// </summary>
+        /// <value><c>true</c> if [bypass topmost]; otherwise, <c>false</c>.</value>
         public bool BypassTopmost { get; private set; }
+
+        /// <summary>
+        /// Gets the height.
+        /// </summary>
+        /// <value>The height.</value>
         public int Height { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is visible.
+        /// </summary>
+        /// <value><c>true</c> if this instance is visible; otherwise, <c>false</c>.</value>
         public bool IsVisible { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="OverlayWindow"/> is topmost.
+        /// </summary>
+        /// <value><c>true</c> if topmost; otherwise, <c>false</c>.</value>
         public bool Topmost { get; private set; }
+
+        /// <summary>
+        /// Gets the width.
+        /// </summary>
+        /// <value>The width.</value>
         public int Width { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the window class.
+        /// </summary>
+        /// <value>The name of the window class.</value>
         public string WindowClassName { get; private set; }
+
+        /// <summary>
+        /// Gets the window handle.
+        /// </summary>
+        /// <value>The window handle.</value>
         public IntPtr WindowHandle { get; private set; }
+
+        /// <summary>
+        /// Gets the window title.
+        /// </summary>
+        /// <value>The window title.</value>
         public string WindowTitle { get; private set; }
+
+        /// <summary>
+        /// Gets the x.
+        /// </summary>
+        /// <value>The x.</value>
         public int X { get; private set; }
+
+        /// <summary>
+        /// Gets the y.
+        /// </summary>
+        /// <value>The y.</value>
         public int Y { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OverlayWindow"/> class.
+        /// </summary>
+        /// <param name="bypassTopmost">if set to <c>true</c> [bypass topmost].</param>
         public OverlayWindow(bool bypassTopmost = false)
         {
             BypassTopmost = bypassTopmost;
@@ -42,6 +98,14 @@ namespace Yato.DirectXOverlay.Windows
             while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OverlayWindow"/> class.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="bypassTopmost">if set to <c>true</c> [bypass topmost].</param>
         public OverlayWindow(int x, int y, int width, int height, bool bypassTopmost = false)
         {
             BypassTopmost = bypassTopmost;
@@ -56,6 +120,10 @@ namespace Yato.DirectXOverlay.Windows
             while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OverlayWindow"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
         public OverlayWindow(OverlayCreationOptions options)
         {
             WindowTitle = options.WindowTitle;
@@ -76,6 +144,13 @@ namespace Yato.DirectXOverlay.Windows
             Dispose(false);
         }
 
+        /// <summary>
+        /// Setups the instance.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         private void SetupInstance(int x = 0, int y = 0, int width = 800, int height = 600)
         {
             IsVisible = true;
@@ -201,6 +276,9 @@ namespace Yato.DirectXOverlay.Windows
             }
         }
 
+        /// <summary>
+        /// Extends the frame into client area.
+        /// </summary>
         public void ExtendFrameIntoClientArea()
         {
             var margin = new PInvoke.MARGIN
@@ -214,6 +292,9 @@ namespace Yato.DirectXOverlay.Windows
             DwmApi.DwmExtendFrameIntoClientArea(WindowHandle, ref margin);
         }
 
+        /// <summary>
+        /// Hides the window.
+        /// </summary>
         public void HideWindow()
         {
             if (!IsVisible) return;
@@ -222,6 +303,11 @@ namespace Yato.DirectXOverlay.Windows
             IsVisible = false;
         }
 
+        /// <summary>
+        /// Moves the window.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         public void MoveWindow(int x, int y)
         {
             User32.MoveWindow(WindowHandle, x, y, Width, Height, 1);
@@ -230,6 +316,11 @@ namespace Yato.DirectXOverlay.Windows
             ExtendFrameIntoClientArea();
         }
 
+        /// <summary>
+        /// Resizes the window.
+        /// </summary>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         public void ResizeWindow(int width, int height)
         {
             User32.MoveWindow(WindowHandle, X, Y, width, height, 1);
@@ -238,6 +329,13 @@ namespace Yato.DirectXOverlay.Windows
             ExtendFrameIntoClientArea();
         }
 
+        /// <summary>
+        /// Sets the window bounds.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         public void SetWindowBounds(int x, int y, int width, int height)
         {
             User32.MoveWindow(WindowHandle, x, y, width, height, 1);
@@ -248,6 +346,9 @@ namespace Yato.DirectXOverlay.Windows
             ExtendFrameIntoClientArea();
         }
 
+        /// <summary>
+        /// Shows the window.
+        /// </summary>
         public void ShowWindow()
         {
             if (IsVisible) return;
@@ -286,6 +387,10 @@ namespace Yato.DirectXOverlay.Windows
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

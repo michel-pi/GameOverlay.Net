@@ -14,6 +14,10 @@ using Yato.DirectXOverlay.PInvoke;
 
 namespace Yato.DirectXOverlay.Renderer
 {
+    /// <summary>
+    /// Represents a drawing device of a window
+    /// </summary>
+    /// <seealso cref="System.IDisposable"/>
     public class Direct2DRenderer : IDisposable
     {
         #region private vars
@@ -36,11 +40,40 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region public vars
 
+        /// <summary>
+        /// Gets the FPS
+        /// </summary>
+        /// <value>The FPS</value>
         public int FPS { get; private set; }
+
+        /// <summary>
+        /// Gets the renderers height
+        /// </summary>
+        /// <value>The height</value>
         public int Height { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [measure FPS].
+        /// </summary>
+        /// <value><c>true</c> if [measure FPS]; otherwise, <c>false</c>.</value>
         public bool MeasureFPS { get; set; }
+
+        /// <summary>
+        /// Gets the render target HWND.
+        /// </summary>
+        /// <value>The render target HWND.</value>
         public IntPtr RenderTargetHwnd { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether [vertical synchronize].
+        /// </summary>
+        /// <value><c>true</c> if [vertical synchronize]; otherwise, <c>false</c>.</value>
         public bool VSync { get; private set; }
+
+        /// <summary>
+        /// Gets the renderers width
+        /// </summary>
+        /// <value>The width</value>
         public int Width { get; private set; }
 
         #endregion public vars
@@ -52,6 +85,10 @@ namespace Yato.DirectXOverlay.Renderer
             throw new NotSupportedException();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// </summary>
+        /// <param name="hwnd">A valid window handle</param>
         public Direct2DRenderer(IntPtr hwnd)
         {
             var options = new RendererOptions()
@@ -64,6 +101,11 @@ namespace Yato.DirectXOverlay.Renderer
             SetupInstance(options);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// </summary>
+        /// <param name="hwnd">A valid window handle</param>
+        /// <param name="vsync">if set to <c>true</c> [vsync].</param>
         public Direct2DRenderer(IntPtr hwnd, bool vsync)
         {
             var options = new RendererOptions()
@@ -76,6 +118,12 @@ namespace Yato.DirectXOverlay.Renderer
             SetupInstance(options);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// </summary>
+        /// <param name="hwnd">A valid window handle</param>
+        /// <param name="vsync">if set to <c>true</c> [vsync].</param>
+        /// <param name="measureFps">if set to <c>true</c> [measure FPS].</param>
         public Direct2DRenderer(IntPtr hwnd, bool vsync, bool measureFps)
         {
             var options = new RendererOptions()
@@ -88,6 +136,13 @@ namespace Yato.DirectXOverlay.Renderer
             SetupInstance(options);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// </summary>
+        /// <param name="hwnd">A valid window handle</param>
+        /// <param name="vsync">if set to <c>true</c> [vsync].</param>
+        /// <param name="measureFps">if set to <c>true</c> [measure FPS].</param>
+        /// <param name="antiAliasing">if set to <c>true</c> [anti aliasing].</param>
         public Direct2DRenderer(IntPtr hwnd, bool vsync, bool measureFps, bool antiAliasing)
         {
             var options = new RendererOptions()
@@ -100,6 +155,10 @@ namespace Yato.DirectXOverlay.Renderer
             SetupInstance(options);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// </summary>
+        /// <param name="options">Creation options</param>
         public Direct2DRenderer(RendererOptions options)
         {
             SetupInstance(options);
@@ -184,6 +243,9 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region Scenes
 
+        /// <summary>
+        /// Begins a new scene
+        /// </summary>
         public void BeginScene()
         {
             if (_device == null) return;
@@ -205,21 +267,35 @@ namespace Yato.DirectXOverlay.Renderer
             _isDrawing = true;
         }
 
+        /// <summary>
+        /// Clears the scene. Transparent
+        /// </summary>
         public void ClearScene()
         {
             _device.Clear(null);
         }
 
+        /// <summary>
+        /// Clears the scene with background color
+        /// </summary>
+        /// <param name="color">The color</param>
         public void ClearScene(Direct2DColor color)
         {
             _device.Clear(color);
         }
 
+        /// <summary>
+        /// Clears the scene with background color
+        /// </summary>
+        /// <param name="brush">The brush</param>
         public void ClearScene(Direct2DBrush brush)
         {
             _device.Clear(brush);
         }
 
+        /// <summary>
+        /// Ends the scene
+        /// </summary>
         public void EndScene()
         {
             if (_device == null) return;
@@ -248,6 +324,11 @@ namespace Yato.DirectXOverlay.Renderer
             _isDrawing = false;
         }
 
+        /// <summary>
+        /// Resizes the renderer (call this when the window has changed it's size)
+        /// </summary>
+        /// <param name="width">The width</param>
+        /// <param name="height">The height</param>
         public void Resize(int width, int height)
         {
             if (Width == width && height == Height) return;
@@ -257,6 +338,10 @@ namespace Yato.DirectXOverlay.Renderer
             _resize = true;
         }
 
+        /// <summary>
+        /// Fancy IDisposable pattern for scenes
+        /// </summary>
+        /// <returns></returns>
         public Direct2DScene UseScene()
         {
             // really expensive to use but i like the pattern
@@ -267,42 +352,93 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region Fonts & Brushes & Bitmaps
 
+        /// <summary>
+        /// Creates a new SolidColorBrush
+        /// </summary>
+        /// <param name="color">The color</param>
+        /// <returns></returns>
         public Direct2DBrush CreateBrush(Direct2DColor color)
         {
             return new Direct2DBrush(_device, color);
         }
 
+        /// <summary>
+        /// Creates a new SolidColorBrush
+        /// </summary>
+        /// <param name="r">Red 0 - 255</param>
+        /// <param name="g">Green 0 - 255</param>
+        /// <param name="b">Blue 0 - 255</param>
+        /// <param name="a">Alpha 0 - 255</param>
+        /// <returns></returns>
         public Direct2DBrush CreateBrush(int r, int g, int b, int a = 255)
         {
             return new Direct2DBrush(_device, new Direct2DColor(r, g, b, a));
         }
 
+        /// <summary>
+        /// Creates a new SolidColorBrush
+        /// </summary>
+        /// <param name="r">Red 0.0f - 1.0f</param>
+        /// <param name="g">Green 0.0f - 1.0f</param>
+        /// <param name="b">Blue 0.0f - 1.0f</param>
+        /// <param name="a">Alpha 0.0f - 1.0f</param>
+        /// <returns></returns>
         public Direct2DBrush CreateBrush(float r, float g, float b, float a = 1.0f)
         {
             return new Direct2DBrush(_device, new Direct2DColor(r, g, b, a));
         }
 
+        /// <summary>
+        /// Creates a new font. Used for drawing text
+        /// </summary>
+        /// <param name="fontFamilyName">Name of the font family.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="bold">if set to <c>true</c> [bold].</param>
+        /// <param name="italic">if set to <c>true</c> [italic].</param>
+        /// <returns></returns>
         public Direct2DFont CreateFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
             return new Direct2DFont(_fontFactory, fontFamilyName, size, bold, italic);
         }
 
+        /// <summary>
+        /// Creates a new font. Used for drawing text
+        /// </summary>
+        /// <param name="options">Creation options</param>
+        /// <returns></returns>
         public Direct2DFont CreateFont(FontCreationOptions options)
         {
             TextFormat font = new TextFormat(_fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize);
             return new Direct2DFont(font);
         }
 
+        /// <summary>
+        /// Loads a bitmap from a file
+        /// </summary>
+        /// <param name="file">Path</param>
+        /// <returns></returns>
         public Direct2DBitmap LoadBitmap(string file)
         {
             return new Direct2DBitmap(_device, file);
         }
 
+        /// <summary>
+        /// Loads a bitmap from a <c>byte[]</c>
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns></returns>
         public Direct2DBitmap LoadBitmap(byte[] bytes)
         {
             return new Direct2DBitmap(_device, bytes);
         }
 
+        /// <summary>
+        /// Sets the font to use when no font is specified
+        /// </summary>
+        /// <param name="fontFamilyName">Name of the font family.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="bold">if set to <c>true</c> [bold].</param>
+        /// <param name="italic">if set to <c>true</c> [italic].</param>
         public void SetSharedFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
             _sharedFont = new TextFormat(_fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
@@ -312,50 +448,124 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region Primitives
 
+        /// <summary>
+        /// Draws a circle
+        /// </summary>
+        /// <param name="x">X - Circle center</param>
+        /// <param name="y">Y - Circel center</param>
+        /// <param name="radius">Circle radius</param>
+        /// <param name="stroke">Line stroke</param>
+        /// <param name="brush">Brush to use</param>
         public void DrawCircle(float x, float y, float radius, float stroke, Direct2DBrush brush)
         {
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush, stroke);
         }
 
+        /// <summary>
+        /// Draws a circle (not thread safe)
+        /// </summary>
+        /// <param name="x">X - Circle center</param>
+        /// <param name="y">Y - Circel center</param>
+        /// <param name="radius">Circle radius</param>
+        /// <param name="stroke">Line stroke</param>
+        /// <param name="color"><c>Direct2DColor</c></param>
         public void DrawCircle(float x, float y, float radius, float stroke, Direct2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush, stroke);
         }
 
+        /// <summary> Draws an ellipse </summary> <param name="x">X - Ellipse center</param> <param
+        /// name="y">Y - Ellipse center</param> <param name="radius_x">The radius on x axis</param>
+        /// <param name="radius_y">The radius on y axis</param> <param name="stroke">Line
+        /// stroke</param> <param name="brush">Brush to use<</param>
         public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DBrush brush)
         {
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush, stroke);
         }
 
+        /// <summary>
+        /// Draws an ellipse (not thread safe)
+        /// </summary>
+        /// <param name="x">X - Ellipse center</param>
+        /// <param name="y">Y - Ellipse center</param>
+        /// <param name="radius_x">The radius on x axis</param>
+        /// <param name="radius_y">The radius on y axis</param>
+        /// <param name="stroke">Line stroke</param>
+        /// <param name="color"><c>Direct2DColor</c></param>
         public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush, stroke);
         }
 
+        /// <summary>
+        /// Draws a line
+        /// </summary>
+        /// <param name="start_x">The start x.</param>
+        /// <param name="start_y">The start y.</param>
+        /// <param name="end_x">The end x.</param>
+        /// <param name="end_y">The end y.</param>
+        /// <param name="stroke">Line stroke</param>
+        /// <param name="brush">The brush.</param>
         public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DBrush brush)
         {
             _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush, stroke);
         }
 
+        /// <summary>
+        /// Draws a line
+        /// </summary>
+        /// <param name="start_x">The start x.</param>
+        /// <param name="start_y">The start y.</param>
+        /// <param name="end_x">The end x.</param>
+        /// <param name="end_y">The end y.</param>
+        /// <param name="stroke">Line stroke</param>
+        /// <param name="color">The color.</param>
         public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), _sharedBrush, stroke);
         }
 
+        /// <summary>
+        /// Draws the rectangle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawRectangle(float x, float y, float width, float height, float stroke, Direct2DBrush brush)
         {
             _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), brush, stroke);
         }
 
+        /// <summary>
+        /// Draws the rectangle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="color">The color.</param>
         public void DrawRectangle(float x, float y, float width, float height, float stroke, Direct2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush, stroke);
         }
 
+        /// <summary>
+        /// Draws the rectangle edges.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, Direct2DBrush brush)
         {
             int length = (int)(((width + height) / 2.0f) * 0.2f);
@@ -395,6 +605,15 @@ namespace Yato.DirectXOverlay.Renderer
             _device.DrawLine(first, third, brush, stroke);
         }
 
+        /// <summary>
+        /// Draws the rectangle edges.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="color">The color.</param>
         public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, Direct2DColor color)
         {
             _sharedBrush.Color = color;
@@ -440,33 +659,79 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region Filled
 
+        /// <summary>
+        /// Fills the circle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="brush">The brush.</param>
         public void FillCircle(float x, float y, float radius, Direct2DBrush brush)
         {
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush);
         }
 
+        /// <summary>
+        /// Fills the circle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="color">The color.</param>
         public void FillCircle(float x, float y, float radius, Direct2DColor color)
         {
             _sharedBrush.Color = color;
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush);
         }
 
+        /// <summary>
+        /// Fills the ellipse.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius_x">The radius x.</param>
+        /// <param name="radius_y">The radius y.</param>
+        /// <param name="brush">The brush.</param>
         public void FillEllipse(float x, float y, float radius_x, float radius_y, Direct2DBrush brush)
         {
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush);
         }
 
+        /// <summary>
+        /// Fills the ellipse.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius_x">The radius x.</param>
+        /// <param name="radius_y">The radius y.</param>
+        /// <param name="color">The color.</param>
         public void FillEllipse(float x, float y, float radius_x, float radius_y, Direct2DColor color)
         {
             _sharedBrush.Color = color;
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush);
         }
 
+        /// <summary>
+        /// Fills the rectangle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="brush">The brush.</param>
         public void FillRectangle(float x, float y, float width, float height, Direct2DBrush brush)
         {
             _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), brush);
         }
 
+        /// <summary>
+        /// Fills the rectangle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="color">The color.</param>
         public void FillRectangle(float x, float y, float width, float height, Direct2DColor color)
         {
             _sharedBrush.Color = color;
@@ -477,6 +742,15 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region Bordered
 
+        /// <summary>
+        /// Bordereds the circle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="borderColor">Color of the border.</param>
         public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DColor color, Direct2DColor borderColor)
         {
             _sharedBrush.Color = color;
@@ -500,6 +774,15 @@ namespace Yato.DirectXOverlay.Renderer
             _device.DrawEllipse(ellipse, _sharedBrush, half);
         }
 
+        /// <summary>
+        /// Bordereds the circle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="borderBrush">The border brush.</param>
         public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
         {
             var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
@@ -519,6 +802,16 @@ namespace Yato.DirectXOverlay.Renderer
             _device.DrawEllipse(ellipse, borderBrush, half);
         }
 
+        /// <summary>
+        /// Bordereds the line.
+        /// </summary>
+        /// <param name="start_x">The start x.</param>
+        /// <param name="start_y">The start y.</param>
+        /// <param name="end_x">The end x.</param>
+        /// <param name="end_y">The end y.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="borderColor">Color of the border.</param>
         public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DColor color, Direct2DColor borderColor)
         {
             var geometry = new PathGeometry(_factory);
@@ -550,6 +843,16 @@ namespace Yato.DirectXOverlay.Renderer
             geometry.Dispose();
         }
 
+        /// <summary>
+        /// Bordereds the line.
+        /// </summary>
+        /// <param name="start_x">The start x.</param>
+        /// <param name="start_y">The start y.</param>
+        /// <param name="end_x">The end x.</param>
+        /// <param name="end_y">The end y.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="borderBrush">The border brush.</param>
         public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
         {
             var geometry = new PathGeometry(_factory);
@@ -577,6 +880,16 @@ namespace Yato.DirectXOverlay.Renderer
             geometry.Dispose();
         }
 
+        /// <summary>
+        /// Bordereds the rectangle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="borderColor">Color of the border.</param>
         public void BorderedRectangle(float x, float y, float width, float height, float stroke, Direct2DColor color, Direct2DColor borderColor)
         {
             float half = stroke / 2.0f;
@@ -595,6 +908,16 @@ namespace Yato.DirectXOverlay.Renderer
             _device.DrawRectangle(new RawRectangleF(x + half, y + half, width - half, height - half), _sharedBrush, half);
         }
 
+        /// <summary>
+        /// Bordereds the rectangle.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="borderBrush">The border brush.</param>
         public void BorderedRectangle(float x, float y, float width, float height, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
         {
             float half = stroke / 2.0f;
@@ -613,6 +936,17 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region Geometry
 
+        /// <summary>
+        /// Draws the triangle.
+        /// </summary>
+        /// <param name="a_x">a x.</param>
+        /// <param name="a_y">a y.</param>
+        /// <param name="b_x">The b x.</param>
+        /// <param name="b_y">The b y.</param>
+        /// <param name="c_x">The c x.</param>
+        /// <param name="c_y">The c y.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, Direct2DBrush brush)
         {
             var geometry = new PathGeometry(_factory);
@@ -632,6 +966,17 @@ namespace Yato.DirectXOverlay.Renderer
             geometry.Dispose();
         }
 
+        /// <summary>
+        /// Draws the triangle.
+        /// </summary>
+        /// <param name="a_x">a x.</param>
+        /// <param name="a_y">a y.</param>
+        /// <param name="b_x">The b x.</param>
+        /// <param name="b_y">The b y.</param>
+        /// <param name="c_x">The c x.</param>
+        /// <param name="c_y">The c y.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="color">The color.</param>
         public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, Direct2DColor color)
         {
             _sharedBrush.Color = color;
@@ -653,6 +998,16 @@ namespace Yato.DirectXOverlay.Renderer
             geometry.Dispose();
         }
 
+        /// <summary>
+        /// Fills the triangle.
+        /// </summary>
+        /// <param name="a_x">a x.</param>
+        /// <param name="a_y">a y.</param>
+        /// <param name="b_x">The b x.</param>
+        /// <param name="b_y">The b y.</param>
+        /// <param name="c_x">The c x.</param>
+        /// <param name="c_y">The c y.</param>
+        /// <param name="brush">The brush.</param>
         public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, Direct2DBrush brush)
         {
             var geometry = new PathGeometry(_factory);
@@ -672,6 +1027,16 @@ namespace Yato.DirectXOverlay.Renderer
             geometry.Dispose();
         }
 
+        /// <summary>
+        /// Fills the triangle.
+        /// </summary>
+        /// <param name="a_x">a x.</param>
+        /// <param name="a_y">a y.</param>
+        /// <param name="b_x">The b x.</param>
+        /// <param name="b_y">The b y.</param>
+        /// <param name="c_x">The c x.</param>
+        /// <param name="c_y">The c y.</param>
+        /// <param name="color">The color.</param>
         public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, Direct2DColor color)
         {
             _sharedBrush.Color = color;
@@ -703,6 +1068,15 @@ namespace Yato.DirectXOverlay.Renderer
 
         private Stopwatch swastikaDeltaTimer = new Stopwatch();
 
+        /// <summary>
+        /// Draws the arrow line.
+        /// </summary>
+        /// <param name="start_x">The start x.</param>
+        /// <param name="start_y">The start y.</param>
+        /// <param name="end_x">The end x.</param>
+        /// <param name="end_y">The end y.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="color">The color.</param>
         public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, Direct2DColor color)
         {
             float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
@@ -730,6 +1104,15 @@ namespace Yato.DirectXOverlay.Renderer
             FillTriangle(start_x, start_y, xm, ym, xn, yn, color);
         }
 
+        /// <summary>
+        /// Draws the arrow line.
+        /// </summary>
+        /// <param name="start_x">The start x.</param>
+        /// <param name="start_y">The start y.</param>
+        /// <param name="end_x">The end x.</param>
+        /// <param name="end_y">The end y.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, Direct2DBrush brush)
         {
             float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
@@ -757,18 +1140,44 @@ namespace Yato.DirectXOverlay.Renderer
             FillTriangle(start_x, start_y, xm, ym, xn, yn, brush);
         }
 
+        /// <summary>
+        /// Draws the bitmap.
+        /// </summary>
+        /// <param name="bmp">The BMP.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="opacity">The opacity.</param>
         public void DrawBitmap(Direct2DBitmap bmp, float x, float y, float opacity)
         {
             Bitmap bitmap = bmp;
             _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
         }
 
+        /// <summary>
+        /// Draws the bitmap.
+        /// </summary>
+        /// <param name="bmp">The BMP.</param>
+        /// <param name="opacity">The opacity.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         public void DrawBitmap(Direct2DBitmap bmp, float opacity, float x, float y, float width, float height)
         {
             Bitmap bitmap = bmp;
             _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
         }
 
+        /// <summary>
+        /// Draws the box2 d.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="interiorColor">Color of the interior.</param>
+        /// <param name="color">The color.</param>
         public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
         {
             var geometry = new PathGeometry(_factory);
@@ -795,6 +1204,16 @@ namespace Yato.DirectXOverlay.Renderer
             geometry.Dispose();
         }
 
+        /// <summary>
+        /// Draws the box2 d.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="interiorBrush">The interior brush.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
         {
             var geometry = new PathGeometry(_factory);
@@ -817,6 +1236,15 @@ namespace Yato.DirectXOverlay.Renderer
             geometry.Dispose();
         }
 
+        /// <summary>
+        /// Draws the crosshair.
+        /// </summary>
+        /// <param name="style">The style.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="color">The color.</param>
         public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, Direct2DColor color)
         {
             _sharedBrush.Color = color;
@@ -871,6 +1299,15 @@ namespace Yato.DirectXOverlay.Renderer
             }
         }
 
+        /// <summary>
+        /// Draws the crosshair.
+        /// </summary>
+        /// <param name="style">The style.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, Direct2DBrush brush)
         {
             if (style == CrosshairStyle.Dot)
@@ -923,6 +1360,17 @@ namespace Yato.DirectXOverlay.Renderer
             }
         }
 
+        /// <summary>
+        /// Draws the horizontal bar.
+        /// </summary>
+        /// <param name="percentage">The percentage.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="interiorColor">Color of the interior.</param>
+        /// <param name="color">The color.</param>
         public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
         {
             float half = stroke / 2.0f;
@@ -945,6 +1393,17 @@ namespace Yato.DirectXOverlay.Renderer
             _device.FillRectangle(rect, _sharedBrush);
         }
 
+        /// <summary>
+        /// Draws the horizontal bar.
+        /// </summary>
+        /// <param name="percentage">The percentage.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="interiorBrush">The interior brush.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
         {
             float half = stroke / 2.0f;
@@ -964,6 +1423,17 @@ namespace Yato.DirectXOverlay.Renderer
             _device.FillRectangle(rect, interiorBrush);
         }
 
+        /// <summary>
+        /// Draws the vertical bar.
+        /// </summary>
+        /// <param name="percentage">The percentage.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="interiorColor">Color of the interior.</param>
+        /// <param name="color">The color.</param>
         public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
         {
             float half = stroke / 2.0f;
@@ -987,6 +1457,17 @@ namespace Yato.DirectXOverlay.Renderer
             _device.FillRectangle(rect, _sharedBrush);
         }
 
+        /// <summary>
+        /// Draws the vertical bar.
+        /// </summary>
+        /// <param name="percentage">The percentage.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="interiorBrush">The interior brush.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
         {
             float half = stroke / 2.0f;
@@ -1006,6 +1487,14 @@ namespace Yato.DirectXOverlay.Renderer
             _device.FillRectangle(rect, interiorBrush);
         }
 
+        /// <summary>
+        /// Rotates the swastika.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="color">The color.</param>
         public void RotateSwastika(float x, float y, float size, float stroke, Direct2DColor color)
         {
             if (!swastikaDeltaTimer.IsRunning) swastikaDeltaTimer.Start();
@@ -1051,17 +1540,42 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region Text
 
+        /// <summary>
+        /// Draws the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="color">The color.</param>
         public void DrawText(string text, float x, float y, Direct2DFont font, Direct2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), _sharedBrush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
+        /// <summary>
+        /// Draws the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawText(string text, float x, float y, Direct2DFont font, Direct2DBrush brush)
         {
             _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), brush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
+        /// <summary>
+        /// Draws the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="fontSize">Size of the font.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="color">The color.</param>
         public void DrawText(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color)
         {
             _sharedBrush.Color = color;
@@ -1075,6 +1589,15 @@ namespace Yato.DirectXOverlay.Renderer
             layout.Dispose();
         }
 
+        /// <summary>
+        /// Draws the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="fontSize">Size of the font.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawText(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
@@ -1086,6 +1609,15 @@ namespace Yato.DirectXOverlay.Renderer
             layout.Dispose();
         }
 
+        /// <summary>
+        /// Draws the text with background.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="backgroundColor">Color of the background.</param>
         public void DrawTextWithBackground(string text, float x, float y, Direct2DFont font, Direct2DColor color, Direct2DColor backgroundColor)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
@@ -1103,6 +1635,15 @@ namespace Yato.DirectXOverlay.Renderer
             layout.Dispose();
         }
 
+        /// <summary>
+        /// Draws the text with background.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="backgroundBrush">The background brush.</param>
         public void DrawTextWithBackground(string text, float x, float y, Direct2DFont font, Direct2DBrush brush, Direct2DBrush backgroundBrush)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
@@ -1116,6 +1657,16 @@ namespace Yato.DirectXOverlay.Renderer
             layout.Dispose();
         }
 
+        /// <summary>
+        /// Draws the text with background.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="fontSize">Size of the font.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="backgroundColor">Color of the background.</param>
         public void DrawTextWithBackground(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color, Direct2DColor backgroundColor)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
@@ -1135,6 +1686,16 @@ namespace Yato.DirectXOverlay.Renderer
             layout.Dispose();
         }
 
+        /// <summary>
+        /// Draws the text with background.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="fontSize">Size of the font.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="backgroundBrush">The background brush.</param>
         public void DrawTextWithBackground(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush, Direct2DBrush backgroundBrush)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
@@ -1171,6 +1732,10 @@ namespace Yato.DirectXOverlay.Renderer
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

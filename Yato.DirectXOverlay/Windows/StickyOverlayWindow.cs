@@ -5,6 +5,9 @@ using Yato.DirectXOverlay.PInvoke;
 
 namespace Yato.DirectXOverlay.Windows
 {
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="Yato.DirectXOverlay.Windows.OverlayWindow"/>
     public class StickyOverlayWindow : OverlayWindow
     {
         private static OverlayCreationOptions DefaultOptions = new OverlayCreationOptions()
@@ -20,12 +23,29 @@ namespace Yato.DirectXOverlay.Windows
         private bool _exitServiceThread;
         private Thread _serviceThread;
 
+        /// <summary>
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         public delegate void WindowBoundsChanged(int x, int y, int width, int height);
 
+        /// <summary>
+        /// Occurs when [on window bounds changed].
+        /// </summary>
         public event WindowBoundsChanged OnWindowBoundsChanged;
 
+        /// <summary>
+        /// Gets the parent window handle.
+        /// </summary>
+        /// <value>The parent window handle.</value>
         public IntPtr ParentWindowHandle { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StickyOverlayWindow"/> class.
+        /// </summary>
+        /// <param name="parentWindowHandle">The parent window handle.</param>
         public StickyOverlayWindow(IntPtr parentWindowHandle) : base(DefaultOptions)
         {
             ParentWindowHandle = parentWindowHandle;
@@ -33,6 +53,11 @@ namespace Yato.DirectXOverlay.Windows
             Install(DefaultOptions);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StickyOverlayWindow"/> class.
+        /// </summary>
+        /// <param name="parentWindowHandle">The parent window handle.</param>
+        /// <param name="options">The options.</param>
         public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayCreationOptions options) : base(options)
         {
             ParentWindowHandle = parentWindowHandle;
@@ -45,6 +70,10 @@ namespace Yato.DirectXOverlay.Windows
             Dispose(false);
         }
 
+        /// <summary>
+        /// Installs the specified options.
+        /// </summary>
+        /// <param name="options">The options.</param>
         public void Install(OverlayCreationOptions options)
         {
             if (ParentWindowHandle == IntPtr.Zero || _exitServiceThread || _serviceThread != null) return;
@@ -62,6 +91,9 @@ namespace Yato.DirectXOverlay.Windows
             _serviceThread.Start();
         }
 
+        /// <summary>
+        /// Uns the install.
+        /// </summary>
         public void UnInstall()
         {
             if (ParentWindowHandle == IntPtr.Zero) return;
