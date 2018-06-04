@@ -1062,12 +1062,6 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region Special
 
-        private int lastTime = 0;
-
-        private float rotationState = 0.0f;
-
-        private Stopwatch swastikaDeltaTimer = new Stopwatch();
-
         /// <summary>
         /// Draws the arrow line.
         /// </summary>
@@ -1276,27 +1270,6 @@ namespace Yato.DirectXOverlay.Renderer
                 DrawLine(x - size, y - size, x + size, y + size, stroke, color);
                 DrawLine(x + size, y - size, x - size, y + size, stroke, color);
             }
-            else if (style == CrosshairStyle.Swastika)
-            {
-                RawVector2 first = new RawVector2(x - size, y);
-                RawVector2 second = new RawVector2(x + size, y);
-
-                RawVector2 third = new RawVector2(x, y - size);
-                RawVector2 fourth = new RawVector2(x, y + size);
-
-                RawVector2 haken_1 = new RawVector2(third.X + size, third.Y);
-                RawVector2 haken_2 = new RawVector2(second.X, second.Y + size);
-                RawVector2 haken_3 = new RawVector2(fourth.X - size, fourth.Y);
-                RawVector2 haken_4 = new RawVector2(first.X, first.Y - size);
-
-                _device.DrawLine(first, second, _sharedBrush, stroke);
-                _device.DrawLine(third, fourth, _sharedBrush, stroke);
-
-                _device.DrawLine(third, haken_1, _sharedBrush, stroke);
-                _device.DrawLine(second, haken_2, _sharedBrush, stroke);
-                _device.DrawLine(fourth, haken_3, _sharedBrush, stroke);
-                _device.DrawLine(first, haken_4, _sharedBrush, stroke);
-            }
         }
 
         /// <summary>
@@ -1336,27 +1309,6 @@ namespace Yato.DirectXOverlay.Renderer
             {
                 DrawLine(x - size, y - size, x + size, y + size, stroke, brush);
                 DrawLine(x + size, y - size, x - size, y + size, stroke, brush);
-            }
-            else if (style == CrosshairStyle.Swastika)
-            {
-                RawVector2 first = new RawVector2(x - size, y);
-                RawVector2 second = new RawVector2(x + size, y);
-
-                RawVector2 third = new RawVector2(x, y - size);
-                RawVector2 fourth = new RawVector2(x, y + size);
-
-                RawVector2 haken_1 = new RawVector2(third.X + size, third.Y);
-                RawVector2 haken_2 = new RawVector2(second.X, second.Y + size);
-                RawVector2 haken_3 = new RawVector2(fourth.X - size, fourth.Y);
-                RawVector2 haken_4 = new RawVector2(first.X, first.Y - size);
-
-                _device.DrawLine(first, second, brush, stroke);
-                _device.DrawLine(third, fourth, brush, stroke);
-
-                _device.DrawLine(third, haken_1, brush, stroke);
-                _device.DrawLine(second, haken_2, brush, stroke);
-                _device.DrawLine(fourth, haken_3, brush, stroke);
-                _device.DrawLine(first, haken_4, brush, stroke);
             }
         }
 
@@ -1485,55 +1437,6 @@ namespace Yato.DirectXOverlay.Renderer
             rect.Bottom -= quarter;
 
             _device.FillRectangle(rect, interiorBrush);
-        }
-
-        /// <summary>
-        /// Rotates the swastika.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="color">The color.</param>
-        public void RotateSwastika(float x, float y, float size, float stroke, Direct2DColor color)
-        {
-            if (!swastikaDeltaTimer.IsRunning) swastikaDeltaTimer.Start();
-
-            int thisTime = (int)swastikaDeltaTimer.ElapsedMilliseconds;
-
-            if (Math.Abs(thisTime - lastTime) >= 3)
-            {
-                rotationState += 0.1f;
-                lastTime = (int)swastikaDeltaTimer.ElapsedMilliseconds;
-            }
-
-            if (thisTime >= 1000) swastikaDeltaTimer.Restart();
-
-            if (rotationState > size)
-            {
-                rotationState = size * -1.0f;
-            }
-
-            _sharedBrush.Color = color;
-
-            RawVector2 first = new RawVector2(x - size, y - rotationState);
-            RawVector2 second = new RawVector2(x + size, y + rotationState);
-
-            RawVector2 third = new RawVector2(x + rotationState, y - size);
-            RawVector2 fourth = new RawVector2(x - rotationState, y + size);
-
-            RawVector2 haken_1 = new RawVector2(third.X + size, third.Y + rotationState);
-            RawVector2 haken_2 = new RawVector2(second.X - rotationState, second.Y + size);
-            RawVector2 haken_3 = new RawVector2(fourth.X - size, fourth.Y - rotationState);
-            RawVector2 haken_4 = new RawVector2(first.X + rotationState, first.Y - size);
-
-            _device.DrawLine(first, second, _sharedBrush, stroke);
-            _device.DrawLine(third, fourth, _sharedBrush, stroke);
-
-            _device.DrawLine(third, haken_1, _sharedBrush, stroke);
-            _device.DrawLine(second, haken_2, _sharedBrush, stroke);
-            _device.DrawLine(fourth, haken_3, _sharedBrush, stroke);
-            _device.DrawLine(first, haken_4, _sharedBrush, stroke);
         }
 
         #endregion Special

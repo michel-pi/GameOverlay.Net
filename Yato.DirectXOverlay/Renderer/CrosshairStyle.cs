@@ -7,11 +7,29 @@ namespace Yato.DirectXOverlay.Renderer
     /// </summary>
     public enum CrosshairStyle
     {
+        /// <summary>
+        /// Draws a single dot
+        /// </summary>
         Dot,
+
+        /// <summary>
+        /// Draws a +
+        /// </summary>
         Plus,
+
+        /// <summary>
+        /// Draws a cross
+        /// </summary>
         Cross,
+
+        /// <summary>
+        /// Draws a + with a gap in the middle
+        /// </summary>
         Gap,
-        Diagonal,
-        Swastika
+
+        /// <summary>
+        /// Draws diagonal lines
+        /// </summary>
+        Diagonal
     }
 }
