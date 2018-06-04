@@ -441,5 +441,20 @@ namespace Yato.DirectXOverlay.PInvoke
         public delegate bool UpdateWindow_t(IntPtr hWnd);
 
         public delegate int WaitMessage_t();
+
+        public delegate IntPtr SetThreadDpiAwarenessContext_t(ref int dpiContext);
+
+        public static void SetThreadDpiAware()
+        {
+            IntPtr procAddress = WinApi.GetProcAddress("user32.dll", "SetThreadDpiAwarenessContext");
+
+            if (procAddress == IntPtr.Zero) return;
+
+            var method = WinApi.GetMethod<SetThreadDpiAwarenessContext_t>("user32.dll", "SetThreadDpiAwarenessContext");
+
+            int dpiContext = -3;
+
+            method(ref dpiContext);
+        }
     }
 }

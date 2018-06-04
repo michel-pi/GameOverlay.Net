@@ -258,6 +258,8 @@ namespace Yato.DirectXOverlay.Windows
 
         private void WindowThreadProcedure(int x = 0, int y = 0, int width = 800, int height = 600)
         {
+            User32.SetThreadDpiAware();
+
             SetupInstance(x, y, width, height);
 
             while (true)
