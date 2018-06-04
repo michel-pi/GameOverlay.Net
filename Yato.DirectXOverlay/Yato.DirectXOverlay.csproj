@@ -33,6 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Yato.DirectXOverlay.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
