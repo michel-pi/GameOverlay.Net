@@ -22,6 +22,10 @@ Transparent windows optionally stick to their parent.
 - Limit your frames per second dynamically
 - Overall great performance (hardware accelerated)
 
+### Contribute
+
+You can help me by creating a better documentation or simply suggest features or report bugs via Github Issues
+
 ### Dependencies
 
 SharpDX.Direct2D1, SharpDX.DXGI, SharpDX
