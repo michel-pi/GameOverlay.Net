@@ -7,7 +7,7 @@ namespace Yato.DirectXOverlay.PInvoke
     /// <c>MARGIN</c> struct used with DesktopWindowManager
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct MARGIN
+    internal struct MARGIN
     {
         public int cxLeftWidth;
         public int cxRightWidth;

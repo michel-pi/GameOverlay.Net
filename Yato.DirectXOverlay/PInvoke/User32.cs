@@ -6,7 +6,7 @@ namespace Yato.DirectXOverlay.PInvoke
     /// <summary>
     /// All WindowsMessages
     /// </summary>
-    public enum WindowsMessage : uint
+    internal enum WindowsMessage : uint
     {
         WM_NULL = 0x0000,
         WM_CREATE = 0x0001,
@@ -274,7 +274,7 @@ namespace Yato.DirectXOverlay.PInvoke
     /// Contains a WindowsMessage
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct Message
+    internal struct Message
     {
         public IntPtr Hwnd;
         public WindowsMessage Msg;
@@ -289,7 +289,7 @@ namespace Yato.DirectXOverlay.PInvoke
     /// X and Y desktop coordinates
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct POINT
+    internal struct POINT
     {
         public int X;
         public int Y;
@@ -311,7 +311,7 @@ namespace Yato.DirectXOverlay.PInvoke
     /// Stores information for window creation
     /// </summary>
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    public struct WNDCLASSEX
+    internal struct WNDCLASSEX
     {
         public uint cbSize;
         public uint style;
