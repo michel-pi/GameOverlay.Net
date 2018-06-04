@@ -46,6 +46,9 @@ namespace Yato.DirectXOverlay.Renderer
             Font = new TextFormat(factory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Direct2DFont"/> class.
+        /// </summary>
         ~Direct2DFont()
         {
             Font.Dispose();
@@ -155,6 +158,11 @@ namespace Yato.DirectXOverlay.Renderer
             }
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Direct2DFont"/> to <see cref="TextFormat"/>.
+        /// </summary>
+        /// <param name="font">The font.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator TextFormat(Direct2DFont font)
         {
             return font.Font;

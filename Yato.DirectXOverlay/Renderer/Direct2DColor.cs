@@ -9,9 +9,24 @@ namespace Yato.DirectXOverlay.Renderer
     /// </summary>
     public struct Direct2DColor
     {
+        /// <summary>
+        /// The alpha
+        /// </summary>
         public float Alpha;
+
+        /// <summary>
+        /// The blue
+        /// </summary>
         public float Blue;
+
+        /// <summary>
+        /// The green
+        /// </summary>
         public float Green;
+
+        /// <summary>
+        /// The red
+        /// </summary>
         public float Red;
 
         /// <summary>
@@ -72,11 +87,21 @@ namespace Yato.DirectXOverlay.Renderer
             Alpha = alpha;
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="RawColor4"/> to <see cref="Direct2DColor"/>.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator Direct2DColor(RawColor4 color)
         {
             return new Direct2DColor(color.R, color.G, color.B, color.A);
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Direct2DColor"/> to <see cref="RawColor4"/>.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator RawColor4(Direct2DColor color)
         {
             return new RawColor4(color.Red, color.Green, color.Blue, color.Alpha);

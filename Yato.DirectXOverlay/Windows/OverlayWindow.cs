@@ -139,6 +139,9 @@ namespace Yato.DirectXOverlay.Windows
             while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="OverlayWindow"/> class.
+        /// </summary>
         ~OverlayWindow()
         {
             Dispose(false);
@@ -362,8 +365,18 @@ namespace Yato.DirectXOverlay.Windows
 
         #region IDisposable Support
 
+        /// <summary>
+        /// The disposed value
+        /// </summary>
         private bool disposedValue = false;
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        /// unmanaged resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

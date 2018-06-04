@@ -39,6 +39,9 @@ namespace Yato.DirectXOverlay.Renderer
             Brush = new SolidColorBrush(renderTarget, color);
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Direct2DBrush"/> class.
+        /// </summary>
         ~Direct2DBrush()
         {
             Brush.Dispose();
@@ -60,16 +63,31 @@ namespace Yato.DirectXOverlay.Renderer
             }
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Direct2DBrush"/> to <see cref="Direct2DColor"/>.
+        /// </summary>
+        /// <param name="brush">The brush.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator Direct2DColor(Direct2DBrush brush)
         {
             return brush.Color;
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Direct2DBrush"/> to <see cref="RawColor4"/>.
+        /// </summary>
+        /// <param name="brush">The brush.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator RawColor4(Direct2DBrush brush)
         {
             return brush.Color;
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Direct2DBrush"/> to <see cref="SolidColorBrush"/>.
+        /// </summary>
+        /// <param name="brush">The brush.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator SolidColorBrush(Direct2DBrush brush)
         {
             return brush.Brush;

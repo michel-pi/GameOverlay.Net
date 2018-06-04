@@ -53,6 +53,9 @@ namespace Yato.DirectXOverlay
             _stopwatch = new Stopwatch();
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="FrameTimer"/> class.
+        /// </summary>
         ~FrameTimer()
         {
             _stopwatch.Stop();

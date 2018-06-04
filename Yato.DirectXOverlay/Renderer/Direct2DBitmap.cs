@@ -41,6 +41,9 @@ namespace Yato.DirectXOverlay.Renderer
             LoadBitmap(device, File.ReadAllBytes(file));
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Direct2DBitmap"/> class.
+        /// </summary>
         ~Direct2DBitmap()
         {
             SharpDXBitmap.Dispose();
@@ -70,6 +73,11 @@ namespace Yato.DirectXOverlay.Renderer
             stream.Dispose();
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Direct2DBitmap"/> to <see cref="Bitmap"/>.
+        /// </summary>
+        /// <param name="bmp">The BMP.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator Bitmap(Direct2DBitmap bmp)
         {
             return bmp.SharpDXBitmap;

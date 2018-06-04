@@ -164,6 +164,9 @@ namespace Yato.DirectXOverlay.Renderer
             SetupInstance(options);
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Direct2DRenderer"/> class.
+        /// </summary>
         ~Direct2DRenderer()
         {
             Dispose(false);
@@ -475,10 +478,15 @@ namespace Yato.DirectXOverlay.Renderer
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush, stroke);
         }
 
-        /// <summary> Draws an ellipse </summary> <param name="x">X - Ellipse center</param> <param
-        /// name="y">Y - Ellipse center</param> <param name="radius_x">The radius on x axis</param>
-        /// <param name="radius_y">The radius on y axis</param> <param name="stroke">Line
-        /// stroke</param> <param name="brush">Brush to use<</param>
+        /// <summary>
+        /// Draws the ellipse.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius_x">The radius x.</param>
+        /// <param name="radius_y">The radius y.</param>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
         public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DBrush brush)
         {
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush, stroke);
@@ -1618,8 +1626,18 @@ namespace Yato.DirectXOverlay.Renderer
 
         #region IDisposable Support
 
+        /// <summary>
+        /// The disposed value
+        /// </summary>
         private bool disposedValue = false;
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        /// unmanaged resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

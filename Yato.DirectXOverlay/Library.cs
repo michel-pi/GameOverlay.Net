@@ -3,6 +3,8 @@ using System.Reflection;
 
 namespace Yato.DirectXOverlay
 {
+    /// <summary>
+    /// </summary>
     public static class Library
     {
         /// <summary>
