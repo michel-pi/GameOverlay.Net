@@ -261,6 +261,8 @@ namespace Yato.DirectXOverlay.Renderer
 
             if (_resize)
             {
+                Width = _resizeWidth;
+                Height = _resizeHeight;
                 _device.Resize(new Size2(_resizeWidth, _resizeHeight));
                 _resize = false;
             }

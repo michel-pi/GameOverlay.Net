@@ -5,12 +5,12 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{313A83B1-C9C1-411D-A747-63BFA1FFA24C}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Yato.DirectXOverlay</RootNamespace>
     <AssemblyName>Yato.DirectXOverlay</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.21.4.6730</AssemblyVersion>
+    <AssemblyVersion>1.26.17.6743</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,7 +37,8 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
@@ -61,6 +62,7 @@
   <ItemGroup>
     <Compile Include="FrameTimer.cs" />
     <Compile Include="HelperMethods.cs" />
+    <Compile Include="Issue9.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Windows\StickyOverlayWindow.cs" />
     <Compile Include="Windows\OverlayCreationOptions.cs" />
