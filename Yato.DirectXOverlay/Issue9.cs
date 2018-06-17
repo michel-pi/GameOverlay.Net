@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEBUG
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -91,3 +92,4 @@ namespace Yato.DirectXOverlay
         #endregion
     }
 }
+#endif
