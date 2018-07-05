@@ -2,7 +2,7 @@
 
 using SharpDX.DirectWrite;
 
-namespace Yato.DirectXOverlay.Renderer
+namespace GameOverlay.Renderer
 {
     /// <summary>
     /// </summary>

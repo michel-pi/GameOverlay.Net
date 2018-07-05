@@ -10,9 +10,9 @@ using SharpDX.Mathematics.Interop;
 using FontFactory = SharpDX.DirectWrite.Factory;
 using Factory = SharpDX.Direct2D1.Factory;
 
-using Yato.DirectXOverlay.PInvoke;
+using GameOverlay.PInvoke;
 
-namespace Yato.DirectXOverlay.Renderer
+namespace GameOverlay.Renderer
 {
     /// <summary>
     /// Represents a drawing device of a window

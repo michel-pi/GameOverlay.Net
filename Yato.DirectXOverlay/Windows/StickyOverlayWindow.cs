@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 
-using Yato.DirectXOverlay.PInvoke;
+using GameOverlay.PInvoke;
 
-namespace Yato.DirectXOverlay.Windows
+namespace GameOverlay.Windows
 {
     /// <summary>
     /// </summary>
-    /// <seealso cref="Yato.DirectXOverlay.Windows.OverlayWindow"/>
+    /// <seealso cref="GameOverlay.DirectXOverlay.Windows.OverlayWindow"/>
     public class StickyOverlayWindow : OverlayWindow
     {
         private static OverlayCreationOptions DefaultOptions = new OverlayCreationOptions()

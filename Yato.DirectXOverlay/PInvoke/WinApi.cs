@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Yato.DirectXOverlay.PInvoke
+namespace GameOverlay.PInvoke
 {
     internal static class WinApi
     {

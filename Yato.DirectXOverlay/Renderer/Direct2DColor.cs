@@ -2,7 +2,7 @@
 
 using SharpDX.Mathematics.Interop;
 
-namespace Yato.DirectXOverlay.Renderer
+namespace GameOverlay.Renderer
 {
     /// <summary>
     /// Represents a ARGB color

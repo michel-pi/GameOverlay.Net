@@ -4,7 +4,7 @@ using SharpDX.DirectWrite;
 
 using FontFactory = SharpDX.DirectWrite.Factory;
 
-namespace Yato.DirectXOverlay.Renderer
+namespace GameOverlay.Renderer
 {
     /// <summary>
     /// Stores a <c>Direct2DRenderer</c> compatible font

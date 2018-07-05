@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Yato.DirectXOverlay
+namespace GameOverlay
 {
     /// <summary>
     /// </summary>

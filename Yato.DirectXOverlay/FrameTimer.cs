@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 
-namespace Yato.DirectXOverlay
+namespace GameOverlay
 {
     /// <summary>
     /// Offers methods to create a frame loop

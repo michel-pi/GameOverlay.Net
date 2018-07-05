@@ -3,10 +3,10 @@
 using System;
 using System.Diagnostics;
 
-using Yato.DirectXOverlay.Windows;
-using Yato.DirectXOverlay.Renderer;
+using GameOverlay.Windows;
+using GameOverlay.Renderer;
 
-namespace Yato.DirectXOverlay
+namespace GameOverlay
 {
     internal class Program
     {

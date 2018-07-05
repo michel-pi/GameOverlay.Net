@@ -3,9 +3,9 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
-using Yato.DirectXOverlay.PInvoke;
+using GameOverlay.PInvoke;
 
-namespace Yato.DirectXOverlay.Windows
+namespace GameOverlay.Windows
 {
     /// <summary>
     /// </summary>

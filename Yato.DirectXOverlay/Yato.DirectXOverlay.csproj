@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{313A83B1-C9C1-411D-A747-63BFA1FFA24C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Yato.DirectXOverlay</RootNamespace>
-    <AssemblyName>Yato.DirectXOverlay</AssemblyName>
+    <RootNamespace>GameOverlay</RootNamespace>
+    <AssemblyName>GameOverlay</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AssemblyVersion>1.27.17.6743</AssemblyVersion>
@@ -33,7 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>bin\Release\Yato.DirectXOverlay.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\GameOverlay.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="FrameTimer.cs" />
     <Compile Include="HelperMethods.cs" />
-    <Compile Include="Issue9.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Windows\StickyOverlayWindow.cs" />
     <Compile Include="Windows\OverlayCreationOptions.cs" />

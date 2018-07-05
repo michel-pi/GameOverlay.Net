@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Yato.DirectXOverlay.PInvoke
+namespace GameOverlay.PInvoke
 {
     /// <summary>
     /// <c>MARGIN</c> struct used with DesktopWindowManager

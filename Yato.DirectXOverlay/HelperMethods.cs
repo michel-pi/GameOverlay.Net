@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Yato.DirectXOverlay.PInvoke;
+using GameOverlay.PInvoke;
 
-namespace Yato.DirectXOverlay
+namespace GameOverlay
 {
     /// <summary>
     /// Useful Methods

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yato.DirectXOverlay.Renderer
+namespace GameOverlay.Renderer
 {
     /// <summary>
     /// Offers different build in styles for crosshairs

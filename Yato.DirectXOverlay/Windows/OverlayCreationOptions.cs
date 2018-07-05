@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yato.DirectXOverlay.Windows
+namespace GameOverlay.Windows
 {
     /// <summary>
     /// </summary>

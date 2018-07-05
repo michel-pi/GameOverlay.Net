@@ -3,7 +3,7 @@ using System.IO;
 
 using SharpDX.Direct2D1;
 
-namespace Yato.DirectXOverlay.Renderer
+namespace GameOverlay.Renderer
 {
     /// <summary>
     /// Stores a Bitmap compatible with <c>Direct2DRenderer</c>
