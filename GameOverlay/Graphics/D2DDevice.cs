@@ -19,7 +19,7 @@ namespace GameOverlay.Graphics
     /// Represents a drawing device of a window
     /// </summary>
     /// <seealso cref="System.IDisposable"/>
-    public class Direct2DDevice : IDisposable
+    public class D2DDevice : IDisposable
     {
         #region private vars
 
@@ -81,16 +81,16 @@ namespace GameOverlay.Graphics
 
         #region construct & destruct
 
-        private Direct2DDevice()
+        private D2DDevice()
         {
             throw new NotSupportedException();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
+        /// Initializes a new instance of the <see cref="D2DDevice"/> class.
         /// </summary>
         /// <param name="hwnd">A valid window handle</param>
-        public Direct2DDevice(IntPtr hwnd)
+        public D2DDevice(IntPtr hwnd)
         {
             var options = new RendererOptions()
             {
@@ -103,11 +103,11 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
+        /// Initializes a new instance of the <see cref="D2DDevice"/> class.
         /// </summary>
         /// <param name="hwnd">A valid window handle</param>
         /// <param name="vsync">if set to <c>true</c> [vsync].</param>
-        public Direct2DDevice(IntPtr hwnd, bool vsync)
+        public D2DDevice(IntPtr hwnd, bool vsync)
         {
             var options = new RendererOptions()
             {
@@ -120,12 +120,12 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
+        /// Initializes a new instance of the <see cref="D2DDevice"/> class.
         /// </summary>
         /// <param name="hwnd">A valid window handle</param>
         /// <param name="vsync">if set to <c>true</c> [vsync].</param>
         /// <param name="measureFps">if set to <c>true</c> [measure FPS].</param>
-        public Direct2DDevice(IntPtr hwnd, bool vsync, bool measureFps)
+        public D2DDevice(IntPtr hwnd, bool vsync, bool measureFps)
         {
             var options = new RendererOptions()
             {
@@ -138,13 +138,13 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
+        /// Initializes a new instance of the <see cref="D2DDevice"/> class.
         /// </summary>
         /// <param name="hwnd">A valid window handle</param>
         /// <param name="vsync">if set to <c>true</c> [vsync].</param>
         /// <param name="measureFps">if set to <c>true</c> [measure FPS].</param>
         /// <param name="antiAliasing">if set to <c>true</c> [anti aliasing].</param>
-        public Direct2DDevice(IntPtr hwnd, bool vsync, bool measureFps, bool antiAliasing)
+        public D2DDevice(IntPtr hwnd, bool vsync, bool measureFps, bool antiAliasing)
         {
             var options = new RendererOptions()
             {
@@ -157,18 +157,18 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
+        /// Initializes a new instance of the <see cref="D2DDevice"/> class.
         /// </summary>
         /// <param name="options">Creation options</param>
-        public Direct2DDevice(RendererOptions options)
+        public D2DDevice(RendererOptions options)
         {
             SetupInstance(options);
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Direct2DDevice"/> class.
+        /// Finalizes an instance of the <see cref="D2DDevice"/> class.
         /// </summary>
-        ~Direct2DDevice()
+        ~D2DDevice()
         {
             Dispose(false);
         }
@@ -285,7 +285,7 @@ namespace GameOverlay.Graphics
         /// Clears the scene with background color
         /// </summary>
         /// <param name="color">The color</param>
-        public void ClearScene(Direct2DColor color)
+        public void ClearScene(D2DColor color)
         {
             _device.Clear(color);
         }
@@ -294,7 +294,7 @@ namespace GameOverlay.Graphics
         /// Clears the scene with background color
         /// </summary>
         /// <param name="brush">The brush</param>
-        public void ClearScene(Direct2DBrush brush)
+        public void ClearScene(D2DBrush brush)
         {
             _device.Clear(brush);
         }
@@ -363,9 +363,9 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="color">The color</param>
         /// <returns></returns>
-        public Direct2DBrush CreateBrush(Direct2DColor color)
+        public D2DBrush CreateBrush(D2DColor color)
         {
-            return new Direct2DBrush(_device, color);
+            return new D2DBrush(_device, color);
         }
 
         /// <summary>
@@ -376,9 +376,9 @@ namespace GameOverlay.Graphics
         /// <param name="b">Blue 0 - 255</param>
         /// <param name="a">Alpha 0 - 255</param>
         /// <returns></returns>
-        public Direct2DBrush CreateBrush(int r, int g, int b, int a = 255)
+        public D2DBrush CreateBrush(int r, int g, int b, int a = 255)
         {
-            return new Direct2DBrush(_device, new Direct2DColor(r, g, b, a));
+            return new D2DBrush(_device, new D2DColor(r, g, b, a));
         }
 
         /// <summary>
@@ -389,9 +389,9 @@ namespace GameOverlay.Graphics
         /// <param name="b">Blue 0.0f - 1.0f</param>
         /// <param name="a">Alpha 0.0f - 1.0f</param>
         /// <returns></returns>
-        public Direct2DBrush CreateBrush(float r, float g, float b, float a = 1.0f)
+        public D2DBrush CreateBrush(float r, float g, float b, float a = 1.0f)
         {
-            return new Direct2DBrush(_device, new Direct2DColor(r, g, b, a));
+            return new D2DBrush(_device, new D2DColor(r, g, b, a));
         }
 
         /// <summary>
@@ -402,9 +402,9 @@ namespace GameOverlay.Graphics
         /// <param name="bold">if set to <c>true</c> [bold].</param>
         /// <param name="italic">if set to <c>true</c> [italic].</param>
         /// <returns></returns>
-        public Direct2DFont CreateFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
+        public D2DFont CreateFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
-            return new Direct2DFont(_fontFactory, fontFamilyName, size, bold, italic);
+            return new D2DFont(_fontFactory, fontFamilyName, size, bold, italic);
         }
 
         /// <summary>
@@ -412,10 +412,10 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="options">Creation options</param>
         /// <returns></returns>
-        public Direct2DFont CreateFont(FontCreationOptions options)
+        public D2DFont CreateFont(FontCreationOptions options)
         {
             TextFormat font = new TextFormat(_fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize);
-            return new Direct2DFont(font);
+            return new D2DFont(font);
         }
 
         /// <summary>
@@ -462,7 +462,7 @@ namespace GameOverlay.Graphics
         /// <param name="radius">Circle radius</param>
         /// <param name="stroke">Line stroke</param>
         /// <param name="brush">Brush to use</param>
-        public void DrawCircle(float x, float y, float radius, float stroke, Direct2DBrush brush)
+        public void DrawCircle(float x, float y, float radius, float stroke, D2DBrush brush)
         {
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush, stroke);
         }
@@ -475,7 +475,7 @@ namespace GameOverlay.Graphics
         /// <param name="radius">Circle radius</param>
         /// <param name="stroke">Line stroke</param>
         /// <param name="color"><c>Direct2DColor</c></param>
-        public void DrawCircle(float x, float y, float radius, float stroke, Direct2DColor color)
+        public void DrawCircle(float x, float y, float radius, float stroke, D2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush, stroke);
@@ -490,7 +490,7 @@ namespace GameOverlay.Graphics
         /// <param name="radius_y">The radius y.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DBrush brush)
+        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, D2DBrush brush)
         {
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush, stroke);
         }
@@ -504,7 +504,7 @@ namespace GameOverlay.Graphics
         /// <param name="radius_y">The radius on y axis</param>
         /// <param name="stroke">Line stroke</param>
         /// <param name="color"><c>Direct2DColor</c></param>
-        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, Direct2DColor color)
+        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, D2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush, stroke);
@@ -519,7 +519,7 @@ namespace GameOverlay.Graphics
         /// <param name="end_y">The end y.</param>
         /// <param name="stroke">Line stroke</param>
         /// <param name="brush">The brush.</param>
-        public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DBrush brush)
+        public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DBrush brush)
         {
             _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush, stroke);
         }
@@ -533,7 +533,7 @@ namespace GameOverlay.Graphics
         /// <param name="end_y">The end y.</param>
         /// <param name="stroke">Line stroke</param>
         /// <param name="color">The color.</param>
-        public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DColor color)
+        public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), _sharedBrush, stroke);
@@ -548,7 +548,7 @@ namespace GameOverlay.Graphics
         /// <param name="height">The height.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawRectangle(float x, float y, float width, float height, float stroke, Direct2DBrush brush)
+        public void DrawRectangle(float x, float y, float width, float height, float stroke, D2DBrush brush)
         {
             _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), brush, stroke);
         }
@@ -562,7 +562,7 @@ namespace GameOverlay.Graphics
         /// <param name="height">The height.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="color">The color.</param>
-        public void DrawRectangle(float x, float y, float width, float height, float stroke, Direct2DColor color)
+        public void DrawRectangle(float x, float y, float width, float height, float stroke, D2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush, stroke);
@@ -577,7 +577,7 @@ namespace GameOverlay.Graphics
         /// <param name="height">The height.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, Direct2DBrush brush)
+        public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, D2DBrush brush)
         {
             int length = (int)(((width + height) / 2.0f) * 0.2f);
 
@@ -625,7 +625,7 @@ namespace GameOverlay.Graphics
         /// <param name="height">The height.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="color">The color.</param>
-        public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, Direct2DColor color)
+        public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, D2DColor color)
         {
             _sharedBrush.Color = color;
 
@@ -677,7 +677,7 @@ namespace GameOverlay.Graphics
         /// <param name="y">The y.</param>
         /// <param name="radius">The radius.</param>
         /// <param name="brush">The brush.</param>
-        public void FillCircle(float x, float y, float radius, Direct2DBrush brush)
+        public void FillCircle(float x, float y, float radius, D2DBrush brush)
         {
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush);
         }
@@ -689,7 +689,7 @@ namespace GameOverlay.Graphics
         /// <param name="y">The y.</param>
         /// <param name="radius">The radius.</param>
         /// <param name="color">The color.</param>
-        public void FillCircle(float x, float y, float radius, Direct2DColor color)
+        public void FillCircle(float x, float y, float radius, D2DColor color)
         {
             _sharedBrush.Color = color;
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush);
@@ -703,7 +703,7 @@ namespace GameOverlay.Graphics
         /// <param name="radius_x">The radius x.</param>
         /// <param name="radius_y">The radius y.</param>
         /// <param name="brush">The brush.</param>
-        public void FillEllipse(float x, float y, float radius_x, float radius_y, Direct2DBrush brush)
+        public void FillEllipse(float x, float y, float radius_x, float radius_y, D2DBrush brush)
         {
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush);
         }
@@ -716,7 +716,7 @@ namespace GameOverlay.Graphics
         /// <param name="radius_x">The radius x.</param>
         /// <param name="radius_y">The radius y.</param>
         /// <param name="color">The color.</param>
-        public void FillEllipse(float x, float y, float radius_x, float radius_y, Direct2DColor color)
+        public void FillEllipse(float x, float y, float radius_x, float radius_y, D2DColor color)
         {
             _sharedBrush.Color = color;
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush);
@@ -730,7 +730,7 @@ namespace GameOverlay.Graphics
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="brush">The brush.</param>
-        public void FillRectangle(float x, float y, float width, float height, Direct2DBrush brush)
+        public void FillRectangle(float x, float y, float width, float height, D2DBrush brush)
         {
             _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), brush);
         }
@@ -743,7 +743,7 @@ namespace GameOverlay.Graphics
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="color">The color.</param>
-        public void FillRectangle(float x, float y, float width, float height, Direct2DColor color)
+        public void FillRectangle(float x, float y, float width, float height, D2DColor color)
         {
             _sharedBrush.Color = color;
             _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush);
@@ -762,7 +762,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="color">The color.</param>
         /// <param name="borderColor">Color of the border.</param>
-        public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DColor color, Direct2DColor borderColor)
+        public void BorderedCircle(float x, float y, float radius, float stroke, D2DColor color, D2DColor borderColor)
         {
             _sharedBrush.Color = color;
 
@@ -794,7 +794,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
         /// <param name="borderBrush">The border brush.</param>
-        public void BorderedCircle(float x, float y, float radius, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
+        public void BorderedCircle(float x, float y, float radius, float stroke, D2DBrush brush, D2DBrush borderBrush)
         {
             var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
 
@@ -823,7 +823,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="color">The color.</param>
         /// <param name="borderColor">Color of the border.</param>
-        public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DColor color, Direct2DColor borderColor)
+        public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DColor color, D2DColor borderColor)
         {
             var geometry = new PathGeometry(_factory);
 
@@ -864,7 +864,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
         /// <param name="borderBrush">The border brush.</param>
-        public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
+        public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DBrush brush, D2DBrush borderBrush)
         {
             var geometry = new PathGeometry(_factory);
 
@@ -901,7 +901,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="color">The color.</param>
         /// <param name="borderColor">Color of the border.</param>
-        public void BorderedRectangle(float x, float y, float width, float height, float stroke, Direct2DColor color, Direct2DColor borderColor)
+        public void BorderedRectangle(float x, float y, float width, float height, float stroke, D2DColor color, D2DColor borderColor)
         {
             float half = stroke / 2.0f;
 
@@ -929,7 +929,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
         /// <param name="borderBrush">The border brush.</param>
-        public void BorderedRectangle(float x, float y, float width, float height, float stroke, Direct2DBrush brush, Direct2DBrush borderBrush)
+        public void BorderedRectangle(float x, float y, float width, float height, float stroke, D2DBrush brush, D2DBrush borderBrush)
         {
             float half = stroke / 2.0f;
 
@@ -958,7 +958,7 @@ namespace GameOverlay.Graphics
         /// <param name="c_y">The c y.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, Direct2DBrush brush)
+        public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, D2DBrush brush)
         {
             var geometry = new PathGeometry(_factory);
 
@@ -988,7 +988,7 @@ namespace GameOverlay.Graphics
         /// <param name="c_y">The c y.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="color">The color.</param>
-        public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, Direct2DColor color)
+        public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, D2DColor color)
         {
             _sharedBrush.Color = color;
 
@@ -1019,7 +1019,7 @@ namespace GameOverlay.Graphics
         /// <param name="c_x">The c x.</param>
         /// <param name="c_y">The c y.</param>
         /// <param name="brush">The brush.</param>
-        public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, Direct2DBrush brush)
+        public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, D2DBrush brush)
         {
             var geometry = new PathGeometry(_factory);
 
@@ -1048,7 +1048,7 @@ namespace GameOverlay.Graphics
         /// <param name="c_x">The c x.</param>
         /// <param name="c_y">The c y.</param>
         /// <param name="color">The color.</param>
-        public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, Direct2DColor color)
+        public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, D2DColor color)
         {
             _sharedBrush.Color = color;
 
@@ -1082,7 +1082,7 @@ namespace GameOverlay.Graphics
         /// <param name="end_y">The end y.</param>
         /// <param name="size">The size.</param>
         /// <param name="color">The color.</param>
-        public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, Direct2DColor color)
+        public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, D2DColor color)
         {
             float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
             float delta_y = end_y >= start_y ? end_y - start_y : start_y - end_y;
@@ -1118,7 +1118,7 @@ namespace GameOverlay.Graphics
         /// <param name="end_y">The end y.</param>
         /// <param name="size">The size.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, Direct2DBrush brush)
+        public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, D2DBrush brush)
         {
             float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
             float delta_y = end_y >= start_y ? end_y - start_y : start_y - end_y;
@@ -1183,7 +1183,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="interiorColor">Color of the interior.</param>
         /// <param name="color">The color.</param>
-        public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
+        public void DrawBox2D(float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
         {
             var geometry = new PathGeometry(_factory);
 
@@ -1219,7 +1219,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="interiorBrush">The interior brush.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawBox2D(float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
+        public void DrawBox2D(float x, float y, float width, float height, float stroke, D2DBrush interiorBrush, D2DBrush brush)
         {
             var geometry = new PathGeometry(_factory);
 
@@ -1250,7 +1250,7 @@ namespace GameOverlay.Graphics
         /// <param name="size">The size.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="color">The color.</param>
-        public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, Direct2DColor color)
+        public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, D2DColor color)
         {
             _sharedBrush.Color = color;
 
@@ -1292,7 +1292,7 @@ namespace GameOverlay.Graphics
         /// <param name="size">The size.</param>
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, Direct2DBrush brush)
+        public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, D2DBrush brush)
         {
             if (style == CrosshairStyle.Dot)
             {
@@ -1334,7 +1334,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="interiorColor">Color of the interior.</param>
         /// <param name="color">The color.</param>
-        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
+        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
         {
             float half = stroke / 2.0f;
 
@@ -1367,7 +1367,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="interiorBrush">The interior brush.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
+        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, D2DBrush interiorBrush, D2DBrush brush)
         {
             float half = stroke / 2.0f;
             float quarter = half / 2.0f;
@@ -1397,7 +1397,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="interiorColor">Color of the interior.</param>
         /// <param name="color">The color.</param>
-        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DColor interiorColor, Direct2DColor color)
+        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
         {
             float half = stroke / 2.0f;
             float quarter = half / 2.0f;
@@ -1431,7 +1431,7 @@ namespace GameOverlay.Graphics
         /// <param name="stroke">The stroke.</param>
         /// <param name="interiorBrush">The interior brush.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, Direct2DBrush interiorBrush, Direct2DBrush brush)
+        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, D2DBrush interiorBrush, D2DBrush brush)
         {
             float half = stroke / 2.0f;
             float quarter = half / 2.0f;
@@ -1462,7 +1462,7 @@ namespace GameOverlay.Graphics
         /// <param name="y">The y.</param>
         /// <param name="font">The font.</param>
         /// <param name="color">The color.</param>
-        public void DrawText(string text, float x, float y, Direct2DFont font, Direct2DColor color)
+        public void DrawText(string text, float x, float y, D2DFont font, D2DColor color)
         {
             _sharedBrush.Color = color;
             _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), _sharedBrush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
@@ -1476,7 +1476,7 @@ namespace GameOverlay.Graphics
         /// <param name="y">The y.</param>
         /// <param name="font">The font.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawText(string text, float x, float y, Direct2DFont font, Direct2DBrush brush)
+        public void DrawText(string text, float x, float y, D2DFont font, D2DBrush brush)
         {
             _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), brush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
@@ -1490,7 +1490,7 @@ namespace GameOverlay.Graphics
         /// <param name="fontSize">Size of the font.</param>
         /// <param name="font">The font.</param>
         /// <param name="color">The color.</param>
-        public void DrawText(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color)
+        public void DrawText(string text, float x, float y, float fontSize, D2DFont font, D2DColor color)
         {
             _sharedBrush.Color = color;
 
@@ -1512,7 +1512,7 @@ namespace GameOverlay.Graphics
         /// <param name="fontSize">Size of the font.</param>
         /// <param name="font">The font.</param>
         /// <param name="brush">The brush.</param>
-        public void DrawText(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush)
+        public void DrawText(string text, float x, float y, float fontSize, D2DFont font, D2DBrush brush)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
@@ -1532,7 +1532,7 @@ namespace GameOverlay.Graphics
         /// <param name="font">The font.</param>
         /// <param name="color">The color.</param>
         /// <param name="backgroundColor">Color of the background.</param>
-        public void DrawTextWithBackground(string text, float x, float y, Direct2DFont font, Direct2DColor color, Direct2DColor backgroundColor)
+        public void DrawTextWithBackground(string text, float x, float y, D2DFont font, D2DColor color, D2DColor backgroundColor)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
@@ -1558,7 +1558,7 @@ namespace GameOverlay.Graphics
         /// <param name="font">The font.</param>
         /// <param name="brush">The brush.</param>
         /// <param name="backgroundBrush">The background brush.</param>
-        public void DrawTextWithBackground(string text, float x, float y, Direct2DFont font, Direct2DBrush brush, Direct2DBrush backgroundBrush)
+        public void DrawTextWithBackground(string text, float x, float y, D2DFont font, D2DBrush brush, D2DBrush backgroundBrush)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
@@ -1581,7 +1581,7 @@ namespace GameOverlay.Graphics
         /// <param name="font">The font.</param>
         /// <param name="color">The color.</param>
         /// <param name="backgroundColor">Color of the background.</param>
-        public void DrawTextWithBackground(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DColor color, Direct2DColor backgroundColor)
+        public void DrawTextWithBackground(string text, float x, float y, float fontSize, D2DFont font, D2DColor color, D2DColor backgroundColor)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
@@ -1610,7 +1610,7 @@ namespace GameOverlay.Graphics
         /// <param name="font">The font.</param>
         /// <param name="brush">The brush.</param>
         /// <param name="backgroundBrush">The background brush.</param>
-        public void DrawTextWithBackground(string text, float x, float y, float fontSize, Direct2DFont font, Direct2DBrush brush, Direct2DBrush backgroundBrush)
+        public void DrawTextWithBackground(string text, float x, float y, float fontSize, D2DFont font, D2DBrush brush, D2DBrush backgroundBrush)
         {
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 

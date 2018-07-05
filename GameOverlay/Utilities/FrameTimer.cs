@@ -22,7 +22,7 @@ namespace GameOverlay.Utilities
         /// <value>
         /// The device.
         /// </value>
-        public Direct2DDevice Device { get; set; }
+        public D2DDevice Device { get; set; }
 
         /// <summary>
         /// Gets or sets the frames per second.
@@ -43,7 +43,7 @@ namespace GameOverlay.Utilities
         /// 
         /// </summary>
         /// <param name="device">The device.</param>
-        public delegate void FrameStageNotifyEventHandler(Direct2DDevice device);
+        public delegate void FrameStageNotifyEventHandler(D2DDevice device);
 
         /// <summary>
         /// Occurs when [frame starting].
@@ -80,7 +80,7 @@ namespace GameOverlay.Utilities
         /// <param name="framesPerSecond">The frames per second.</param>
         /// <param name="device">The device.</param>
         /// <exception cref="ArgumentNullException">device</exception>
-        public FrameTimer(int framesPerSecond, Direct2DDevice device)
+        public FrameTimer(int framesPerSecond, D2DDevice device)
         {
             FramesPerSecond = framesPerSecond;
             Device = device ?? throw new ArgumentNullException(nameof(device));
@@ -91,7 +91,7 @@ namespace GameOverlay.Utilities
         /// </summary>
         /// <param name="device">The device.</param>
         /// <exception cref="ArgumentNullException">device</exception>
-        public FrameTimer(Direct2DDevice device)
+        public FrameTimer(D2DDevice device)
         {
             Device = device ?? throw new ArgumentNullException(nameof(device));
         }
@@ -102,7 +102,7 @@ namespace GameOverlay.Utilities
         /// <param name="device">The device.</param>
         /// <param name="framesPerSecond">The frames per second.</param>
         /// <exception cref="ArgumentNullException">device</exception>
-        public FrameTimer(Direct2DDevice device, int framesPerSecond)
+        public FrameTimer(D2DDevice device, int framesPerSecond)
         {
             Device = device ?? throw new ArgumentNullException(nameof(device));
             FramesPerSecond = framesPerSecond;
