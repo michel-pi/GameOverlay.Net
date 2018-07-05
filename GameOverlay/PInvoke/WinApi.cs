@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Security;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace GameOverlay.PInvoke
 {
+    [SuppressUnmanagedCodeSecurity()]
     internal static class WinApi
     {
         [DllImport("kernel32.dll", EntryPoint = "GetProcAddress", SetLastError = false, CharSet = CharSet.Ansi)]
@@ -14,41 +17,32 @@ namespace GameOverlay.PInvoke
         [DllImport("kernel32.dll", EntryPoint = "GetModuleHandleW", SetLastError = false, CharSet = CharSet.Unicode)]
         private static extern IntPtr InternalGetModuleHandleW(string modulename);
 
-        /// <summary>
-        /// Returns the function pointer of an exported native method
-        /// </summary>
-        /// <param name="modulename">The modulename (with .dll)</param>
-        /// <param name="procname">Function name</param>
-        /// <returns>Function pointer</returns>
+        public static void ThrowWin32Exception(string message)
+        {
+            throw new Win32Exception(Marshal.GetLastWin32Error(), message + Environment.NewLine + "HResult: " + Marshal.GetHRForLastWin32Error());
+        }
+
         public static IntPtr GetProcAddress(string modulename, string procname)
         {
             IntPtr hModule = InternalGetModuleHandleW(modulename);
 
-            if (hModule == IntPtr.Zero) hModule = InternalLoadLibraryW(modulename);
+            if (hModule == IntPtr.Zero)
+            {
+                hModule = InternalLoadLibraryW(modulename);
 
-            return InternalGetProcAddress(hModule, procname);
+                if (hModule == IntPtr.Zero) ThrowWin32Exception("Failed to load \"" + modulename + "\".");
+            }
+
+            IntPtr result = InternalGetProcAddress(hModule, procname);
+
+            if (result == IntPtr.Zero) ThrowWin32Exception("Failed to find exported symbol \"" + procname + "\" in \"" + modulename + "\".");
+
+            return result;
         }
 
-        /// <summary>
-        /// Returns a <c>delegate</c> of an exported native method
-        /// </summary>
-        /// <typeparam name="T"><c>delegate</c></typeparam>
-        /// <param name="modulename">The modulename (with .dll)</param>
-        /// <param name="procname">Function name</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">module: " + modulename + "\tproc: " + procname</exception>
         public static T GetMethod<T>(string modulename, string procname)
         {
-            IntPtr hModule = InternalGetModuleHandleW(modulename);
-
-            if (hModule == IntPtr.Zero) hModule = InternalLoadLibraryW(modulename);
-
-            IntPtr procAddress = InternalGetProcAddress(hModule, procname);
-
-#if DEBUG
-            if (hModule == IntPtr.Zero || procAddress == IntPtr.Zero)
-                throw new Exception("module: " + modulename + "\tproc: " + procname);
-#endif
+            IntPtr procAddress = GetProcAddress(modulename, procname);
 
             return (T)(object)Marshal.GetDelegateForFunctionPointer(procAddress, ObfuscatorNeedsThis<T>());
         }

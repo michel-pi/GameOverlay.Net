@@ -60,14 +60,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PInvoke\Types\MARGIN.cs" />
+    <Compile Include="PInvoke\Types\Message.cs" />
+    <Compile Include="PInvoke\Types\POINT.cs" />
+    <Compile Include="PInvoke\Types\RECT.cs" />
+    <Compile Include="PInvoke\Types\WindowsMessage.cs" />
+    <Compile Include="PInvoke\Types\WNDCLASSEX.cs" />
     <Compile Include="Utilities\HelperMethods.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Utilities\FrameTimer.cs" />
     <Compile Include="Windows\StickyOverlayWindow.cs" />
     <Compile Include="Windows\OverlayCreationOptions.cs" />
     <Compile Include="Windows\OverlayWindow.cs" />
-    <Compile Include="PInvoke\DwmApi.cs" />
-    <Compile Include="PInvoke\User32.cs" />
+    <Compile Include="PInvoke\Libraries\DwmApi.cs" />
+    <Compile Include="PInvoke\Libraries\User32.cs" />
     <Compile Include="PInvoke\WinApi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,5 +94,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
