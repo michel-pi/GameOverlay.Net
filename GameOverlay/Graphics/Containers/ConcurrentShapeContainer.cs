@@ -1,12 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace GameOverlay.Graphics.Containers
 {
-    class ConcurrentShapeContainer
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="GameOverlay.Graphics.IShapeContainer" />
+    public class ConcurrentShapeContainer : ConcurrentBag<IShape>, IShapeContainer
     {
+        public ConcurrentShapeContainer() : base()
+        {
+
+        }
+
+        public ConcurrentShapeContainer(IEnumerable<IShape> collection) : base(collection)
+        {
+
+        }
     }
 }
