@@ -11,7 +11,7 @@ namespace GameOverlay.Graphics
         /// Gets the renderer.
         /// </summary>
         /// <value>The renderer.</value>
-        public D2DDevice Renderer { get; private set; }
+        public D2DDevice Device { get; private set; }
 
         private D2DScene()
         {
@@ -21,11 +21,13 @@ namespace GameOverlay.Graphics
         /// <summary>
         /// Initializes a new instance of the <see cref="D2DScene"/> class.
         /// </summary>
-        /// <param name="renderer">The renderer.</param>
-        public D2DScene(D2DDevice renderer)
+        /// <param name="device">The renderer.</param>
+        public D2DScene(D2DDevice device)
         {
-            Renderer = renderer;
-            renderer.BeginScene();
+            if (device == null) throw new ArgumentNullException(nameof(device));
+
+            Device = device;
+            device.BeginScene();
         }
 
         /// <summary>
@@ -43,7 +45,9 @@ namespace GameOverlay.Graphics
         /// <returns>The result of the conversion.</returns>
         public static implicit operator D2DDevice(D2DScene scene)
         {
-            return scene.Renderer;
+            if (scene.Device == null) throw new InvalidOperationException(nameof(scene.Device) + " is null");
+
+            return scene.Device;
         }
 
         #region IDisposable Support
@@ -68,7 +72,7 @@ namespace GameOverlay.Graphics
                 {
                 }
 
-                Renderer.EndScene();
+                Device.EndScene();
 
                 disposedValue = true;
             }
