@@ -2,12 +2,14 @@
 using System.Threading;
 
 using GameOverlay.PInvoke;
+using GameOverlay.Utilities;
 
 namespace GameOverlay.Windows
 {
     /// <summary>
+    /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.DirectXOverlay.Windows.OverlayWindow"/>
+    /// <seealso cref="GameOverlay.Windows.OverlayWindow" />
     public class StickyOverlayWindow : OverlayWindow
     {
         private static OverlayCreationOptions DefaultOptions = new OverlayCreationOptions()
