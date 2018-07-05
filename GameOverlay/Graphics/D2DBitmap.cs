@@ -82,5 +82,16 @@ namespace GameOverlay.Graphics
         {
             return bmp.SharpDXBitmap;
         }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return "{Bitmap=" + SharpDXBitmap.PixelSize.Width + "x" + SharpDXBitmap.PixelSize.Height + "}";
+        }
     }
 }

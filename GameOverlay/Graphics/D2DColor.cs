@@ -117,5 +117,16 @@ namespace GameOverlay.Graphics
         {
             return new RawColor4(color.R, color.G, color.B, color.A);
         }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return "{A=" + A + ", R=" + R + ", G=" + G + ", B=" + B + "}";
+        }
     }
 }

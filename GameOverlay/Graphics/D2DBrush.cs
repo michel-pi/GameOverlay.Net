@@ -92,5 +92,16 @@ namespace GameOverlay.Graphics
         {
             return brush.Brush;
         }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return "{D2DBrush=" + Color.ToString() + "}";
+        }
     }
 }
