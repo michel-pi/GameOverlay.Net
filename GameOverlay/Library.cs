@@ -14,7 +14,7 @@ namespace GameOverlay
         {
             get
             {
-                return "Yato";
+                return "michel-pi";
             }
         }
 
@@ -25,7 +25,7 @@ namespace GameOverlay
         {
             get
             {
-                return "Yato.DirectXOverlay";
+                return "GameOverlay.Net";
             }
         }
 
@@ -36,7 +36,7 @@ namespace GameOverlay
         {
             get
             {
-                return "https://github.com/YatoDev/Yato.DirectXOverlay";
+                return "https://github.com/michel-pi/GameOverlay.Net";
             }
         }
 

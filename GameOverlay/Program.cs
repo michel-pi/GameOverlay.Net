@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 
 using GameOverlay.Windows;
-using GameOverlay.Renderer;
+using GameOverlay.Graphics;
 
 namespace GameOverlay
 {

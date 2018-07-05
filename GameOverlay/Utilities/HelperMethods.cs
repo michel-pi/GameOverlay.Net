@@ -2,7 +2,7 @@
 
 using GameOverlay.PInvoke;
 
-namespace GameOverlay
+namespace GameOverlay.Utilities
 {
     /// <summary>
     /// Useful Methods

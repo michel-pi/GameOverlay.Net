@@ -3,7 +3,7 @@
 using SharpDX.Direct2D1;
 using SharpDX.Mathematics.Interop;
 
-namespace GameOverlay.Renderer
+namespace GameOverlay.Graphics
 {
     /// <summary>
     /// Stores a Brush compatible with <c>Direct2DRenderer</c>

@@ -2,7 +2,7 @@
 
 using SharpDX.Mathematics.Interop;
 
-namespace GameOverlay.Renderer
+namespace GameOverlay.Graphics
 {
     /// <summary>
     /// Represents a ARGB color

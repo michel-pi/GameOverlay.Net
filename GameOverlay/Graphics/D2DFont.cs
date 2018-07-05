@@ -4,12 +4,12 @@ using SharpDX.DirectWrite;
 
 using FontFactory = SharpDX.DirectWrite.Factory;
 
-namespace GameOverlay.Renderer
+namespace GameOverlay.Graphics
 {
     /// <summary>
     /// Stores a <c>Direct2DRenderer</c> compatible font
     /// </summary>
-    public class Direct2DFont
+    public class D2DFont
     {
         private FontFactory _fontFactory;
 
@@ -18,7 +18,7 @@ namespace GameOverlay.Renderer
         /// </summary>
         public TextFormat Font;
 
-        private Direct2DFont()
+        private D2DFont()
         {
             throw new NotImplementedException();
         }
@@ -27,7 +27,7 @@ namespace GameOverlay.Renderer
         /// Internal use only
         /// </summary>
         /// <param name="font">The font.</param>
-        public Direct2DFont(TextFormat font)
+        public D2DFont(TextFormat font)
         {
             Font = font;
         }
@@ -40,22 +40,22 @@ namespace GameOverlay.Renderer
         /// <param name="size">The size.</param>
         /// <param name="bold">if set to <c>true</c> [bold].</param>
         /// <param name="italic">if set to <c>true</c> [italic].</param>
-        public Direct2DFont(FontFactory factory, string fontFamilyName, float size, bool bold = false, bool italic = false)
+        public D2DFont(FontFactory factory, string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
             _fontFactory = factory;
             Font = new TextFormat(factory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Direct2DFont"/> class.
+        /// Finalizes an instance of the <see cref="D2DFont"/> class.
         /// </summary>
-        ~Direct2DFont()
+        ~D2DFont()
         {
             Font.Dispose();
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Direct2DFont"/> is bold.
+        /// Gets or sets a value indicating whether this <see cref="D2DFont"/> is bold.
         /// </summary>
         /// <value><c>true</c> if bold; otherwise, <c>false</c>.</value>
         public bool Bold
@@ -124,7 +124,7 @@ namespace GameOverlay.Renderer
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Direct2DFont"/> is italic.
+        /// Gets or sets a value indicating whether this <see cref="D2DFont"/> is italic.
         /// </summary>
         /// <value><c>true</c> if italic; otherwise, <c>false</c>.</value>
         public bool Italic
@@ -159,11 +159,11 @@ namespace GameOverlay.Renderer
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Direct2DFont"/> to <see cref="TextFormat"/>.
+        /// Performs an implicit conversion from <see cref="D2DFont"/> to <see cref="TextFormat"/>.
         /// </summary>
         /// <param name="font">The font.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator TextFormat(Direct2DFont font)
+        public static implicit operator TextFormat(D2DFont font)
         {
             return font.Font;
         }

@@ -2,7 +2,7 @@
 
 using SharpDX.DirectWrite;
 
-namespace GameOverlay.Renderer
+namespace GameOverlay.Graphics
 {
     /// <summary>
     /// </summary>

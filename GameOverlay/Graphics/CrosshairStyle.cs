@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameOverlay.Renderer
+namespace GameOverlay.Graphics
 {
     /// <summary>
     /// Offers different build in styles for crosshairs

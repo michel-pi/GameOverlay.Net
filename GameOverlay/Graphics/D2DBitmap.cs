@@ -3,12 +3,12 @@ using System.IO;
 
 using SharpDX.Direct2D1;
 
-namespace GameOverlay.Renderer
+namespace GameOverlay.Graphics
 {
     /// <summary>
     /// Stores a Bitmap compatible with <c>Direct2DRenderer</c>
     /// </summary>
-    public class Direct2DBitmap
+    public class D2DBitmap
     {
         private static SharpDX.WIC.ImagingFactory ImagingFactory = new SharpDX.WIC.ImagingFactory();
 
@@ -17,7 +17,7 @@ namespace GameOverlay.Renderer
         /// </summary>
         public Bitmap SharpDXBitmap;
 
-        private Direct2DBitmap()
+        private D2DBitmap()
         {
         }
 
@@ -26,7 +26,7 @@ namespace GameOverlay.Renderer
         /// </summary>
         /// <param name="device"><c>RenderTarget</c> device</param>
         /// <param name="bytes"><c>Bitmap</c> bytes</param>
-        public Direct2DBitmap(RenderTarget device, byte[] bytes)
+        public D2DBitmap(RenderTarget device, byte[] bytes)
         {
             LoadBitmap(device, bytes);
         }
@@ -36,15 +36,15 @@ namespace GameOverlay.Renderer
         /// </summary>
         /// <param name="device"><c>RenderTarget</c> device</param>
         /// <param name="file">Path to an image file</param>
-        public Direct2DBitmap(RenderTarget device, string file)
+        public D2DBitmap(RenderTarget device, string file)
         {
             LoadBitmap(device, File.ReadAllBytes(file));
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Direct2DBitmap"/> class.
+        /// Finalizes an instance of the <see cref="D2DBitmap"/> class.
         /// </summary>
-        ~Direct2DBitmap()
+        ~D2DBitmap()
         {
             SharpDXBitmap.Dispose();
         }
@@ -74,11 +74,11 @@ namespace GameOverlay.Renderer
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Direct2DBitmap"/> to <see cref="Bitmap"/>.
+        /// Performs an implicit conversion from <see cref="D2DBitmap"/> to <see cref="Bitmap"/>.
         /// </summary>
         /// <param name="bmp">The BMP.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator Bitmap(Direct2DBitmap bmp)
+        public static implicit operator Bitmap(D2DBitmap bmp)
         {
             return bmp.SharpDXBitmap;
         }

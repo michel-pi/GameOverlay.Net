@@ -11,14 +11,15 @@ using FontFactory = SharpDX.DirectWrite.Factory;
 using Factory = SharpDX.Direct2D1.Factory;
 
 using GameOverlay.PInvoke;
+using GameOverlay.Utilities;
 
-namespace GameOverlay.Renderer
+namespace GameOverlay.Graphics
 {
     /// <summary>
     /// Represents a drawing device of a window
     /// </summary>
     /// <seealso cref="System.IDisposable"/>
-    public class Direct2DRenderer : IDisposable
+    public class Direct2DDevice : IDisposable
     {
         #region private vars
 
@@ -80,16 +81,16 @@ namespace GameOverlay.Renderer
 
         #region construct & destruct
 
-        private Direct2DRenderer()
+        private Direct2DDevice()
         {
             throw new NotSupportedException();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
         /// </summary>
         /// <param name="hwnd">A valid window handle</param>
-        public Direct2DRenderer(IntPtr hwnd)
+        public Direct2DDevice(IntPtr hwnd)
         {
             var options = new RendererOptions()
             {
@@ -102,11 +103,11 @@ namespace GameOverlay.Renderer
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
         /// </summary>
         /// <param name="hwnd">A valid window handle</param>
         /// <param name="vsync">if set to <c>true</c> [vsync].</param>
-        public Direct2DRenderer(IntPtr hwnd, bool vsync)
+        public Direct2DDevice(IntPtr hwnd, bool vsync)
         {
             var options = new RendererOptions()
             {
@@ -119,12 +120,12 @@ namespace GameOverlay.Renderer
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
         /// </summary>
         /// <param name="hwnd">A valid window handle</param>
         /// <param name="vsync">if set to <c>true</c> [vsync].</param>
         /// <param name="measureFps">if set to <c>true</c> [measure FPS].</param>
-        public Direct2DRenderer(IntPtr hwnd, bool vsync, bool measureFps)
+        public Direct2DDevice(IntPtr hwnd, bool vsync, bool measureFps)
         {
             var options = new RendererOptions()
             {
@@ -137,13 +138,13 @@ namespace GameOverlay.Renderer
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
         /// </summary>
         /// <param name="hwnd">A valid window handle</param>
         /// <param name="vsync">if set to <c>true</c> [vsync].</param>
         /// <param name="measureFps">if set to <c>true</c> [measure FPS].</param>
         /// <param name="antiAliasing">if set to <c>true</c> [anti aliasing].</param>
-        public Direct2DRenderer(IntPtr hwnd, bool vsync, bool measureFps, bool antiAliasing)
+        public Direct2DDevice(IntPtr hwnd, bool vsync, bool measureFps, bool antiAliasing)
         {
             var options = new RendererOptions()
             {
@@ -156,18 +157,18 @@ namespace GameOverlay.Renderer
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DRenderer"/> class.
+        /// Initializes a new instance of the <see cref="Direct2DDevice"/> class.
         /// </summary>
         /// <param name="options">Creation options</param>
-        public Direct2DRenderer(RendererOptions options)
+        public Direct2DDevice(RendererOptions options)
         {
             SetupInstance(options);
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Direct2DRenderer"/> class.
+        /// Finalizes an instance of the <see cref="Direct2DDevice"/> class.
         /// </summary>
-        ~Direct2DRenderer()
+        ~Direct2DDevice()
         {
             Dispose(false);
         }
@@ -422,9 +423,9 @@ namespace GameOverlay.Renderer
         /// </summary>
         /// <param name="file">Path</param>
         /// <returns></returns>
-        public Direct2DBitmap LoadBitmap(string file)
+        public D2DBitmap LoadBitmap(string file)
         {
-            return new Direct2DBitmap(_device, file);
+            return new D2DBitmap(_device, file);
         }
 
         /// <summary>
@@ -432,9 +433,9 @@ namespace GameOverlay.Renderer
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <returns></returns>
-        public Direct2DBitmap LoadBitmap(byte[] bytes)
+        public D2DBitmap LoadBitmap(byte[] bytes)
         {
-            return new Direct2DBitmap(_device, bytes);
+            return new D2DBitmap(_device, bytes);
         }
 
         /// <summary>
@@ -1151,7 +1152,7 @@ namespace GameOverlay.Renderer
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="opacity">The opacity.</param>
-        public void DrawBitmap(Direct2DBitmap bmp, float x, float y, float opacity)
+        public void DrawBitmap(D2DBitmap bmp, float x, float y, float opacity)
         {
             Bitmap bitmap = bmp;
             _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
@@ -1166,7 +1167,7 @@ namespace GameOverlay.Renderer
         /// <param name="y">The y.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public void DrawBitmap(Direct2DBitmap bmp, float opacity, float x, float y, float width, float height)
+        public void DrawBitmap(D2DBitmap bmp, float opacity, float x, float y, float width, float height)
         {
             Bitmap bitmap = bmp;
             _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));

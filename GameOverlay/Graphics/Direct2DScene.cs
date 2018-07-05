@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameOverlay.Renderer
+namespace GameOverlay.Graphics
 {
     /// <summary>
     /// </summary>
@@ -11,7 +11,7 @@ namespace GameOverlay.Renderer
         /// Gets the renderer.
         /// </summary>
         /// <value>The renderer.</value>
-        public Direct2DRenderer Renderer { get; private set; }
+        public Direct2DDevice Renderer { get; private set; }
 
         private Direct2DScene()
         {
@@ -22,7 +22,7 @@ namespace GameOverlay.Renderer
         /// Initializes a new instance of the <see cref="Direct2DScene"/> class.
         /// </summary>
         /// <param name="renderer">The renderer.</param>
-        public Direct2DScene(Direct2DRenderer renderer)
+        public Direct2DScene(Direct2DDevice renderer)
         {
             Renderer = renderer;
             renderer.BeginScene();
@@ -37,11 +37,11 @@ namespace GameOverlay.Renderer
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Direct2DScene"/> to <see cref="Direct2DRenderer"/>.
+        /// Performs an implicit conversion from <see cref="Direct2DScene"/> to <see cref="Direct2DDevice"/>.
         /// </summary>
         /// <param name="scene">The scene.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator Direct2DRenderer(Direct2DScene scene)
+        public static implicit operator Direct2DDevice(Direct2DScene scene)
         {
             return scene.Renderer;
         }

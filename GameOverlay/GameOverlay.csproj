@@ -60,9 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrameTimer.cs" />
-    <Compile Include="HelperMethods.cs" />
+    <Compile Include="Utilities\HelperMethods.cs" />
     <Compile Include="Library.cs" />
+    <Compile Include="Utilities\FrameTimer.cs" />
     <Compile Include="Windows\StickyOverlayWindow.cs" />
     <Compile Include="Windows\OverlayCreationOptions.cs" />
     <Compile Include="Windows\OverlayWindow.cs" />
@@ -71,15 +71,15 @@
     <Compile Include="PInvoke\WinApi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderer\CrosshairStyle.cs" />
-    <Compile Include="Renderer\Direct2DBitmap.cs" />
-    <Compile Include="Renderer\Direct2DBrush.cs" />
-    <Compile Include="Renderer\Direct2DColor.cs" />
-    <Compile Include="Renderer\Direct2DFont.cs" />
-    <Compile Include="Renderer\Direct2DRenderer.cs" />
-    <Compile Include="Renderer\Direct2DScene.cs" />
-    <Compile Include="Renderer\FontCreationOptions.cs" />
-    <Compile Include="Renderer\RendererOptions.cs" />
+    <Compile Include="Graphics\CrosshairStyle.cs" />
+    <Compile Include="Graphics\Direct2DBitmap.cs" />
+    <Compile Include="Graphics\Direct2DBrush.cs" />
+    <Compile Include="Graphics\Direct2DColor.cs" />
+    <Compile Include="Graphics\Direct2DFont.cs" />
+    <Compile Include="Graphics\Direct2DRenderer.cs" />
+    <Compile Include="Graphics\Direct2DScene.cs" />
+    <Compile Include="Graphics\FontCreationOptions.cs" />
+    <Compile Include="Graphics\RendererOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
