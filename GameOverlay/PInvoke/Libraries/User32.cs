@@ -112,15 +112,22 @@ namespace GameOverlay.PInvoke
 
         public static void SetThreadDpiAware()
         {
-            IntPtr procAddress = WinApi.GetProcAddress("user32.dll", "SetThreadDpiAwarenessContext");
+            try
+            {
+                IntPtr procAddress = WinApi.GetProcAddress("user32.dll", "SetThreadDpiAwarenessContext");
 
-            if (procAddress == IntPtr.Zero) return;
+                if (procAddress == IntPtr.Zero) return;
 
-            var method = WinApi.GetMethod<SetThreadDpiAwarenessContext_t>("user32.dll", "SetThreadDpiAwarenessContext");
+                var method = WinApi.GetMethod<SetThreadDpiAwarenessContext_t>("user32.dll", "SetThreadDpiAwarenessContext");
 
-            int dpiContext = -3;
+                int dpiContext = -3;
 
-            method(ref dpiContext);
+                method(ref dpiContext);
+            }
+            catch
+            {
+                return; // method only exists on windows 8.1 and above 
+            }
         }
     }
 }
