@@ -4,7 +4,7 @@ namespace GameOverlay.Graphics
 {
     /// <summary>
     /// </summary>
-    public struct RendererOptions
+    public struct DeviceOptions
     {
         /// <summary>
         /// The anti aliasing

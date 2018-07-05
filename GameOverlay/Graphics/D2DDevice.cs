@@ -29,7 +29,7 @@ namespace GameOverlay.Graphics
         private FontFactory _fontFactory;
         private int _internalFps;
         private bool _isDrawing;
-        private RendererOptions _rendererOptions;
+        private DeviceOptions _rendererOptions;
         private bool _resize;
         private int _resizeHeight;
         private int _resizeWidth;
@@ -92,7 +92,7 @@ namespace GameOverlay.Graphics
         /// <param name="hwnd">A valid window handle</param>
         public D2DDevice(IntPtr hwnd)
         {
-            var options = new RendererOptions()
+            var options = new DeviceOptions()
             {
                 Hwnd = hwnd,
                 VSync = false,
@@ -109,7 +109,7 @@ namespace GameOverlay.Graphics
         /// <param name="vsync">if set to <c>true</c> [vsync].</param>
         public D2DDevice(IntPtr hwnd, bool vsync)
         {
-            var options = new RendererOptions()
+            var options = new DeviceOptions()
             {
                 Hwnd = hwnd,
                 VSync = vsync,
@@ -127,7 +127,7 @@ namespace GameOverlay.Graphics
         /// <param name="measureFps">if set to <c>true</c> [measure FPS].</param>
         public D2DDevice(IntPtr hwnd, bool vsync, bool measureFps)
         {
-            var options = new RendererOptions()
+            var options = new DeviceOptions()
             {
                 Hwnd = hwnd,
                 VSync = vsync,
@@ -146,7 +146,7 @@ namespace GameOverlay.Graphics
         /// <param name="antiAliasing">if set to <c>true</c> [anti aliasing].</param>
         public D2DDevice(IntPtr hwnd, bool vsync, bool measureFps, bool antiAliasing)
         {
-            var options = new RendererOptions()
+            var options = new DeviceOptions()
             {
                 Hwnd = hwnd,
                 VSync = vsync,
@@ -160,7 +160,7 @@ namespace GameOverlay.Graphics
         /// Initializes a new instance of the <see cref="D2DDevice"/> class.
         /// </summary>
         /// <param name="options">Creation options</param>
-        public D2DDevice(RendererOptions options)
+        public D2DDevice(DeviceOptions options)
         {
             SetupInstance(options);
         }
@@ -191,7 +191,7 @@ namespace GameOverlay.Graphics
             }
         }
 
-        private void SetupInstance(RendererOptions options)
+        private void SetupInstance(DeviceOptions options)
         {
             _rendererOptions = options;
 
