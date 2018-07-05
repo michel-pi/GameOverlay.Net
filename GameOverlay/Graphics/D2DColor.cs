@@ -10,81 +10,92 @@ namespace GameOverlay.Graphics
     public struct D2DColor
     {
         /// <summary>
-        /// The alpha
+        /// a
         /// </summary>
-        public float Alpha;
+        public float A;
 
         /// <summary>
-        /// The blue
+        /// The r
         /// </summary>
-        public float Blue;
+        public float R;
+        /// <summary>
+        /// The g
+        /// </summary>
+        public float G;
+        /// <summary>
+        /// The b
+        /// </summary>
+        public float B;
 
         /// <summary>
-        /// The green
+        /// Initializes a new instance of the <see cref="D2DColor"/> struct.
         /// </summary>
-        public float Green;
-
-        /// <summary>
-        /// The red
-        /// </summary>
-        public float Red;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="D2DColor"/> struct with an alpha of 255
-        /// </summary>
-        /// <param name="red">Red 0 - 255</param>
-        /// <param name="green">Green 0 - 255</param>
-        /// <param name="blue">Blue 0 - 255</param>
-        public D2DColor(int red, int green, int blue)
+        /// <param name="r">The r.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="a">a.</param>
+        public D2DColor(float r, float g, float b, float a = 1.0f)
         {
-            Red = red / 255.0f;
-            Green = green / 255.0f;
-            Blue = blue / 255.0f;
-            Alpha = 1.0f;
+            R = NormalizeColor(r);
+            G = NormalizeColor(g);
+            B = NormalizeColor(b);
+
+            A = NormalizeColor(a);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="D2DColor"/> struct
+        /// Initializes a new instance of the <see cref="D2DColor"/> struct.
         /// </summary>
-        /// <param name="red">Red 0 - 255</param>
-        /// <param name="green">Green 0 - 255</param>
-        /// <param name="blue">Blue 0 - 255.</param>
-        /// <param name="alpha">Alpha 0 - 255</param>
-        public D2DColor(int red, int green, int blue, int alpha)
+        /// <param name="r">The r.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="a">a.</param>
+        public D2DColor(int r, int g, int b, int a = 255)
         {
-            Red = red / 255.0f;
-            Green = green / 255.0f;
-            Blue = blue / 255.0f;
-            Alpha = alpha / 255.0f;
+            R = NormalizeColor(r);
+            G = NormalizeColor(g);
+            B = NormalizeColor(b);
+
+            A = NormalizeColor(a);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="D2DColor"/> struct with an alpha of 1.0f
+        /// Initializes a new instance of the <see cref="D2DColor"/> struct.
         /// </summary>
-        /// <param name="red">Red 0.0f - 1.0f</param>
-        /// <param name="green">Green 0.0f - 1.0f</param>
-        /// <param name="blue">Blue 0.0f - 1.0f</param>
-        public D2DColor(float red, float green, float blue)
+        /// <param name="r">The r.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="a">a.</param>
+        public D2DColor(byte r, byte g, byte b, byte a = 255)
         {
-            Red = red;
-            Green = green;
-            Blue = blue;
-            Alpha = 1.0f;
+            R = (float)r / 255.0f;
+            G = (float)g / 255.0f;
+            B = (float)b / 255.0f;
+
+            A = (float)a / 255.0f;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="D2DColor"/> struct
-        /// </summary>
-        /// <param name="red">Red 0.0f - 1.0f</param>
-        /// <param name="green">Green 0.0f - 1.0f</param>
-        /// <param name="blue">Blue 0.0f - 1.0f</param>
-        /// <param name="alpha">Alpha 0.0f - 1.0f</param>
-        public D2DColor(float red, float green, float blue, float alpha)
+        private static float NormalizeColor(float color)
         {
-            Red = red;
-            Green = green;
-            Blue = blue;
-            Alpha = alpha;
+            if (color < 0.0f) color *= -1.0f;
+
+            if (color > 1.0f)
+            {
+                while (color > 255.0f) color /= 255.0f;
+
+                return color / 255.0f;
+            }
+
+            return color;
+        }
+
+        private static float NormalizeColor(int color)
+        {
+            if (color < 0) color *= -1;
+
+            while (color > 255) color /= 255;
+
+            return (float)color / 255.0f;
         }
 
         /// <summary>
@@ -104,7 +115,7 @@ namespace GameOverlay.Graphics
         /// <returns>The result of the conversion.</returns>
         public static implicit operator RawColor4(D2DColor color)
         {
-            return new RawColor4(color.Red, color.Green, color.Blue, color.Alpha);
+            return new RawColor4(color.R, color.G, color.B, color.A);
         }
     }
 }
