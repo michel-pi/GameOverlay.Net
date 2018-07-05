@@ -412,7 +412,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="options">Creation options</param>
         /// <returns></returns>
-        public D2DFont CreateFont(FontCreationOptions options)
+        public D2DFont CreateFont(FontOptions options)
         {
             TextFormat font = new TextFormat(_fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize);
             return new D2DFont(font);

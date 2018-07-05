@@ -6,7 +6,7 @@ namespace GameOverlay.Graphics
 {
     /// <summary>
     /// </summary>
-    public class FontCreationOptions
+    public class FontOptions
     {
         /// <summary>
         /// The bold

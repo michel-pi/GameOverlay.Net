@@ -97,7 +97,7 @@
     <Compile Include="Graphics\D2DFont.cs" />
     <Compile Include="Graphics\D2DDevice.cs" />
     <Compile Include="Graphics\D2DScene.cs" />
-    <Compile Include="Graphics\FontCreationOptions.cs" />
+    <Compile Include="Graphics\FontOptions.cs" />
     <Compile Include="Graphics\DeviceOptions.cs" />
   </ItemGroup>
   <ItemGroup>
