@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Graphics\Containers\ConcurrentShapeContainer.cs" />
     <Compile Include="Graphics\Containers\ShapeContainer.cs" />
+    <Compile Include="Graphics\IShape.cs" />
     <Compile Include="Graphics\Primitives\BezierCurve.cs" />
     <Compile Include="Graphics\Primitives\Circle.cs" />
     <Compile Include="Graphics\Primitives\Curve.cs" />

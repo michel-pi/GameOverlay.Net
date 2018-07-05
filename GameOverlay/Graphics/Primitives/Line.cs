@@ -28,5 +28,10 @@ namespace GameOverlay.Graphics.Primitives
             Start = new Point(start_x, start_y);
             End = new Point(end_x, end_y);
         }
+
+        public void Draw(D2DDevice device)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

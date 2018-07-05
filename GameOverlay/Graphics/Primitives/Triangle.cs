@@ -32,5 +32,10 @@ namespace GameOverlay.Graphics.Primitives
             B = new Point(b_X, b_y);
             C = new Point(c_x, c_y);
         }
+
+        public void Draw(D2DDevice device)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace GameOverlay.Graphics.Primitives
 {
-    public struct Point : IShape
+    public struct Point
     {
         public float X;
         public float Y;

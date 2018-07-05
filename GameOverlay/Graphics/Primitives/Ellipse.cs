@@ -36,5 +36,10 @@ namespace GameOverlay.Graphics.Primitives
             RadiusX = radiusX;
             RadiusY = radiusY;
         }
+
+        public void Draw(D2DDevice device)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

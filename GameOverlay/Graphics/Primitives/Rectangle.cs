@@ -38,5 +38,10 @@ namespace GameOverlay.Graphics.Primitives
         {
             return new Rectangle(x, y, x + width, y + height);
         }
+
+        public void Draw(D2DDevice device)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

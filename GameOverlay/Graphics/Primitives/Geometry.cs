@@ -8,5 +8,9 @@ namespace GameOverlay.Graphics.Primitives
 {
     public class Geometry : IShape
     {
+        public void Draw(D2DDevice device)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
