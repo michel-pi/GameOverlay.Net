@@ -8,14 +8,14 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// Stores a Brush compatible with <c>Direct2DRenderer</c>
     /// </summary>
-    public class Direct2DBrush
+    public class D2DBrush
     {
         /// <summary>
         /// A <c>SolidColorBrush</c> to use with a rendering device
         /// </summary>
         public SolidColorBrush Brush;
 
-        private Direct2DBrush()
+        private D2DBrush()
         {
             throw new NotImplementedException();
         }
@@ -24,7 +24,7 @@ namespace GameOverlay.Graphics
         /// Internal use only
         /// </summary>
         /// <param name="renderTarget"><c>RenderTarget</c> device</param>
-        public Direct2DBrush(RenderTarget renderTarget)
+        public D2DBrush(RenderTarget renderTarget)
         {
             Brush = new SolidColorBrush(renderTarget, default(RawColor4));
         }
@@ -34,15 +34,15 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="renderTarget"><c>RenderTarget</c> device</param>
         /// <param name="color"><c>Direct2DColor</c> compatible color</param>
-        public Direct2DBrush(RenderTarget renderTarget, Direct2DColor color)
+        public D2DBrush(RenderTarget renderTarget, D2DColor color)
         {
             Brush = new SolidColorBrush(renderTarget, color);
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Direct2DBrush"/> class.
+        /// Finalizes an instance of the <see cref="D2DBrush"/> class.
         /// </summary>
-        ~Direct2DBrush()
+        ~D2DBrush()
         {
             Brush.Dispose();
         }
@@ -51,7 +51,7 @@ namespace GameOverlay.Graphics
         /// Gets or sets the used color by this brush
         /// </summary>
         /// <value><c>Direct2DColor</c></value>
-        public Direct2DColor Color
+        public D2DColor Color
         {
             get
             {
@@ -64,31 +64,31 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Direct2DBrush"/> to <see cref="Direct2DColor"/>.
+        /// Performs an implicit conversion from <see cref="D2DBrush"/> to <see cref="D2DColor"/>.
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator Direct2DColor(Direct2DBrush brush)
+        public static implicit operator D2DColor(D2DBrush brush)
         {
             return brush.Color;
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Direct2DBrush"/> to <see cref="RawColor4"/>.
+        /// Performs an implicit conversion from <see cref="D2DBrush"/> to <see cref="RawColor4"/>.
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator RawColor4(Direct2DBrush brush)
+        public static implicit operator RawColor4(D2DBrush brush)
         {
             return brush.Color;
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Direct2DBrush"/> to <see cref="SolidColorBrush"/>.
+        /// Performs an implicit conversion from <see cref="D2DBrush"/> to <see cref="SolidColorBrush"/>.
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator SolidColorBrush(Direct2DBrush brush)
+        public static implicit operator SolidColorBrush(D2DBrush brush)
         {
             return brush.Brush;
         }

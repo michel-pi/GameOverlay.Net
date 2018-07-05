@@ -72,12 +72,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\CrosshairStyle.cs" />
-    <Compile Include="Graphics\Direct2DBitmap.cs" />
-    <Compile Include="Graphics\Direct2DBrush.cs" />
-    <Compile Include="Graphics\Direct2DColor.cs" />
-    <Compile Include="Graphics\Direct2DFont.cs" />
-    <Compile Include="Graphics\Direct2DRenderer.cs" />
-    <Compile Include="Graphics\Direct2DScene.cs" />
+    <Compile Include="Graphics\D2DBitmap.cs" />
+    <Compile Include="Graphics\D2DBrush.cs" />
+    <Compile Include="Graphics\D2DColor.cs" />
+    <Compile Include="Graphics\D2DFont.cs" />
+    <Compile Include="Graphics\D2DDevice.cs" />
+    <Compile Include="Graphics\D2DScene.cs" />
     <Compile Include="Graphics\FontCreationOptions.cs" />
     <Compile Include="Graphics\RendererOptions.cs" />
   </ItemGroup>

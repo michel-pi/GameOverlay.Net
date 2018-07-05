@@ -7,7 +7,7 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// Represents a ARGB color
     /// </summary>
-    public struct Direct2DColor
+    public struct D2DColor
     {
         /// <summary>
         /// The alpha
@@ -30,12 +30,12 @@ namespace GameOverlay.Graphics
         public float Red;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DColor"/> struct with an alpha of 255
+        /// Initializes a new instance of the <see cref="D2DColor"/> struct with an alpha of 255
         /// </summary>
         /// <param name="red">Red 0 - 255</param>
         /// <param name="green">Green 0 - 255</param>
         /// <param name="blue">Blue 0 - 255</param>
-        public Direct2DColor(int red, int green, int blue)
+        public D2DColor(int red, int green, int blue)
         {
             Red = red / 255.0f;
             Green = green / 255.0f;
@@ -44,13 +44,13 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DColor"/> struct
+        /// Initializes a new instance of the <see cref="D2DColor"/> struct
         /// </summary>
         /// <param name="red">Red 0 - 255</param>
         /// <param name="green">Green 0 - 255</param>
         /// <param name="blue">Blue 0 - 255.</param>
         /// <param name="alpha">Alpha 0 - 255</param>
-        public Direct2DColor(int red, int green, int blue, int alpha)
+        public D2DColor(int red, int green, int blue, int alpha)
         {
             Red = red / 255.0f;
             Green = green / 255.0f;
@@ -59,12 +59,12 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DColor"/> struct with an alpha of 1.0f
+        /// Initializes a new instance of the <see cref="D2DColor"/> struct with an alpha of 1.0f
         /// </summary>
         /// <param name="red">Red 0.0f - 1.0f</param>
         /// <param name="green">Green 0.0f - 1.0f</param>
         /// <param name="blue">Blue 0.0f - 1.0f</param>
-        public Direct2DColor(float red, float green, float blue)
+        public D2DColor(float red, float green, float blue)
         {
             Red = red;
             Green = green;
@@ -73,13 +73,13 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DColor"/> struct
+        /// Initializes a new instance of the <see cref="D2DColor"/> struct
         /// </summary>
         /// <param name="red">Red 0.0f - 1.0f</param>
         /// <param name="green">Green 0.0f - 1.0f</param>
         /// <param name="blue">Blue 0.0f - 1.0f</param>
         /// <param name="alpha">Alpha 0.0f - 1.0f</param>
-        public Direct2DColor(float red, float green, float blue, float alpha)
+        public D2DColor(float red, float green, float blue, float alpha)
         {
             Red = red;
             Green = green;
@@ -88,21 +88,21 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="RawColor4"/> to <see cref="Direct2DColor"/>.
+        /// Performs an implicit conversion from <see cref="RawColor4"/> to <see cref="D2DColor"/>.
         /// </summary>
         /// <param name="color">The color.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator Direct2DColor(RawColor4 color)
+        public static implicit operator D2DColor(RawColor4 color)
         {
-            return new Direct2DColor(color.R, color.G, color.B, color.A);
+            return new D2DColor(color.R, color.G, color.B, color.A);
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Direct2DColor"/> to <see cref="RawColor4"/>.
+        /// Performs an implicit conversion from <see cref="D2DColor"/> to <see cref="RawColor4"/>.
         /// </summary>
         /// <param name="color">The color.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator RawColor4(Direct2DColor color)
+        public static implicit operator RawColor4(D2DColor color)
         {
             return new RawColor4(color.Red, color.Green, color.Blue, color.Alpha);
         }

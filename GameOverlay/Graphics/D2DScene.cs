@@ -5,7 +5,7 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// </summary>
     /// <seealso cref="System.IDisposable"/>
-    public class Direct2DScene : IDisposable
+    public class D2DScene : IDisposable
     {
         /// <summary>
         /// Gets the renderer.
@@ -13,35 +13,35 @@ namespace GameOverlay.Graphics
         /// <value>The renderer.</value>
         public D2DDevice Renderer { get; private set; }
 
-        private Direct2DScene()
+        private D2DScene()
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DScene"/> class.
+        /// Initializes a new instance of the <see cref="D2DScene"/> class.
         /// </summary>
         /// <param name="renderer">The renderer.</param>
-        public Direct2DScene(D2DDevice renderer)
+        public D2DScene(D2DDevice renderer)
         {
             Renderer = renderer;
             renderer.BeginScene();
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Direct2DScene"/> class.
+        /// Finalizes an instance of the <see cref="D2DScene"/> class.
         /// </summary>
-        ~Direct2DScene()
+        ~D2DScene()
         {
             Dispose(false);
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Direct2DScene"/> to <see cref="D2DDevice"/>.
+        /// Performs an implicit conversion from <see cref="D2DScene"/> to <see cref="D2DDevice"/>.
         /// </summary>
         /// <param name="scene">The scene.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator D2DDevice(Direct2DScene scene)
+        public static implicit operator D2DDevice(D2DScene scene)
         {
             return scene.Renderer;
         }

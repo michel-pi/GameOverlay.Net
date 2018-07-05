@@ -348,10 +348,10 @@ namespace GameOverlay.Graphics
         /// Fancy IDisposable pattern for scenes
         /// </summary>
         /// <returns></returns>
-        public Direct2DScene UseScene()
+        public D2DScene UseScene()
         {
             // really expensive to use but i like the pattern
-            return new Direct2DScene(this);
+            return new D2DScene(this);
         }
 
         #endregion Scenes
