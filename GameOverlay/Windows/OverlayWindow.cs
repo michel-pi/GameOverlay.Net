@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 using GameOverlay.PInvoke;
+using GameOverlay.Utilities;
 
 namespace GameOverlay.Windows
 {
