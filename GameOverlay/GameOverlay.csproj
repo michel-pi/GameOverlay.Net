@@ -60,6 +60,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graphics\Containers\ConcurrentShapeContainer.cs" />
+    <Compile Include="Graphics\Containers\ShapeContainer.cs" />
+    <Compile Include="Graphics\Primitives\BezierCurve.cs" />
+    <Compile Include="Graphics\Primitives\Circle.cs" />
+    <Compile Include="Graphics\Primitives\Curve.cs" />
+    <Compile Include="Graphics\Primitives\Ellipse.cs" />
+    <Compile Include="Graphics\Primitives\Geometry.cs" />
+    <Compile Include="Graphics\Primitives\Line.cs" />
+    <Compile Include="Graphics\Primitives\Point.cs" />
+    <Compile Include="Graphics\Primitives\Rectangle.cs" />
+    <Compile Include="Graphics\Primitives\Text.cs" />
+    <Compile Include="Graphics\Primitives\Triangle.cs" />
     <Compile Include="PInvoke\Types\MARGIN.cs" />
     <Compile Include="PInvoke\Types\Message.cs" />
     <Compile Include="PInvoke\Types\POINT.cs" />
@@ -85,7 +97,7 @@
     <Compile Include="Graphics\D2DDevice.cs" />
     <Compile Include="Graphics\D2DScene.cs" />
     <Compile Include="Graphics\FontCreationOptions.cs" />
-    <Compile Include="Graphics\RendererOptions.cs" />
+    <Compile Include="Graphics\DeviceOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
