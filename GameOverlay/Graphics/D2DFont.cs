@@ -156,6 +156,10 @@ namespace GameOverlay.Graphics
             {
                 return Font.WordWrapping != SharpDX.DirectWrite.WordWrapping.NoWrap;
             }
+            set
+            {
+                Font.SetWordWrapping(value ? SharpDX.DirectWrite.WordWrapping.Wrap : SharpDX.DirectWrite.WordWrapping.NoWrap);
+            }
         }
 
         /// <summary>
@@ -166,6 +170,17 @@ namespace GameOverlay.Graphics
         public static implicit operator TextFormat(D2DFont font)
         {
             return font.Font;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return "{FontFamilyName=" + Font.FontFamilyName + ", Size=" + Font.FontSize + "}";
         }
     }
 }
