@@ -5,15 +5,16 @@ using System.Diagnostics;
 
 using GameOverlay.Windows;
 using GameOverlay.Graphics;
+using GameOverlay.Utilities;
 
 namespace GameOverlay
 {
     internal class Program
     {
-        private static Direct2DRenderer gfx;
-        private static Direct2DFont font;
-        private static Direct2DBrush brush;
-        private static Direct2DBrush backgroundBrush;
+        private static D2DDevice gfx;
+        private static D2DFont font;
+        private static D2DBrush brush;
+        private static D2DBrush backgroundBrush;
 
         private static void Main(string[] args)
         {
@@ -34,7 +35,7 @@ namespace GameOverlay
 
             overlay.OnWindowBoundsChanged += Overlay_OnWindowBoundsChanged;
 
-            RendererOptions rendererOptions = new RendererOptions()
+            DeviceOptions rendererOptions = new DeviceOptions()
             {
                 AntiAliasing = true,
                 Hwnd = overlay.WindowHandle,
@@ -42,7 +43,7 @@ namespace GameOverlay
                 VSync = false
             };
 
-            gfx = new Direct2DRenderer(rendererOptions);
+            gfx = new D2DDevice(rendererOptions);
 
             font = gfx.CreateFont("Arial", 22);
             brush = gfx.CreateBrush(255, 0, 0, 255);
@@ -50,7 +51,7 @@ namespace GameOverlay
 
             FrameTimer timer = new FrameTimer(60);
 
-            timer.OnFrameStart += Timer_OnFrameStart;
+            timer.FrameStarting += Timer_OnFrameStart;
 
             timer.Start();
 
@@ -67,14 +68,14 @@ namespace GameOverlay
             gfx.Resize(width, height);
         }
 
-        private static void Timer_OnFrameStart()
+        private static void Timer_OnFrameStart(D2DDevice device)
         {
-            gfx.BeginScene();
-            gfx.ClearScene();
+            device.BeginScene();
+            device.ClearScene();
 
-            gfx.DrawTextWithBackground(gfx.FPS.ToString(), 100, 100, font, brush, backgroundBrush);
+            device.DrawTextWithBackground(gfx.FPS.ToString(), 100, 100, font, brush, backgroundBrush);
 
-            gfx.EndScene();
+            device.EndScene();
         }
     }
 }
