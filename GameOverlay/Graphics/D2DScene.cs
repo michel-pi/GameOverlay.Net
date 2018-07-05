@@ -24,9 +24,7 @@ namespace GameOverlay.Graphics
         /// <param name="device">The renderer.</param>
         public D2DScene(D2DDevice device)
         {
-            if (device == null) throw new ArgumentNullException(nameof(device));
-
-            Device = device;
+            Device = device ?? throw new ArgumentNullException(nameof(device));
             device.BeginScene();
         }
 
