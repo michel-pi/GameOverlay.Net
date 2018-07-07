@@ -76,38 +76,41 @@ namespace GameOverlay.Utilities
         /// <returns>Non-zero on success</returns>
         public static int GetRealWindowRect(IntPtr hwnd, out RECT rect)
         {
-            RECT windowRect = new RECT();
+            rect = new RECT();
             RECT clientRect = new RECT();
 
-            int result = User32.GetWindowRect(hwnd, out windowRect);
-            if (User32.GetClientRect(hwnd, out clientRect) == 0)
+            int result = User32.GetWindowRect(hwnd, out rect);
+
+            if (User32.GetClientRect(hwnd, out clientRect) == 0) return result;
+
+            if (result == 0) return result; 
+
+            int clientWidth = clientRect.Right - clientRect.Left;
+            int clientHeight = clientRect.Bottom - clientRect.Top;
+
+            int windowWidth = rect.Right - rect.Left;
+            int windowHeight = rect.Bottom - rect.Top;
+
+            if(clientWidth == windowWidth && clientHeight == windowHeight) return result;
+
+            if(clientWidth != windowWidth)
             {
-                rect = windowRect;
-                return result;
+                int dif_x = clientWidth > windowWidth ? clientWidth - windowWidth : windowWidth - clientWidth;
+                dif_x /= 2;
+
+                rect.Right -= dif_x;
+                rect.Left += dif_x;
             }
 
-            int windowWidth = windowRect.Right - windowRect.Left;
-            int windowHeight = windowRect.Bottom - windowRect.Top;
-
-            if (windowWidth == clientRect.Right && windowHeight == clientRect.Bottom)
+            if(clientHeight != windowHeight)
             {
-                rect = windowRect;
-                return result;
+                int dif_y = clientHeight > windowHeight ? clientHeight - windowHeight : windowHeight - clientHeight;
+                dif_y /= 2;
+
+                rect.Bottom -= dif_y;
+                rect.Top += dif_y;
             }
 
-            int dif_x = windowWidth > clientRect.Right ? windowWidth - clientRect.Right : clientRect.Right - windowWidth;
-            int dif_y = windowHeight > clientRect.Bottom ? windowHeight - clientRect.Bottom : clientRect.Bottom - windowHeight;
-
-            dif_x /= 2;
-            dif_y /= 2;
-
-            windowRect.Left += dif_x;
-            windowRect.Top += dif_y;
-
-            windowRect.Right -= dif_x;
-            windowRect.Bottom -= dif_y;
-
-            rect = windowRect;
             return result;
         }
     }
