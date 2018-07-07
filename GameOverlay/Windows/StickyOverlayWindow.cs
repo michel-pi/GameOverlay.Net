@@ -51,8 +51,7 @@ namespace GameOverlay.Windows
         public StickyOverlayWindow(IntPtr parentWindowHandle) : base(DefaultOptions)
         {
             ParentWindowHandle = parentWindowHandle;
-
-            Install(DefaultOptions);
+            Install();
         }
 
         /// <summary>
@@ -63,8 +62,7 @@ namespace GameOverlay.Windows
         public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayCreationOptions options) : base(options)
         {
             ParentWindowHandle = parentWindowHandle;
-
-            Install(options);
+            Install();
         }
 
         /// <summary>
@@ -76,10 +74,9 @@ namespace GameOverlay.Windows
         }
 
         /// <summary>
-        /// Installs the specified options.
+        /// Installs the sticky overlay.
         /// </summary>
-        /// <param name="options">The options.</param>
-        public void Install(OverlayCreationOptions options)
+        public void Install()
         {
             if (ParentWindowHandle == IntPtr.Zero || _exitServiceThread || _serviceThread != null) return;
 
