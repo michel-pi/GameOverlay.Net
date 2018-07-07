@@ -5,12 +5,12 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{313A83B1-C9C1-411D-A747-63BFA1FFA24C}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>GameOverlay</RootNamespace>
     <AssemblyName>GameOverlay</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.27.17.6761</AssemblyVersion>
+    <AssemblyVersion>1.27.17.6763</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,8 +37,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>GameOverlay.WindowBoundsTest</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
@@ -74,16 +73,20 @@
     <Compile Include="Graphics\Primitives\Rectangle.cs" />
     <Compile Include="Graphics\Primitives\Text.cs" />
     <Compile Include="Graphics\Primitives\Triangle.cs" />
+    <Compile Include="PInvoke\Types\LayeredWindowAttribute.cs" />
+    <Compile Include="PInvoke\Types\ExtendedWindowStyles.cs" />
     <Compile Include="PInvoke\Types\MARGIN.cs" />
     <Compile Include="PInvoke\Types\Message.cs" />
     <Compile Include="PInvoke\Types\POINT.cs" />
     <Compile Include="PInvoke\Types\RECT.cs" />
     <Compile Include="PInvoke\Types\WindowsMessage.cs" />
     <Compile Include="PInvoke\Types\WNDCLASSEX.cs" />
+    <Compile Include="PInvoke\Types\WindowStyles.cs" />
     <Compile Include="ShapeTest.cs" />
     <Compile Include="Utilities\HelperMethods.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Utilities\FrameTimer.cs" />
+    <Compile Include="WindowBoundsTest.cs" />
     <Compile Include="Windows\StickyOverlayWindow.cs" />
     <Compile Include="Windows\OverlayCreationOptions.cs" />
     <Compile Include="Windows\OverlayWindow.cs" />

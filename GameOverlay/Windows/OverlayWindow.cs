@@ -197,18 +197,18 @@ namespace GameOverlay.Windows
 
             if (BypassTopmost)
             {
-                exStyle = 0x20 | 0x80000 | 0x80 | 0x8000000;
+                exStyle = (uint)(ExtendedWindowStyles.Transparent | ExtendedWindowStyles.Layered | ExtendedWindowStyles.NoActivate);
             }
             else
             {
-                exStyle = 0x8 | 0x20 | 0x80000 | 0x80 | 0x8000000; // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
+                exStyle = (uint)(ExtendedWindowStyles.TopMost | ExtendedWindowStyles.Transparent | ExtendedWindowStyles.Layered | ExtendedWindowStyles.NoActivate);
             }
 
             WindowHandle = User32.CreateWindowEx(
-                exStyle, // WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED |WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE
+                exStyle,
                 WindowClassName,
                 WindowTitle,
-                0x80000000 | 0x10000000, // WS_POPUP | WS_VISIBLE
+                (uint)(WindowStyles.Popup | WindowStyles.Visible),
                 X, Y,
                 Width, Height,
                 IntPtr.Zero,
@@ -217,7 +217,7 @@ namespace GameOverlay.Windows
                 IntPtr.Zero
                 );
 
-            User32.SetLayeredWindowAttributes(WindowHandle, 0, 255, /*0x1 |*/ 0x2);
+            User32.SetLayeredWindowAttributes(WindowHandle, 0, 255, (uint)(LayeredWindowAttribute.Alpha));
             User32.UpdateWindow(WindowHandle);
 
             // If window is incompatible on some platforms use SetWindowLong to set the style again
