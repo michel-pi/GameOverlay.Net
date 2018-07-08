@@ -154,7 +154,7 @@ namespace GameOverlay.Windows
                     }
                 }
 
-                HelperMethods.GetRealWindowRect(ParentWindowHandle, out bounds);
+                if (!HelperMethods.GetWindowClientRect(ParentWindowHandle, out bounds)) continue;
 
                 int x = bounds.Left;
                 int y = bounds.Top;

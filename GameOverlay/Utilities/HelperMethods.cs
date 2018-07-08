@@ -113,5 +113,33 @@ namespace GameOverlay.Utilities
 
             return result;
         }
+
+        public static bool GetWindowClientRect(IntPtr hwnd, out RECT rect)
+        {
+            rect = new RECT();
+            var client = new RECT();
+
+            if (User32.GetWindowRect(hwnd, out rect) == 0) return false;
+            if (User32.GetClientRect(hwnd, out client) == 0) return true;
+
+            int clientWidth = client.Right - client.Left;
+            int clientHeight = client.Bottom - client.Top;
+
+            int windowWidth = rect.Right - rect.Left;
+            int windowHeight = rect.Bottom - rect.Top;
+
+            int dif_x = clientWidth > windowWidth ? clientWidth - windowWidth : windowWidth - clientWidth;
+            int dif_y = clientHeight > windowHeight ? clientHeight - windowHeight : windowHeight - clientHeight;
+
+            dif_x /= 2;
+
+            rect.Left += dif_x;
+            rect.Right -= dif_x;
+
+            rect.Top += (dif_y - dif_x);
+            rect.Bottom -= dif_x;
+
+            return true;
+        }
     }
 }

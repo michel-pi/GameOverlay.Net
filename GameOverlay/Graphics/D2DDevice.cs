@@ -201,7 +201,7 @@ namespace GameOverlay.Graphics
 
             RECT bounds = new RECT();
 
-            if (HelperMethods.GetRealWindowRect(options.Hwnd, out bounds) == 0) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
+            if (!HelperMethods.GetWindowClientRect(options.Hwnd, out bounds)) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
 
             this.Width = bounds.Right - bounds.Left;
             this.Height = bounds.Bottom - bounds.Top;
