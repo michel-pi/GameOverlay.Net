@@ -82,6 +82,19 @@ namespace GameOverlay.Windows
         public int Y { get; private set; }
 
         /// <summary>
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        public delegate void WindowBoundsChanged(int x, int y, int width, int height);
+
+        /// <summary>
+        /// Occurs when [on window bounds changed]. Assign after device creation
+        /// </summary>
+        public event WindowBoundsChanged OnWindowBoundsChanged;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="OverlayWindow"/> class.
         /// </summary>
         /// <param name="bypassTopmost">if set to <c>true</c> [bypass topmost].</param>
@@ -281,23 +294,7 @@ namespace GameOverlay.Windows
                 }
             }
         }
-
-        /// <summary>
-        /// Extends the frame into client area.
-        /// </summary>
-        public void ExtendFrameIntoClientArea()
-        {
-            var margin = new PInvoke.MARGIN
-            {
-                cxLeftWidth = -1,
-                cxRightWidth = -1,
-                cyBottomHeight = -1,
-                cyTopHeight = -1
-            };
-
-            DwmApi.DwmExtendFrameIntoClientArea(WindowHandle, ref margin);
-        }
-
+        
         /// <summary>
         /// Hides the window.
         /// </summary>
@@ -320,6 +317,8 @@ namespace GameOverlay.Windows
             X = x;
             Y = y;
             ExtendFrameIntoClientArea();
+
+            InvokeEvents();
         }
 
         /// <summary>
@@ -333,6 +332,8 @@ namespace GameOverlay.Windows
             Width = width;
             Height = height;
             ExtendFrameIntoClientArea();
+
+            InvokeEvents();
         }
 
         /// <summary>
@@ -350,6 +351,8 @@ namespace GameOverlay.Windows
             Width = width;
             Height = height;
             ExtendFrameIntoClientArea();
+
+            InvokeEvents();
         }
 
         /// <summary>
@@ -362,6 +365,27 @@ namespace GameOverlay.Windows
             User32.ShowWindow(WindowHandle, 5);
             ExtendFrameIntoClientArea();
             IsVisible = true;
+        }
+
+        /// <summary>
+        /// Extends the frame into client area.
+        /// </summary>
+        private void ExtendFrameIntoClientArea()
+        {
+            var margin = new PInvoke.MARGIN
+            {
+                cxLeftWidth = -1,
+                cxRightWidth = -1,
+                cyBottomHeight = -1,
+                cyTopHeight = -1
+            };
+
+            DwmApi.DwmExtendFrameIntoClientArea(WindowHandle, ref margin);
+        }
+
+        private void InvokeEvents()
+        {
+            OnWindowBoundsChanged?.Invoke(X, Y, Width, Height);
         }
 
         #region IDisposable Support

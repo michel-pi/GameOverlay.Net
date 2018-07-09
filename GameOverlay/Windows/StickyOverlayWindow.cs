@@ -26,19 +26,6 @@ namespace GameOverlay.Windows
         private Thread _serviceThread;
 
         /// <summary>
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        public delegate void WindowBoundsChanged(int x, int y, int width, int height);
-
-        /// <summary>
-        /// Occurs when [on window bounds changed].
-        /// </summary>
-        public event WindowBoundsChanged OnWindowBoundsChanged;
-
-        /// <summary>
         /// Gets the parent window handle.
         /// </summary>
         /// <value>The parent window handle.</value>
@@ -168,8 +155,6 @@ namespace GameOverlay.Windows
                     && base.Height == height) continue;
 
                 base.SetWindowBounds(x, y, width, height);
-
-                OnWindowBoundsChanged?.Invoke(x, y, width, height);
             }
         }
 
