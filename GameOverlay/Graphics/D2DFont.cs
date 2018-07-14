@@ -29,7 +29,7 @@ namespace GameOverlay.Graphics
         /// <param name="font">The font.</param>
         public D2DFont(TextFormat font)
         {
-            Font = font;
+            Font = font ?? throw new ArgumentNullException(nameof(font));
         }
 
         /// <summary>
@@ -42,6 +42,9 @@ namespace GameOverlay.Graphics
         /// <param name="italic">if set to <c>true</c> [italic].</param>
         public D2DFont(FontFactory factory, string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
+            if (factory == null) throw new ArgumentNullException(factory);
+            if (string.IsNullOrEmpty(fontFamilyName)) throw new ArgumentNullException(nameof(fontFamilyName));
+
             _fontFactory = factory;
             Font = new TextFormat(factory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
         }
