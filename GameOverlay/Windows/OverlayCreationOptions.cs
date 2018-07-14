@@ -4,7 +4,7 @@ namespace GameOverlay.Windows
 {
     /// <summary>
     /// </summary>
-    public struct OverlayCreationOptions // struct -> not nullable
+    public class OverlayCreationOptions // struct -> not nullable
     {
         /// <summary>
         /// The bypass topmost
