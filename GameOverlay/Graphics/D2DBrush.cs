@@ -8,7 +8,7 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// Stores a Brush compatible with <c>Direct2DRenderer</c>
     /// </summary>
-    public class D2DBrush : IDisposable
+    public class D2DBrush : ID2DBrush
     {
         /// <summary>
         /// A <c>SolidColorBrush</c> to use with a rendering device
@@ -68,26 +68,6 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="D2DBrush"/> to <see cref="D2DColor"/>.
-        /// </summary>
-        /// <param name="brush">The brush.</param>
-        /// <returns>The result of the conversion.</returns>
-        public static implicit operator D2DColor(D2DBrush brush)
-        {
-            return brush.Color;
-        }
-
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="D2DBrush"/> to <see cref="RawColor4"/>.
-        /// </summary>
-        /// <param name="brush">The brush.</param>
-        /// <returns>The result of the conversion.</returns>
-        public static implicit operator RawColor4(D2DBrush brush)
-        {
-            return brush.Color;
-        }
-
-        /// <summary>
         /// Performs an implicit conversion from <see cref="D2DBrush"/> to <see cref="SolidColorBrush"/>.
         /// </summary>
         /// <param name="brush">The brush.</param>
@@ -106,6 +86,16 @@ namespace GameOverlay.Graphics
         public override string ToString()
         {
             return "{D2DBrush=" + Color.ToString() + "}";
+        }
+
+        public Brush GetBrush()
+        {
+            return Brush;
+        }
+
+        public void SetBrush(Brush brush)
+        {
+            Brush = (SolidColorBrush)brush;
         }
 
         #region IDisposable Support
