@@ -94,5 +94,10 @@ namespace GameOverlay.Graphics.Primitives
         {
             return "{Left=" + Left + ", Top=" + Top + ", Right=" + Right + ", Bottom=" + Bottom + "}";
         }
+
+        public static implicit operator SharpDX.Mathematics.Interop.RawRectangleF(Rectangle rectangle)
+        {
+            return new SharpDX.Mathematics.Interop.RawRectangleF(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
+        }
     }
 }

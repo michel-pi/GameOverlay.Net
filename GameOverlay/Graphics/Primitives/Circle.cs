@@ -73,5 +73,17 @@ namespace GameOverlay.Graphics.Primitives
         {
             return Location.ToString() + "(" + Radius + ")";
         }
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Circle"/> to <see cref="SharpDX.Direct2D1.Ellipse"/>.
+        /// </summary>
+        /// <param name="circle">The circle.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        public static implicit operator SharpDX.Direct2D1.Ellipse(Circle circle)
+        {
+            return new SharpDX.Direct2D1.Ellipse(circle.Location, circle.Radius, circle.Radius);
+        }
     }
 }

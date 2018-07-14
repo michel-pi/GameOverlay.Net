@@ -48,5 +48,17 @@ namespace GameOverlay.Graphics.Primitives
         {
             return "{X=" + X + ", Y=" + Y + "}";
         }
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Point"/> to <see cref="SharpDX.Mathematics.Interop.RawVector2"/>.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        public static implicit operator SharpDX.Mathematics.Interop.RawVector2(Point point)
+        {
+            return new SharpDX.Mathematics.Interop.RawVector2(point.X, point.Y);
+        }
     }
 }

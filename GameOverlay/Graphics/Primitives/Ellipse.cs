@@ -85,5 +85,10 @@ namespace GameOverlay.Graphics.Primitives
         {
             return Location.ToString() + "(" + RadiusX + ", " + RadiusY + ")";
         }
+
+        public static implicit operator SharpDX.Direct2D1.Ellipse(Ellipse ellipse)
+        {
+            return new SharpDX.Direct2D1.Ellipse(ellipse.Location, ellipse.RadiusX, ellipse.RadiusY);
+        }
     }
 }
