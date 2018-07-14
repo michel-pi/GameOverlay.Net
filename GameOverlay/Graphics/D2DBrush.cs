@@ -23,20 +23,24 @@ namespace GameOverlay.Graphics
         /// <summary>
         /// Internal use only
         /// </summary>
-        /// <param name="renderTarget"><c>RenderTarget</c> device</param>
-        public D2DBrush(RenderTarget renderTarget)
+        /// <param name="device"><c>RenderTarget</c> device</param>
+        public D2DBrush(RenderTarget device)
         {
-            Brush = new SolidColorBrush(renderTarget, default(RawColor4));
+            if (device == null) throw new ArgumentNullException(nameof(device));
+
+            Brush = new SolidColorBrush(device, default(RawColor4));
         }
 
         /// <summary>
         /// Internal use only
         /// </summary>
-        /// <param name="renderTarget"><c>RenderTarget</c> device</param>
+        /// <param name="device"><c>RenderTarget</c> device</param>
         /// <param name="color"><c>Direct2DColor</c> compatible color</param>
-        public D2DBrush(RenderTarget renderTarget, D2DColor color)
+        public D2DBrush(RenderTarget device, D2DColor color)
         {
-            Brush = new SolidColorBrush(renderTarget, color);
+            if (device == null) throw new ArgumentNullException(nameof(device));
+
+            Brush = new SolidColorBrush(device, color);
         }
 
         /// <summary>
