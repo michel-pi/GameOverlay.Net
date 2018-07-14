@@ -52,11 +52,25 @@ namespace GameOverlay.Utilities
 
             string name = mod.FileName;
 
-            mod.Dispose();
-            proc.Dispose();
+            if (string.IsNullOrEmpty(name)) throw new NullReferenceException("The executable module name is null!");
 
-            // Path class tends to throw errors. microsoft is lazy af
-            return name.Contains(@"\") ? System.IO.Path.GetFileNameWithoutExtension(name) : name;
+            try
+            {
+                mod.Dispose();
+                proc.Dispose();
+            }
+            catch
+            {
+
+            }
+
+            int index = name.IndexOf(@"\");
+
+            if (index < 0) return name;
+
+            if (name.Length == 1) return name;
+
+            return name.Substring(index + 1);
         }
 
         /// <summary>
