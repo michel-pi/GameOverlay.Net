@@ -11,7 +11,6 @@ using FontFactory = SharpDX.DirectWrite.Factory;
 using Factory = SharpDX.Direct2D1.Factory;
 
 using GameOverlay.Graphics.Containers;
-using GameOverlay.Graphics.Primitives;
 using GameOverlay.PInvoke;
 using GameOverlay.Utilities;
 
@@ -34,8 +33,7 @@ namespace GameOverlay.Graphics
         private bool _resize;
         private int _resizeHeight;
         private int _resizeWidth;
-        private SolidColorBrush _sharedBrush;
-        private TextFormat _sharedFont;
+        private StrokeStyle _sharedStrokeStyle;
         private Stopwatch _stopwatch = new Stopwatch();
 
         #endregion private vars
@@ -187,7 +185,7 @@ namespace GameOverlay.Graphics
         /// <param name="options">Creation options</param>
         public D2DDevice(DeviceOptions options)
         {
-            if(options.Hwnd == IntPtr.Zero) throw new ArgumentException(nameof(D2DDevice) + " needs a valid window handle!", nameof(options.Hwnd));
+            if (options.Hwnd == IntPtr.Zero) throw new ArgumentException(nameof(D2DDevice) + " needs a valid window handle!", nameof(options.Hwnd));
 
             SetupInstance(options);
         }
@@ -212,7 +210,6 @@ namespace GameOverlay.Graphics
 
             try
             {
-                _sharedBrush.Dispose();
                 _fontFactory.Dispose();
                 _factory.Dispose();
                 _device.Dispose();
@@ -224,7 +221,7 @@ namespace GameOverlay.Graphics
 
         private void SetupInstance(DeviceOptions options)
         {
-            if(IsInitialized) throw new InvalidOperationException("Destroy this " + nameof(D2DDevice) + " before initializing it again!");
+            if (IsInitialized) throw new InvalidOperationException("Destroy this " + nameof(D2DDevice) + " before initializing it again!");
 
             _deviceOptions = options;
 
@@ -270,17 +267,26 @@ namespace GameOverlay.Graphics
                     renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
                     _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw new NotSupportedException("This computer does not support Direct2D1!" + Environment.NewLine + ex.ToString());
                 }
             }
 
-            _device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
+            _device.AntialiasMode = AntialiasMode.PerPrimitive; // AntialiasMode.PerPrimitive fails rendering some objects
             // other than in the documentation: Cleartype is much faster for me than GrayScale
             _device.TextAntialiasMode = options.AntiAliasing ? SharpDX.Direct2D1.TextAntialiasMode.Cleartype : SharpDX.Direct2D1.TextAntialiasMode.Aliased;
 
-            _sharedBrush = new SolidColorBrush(_device, default(RawColor4));
+            _sharedStrokeStyle = new StrokeStyle(_factory, new StrokeStyleProperties()
+            {
+                DashCap = CapStyle.Flat,
+                DashOffset = -1.0f,
+                DashStyle = DashStyle.Dash,
+                EndCap = CapStyle.Flat,
+                LineJoin = LineJoin.MiterOrBevel,
+                MiterLimit = 1.0f,
+                StartCap = CapStyle.Flat
+            });
 
             IsInitialized = true;
         }
@@ -312,7 +318,7 @@ namespace GameOverlay.Graphics
                     Width = _resizeWidth;
                     Height = _resizeHeight;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString()); // catches a weird error here
                 }
@@ -396,7 +402,6 @@ namespace GameOverlay.Graphics
         public bool Resize(int width, int height)
         {
             if (!IsInitialized) return false;
-            if (IsDrawing) return false;
 
             if (Width == width && height == Height) return true;
 
@@ -415,7 +420,7 @@ namespace GameOverlay.Graphics
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
             if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
-            
+
             return new D2DScene(this);
         }
 
@@ -524,815 +529,648 @@ namespace GameOverlay.Graphics
             return new D2DBitmap(_device, bytes);
         }
 
-        /// <summary>
-        /// Sets the font to use when no font is specified
-        /// </summary>
-        /// <param name="fontFamilyName">Name of the font family.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="bold">if set to <c>true</c> [bold].</param>
-        /// <param name="italic">if set to <c>true</c> [italic].</param>
-        public void SetSharedFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
-        {
-            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
-            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
-
-            _sharedFont = new TextFormat(_fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
-        }
-
         #endregion Fonts & Brushes & Bitmaps
 
-        #region Primitives
-
-        /// <summary>
-        /// Draws a circle
-        /// </summary>
-        /// <param name="x">X - Circle center</param>
-        /// <param name="y">Y - Circel center</param>
-        /// <param name="radius">Circle radius</param>
-        /// <param name="stroke">Line stroke</param>
-        /// <param name="brush">Brush to use</param>
-        public void DrawCircle(float x, float y, float radius, float stroke, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush(), stroke);
-        }
-
-        /// <summary>
-        /// Draws a circle (not thread safe)
-        /// </summary>
-        /// <param name="x">X - Circle center</param>
-        /// <param name="y">Y - Circel center</param>
-        /// <param name="radius">Circle radius</param>
-        /// <param name="stroke">Line stroke</param>
-        /// <param name="color"><c>Direct2DColor</c></param>
-        public void DrawCircle(float x, float y, float radius, float stroke, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-            _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush, stroke);
-        }
-
-        /// <summary>
-        /// Draws the ellipse.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="radius_x">The radius x.</param>
-        /// <param name="radius_y">The radius y.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush(), stroke);
-        }
-
-        /// <summary>
-        /// Draws an ellipse (not thread safe)
-        /// </summary>
-        /// <param name="x">X - Ellipse center</param>
-        /// <param name="y">Y - Ellipse center</param>
-        /// <param name="radius_x">The radius on x axis</param>
-        /// <param name="radius_y">The radius on y axis</param>
-        /// <param name="stroke">Line stroke</param>
-        /// <param name="color"><c>Direct2DColor</c></param>
-        public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-            _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush, stroke);
-        }
-
-        /// <summary>
-        /// Draws a line
-        /// </summary>
-        /// <param name="start_x">The start x.</param>
-        /// <param name="start_y">The start y.</param>
-        /// <param name="end_x">The end x.</param>
-        /// <param name="end_y">The end y.</param>
-        /// <param name="stroke">Line stroke</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush.GetBrush(), stroke);
-        }
-
-        /// <summary>
-        /// Draws a line
-        /// </summary>
-        /// <param name="start_x">The start x.</param>
-        /// <param name="start_y">The start y.</param>
-        /// <param name="end_x">The end x.</param>
-        /// <param name="end_y">The end y.</param>
-        /// <param name="stroke">Line stroke</param>
-        /// <param name="color">The color.</param>
-        public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-            _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), _sharedBrush, stroke);
-        }
-
-        /// <summary>
-        /// Draws the rectangle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawRectangle(float x, float y, float width, float height, float stroke, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), brush.GetBrush(), stroke);
-        }
-
-        /// <summary>
-        /// Draws the rectangle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="color">The color.</param>
-        public void DrawRectangle(float x, float y, float width, float height, float stroke, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-            _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush, stroke);
-        }
-
-        /// <summary>
-        /// Draws the rectangle edges.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            int length = (int)(((width + height) / 2.0f) * 0.2f);
-
-            RawVector2 first = new RawVector2(x, y);
-            RawVector2 second = new RawVector2(x, y + length);
-            RawVector2 third = new RawVector2(x + length, y);
-
-            _device.DrawLine(first, second, brush.GetBrush(), stroke);
-            _device.DrawLine(first, third, brush.GetBrush(), stroke);
-
-            first.Y += height;
-            second.Y = first.Y - length;
-            third.Y = first.Y;
-            third.X = first.X + length;
-
-            _device.DrawLine(first, second, brush.GetBrush(), stroke);
-            _device.DrawLine(first, third, brush.GetBrush(), stroke);
-
-            first.X = x + width;
-            first.Y = y;
-            second.X = first.X - length;
-            second.Y = first.Y;
-            third.X = first.X;
-            third.Y = first.Y + length;
-
-            _device.DrawLine(first, second, brush.GetBrush(), stroke);
-            _device.DrawLine(first, third, brush.GetBrush(), stroke);
-
-            first.Y += height;
-            second.X += length;
-            second.Y = first.Y - length;
-            third.Y = first.Y;
-            third.X = first.X - length;
-
-            _device.DrawLine(first, second, brush.GetBrush(), stroke);
-            _device.DrawLine(first, third, brush.GetBrush(), stroke);
-        }
-
-        /// <summary>
-        /// Draws the rectangle edges.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="color">The color.</param>
-        public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-
-            int length = (int)(((width + height) / 2.0f) * 0.2f);
-
-            RawVector2 first = new RawVector2(x, y);
-            RawVector2 second = new RawVector2(x, y + length);
-            RawVector2 third = new RawVector2(x + length, y);
-
-            _device.DrawLine(first, second, _sharedBrush, stroke);
-            _device.DrawLine(first, third, _sharedBrush, stroke);
-
-            first.Y += height;
-            second.Y = first.Y - length;
-            third.Y = first.Y;
-            third.X = first.X + length;
-
-            _device.DrawLine(first, second, _sharedBrush, stroke);
-            _device.DrawLine(first, third, _sharedBrush, stroke);
-
-            first.X = x + width;
-            first.Y = y;
-            second.X = first.X - length;
-            second.Y = first.Y;
-            third.X = first.X;
-            third.Y = first.Y + length;
-
-            _device.DrawLine(first, second, _sharedBrush, stroke);
-            _device.DrawLine(first, third, _sharedBrush, stroke);
-
-            first.Y += height;
-            second.X += length;
-            second.Y = first.Y - length;
-            third.Y = first.Y;
-            third.X = first.X - length;
-
-            _device.DrawLine(first, second, _sharedBrush, stroke);
-            _device.DrawLine(first, third, _sharedBrush, stroke);
-        }
-
-        #endregion Primitives
-
-        #region Filled
-
-        /// <summary>
-        /// Fills the circle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="radius">The radius.</param>
-        /// <param name="brush">The brush.</param>
-        public void FillCircle(float x, float y, float radius, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush());
-        }
-
-        /// <summary>
-        /// Fills the circle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="radius">The radius.</param>
-        /// <param name="color">The color.</param>
-        public void FillCircle(float x, float y, float radius, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-            _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush);
-        }
-
-        /// <summary>
-        /// Fills the ellipse.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="radius_x">The radius x.</param>
-        /// <param name="radius_y">The radius y.</param>
-        /// <param name="brush">The brush.</param>
-        public void FillEllipse(float x, float y, float radius_x, float radius_y, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush());
-        }
-
-        /// <summary>
-        /// Fills the ellipse.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="radius_x">The radius x.</param>
-        /// <param name="radius_y">The radius y.</param>
-        /// <param name="color">The color.</param>
-        public void FillEllipse(float x, float y, float radius_x, float radius_y, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-            _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush);
-        }
-
-        /// <summary>
-        /// Fills the rectangle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="brush">The brush.</param>
-        public void FillRectangle(float x, float y, float width, float height, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), brush.GetBrush());
-        }
-
-        /// <summary>
-        /// Fills the rectangle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="color">The color.</param>
-        public void FillRectangle(float x, float y, float width, float height, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-            _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush);
-        }
-
-        #endregion Filled
-
-        #region Bordered
-
-        /// <summary>
-        /// Bordereds the circle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="radius">The radius.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="borderColor">Color of the border.</param>
-        public void BorderedCircle(float x, float y, float radius, float stroke, D2DColor color, D2DColor borderColor)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-
-            var ellipse = new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius);
-
-            _device.DrawEllipse(ellipse, _sharedBrush, stroke);
-
-            float half = stroke / 2.0f;
-
-            _sharedBrush.Color = borderColor;
-
-            ellipse.RadiusX += half;
-            ellipse.RadiusY += half;
-
-            _device.DrawEllipse(ellipse, _sharedBrush, half);
-
-            ellipse.RadiusX -= stroke;
-            ellipse.RadiusY -= stroke;
-
-            _device.DrawEllipse(ellipse, _sharedBrush, half);
-        }
-
-        /// <summary>
-        /// Bordereds the circle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="radius">The radius.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="brush">The brush.</param>
-        /// <param name="borderBrush">The border brush.</param>
-        public void BorderedCircle(float x, float y, float radius, float stroke, ID2DBrush brush, ID2DBrush borderBrush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            var ellipse = new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius);
-
-            _device.DrawEllipse(ellipse, brush.GetBrush(), stroke);
-
-            float half = stroke / 2.0f;
-
-            ellipse.RadiusX += half;
-            ellipse.RadiusY += half;
-
-            _device.DrawEllipse(ellipse, borderBrush.GetBrush(), half);
-
-            ellipse.RadiusX -= stroke;
-            ellipse.RadiusY -= stroke;
-
-            _device.DrawEllipse(ellipse, borderBrush.GetBrush(), half);
-        }
-
-        /// <summary>
-        /// Bordereds the line.
-        /// </summary>
-        /// <param name="start_x">The start x.</param>
-        /// <param name="start_y">The start y.</param>
-        /// <param name="end_x">The end x.</param>
-        /// <param name="end_y">The end y.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="borderColor">Color of the border.</param>
-        public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DColor color, D2DColor borderColor)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            var geometry = new PathGeometry(_factory);
-
-            var sink = geometry.Open();
-
-            float half = stroke / 2.0f;
-            float quarter = half / 2.0f;
-
-            sink.BeginFigure(new RawVector2(start_x, start_y - half), FigureBegin.Filled);
-
-            sink.AddLine(new RawVector2(end_x, end_y - half));
-            sink.AddLine(new RawVector2(end_x, end_y + half));
-            sink.AddLine(new RawVector2(start_x, start_y + half));
-
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            _sharedBrush.Color = borderColor;
-
-            _device.DrawGeometry(geometry, _sharedBrush, half);
-
-            _sharedBrush.Color = color;
-
-            _device.FillGeometry(geometry, _sharedBrush);
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
-
-        /// <summary>
-        /// Bordereds the line.
-        /// </summary>
-        /// <param name="start_x">The start x.</param>
-        /// <param name="start_y">The start y.</param>
-        /// <param name="end_x">The end x.</param>
-        /// <param name="end_y">The end y.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="brush">The brush.</param>
-        /// <param name="borderBrush">The border brush.</param>
-        public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, ID2DBrush brush, ID2DBrush borderBrush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            var geometry = new PathGeometry(_factory);
-
-            var sink = geometry.Open();
-
-            float half = stroke / 2.0f;
-            float quarter = half / 2.0f;
-
-            sink.BeginFigure(new RawVector2(start_x, start_y - half), FigureBegin.Filled);
-
-            sink.AddLine(new RawVector2(end_x, end_y - half));
-            sink.AddLine(new RawVector2(end_x, end_y + half));
-            sink.AddLine(new RawVector2(start_x, start_y + half));
-
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            _device.DrawGeometry(geometry, borderBrush.GetBrush(), half);
-
-            _device.FillGeometry(geometry, brush.GetBrush());
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
-
-        /// <summary>
-        /// Bordereds the rectangle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="borderColor">Color of the border.</param>
-        public void BorderedRectangle(float x, float y, float width, float height, float stroke, D2DColor color, D2DColor borderColor)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            float half = stroke / 2.0f;
-
-            width += x;
-            height += y;
-
-            _sharedBrush.Color = color;
-
-            _device.DrawRectangle(new RawRectangleF(x, y, width, height), _sharedBrush, half);
-
-            _sharedBrush.Color = borderColor;
-
-            _device.DrawRectangle(new RawRectangleF(x - half, y - half, width + half, height + half), _sharedBrush, half);
-
-            _device.DrawRectangle(new RawRectangleF(x + half, y + half, width - half, height - half), _sharedBrush, half);
-        }
-
-        /// <summary>
-        /// Bordereds the rectangle.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="brush">The brush.</param>
-        /// <param name="borderBrush">The border brush.</param>
-        public void BorderedRectangle(float x, float y, float width, float height, float stroke, ID2DBrush brush, ID2DBrush borderBrush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            float half = stroke / 2.0f;
-
-            width += x;
-            height += y;
-
-            _device.DrawRectangle(new RawRectangleF(x - half, y - half, width + half, height + half), borderBrush.GetBrush(), half);
-
-            _device.DrawRectangle(new RawRectangleF(x + half, y + half, width - half, height - half), borderBrush.GetBrush(), half);
-
-            _device.DrawRectangle(new RawRectangleF(x, y, width, height), brush.GetBrush(), half);
-        }
-
-        #endregion Bordered
-
-        #region Geometry
-
-        /// <summary>
-        /// Draws the triangle.
-        /// </summary>
-        /// <param name="a_x">a x.</param>
-        /// <param name="a_y">a y.</param>
-        /// <param name="b_x">The b x.</param>
-        /// <param name="b_y">The b y.</param>
-        /// <param name="c_x">The c x.</param>
-        /// <param name="c_y">The c y.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            var geometry = new PathGeometry(_factory);
-
-            var sink = geometry.Open();
-
-            sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Hollow);
-            sink.AddLine(new RawVector2(b_x, b_y));
-            sink.AddLine(new RawVector2(c_x, c_y));
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            _device.DrawGeometry(geometry, brush.GetBrush(), stroke);
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
-
-        /// <summary>
-        /// Draws the triangle.
-        /// </summary>
-        /// <param name="a_x">a x.</param>
-        /// <param name="a_y">a y.</param>
-        /// <param name="b_x">The b x.</param>
-        /// <param name="b_y">The b y.</param>
-        /// <param name="c_x">The c x.</param>
-        /// <param name="c_y">The c y.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="color">The color.</param>
-        public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-
-            var geometry = new PathGeometry(_factory);
-
-            var sink = geometry.Open();
-
-            sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Hollow);
-            sink.AddLine(new RawVector2(b_x, b_y));
-            sink.AddLine(new RawVector2(c_x, c_y));
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            _device.DrawGeometry(geometry, _sharedBrush, stroke);
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
-
-        /// <summary>
-        /// Fills the triangle.
-        /// </summary>
-        /// <param name="a_x">a x.</param>
-        /// <param name="a_y">a y.</param>
-        /// <param name="b_x">The b x.</param>
-        /// <param name="b_y">The b y.</param>
-        /// <param name="c_x">The c x.</param>
-        /// <param name="c_y">The c y.</param>
-        /// <param name="brush">The brush.</param>
-        public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            var geometry = new PathGeometry(_factory);
-
-            var sink = geometry.Open();
-
-            sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Filled);
-            sink.AddLine(new RawVector2(b_x, b_y));
-            sink.AddLine(new RawVector2(c_x, c_y));
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            _device.FillGeometry(geometry, brush.GetBrush());
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
-
-        /// <summary>
-        /// Fills the triangle.
-        /// </summary>
-        /// <param name="a_x">a x.</param>
-        /// <param name="a_y">a y.</param>
-        /// <param name="b_x">The b x.</param>
-        /// <param name="b_y">The b y.</param>
-        /// <param name="c_x">The c x.</param>
-        /// <param name="c_y">The c y.</param>
-        /// <param name="color">The color.</param>
-        public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            _sharedBrush.Color = color;
-
-            var geometry = new PathGeometry(_factory);
-
-            var sink = geometry.Open();
-
-            sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Filled);
-            sink.AddLine(new RawVector2(b_x, b_y));
-            sink.AddLine(new RawVector2(c_x, c_y));
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            _device.FillGeometry(geometry, _sharedBrush);
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
-
-        #endregion Geometry
+        //#region Geometry
+
+        ///// <summary>
+        ///// Draws the triangle.
+        ///// </summary>
+        ///// <param name="a_x">a x.</param>
+        ///// <param name="a_y">a y.</param>
+        ///// <param name="b_x">The b x.</param>
+        ///// <param name="b_y">The b y.</param>
+        ///// <param name="c_x">The c x.</param>
+        ///// <param name="c_y">The c y.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="brush">The brush.</param>
+        //public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, ID2DBrush brush)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    var geometry = new PathGeometry(_factory);
+
+        //    var sink = geometry.Open();
+
+        //    sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Hollow);
+        //    sink.AddLine(new RawVector2(b_x, b_y));
+        //    sink.AddLine(new RawVector2(c_x, c_y));
+        //    sink.EndFigure(FigureEnd.Closed);
+
+        //    sink.Close();
+
+        //    _device.DrawGeometry(geometry, brush.GetBrush(), stroke);
+
+        //    sink.Dispose();
+        //    geometry.Dispose();
+        //}
+
+        ///// <summary>
+        ///// Draws the triangle.
+        ///// </summary>
+        ///// <param name="a_x">a x.</param>
+        ///// <param name="a_y">a y.</param>
+        ///// <param name="b_x">The b x.</param>
+        ///// <param name="b_y">The b y.</param>
+        ///// <param name="c_x">The c x.</param>
+        ///// <param name="c_y">The c y.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="color">The color.</param>
+        //public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, D2DColor color)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    _sharedBrush.Color = color;
+
+        //    var geometry = new PathGeometry(_factory);
+
+        //    var sink = geometry.Open();
+
+        //    sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Hollow);
+        //    sink.AddLine(new RawVector2(b_x, b_y));
+        //    sink.AddLine(new RawVector2(c_x, c_y));
+        //    sink.EndFigure(FigureEnd.Closed);
+
+        //    sink.Close();
+
+        //    _device.DrawGeometry(geometry, _sharedBrush, stroke);
+
+        //    sink.Dispose();
+        //    geometry.Dispose();
+        //}
+
+        ///// <summary>
+        ///// Fills the triangle.
+        ///// </summary>
+        ///// <param name="a_x">a x.</param>
+        ///// <param name="a_y">a y.</param>
+        ///// <param name="b_x">The b x.</param>
+        ///// <param name="b_y">The b y.</param>
+        ///// <param name="c_x">The c x.</param>
+        ///// <param name="c_y">The c y.</param>
+        ///// <param name="brush">The brush.</param>
+        //public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, ID2DBrush brush)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    var geometry = new PathGeometry(_factory);
+
+        //    var sink = geometry.Open();
+
+        //    sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Filled);
+        //    sink.AddLine(new RawVector2(b_x, b_y));
+        //    sink.AddLine(new RawVector2(c_x, c_y));
+        //    sink.EndFigure(FigureEnd.Closed);
+
+        //    sink.Close();
+
+        //    _device.FillGeometry(geometry, brush.GetBrush());
+
+        //    sink.Dispose();
+        //    geometry.Dispose();
+        //}
+
+        ///// <summary>
+        ///// Fills the triangle.
+        ///// </summary>
+        ///// <param name="a_x">a x.</param>
+        ///// <param name="a_y">a y.</param>
+        ///// <param name="b_x">The b x.</param>
+        ///// <param name="b_y">The b y.</param>
+        ///// <param name="c_x">The c x.</param>
+        ///// <param name="c_y">The c y.</param>
+        ///// <param name="color">The color.</param>
+        //public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, D2DColor color)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    _sharedBrush.Color = color;
+
+        //    var geometry = new PathGeometry(_factory);
+
+        //    var sink = geometry.Open();
+
+        //    sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Filled);
+        //    sink.AddLine(new RawVector2(b_x, b_y));
+        //    sink.AddLine(new RawVector2(c_x, c_y));
+        //    sink.EndFigure(FigureEnd.Closed);
+
+        //    sink.Close();
+
+        //    _device.FillGeometry(geometry, _sharedBrush);
+
+        //    sink.Dispose();
+        //    geometry.Dispose();
+        //}
+
+        //#endregion Geometry
 
         #region Special
 
-        /// <summary>
-        /// Draws the arrow line.
-        /// </summary>
-        /// <param name="start_x">The start x.</param>
-        /// <param name="start_y">The start y.</param>
-        /// <param name="end_x">The end x.</param>
-        /// <param name="end_y">The end y.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="color">The color.</param>
-        public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, D2DColor color)
+        ///// <summary>
+        ///// Draws the arrow line.
+        ///// </summary>
+        ///// <param name="start_x">The start x.</param>
+        ///// <param name="start_y">The start y.</param>
+        ///// <param name="end_x">The end x.</param>
+        ///// <param name="end_y">The end y.</param>
+        ///// <param name="size">The size.</param>
+        ///// <param name="color">The color.</param>
+        //public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, D2DColor color)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
+        //    float delta_y = end_y >= start_y ? end_y - start_y : start_y - end_y;
+
+        //    float length = (float)Math.Sqrt(delta_x * delta_x + delta_y * delta_y);
+
+        //    float xm = length - size;
+        //    float xn = xm;
+
+        //    float ym = size;
+        //    float yn = -ym;
+
+        //    float sin = delta_y / length;
+        //    float cos = delta_x / length;
+
+        //    float x = xm * cos - ym * sin + end_x;
+        //    ym = xm * sin + ym * cos + end_y;
+        //    xm = x;
+
+        //    x = xn * cos - yn * sin + end_x;
+        //    yn = xn * sin + yn * cos + end_y;
+        //    xn = x;
+
+        //    FillTriangle(start_x, start_y, xm, ym, xn, yn, color);
+        //}
+
+        ///// <summary>
+        ///// Draws the arrow line.
+        ///// </summary>
+        ///// <param name="start_x">The start x.</param>
+        ///// <param name="start_y">The start y.</param>
+        ///// <param name="end_x">The end x.</param>
+        ///// <param name="end_y">The end y.</param>
+        ///// <param name="size">The size.</param>
+        ///// <param name="brush">The brush.</param>
+        //public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, ID2DBrush brush)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
+        //    float delta_y = end_y >= start_y ? end_y - start_y : start_y - end_y;
+
+        //    float length = (float)Math.Sqrt(delta_x * delta_x + delta_y * delta_y);
+
+        //    float xm = length - size;
+        //    float xn = xm;
+
+        //    float ym = size;
+        //    float yn = -ym;
+
+        //    float sin = delta_y / length;
+        //    float cos = delta_x / length;
+
+        //    float x = xm * cos - ym * sin + end_x;
+        //    ym = xm * sin + ym * cos + end_y;
+        //    xm = x;
+
+        //    x = xn * cos - yn * sin + end_x;
+        //    yn = xn * sin + yn * cos + end_y;
+        //    xn = x;
+
+        //    FillTriangle(start_x, start_y, xm, ym, xn, yn, brush);
+        //}
+
+        ///// <summary>
+        ///// Draws the bitmap.
+        ///// </summary>
+        ///// <param name="bmp">The BMP.</param>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="opacity">The opacity.</param>
+        //public void DrawBitmap(D2DBitmap bmp, float x, float y, float opacity)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    Bitmap bitmap = bmp;
+        //    _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
+        //}
+
+        ///// <summary>
+        ///// Draws the bitmap.
+        ///// </summary>
+        ///// <param name="bmp">The BMP.</param>
+        ///// <param name="opacity">The opacity.</param>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="width">The width.</param>
+        ///// <param name="height">The height.</param>
+        //public void DrawBitmap(D2DBitmap bmp, float opacity, float x, float y, float width, float height)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    Bitmap bitmap = bmp;
+        //    _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
+        //}
+
+        ///// <summary>
+        ///// Draws the box2 d.
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="width">The width.</param>
+        ///// <param name="height">The height.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="interiorColor">Color of the interior.</param>
+        ///// <param name="color">The color.</param>
+        //public void DrawBox2D(float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    var geometry = new PathGeometry(_factory);
+
+        //    var sink = geometry.Open();
+
+        //    sink.BeginFigure(new RawVector2(x, y), FigureBegin.Filled);
+        //    sink.AddLine(new RawVector2(x + width, y));
+        //    sink.AddLine(new RawVector2(x + width, y + height));
+        //    sink.AddLine(new RawVector2(x, y + height));
+        //    sink.EndFigure(FigureEnd.Closed);
+
+        //    sink.Close();
+
+        //    _sharedBrush.Color = color;
+
+        //    _device.DrawGeometry(geometry, _sharedBrush, stroke);
+
+        //    _sharedBrush.Color = interiorColor;
+
+        //    _device.FillGeometry(geometry, _sharedBrush);
+
+        //    sink.Dispose();
+        //    geometry.Dispose();
+        //}
+
+        ///// <summary>
+        ///// Draws the box2 d.
+        ///// </summary>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="width">The width.</param>
+        ///// <param name="height">The height.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="interiorBrush">The interior brush.</param>
+        ///// <param name="brush">The brush.</param>
+        //public void DrawBox2D(float x, float y, float width, float height, float stroke, ID2DBrush interiorBrush, ID2DBrush brush)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    var geometry = new PathGeometry(_factory);
+
+        //    var sink = geometry.Open();
+
+        //    sink.BeginFigure(new RawVector2(x, y), FigureBegin.Filled);
+        //    sink.AddLine(new RawVector2(x + width, y));
+        //    sink.AddLine(new RawVector2(x + width, y + height));
+        //    sink.AddLine(new RawVector2(x, y + height));
+        //    sink.EndFigure(FigureEnd.Closed);
+
+        //    sink.Close();
+
+        //    _device.DrawGeometry(geometry, brush.GetBrush(), stroke);
+
+        //    _device.FillGeometry(geometry, interiorBrush.GetBrush());
+
+        //    sink.Dispose();
+        //    geometry.Dispose();
+        //}
+
+        ///// <summary>
+        ///// Draws the crosshair.
+        ///// </summary>
+        ///// <param name="style">The style.</param>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="size">The size.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="color">The color.</param>
+        //public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, D2DColor color)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    _sharedBrush.Color = color;
+
+        //    if (style == CrosshairStyle.Dot)
+        //    {
+        //        FillCircle(x, y, size, color);
+        //    }
+        //    else if (style == CrosshairStyle.Plus)
+        //    {
+        //        DrawLine(x - size, y, x + size, y, stroke, color);
+        //        DrawLine(x, y - size, x, y + size, stroke, color);
+        //    }
+        //    else if (style == CrosshairStyle.Cross)
+        //    {
+        //        DrawLine(x - size, y - size, x + size, y + size, stroke, color);
+        //        DrawLine(x + size, y - size, x - size, y + size, stroke, color);
+        //    }
+        //    else if (style == CrosshairStyle.Gap)
+        //    {
+        //        DrawLine(x - size - stroke, y, x - stroke, y, stroke, color);
+        //        DrawLine(x + size + stroke, y, x + stroke, y, stroke, color);
+
+        //        DrawLine(x, y - size - stroke, x, y - stroke, stroke, color);
+        //        DrawLine(x, y + size + stroke, x, y + stroke, stroke, color);
+        //    }
+        //    else if (style == CrosshairStyle.Diagonal)
+        //    {
+        //        DrawLine(x - size, y - size, x + size, y + size, stroke, color);
+        //        DrawLine(x + size, y - size, x - size, y + size, stroke, color);
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Draws the crosshair.
+        ///// </summary>
+        ///// <param name="style">The style.</param>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="size">The size.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="brush">The brush.</param>
+        //public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, ID2DBrush brush)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    if (style == CrosshairStyle.Dot)
+        //    {
+        //        FillCircle(x, y, size, brush);
+        //    }
+        //    else if (style == CrosshairStyle.Plus)
+        //    {
+        //        DrawLine(x - size, y, x + size, y, stroke, brush);
+        //        DrawLine(x, y - size, x, y + size, stroke, brush);
+        //    }
+        //    else if (style == CrosshairStyle.Cross)
+        //    {
+        //        DrawLine(x - size, y - size, x + size, y + size, stroke, brush);
+        //        DrawLine(x + size, y - size, x - size, y + size, stroke, brush);
+        //    }
+        //    else if (style == CrosshairStyle.Gap)
+        //    {
+        //        DrawLine(x - size - stroke, y, x - stroke, y, stroke, brush);
+        //        DrawLine(x + size + stroke, y, x + stroke, y, stroke, brush);
+
+        //        DrawLine(x, y - size - stroke, x, y - stroke, stroke, brush);
+        //        DrawLine(x, y + size + stroke, x, y + stroke, stroke, brush);
+        //    }
+        //    else if (style == CrosshairStyle.Diagonal)
+        //    {
+        //        DrawLine(x - size, y - size, x + size, y + size, stroke, brush);
+        //        DrawLine(x + size, y - size, x - size, y + size, stroke, brush);
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Draws the horizontal bar.
+        ///// </summary>
+        ///// <param name="percentage">The percentage.</param>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="width">The width.</param>
+        ///// <param name="height">The height.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="interiorColor">Color of the interior.</param>
+        ///// <param name="color">The color.</param>
+        //public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    float half = stroke / 2.0f;
+
+        //    _sharedBrush.Color = color;
+
+        //    var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+
+        //    _device.DrawRectangle(rect, _sharedBrush, stroke);
+
+        //    if (percentage == 0.0f) return;
+
+        //    rect.Left += half;
+        //    rect.Right -= half;
+        //    rect.Top += height - (height / 100.0f * percentage) + half;
+        //    rect.Bottom -= half;
+
+        //    _sharedBrush.Color = interiorColor;
+
+        //    _device.FillRectangle(rect, _sharedBrush);
+        //}
+
+        ///// <summary>
+        ///// Draws the horizontal bar.
+        ///// </summary>
+        ///// <param name="percentage">The percentage.</param>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="width">The width.</param>
+        ///// <param name="height">The height.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="interiorBrush">The interior brush.</param>
+        ///// <param name="brush">The brush.</param>
+        //public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, ID2DBrush interiorBrush, ID2DBrush brush)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    float half = stroke / 2.0f;
+        //    float quarter = half / 2.0f;
+
+        //    var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+
+        //    _device.DrawRectangle(rect, brush.GetBrush(), half);
+
+        //    if (percentage == 0.0f) return;
+
+        //    rect.Left += quarter;
+        //    rect.Right -= quarter;
+        //    rect.Top += height - (height / 100.0f * percentage) + quarter;
+        //    rect.Bottom -= quarter;
+
+        //    _device.FillRectangle(rect, interiorBrush.GetBrush());
+        //}
+
+        ///// <summary>
+        ///// Draws the vertical bar.
+        ///// </summary>
+        ///// <param name="percentage">The percentage.</param>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="width">The width.</param>
+        ///// <param name="height">The height.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="interiorColor">Color of the interior.</param>
+        ///// <param name="color">The color.</param>
+        //public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    float half = stroke / 2.0f;
+        //    float quarter = half / 2.0f;
+
+        //    _sharedBrush.Color = color;
+
+        //    var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+
+        //    _device.DrawRectangle(rect, _sharedBrush, half);
+
+        //    if (percentage == 0.0f) return;
+
+        //    rect.Left += quarter;
+        //    rect.Right -= width - (width / 100.0f * percentage) + quarter;
+        //    rect.Top += quarter;
+        //    rect.Bottom -= quarter;
+
+        //    _sharedBrush.Color = interiorColor;
+
+        //    _device.FillRectangle(rect, _sharedBrush);
+        //}
+
+        ///// <summary>
+        ///// Draws the vertical bar.
+        ///// </summary>
+        ///// <param name="percentage">The percentage.</param>
+        ///// <param name="x">The x.</param>
+        ///// <param name="y">The y.</param>
+        ///// <param name="width">The width.</param>
+        ///// <param name="height">The height.</param>
+        ///// <param name="stroke">The stroke.</param>
+        ///// <param name="interiorBrush">The interior brush.</param>
+        ///// <param name="brush">The brush.</param>
+        //public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, ID2DBrush interiorBrush, ID2DBrush brush)
+        //{
+        //    if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+        //    float half = stroke / 2.0f;
+        //    float quarter = half / 2.0f;
+
+        //    var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+
+        //    _device.DrawRectangle(rect, brush.GetBrush(), half);
+
+        //    if (percentage == 0.0f) return;
+
+        //    rect.Left += quarter;
+        //    rect.Right -= width - (width / 100.0f * percentage) + quarter;
+        //    rect.Top += quarter;
+        //    rect.Bottom -= quarter;
+
+        //    _device.FillRectangle(rect, interiorBrush.GetBrush());
+        //}
+
+        #endregion Special
+        
+        #region Primitives
+
+        public void DrawCircle(Primitives.Circle circle, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
-            float delta_y = end_y >= start_y ? end_y - start_y : start_y - end_y;
-
-            float length = (float)Math.Sqrt(delta_x * delta_x + delta_y * delta_y);
-
-            float xm = length - size;
-            float xn = xm;
-
-            float ym = size;
-            float yn = -ym;
-
-            float sin = delta_y / length;
-            float cos = delta_x / length;
-
-            float x = xm * cos - ym * sin + end_x;
-            ym = xm * sin + ym * cos + end_y;
-            xm = x;
-
-            x = xn * cos - yn * sin + end_x;
-            yn = xn * sin + yn * cos + end_y;
-            xn = x;
-
-            FillTriangle(start_x, start_y, xm, ym, xn, yn, color);
+            _device.DrawEllipse(circle, brush.GetBrush(), stroke);
         }
 
-        /// <summary>
-        /// Draws the arrow line.
-        /// </summary>
-        /// <param name="start_x">The start x.</param>
-        /// <param name="start_y">The start y.</param>
-        /// <param name="end_x">The end x.</param>
-        /// <param name="end_y">The end y.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, ID2DBrush brush)
+        public void DrawDashedCircle(Primitives.Circle circle, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
-            float delta_y = end_y >= start_y ? end_y - start_y : start_y - end_y;
-
-            float length = (float)Math.Sqrt(delta_x * delta_x + delta_y * delta_y);
-
-            float xm = length - size;
-            float xn = xm;
-
-            float ym = size;
-            float yn = -ym;
-
-            float sin = delta_y / length;
-            float cos = delta_x / length;
-
-            float x = xm * cos - ym * sin + end_x;
-            ym = xm * sin + ym * cos + end_y;
-            xm = x;
-
-            x = xn * cos - yn * sin + end_x;
-            yn = xn * sin + yn * cos + end_y;
-            xn = x;
-
-            FillTriangle(start_x, start_y, xm, ym, xn, yn, brush);
+            _device.DrawEllipse(circle, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
-        /// <summary>
-        /// Draws the bitmap.
-        /// </summary>
-        /// <param name="bmp">The BMP.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="opacity">The opacity.</param>
-        public void DrawBitmap(D2DBitmap bmp, float x, float y, float opacity)
+        public void FillCircle(Primitives.Circle circle, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            Bitmap bitmap = bmp;
-            _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
+            _device.FillEllipse(circle, brush.GetBrush());
         }
 
-        /// <summary>
-        /// Draws the bitmap.
-        /// </summary>
-        /// <param name="bmp">The BMP.</param>
-        /// <param name="opacity">The opacity.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        public void DrawBitmap(D2DBitmap bmp, float opacity, float x, float y, float width, float height)
+        public void DrawEllipse(Primitives.Ellipse ellipse, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            Bitmap bitmap = bmp;
-            _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
+            _device.DrawEllipse(ellipse, brush.GetBrush(), stroke);
         }
 
-        /// <summary>
-        /// Draws the box2 d.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="interiorColor">Color of the interior.</param>
-        /// <param name="color">The color.</param>
-        public void DrawBox2D(float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
+        public void DrawDashedEllipse(Primitives.Ellipse ellipse, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawEllipse(ellipse, brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
+        public void FillEllipse(Primitives.Ellipse ellipse, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillEllipse(ellipse, brush.GetBrush());
+        }
+
+        public void DrawLine(Primitives.Line line, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawLine(line.Start, line.End, brush.GetBrush(), stroke);
+        }
+
+        public void DrawDashedLine(Primitives.Line line, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawLine(line.Start, line.End, brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
+        public void DrawRectangle(Primitives.Rectangle rectangle, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawRectangle(rectangle, brush.GetBrush(), stroke);
+        }
+
+        public void DrawDashedRectangle(Primitives.Rectangle rectangle, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawRectangle(rectangle, brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
+        public void FillRectangle(Primitives.Rectangle rectangle, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillRectangle(rectangle, brush.GetBrush());
+        }
+
+        public void DrawRoundedRectangle(Primitives.RoundedRectangle rectangle, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawRoundedRectangle(rectangle, brush.GetBrush(), stroke);
+        }
+
+        public void DrawDashedRoundedRectangle(Primitives.RoundedRectangle rectangle, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawRoundedRectangle(rectangle, brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
+        public void FillRoundedRectangle(Primitives.RoundedRectangle rectangle, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillRoundedRectangle(rectangle, brush.GetBrush());
+        }
+
+        public void DrawTriangle(Primitives.Triangle triangle, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
@@ -1340,202 +1178,152 @@ namespace GameOverlay.Graphics
 
             var sink = geometry.Open();
 
-            sink.BeginFigure(new RawVector2(x, y), FigureBegin.Filled);
-            sink.AddLine(new RawVector2(x + width, y));
-            sink.AddLine(new RawVector2(x + width, y + height));
-            sink.AddLine(new RawVector2(x, y + height));
-            sink.EndFigure(FigureEnd.Closed);
-
-            sink.Close();
-
-            _sharedBrush.Color = color;
-
-            _device.DrawGeometry(geometry, _sharedBrush, stroke);
-
-            _sharedBrush.Color = interiorColor;
-
-            _device.FillGeometry(geometry, _sharedBrush);
-
-            sink.Dispose();
-            geometry.Dispose();
-        }
-
-        /// <summary>
-        /// Draws the box2 d.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="interiorBrush">The interior brush.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawBox2D(float x, float y, float width, float height, float stroke, ID2DBrush interiorBrush, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            var geometry = new PathGeometry(_factory);
-
-            var sink = geometry.Open();
-
-            sink.BeginFigure(new RawVector2(x, y), FigureBegin.Filled);
-            sink.AddLine(new RawVector2(x + width, y));
-            sink.AddLine(new RawVector2(x + width, y + height));
-            sink.AddLine(new RawVector2(x, y + height));
+            sink.BeginFigure(triangle.A, FigureBegin.Hollow);
+            sink.AddLine(triangle.B);
+            sink.AddLine(triangle.C);
             sink.EndFigure(FigureEnd.Closed);
 
             sink.Close();
 
             _device.DrawGeometry(geometry, brush.GetBrush(), stroke);
 
-            _device.FillGeometry(geometry, interiorBrush.GetBrush());
+            sink.Dispose();
+            geometry.Dispose();
+        }
+
+        public void DrawDashedTriangle(Primitives.Triangle triangle, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            var geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            sink.BeginFigure(triangle.A, FigureBegin.Hollow);
+            sink.AddLine(triangle.B);
+            sink.AddLine(triangle.C);
+            sink.EndFigure(FigureEnd.Closed);
+
+            sink.Close();
+
+            _device.DrawGeometry(geometry, brush.GetBrush(), stroke, _sharedStrokeStyle);
 
             sink.Dispose();
             geometry.Dispose();
         }
 
-        /// <summary>
-        /// Draws the crosshair.
-        /// </summary>
-        /// <param name="style">The style.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="color">The color.</param>
-        public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, D2DColor color)
+        public void FillTriangle(Primitives.Triangle triangle, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            _sharedBrush.Color = color;
+            var geometry = new PathGeometry(_factory);
 
-            if (style == CrosshairStyle.Dot)
-            {
-                FillCircle(x, y, size, color);
-            }
-            else if (style == CrosshairStyle.Plus)
-            {
-                DrawLine(x - size, y, x + size, y, stroke, color);
-                DrawLine(x, y - size, x, y + size, stroke, color);
-            }
-            else if (style == CrosshairStyle.Cross)
-            {
-                DrawLine(x - size, y - size, x + size, y + size, stroke, color);
-                DrawLine(x + size, y - size, x - size, y + size, stroke, color);
-            }
-            else if (style == CrosshairStyle.Gap)
-            {
-                DrawLine(x - size - stroke, y, x - stroke, y, stroke, color);
-                DrawLine(x + size + stroke, y, x + stroke, y, stroke, color);
+            var sink = geometry.Open();
 
-                DrawLine(x, y - size - stroke, x, y - stroke, stroke, color);
-                DrawLine(x, y + size + stroke, x, y + stroke, stroke, color);
-            }
-            else if (style == CrosshairStyle.Diagonal)
-            {
-                DrawLine(x - size, y - size, x + size, y + size, stroke, color);
-                DrawLine(x + size, y - size, x - size, y + size, stroke, color);
-            }
+            sink.BeginFigure(triangle.A, FigureBegin.Filled);
+            sink.AddLine(triangle.B);
+            sink.AddLine(triangle.C);
+            sink.EndFigure(FigureEnd.Closed);
+
+            sink.Close();
+
+            _device.FillGeometry(geometry, brush.GetBrush());
+
+            sink.Dispose();
+            geometry.Dispose();
         }
 
-        /// <summary>
-        /// Draws the crosshair.
-        /// </summary>
-        /// <param name="style">The style.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, ID2DBrush brush)
+        #endregion
+
+        #region Outline
+
+        public void OutlineLine(Primitives.Line line, ID2DBrush brush, ID2DBrush outline, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            if (style == CrosshairStyle.Dot)
-            {
-                FillCircle(x, y, size, brush);
-            }
-            else if (style == CrosshairStyle.Plus)
-            {
-                DrawLine(x - size, y, x + size, y, stroke, brush);
-                DrawLine(x, y - size, x, y + size, stroke, brush);
-            }
-            else if (style == CrosshairStyle.Cross)
-            {
-                DrawLine(x - size, y - size, x + size, y + size, stroke, brush);
-                DrawLine(x + size, y - size, x - size, y + size, stroke, brush);
-            }
-            else if (style == CrosshairStyle.Gap)
-            {
-                DrawLine(x - size - stroke, y, x - stroke, y, stroke, brush);
-                DrawLine(x + size + stroke, y, x + stroke, y, stroke, brush);
+            var geometry = new PathGeometry(_factory);
 
-                DrawLine(x, y - size - stroke, x, y - stroke, stroke, brush);
-                DrawLine(x, y + size + stroke, x, y + stroke, stroke, brush);
-            }
-            else if (style == CrosshairStyle.Diagonal)
-            {
-                DrawLine(x - size, y - size, x + size, y + size, stroke, brush);
-                DrawLine(x + size, y - size, x - size, y + size, stroke, brush);
-            }
-        }
-
-        /// <summary>
-        /// Draws the horizontal bar.
-        /// </summary>
-        /// <param name="percentage">The percentage.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="interiorColor">Color of the interior.</param>
-        /// <param name="color">The color.</param>
-        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            var sink = geometry.Open();
 
             float half = stroke / 2.0f;
 
-            _sharedBrush.Color = color;
+            sink.BeginFigure(new RawVector2(line.Start.X, line.Start.Y - half), FigureBegin.Filled);
 
-            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+            sink.AddLine(new RawVector2(line.End.X, line.End.Y - half));
+            sink.AddLine(new RawVector2(line.End.X, line.End.Y + half));
+            sink.AddLine(new RawVector2(line.Start.X, line.Start.Y + half));
 
-            _device.DrawRectangle(rect, _sharedBrush, stroke);
+            sink.EndFigure(FigureEnd.Closed);
 
-            if (percentage == 0.0f) return;
+            _device.DrawGeometry(geometry, outline.GetBrush(), half);
+            _device.FillGeometry(geometry, brush.GetBrush());
 
-            rect.Left += half;
-            rect.Right -= half;
-            rect.Top += height - (height / 100.0f * percentage) + half;
-            rect.Bottom -= half;
-
-            _sharedBrush.Color = interiorColor;
-
-            _device.FillRectangle(rect, _sharedBrush);
+            sink.Dispose();
+            geometry.Dispose();
         }
 
-        /// <summary>
-        /// Draws the horizontal bar.
-        /// </summary>
-        /// <param name="percentage">The percentage.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="interiorBrush">The interior brush.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, ID2DBrush interiorBrush, ID2DBrush brush)
+        public void OutlineFillCircle(Primitives.Circle circle, ID2DBrush brush, ID2DBrush outline, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            EllipseGeometry ellipseGeometry = new EllipseGeometry(_factory, circle);
+
+            PathGeometry geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            ellipseGeometry.Outline(sink);
+
+            sink.Close();
+
+            _device.FillGeometry(geometry, brush.GetBrush());
+            _device.DrawGeometry(geometry, outline.GetBrush(), stroke);
+
+            sink.Dispose();
+            geometry.Dispose();
+            ellipseGeometry.Dispose();
+        }
+
+        public void OutlineFillRectangle(Primitives.Rectangle rectangle, ID2DBrush brush, ID2DBrush outline, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            RectangleGeometry rectangleGeometry = new RectangleGeometry(_factory, rectangle);
+
+            PathGeometry geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            rectangleGeometry.Widen(stroke, sink);
+            rectangleGeometry.Outline(sink);
+
+            sink.Close();
+
+            _device.FillGeometry(geometry, brush.GetBrush());
+            _device.DrawGeometry(geometry, outline.GetBrush(), stroke);
+
+            sink.Dispose();
+            geometry.Dispose();
+            rectangleGeometry.Dispose();
+        }
+
+        #endregion
+
+        #region Special
+
+        public void DrawBarH(Primitives.Rectangle rectangle, float percentage, ID2DBrush outline, ID2DBrush fill, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             float half = stroke / 2.0f;
             float quarter = half / 2.0f;
 
-            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
+            float width = rectangle.Right - rectangle.Left;
+            float height = rectangle.Bottom - rectangle.Top;
 
-            _device.DrawRectangle(rect, brush.GetBrush(), half);
+            var rect = new RawRectangleF(rectangle.Left - half, rectangle.Top - half, rectangle.Left + width + half, rectangle.Top + height + half);
+
+            _device.DrawRectangle(rect, outline.GetBrush(), half);
 
             if (percentage == 0.0f) return;
 
@@ -1544,277 +1332,75 @@ namespace GameOverlay.Graphics
             rect.Top += height - (height / 100.0f * percentage) + quarter;
             rect.Bottom -= quarter;
 
-            _device.FillRectangle(rect, interiorBrush.GetBrush());
+            _device.FillRectangle(rect, fill.GetBrush());
         }
 
-        /// <summary>
-        /// Draws the vertical bar.
-        /// </summary>
-        /// <param name="percentage">The percentage.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="interiorColor">Color of the interior.</param>
-        /// <param name="color">The color.</param>
-        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            float half = stroke / 2.0f;
-            float quarter = half / 2.0f;
-
-            _sharedBrush.Color = color;
-
-            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
-
-            _device.DrawRectangle(rect, _sharedBrush, half);
-
-            if (percentage == 0.0f) return;
-
-            rect.Left += quarter;
-            rect.Right -= width - (width / 100.0f * percentage) + quarter;
-            rect.Top += quarter;
-            rect.Bottom -= quarter;
-
-            _sharedBrush.Color = interiorColor;
-
-            _device.FillRectangle(rect, _sharedBrush);
-        }
-
-        /// <summary>
-        /// Draws the vertical bar.
-        /// </summary>
-        /// <param name="percentage">The percentage.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="stroke">The stroke.</param>
-        /// <param name="interiorBrush">The interior brush.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, ID2DBrush interiorBrush, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-
-            float half = stroke / 2.0f;
-            float quarter = half / 2.0f;
-
-            var rect = new RawRectangleF(x - half, y - half, x + width + half, y + height + half);
-
-            _device.DrawRectangle(rect, brush.GetBrush(), half);
-
-            if (percentage == 0.0f) return;
-
-            rect.Left += quarter;
-            rect.Right -= width - (width / 100.0f * percentage) + quarter;
-            rect.Top += quarter;
-            rect.Bottom -= quarter;
-
-            _device.FillRectangle(rect, interiorBrush.GetBrush());
-        }
-
-        #endregion Special
+        #endregion
 
         #region Text
 
-        /// <summary>
-        /// Draws the text.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="color">The color.</param>
-        public void DrawText(string text, float x, float y, D2DFont font, D2DColor color)
+        public void DrawText(string text, Primitives.Point location, D2DFont font, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            _sharedBrush.Color = color;
-            _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), _sharedBrush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
+            _device.DrawText(text, text.Length, font, new RawRectangleF(location.X, location.Y, Width - location.X, Height - location.Y), brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
-        /// <summary>
-        /// Draws the text.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawText(string text, float x, float y, D2DFont font, ID2DBrush brush)
+        public void DrawText(string text, Primitives.Point location, D2DFont font, float fontSize, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
+            if (fontSize == font.FontSize)
+            {
+                _device.DrawText(text, text.Length, font, new RawRectangleF(location.X, location.Y, Width - location.X, Height - location.Y), brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
+            }
+            else
+            {
+                var layout = new TextLayout(_fontFactory, text, font, Width - location.X, Height - location.Y);
+
+                _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+
+                layout.Dispose();
+            }
         }
 
-        /// <summary>
-        /// Draws the text.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="fontSize">Size of the font.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="color">The color.</param>
-        public void DrawText(string text, float x, float y, float fontSize, D2DFont font, D2DColor color)
+        public void DrawTextWithBackground(string text, Primitives.Point location, D2DFont font, ID2DBrush brush, ID2DBrush background)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            _sharedBrush.Color = color;
-
-            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
-
-            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
-
-            _device.DrawTextLayout(new RawVector2(x, y), layout, _sharedBrush, DrawTextOptions.NoSnap);
-
-            layout.Dispose();
-        }
-
-        /// <summary>
-        /// Draws the text.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="fontSize">Size of the font.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="brush">The brush.</param>
-        public void DrawText(string text, float x, float y, float fontSize, D2DFont font, ID2DBrush brush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-            if (text == null) throw new ArgumentNullException(nameof(text));
-
-            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
-
-            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
-
-            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
-
-            layout.Dispose();
-        }
-
-        /// <summary>
-        /// Draws the text with background.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="backgroundColor">Color of the background.</param>
-        public void DrawTextWithBackground(string text, float x, float y, D2DFont font, D2DColor color, D2DColor backgroundColor)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-            if (text == null) throw new ArgumentNullException(nameof(text));
-
-            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(_fontFactory, text, font, Width - location.X, Height - location.Y);
 
             float modifier = layout.FontSize / 4.0f;
 
-            _sharedBrush.Color = backgroundColor;
+            _device.FillRectangle(new RawRectangleF(location.X - modifier, location.Y - modifier, location.X + layout.Metrics.Width + modifier, location.Y + layout.Metrics.Height + modifier), background.GetBrush());
 
-            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), _sharedBrush);
-
-            _sharedBrush.Color = color;
-
-            _device.DrawTextLayout(new RawVector2(x, y), layout, _sharedBrush, DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
 
-        /// <summary>
-        /// Draws the text with background.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="brush">The brush.</param>
-        /// <param name="backgroundBrush">The background brush.</param>
-        public void DrawTextWithBackground(string text, float x, float y, D2DFont font, ID2DBrush brush, ID2DBrush backgroundBrush)
+        public void DrawTextWithBackground(string text, Primitives.Point location, D2DFont font, float fontSize, ID2DBrush brush, ID2DBrush background)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
+            var layout = new TextLayout(_fontFactory, text, font, Width - location.X, Height - location.Y);
+
+            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
             float modifier = layout.FontSize / 4.0f;
 
-            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), backgroundBrush.GetBrush());
+            _device.FillRectangle(new RawRectangleF(location.X - modifier, location.Y - modifier, location.X + layout.Metrics.Width + modifier, location.Y + layout.Metrics.Height + modifier), background.GetBrush());
 
-            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
-
-            layout.Dispose();
-        }
-
-        /// <summary>
-        /// Draws the text with background.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="fontSize">Size of the font.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="backgroundColor">Color of the background.</param>
-        public void DrawTextWithBackground(string text, float x, float y, float fontSize, D2DFont font, D2DColor color, D2DColor backgroundColor)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-            if (text == null) throw new ArgumentNullException(nameof(text));
-
-            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
-
-            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
-
-            float modifier = fontSize / 4.0f;
-
-            _sharedBrush.Color = backgroundColor;
-
-            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), _sharedBrush);
-
-            _sharedBrush.Color = color;
-
-            _device.DrawTextLayout(new RawVector2(x, y), layout, _sharedBrush, DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
 
-        /// <summary>
-        /// Draws the text with background.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="fontSize">Size of the font.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="brush">The brush.</param>
-        /// <param name="backgroundBrush">The background brush.</param>
-        public void DrawTextWithBackground(string text, float x, float y, float fontSize, D2DFont font, ID2DBrush brush, ID2DBrush backgroundBrush)
-        {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
-            if (text == null) throw new ArgumentNullException(nameof(text));
-
-            var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
-
-            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
-
-            float modifier = fontSize / 4.0f;
-
-            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), backgroundBrush.GetBrush());
-
-            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
-
-            layout.Dispose();
-        }
-
-        #endregion Text
+        #endregion
 
         #region Shapes and containers
 

@@ -13,7 +13,9 @@ namespace GameOverlay
     {
         private static D2DDevice gfx;
         private static D2DFont font;
-        private static D2DSolidColorBrush brush;
+        private static D2DSolidColorBrush red;
+        private static D2DSolidColorBrush green;
+        private static D2DSolidColorBrush black;
         private static D2DSolidColorBrush backgroundBrush;
 
         private static void Main(string[] args)
@@ -33,8 +35,6 @@ namespace GameOverlay
 
             StickyOverlayWindow overlay = new StickyOverlayWindow(Process.GetCurrentProcess().MainWindowHandle, overlayOptions);
 
-            overlay.OnWindowBoundsChanged += Overlay_OnWindowBoundsChanged;
-
             DeviceOptions rendererOptions = new DeviceOptions()
             {
                 AntiAliasing = true,
@@ -46,10 +46,14 @@ namespace GameOverlay
             gfx = new D2DDevice(rendererOptions);
 
             font = gfx.CreateFont("Arial", 22);
-            brush = gfx.CreateSolidColorBrush(255, 0, 0, 255);
+            red = gfx.CreateSolidColorBrush(255, 0, 0, 255);
+            black = gfx.CreateSolidColorBrush(0, 0, 0, 255);
+            green = gfx.CreateSolidColorBrush(0, 255, 0, 255);
             backgroundBrush = gfx.CreateSolidColorBrush(0xCC, 0xCC, 0xCC, 80);
 
-            FrameTimer timer = new FrameTimer(60, gfx);
+            overlay.OnWindowBoundsChanged += Overlay_OnWindowBoundsChanged;
+
+            FrameTimer timer = new FrameTimer(0, gfx);
 
             timer.FrameStarting += Timer_OnFrameStart;
 
@@ -73,7 +77,11 @@ namespace GameOverlay
             device.BeginScene();
             device.ClearScene();
 
-            device.DrawTextWithBackground(gfx.FPS.ToString(), 100, 100, font, brush, backgroundBrush);
+            device.DrawTextWithBackground(device.FPS.ToString(), new Graphics.Primitives.Point(10, 20), font, red, backgroundBrush);
+
+            //device.OutlineFillCircle(new Graphics.Primitives.Circle(200, 200, 100), green, red, 2.0f);
+            //device.OutlineLine(new Graphics.Primitives.Line(200, 200, 300, 200), green, red, 16.0f);
+            device.DrawDashedRoundedRectangle(new Graphics.Primitives.RoundedRectangle(200, 200, 300, 300, 10), green, 2.0f);
 
             device.EndScene();
         }

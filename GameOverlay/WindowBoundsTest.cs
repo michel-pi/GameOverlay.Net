@@ -51,7 +51,7 @@ namespace GameOverlay
 
                 using (var scene = device.UseScene())
                 {
-                    device.FillRectangle(0, 0, fixedRect.Right - fixedRect.Left, fixedRect.Bottom - fixedRect.Top, red);
+                    //device.FillRectangle(0, 0, fixedRect.Right - fixedRect.Left, fixedRect.Bottom - fixedRect.Top, red);
 
                     //device.DrawRectangle(0, 0, windowRect.Right - windowRect.Left, windowRect.Bottom - windowRect.Top, 16.0f, red);
                     //device.DrawRectangle(0, 0, clientRect.Right - clientRect.Left, clientRect.Bottom - clientRect.Top, 12.0f, green);
