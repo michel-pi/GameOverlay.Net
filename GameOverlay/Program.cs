@@ -13,8 +13,8 @@ namespace GameOverlay
     {
         private static D2DDevice gfx;
         private static D2DFont font;
-        private static D2DBrush brush;
-        private static D2DBrush backgroundBrush;
+        private static D2DSolidColorBrush brush;
+        private static D2DSolidColorBrush backgroundBrush;
 
         private static void Main(string[] args)
         {

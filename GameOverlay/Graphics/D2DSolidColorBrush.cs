@@ -9,14 +9,14 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// Stores a Brush compatible with <c>Direct2DRenderer</c>
     /// </summary>
-    public class D2DBrush : ID2DBrush
+    public class D2DSolidColorBrush : ID2DBrush
     {
         /// <summary>
         /// A <c>SolidColorBrush</c> to use with a rendering device
         /// </summary>
         public SolidColorBrush Brush;
 
-        private D2DBrush()
+        private D2DSolidColorBrush()
         {
             throw new NotImplementedException();
         }
@@ -25,7 +25,7 @@ namespace GameOverlay.Graphics
         /// Internal use only
         /// </summary>
         /// <param name="device"><c>RenderTarget</c> device</param>
-        public D2DBrush(RenderTarget device)
+        public D2DSolidColorBrush(RenderTarget device)
         {
             if (device == null) throw new ArgumentNullException(nameof(device));
 
@@ -37,7 +37,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="device"><c>RenderTarget</c> device</param>
         /// <param name="color"><c>Direct2DColor</c> compatible color</param>
-        public D2DBrush(RenderTarget device, D2DColor color)
+        public D2DSolidColorBrush(RenderTarget device, D2DColor color)
         {
             if (device == null) throw new ArgumentNullException(nameof(device));
 
@@ -45,9 +45,9 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="D2DBrush"/> class.
+        /// Finalizes an instance of the <see cref="D2DSolidColorBrush"/> class.
         /// </summary>
-        ~D2DBrush()
+        ~D2DSolidColorBrush()
         {
             Dispose();
         }
@@ -69,11 +69,11 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="D2DBrush"/> to <see cref="SolidColorBrush"/>.
+        /// Performs an implicit conversion from <see cref="D2DSolidColorBrush"/> to <see cref="SolidColorBrush"/>.
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator SolidColorBrush(D2DBrush brush)
+        public static implicit operator SolidColorBrush(D2DSolidColorBrush brush)
         {
             return brush.Brush;
         }
