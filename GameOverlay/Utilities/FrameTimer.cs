@@ -122,7 +122,7 @@ namespace GameOverlay.Utilities
         /// <returns></returns>
         public bool Start()
         {
-            if (!_exitTimerThread || _thread != null) return false;
+            if (_thread != null) return false;
 
             CreateThread();
 
