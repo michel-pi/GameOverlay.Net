@@ -1079,11 +1079,25 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(circle, brush.GetBrush(), stroke);
         }
 
+        public void DrawCircle(float x, float y, float radius, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush(), stroke);
+        }
+
         public void DrawDashedCircle(Primitives.Circle circle, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _device.DrawEllipse(circle, brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
+        public void DrawDashedCircle(float x, float y, float radius, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
         public void FillCircle(Primitives.Circle circle, ID2DBrush brush)
@@ -1093,11 +1107,25 @@ namespace GameOverlay.Graphics
             _device.FillEllipse(circle, brush.GetBrush());
         }
 
+        public void FillCircle(float x, float y, float radius, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush());
+        }
+
         public void DrawEllipse(Primitives.Ellipse ellipse, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _device.DrawEllipse(ellipse, brush.GetBrush(), stroke);
+        }
+
+        public void DrawEllipse(float x, float y, float radius_x, float radius_y, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush(), stroke);
         }
 
         public void DrawDashedEllipse(Primitives.Ellipse ellipse, ID2DBrush brush, float stroke)
@@ -1107,11 +1135,25 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(ellipse, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        public void DrawDashedEllipse(float x, float y, float radius_x, float radius_y, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
         public void FillEllipse(Primitives.Ellipse ellipse, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _device.FillEllipse(ellipse, brush.GetBrush());
+        }
+
+        public void FillEllipse(float x, float y, float radius_x, float radius_y, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush());
         }
 
         public void DrawLine(Primitives.Line line, ID2DBrush brush, float stroke)
@@ -1121,11 +1163,25 @@ namespace GameOverlay.Graphics
             _device.DrawLine(line.Start, line.End, brush.GetBrush(), stroke);
         }
 
+        public void DrawLine(float start_x, float start_y, float end_x, float end_y, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush.GetBrush(), stroke);
+        }
+
         public void DrawDashedLine(Primitives.Line line, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _device.DrawLine(line.Start, line.End, brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
+        public void DrawDashedLine(float start_x, float start_y, float end_x, float end_y, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
         public void DrawRectangle(Primitives.Rectangle rectangle, ID2DBrush brush, float stroke)
@@ -1135,11 +1191,25 @@ namespace GameOverlay.Graphics
             _device.DrawRectangle(rectangle, brush.GetBrush(), stroke);
         }
 
+        public void DrawRectangle(float left, float top, float right, float bottom, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawRectangle(new RawRectangleF(left, top, right, bottom), brush.GetBrush(), stroke);
+        }
+
         public void DrawDashedRectangle(Primitives.Rectangle rectangle, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _device.DrawRectangle(rectangle, brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
+        public void DrawDashedRectangle(float left, float top, float right, float bottom, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawRectangle(new RawRectangleF(left, top, right, bottom), brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
         public void FillRectangle(Primitives.Rectangle rectangle, ID2DBrush brush)
@@ -1149,11 +1219,31 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(rectangle, brush.GetBrush());
         }
 
+        public void FillRectangle(float left, float top, float right, float bottom, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillRectangle(new RawRectangleF(left, top, right, bottom), brush.GetBrush());
+        }
+
         public void DrawRoundedRectangle(Primitives.RoundedRectangle rectangle, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _device.DrawRoundedRectangle(rectangle, brush.GetBrush(), stroke);
+        }
+
+        public void DrawRoundedRectangle(float left, float top, float right, float bottom, float radius_x, float radius_y, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawRoundedRectangle(new RoundedRectangle()
+            {
+                RadiusX = radius_x,
+                RadiusY = radius_y,
+                Rect = new RawRectangleF(left, top, right, bottom)
+            }
+            , brush.GetBrush(), stroke);
         }
 
         public void DrawDashedRoundedRectangle(Primitives.RoundedRectangle rectangle, ID2DBrush brush, float stroke)
@@ -1163,11 +1253,37 @@ namespace GameOverlay.Graphics
             _device.DrawRoundedRectangle(rectangle, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        public void DrawDashedRoundedRectangle(float left, float top, float right, float bottom, float radius_x, float radius_y, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawRoundedRectangle(new RoundedRectangle()
+            {
+                RadiusX = radius_x,
+                RadiusY = radius_y,
+                Rect = new RawRectangleF(left, top, right, bottom)
+            }
+            , brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
         public void FillRoundedRectangle(Primitives.RoundedRectangle rectangle, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _device.FillRoundedRectangle(rectangle, brush.GetBrush());
+        }
+
+        public void FillRoundedRectangle(float left, float top, float right, float bottom, float radius_x, float radius_y, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillRoundedRectangle(new RoundedRectangle()
+            {
+                RadiusX = radius_x,
+                RadiusY = radius_y,
+                Rect = new RawRectangleF(left, top, right, bottom)
+            }
+            , brush.GetBrush());
         }
 
         public void DrawTriangle(Primitives.Triangle triangle, ID2DBrush brush, float stroke)
@@ -1181,6 +1297,27 @@ namespace GameOverlay.Graphics
             sink.BeginFigure(triangle.A, FigureBegin.Hollow);
             sink.AddLine(triangle.B);
             sink.AddLine(triangle.C);
+            sink.EndFigure(FigureEnd.Closed);
+
+            sink.Close();
+
+            _device.DrawGeometry(geometry, brush.GetBrush(), stroke);
+
+            sink.Dispose();
+            geometry.Dispose();
+        }
+
+        public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            var geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Hollow);
+            sink.AddLine(new RawVector2(b_x, b_y));
+            sink.AddLine(new RawVector2(c_x, c_y));
             sink.EndFigure(FigureEnd.Closed);
 
             sink.Close();
@@ -1212,6 +1349,27 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        public void DrawDashedTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            var geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Hollow);
+            sink.AddLine(new RawVector2(b_x, b_y));
+            sink.AddLine(new RawVector2(c_x, c_y));
+            sink.EndFigure(FigureEnd.Closed);
+
+            sink.Close();
+
+            _device.DrawGeometry(geometry, brush.GetBrush(), stroke, _sharedStrokeStyle);
+
+            sink.Dispose();
+            geometry.Dispose();
+        }
+
         public void FillTriangle(Primitives.Triangle triangle, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1223,6 +1381,27 @@ namespace GameOverlay.Graphics
             sink.BeginFigure(triangle.A, FigureBegin.Filled);
             sink.AddLine(triangle.B);
             sink.AddLine(triangle.C);
+            sink.EndFigure(FigureEnd.Closed);
+
+            sink.Close();
+
+            _device.FillGeometry(geometry, brush.GetBrush());
+
+            sink.Dispose();
+            geometry.Dispose();
+        }
+
+        public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            var geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            sink.BeginFigure(new RawVector2(a_x, a_y), FigureBegin.Hollow);
+            sink.AddLine(new RawVector2(b_x, b_y));
+            sink.AddLine(new RawVector2(c_x, c_y));
             sink.EndFigure(FigureEnd.Closed);
 
             sink.Close();
@@ -1262,6 +1441,31 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        public void OutlineLine(float start_x, float start_y, float end_x, float end_y, ID2DBrush brush, ID2DBrush outline, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            var geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            float half = stroke / 2.0f;
+
+            sink.BeginFigure(new RawVector2(start_x, start_y - half), FigureBegin.Filled);
+
+            sink.AddLine(new RawVector2(end_x, end_y - half));
+            sink.AddLine(new RawVector2(end_x, end_y + half));
+            sink.AddLine(new RawVector2(start_x, start_y + half));
+
+            sink.EndFigure(FigureEnd.Closed);
+
+            _device.DrawGeometry(geometry, outline.GetBrush(), half);
+            _device.FillGeometry(geometry, brush.GetBrush());
+
+            sink.Dispose();
+            geometry.Dispose();
+        }
+
         public void OutlineFillCircle(Primitives.Circle circle, ID2DBrush brush, ID2DBrush outline, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1284,11 +1488,56 @@ namespace GameOverlay.Graphics
             ellipseGeometry.Dispose();
         }
 
+        public void OutlineFillCircle(float x, float y, float radius, ID2DBrush brush, ID2DBrush outline, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            EllipseGeometry ellipseGeometry = new EllipseGeometry(_factory, new Ellipse(new RawVector2(x, y), radius, radius));
+
+            PathGeometry geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            ellipseGeometry.Outline(sink);
+
+            sink.Close();
+
+            _device.FillGeometry(geometry, brush.GetBrush());
+            _device.DrawGeometry(geometry, outline.GetBrush(), stroke);
+
+            sink.Dispose();
+            geometry.Dispose();
+            ellipseGeometry.Dispose();
+        }
+
         public void OutlineFillRectangle(Primitives.Rectangle rectangle, ID2DBrush brush, ID2DBrush outline, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             RectangleGeometry rectangleGeometry = new RectangleGeometry(_factory, rectangle);
+
+            PathGeometry geometry = new PathGeometry(_factory);
+
+            var sink = geometry.Open();
+
+            rectangleGeometry.Widen(stroke, sink);
+            rectangleGeometry.Outline(sink);
+
+            sink.Close();
+
+            _device.FillGeometry(geometry, brush.GetBrush());
+            _device.DrawGeometry(geometry, outline.GetBrush(), stroke);
+
+            sink.Dispose();
+            geometry.Dispose();
+            rectangleGeometry.Dispose();
+        }
+
+        public void OutlineFillRectangle(float left, float top, float right, float bottom, ID2DBrush brush, ID2DBrush outline, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            RectangleGeometry rectangleGeometry = new RectangleGeometry(_factory, new RawRectangleF(left, top, right, bottom));
 
             PathGeometry geometry = new PathGeometry(_factory);
 
@@ -1335,6 +1584,111 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(rect, fill.GetBrush());
         }
 
+        public void DrawBarH(float left, float top, float right, float bottom, float percentage, ID2DBrush outline, ID2DBrush fill, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            float half = stroke / 2.0f;
+            float quarter = half / 2.0f;
+
+            float width = right - left;
+            float height = bottom - top;
+
+            var rect = new RawRectangleF(left - half, top - half, left + width + half, top + height + half);
+
+            _device.DrawRectangle(rect, outline.GetBrush(), half);
+
+            if (percentage == 0.0f) return;
+
+            rect.Left += quarter;
+            rect.Right -= quarter;
+            rect.Top += height - (height / 100.0f * percentage) + quarter;
+            rect.Bottom -= quarter;
+
+            _device.FillRectangle(rect, fill.GetBrush());
+        }
+
+        public void DrawBarV(Primitives.Rectangle rectangle, float percentage, ID2DBrush outline, ID2DBrush fill, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            float half = stroke / 2.0f;
+            float quarter = half / 2.0f;
+
+            float width = rectangle.Right - rectangle.Left;
+            float height = rectangle.Bottom - rectangle.Top;
+
+            var rect = new RawRectangleF(rectangle.Left - half, rectangle.Top - half, rectangle.Left + width + half, rectangle.Top + height + half);
+
+            _device.DrawRectangle(rect, outline.GetBrush(), half);
+
+            if (percentage == 0.0f) return;
+
+            rect.Left += quarter;
+            rect.Right -= width - (width / 100.0f * percentage) + quarter;
+            rect.Top += quarter;
+            rect.Bottom -= quarter;
+
+            _device.FillRectangle(rect, fill.GetBrush());
+        }
+
+        public void DrawBarV(float left, float top, float right, float bottom, float percentage, ID2DBrush outline, ID2DBrush fill, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            float half = stroke / 2.0f;
+            float quarter = half / 2.0f;
+
+            float width = right - left;
+            float height = bottom - top;
+
+            var rect = new RawRectangleF(left - half, top - half, left + width + half, top + height + half);
+
+            _device.DrawRectangle(rect, outline.GetBrush(), half);
+
+            if (percentage == 0.0f) return;
+
+            rect.Left += quarter;
+            rect.Right -= width - (width / 100.0f * percentage) + quarter;
+            rect.Top += quarter;
+            rect.Bottom -= quarter;
+
+            _device.FillRectangle(rect, fill.GetBrush());
+        }
+
+        public void DrawCrosshair(CrosshairStyle style, Primitives.Point location, float size, ID2DBrush brush, float stroke)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            if (style == CrosshairStyle.Dot)
+            {
+                FillCircle(location.X, location.Y, size, brush);
+            }
+            else if (style == CrosshairStyle.Plus)
+            {
+                DrawLine(location.X - size, location.Y, location.X + size, location.Y, brush, stroke);
+                DrawLine(location.X, location.Y - size, location.X, location.Y + size, brush, stroke);
+            }
+            else if (style == CrosshairStyle.Cross)
+            {
+                DrawLine(location.X - size, location.Y - size, location.X + size, location.Y + size, brush, stroke);
+                DrawLine(location.X + size, location.Y - size, location.X - size, location.Y + size, brush, stroke);
+            }
+            else if (style == CrosshairStyle.Gap)
+            {
+                DrawLine(location.X - size - stroke, location.Y, location.X - stroke, location.Y, brush, stroke);
+                DrawLine(location.X + size + stroke, location.Y, location.X + stroke, location.Y, brush, stroke);
+
+                DrawLine(location.X, location.Y - size - stroke, location.X, location.Y - stroke, brush, stroke);
+                DrawLine(location.X, location.Y + size + stroke, location.X, location.Y + stroke, brush, stroke);
+            }
+            else if (style == CrosshairStyle.Diagonal)
+            {
+                DrawLine(location.X - size, location.Y - size, location.X + size, location.Y + size, brush, stroke);
+                DrawLine(location.X + size, location.Y - size, location.X - size, location.Y + size, brush, stroke);
+            }
+        }
+
         #endregion
 
         #region Text
@@ -1345,6 +1699,14 @@ namespace GameOverlay.Graphics
             if (text == null) throw new ArgumentNullException(nameof(text));
 
             _device.DrawText(text, text.Length, font, new RawRectangleF(location.X, location.Y, Width - location.X, Height - location.Y), brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
+        }
+
+        public void DrawText(string text, float x, float y, D2DFont font, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
+            _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, Width - x, Height - y), brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
         public void DrawText(string text, Primitives.Point location, D2DFont font, float fontSize, ID2DBrush brush)
@@ -1366,6 +1728,25 @@ namespace GameOverlay.Graphics
             }
         }
 
+        public void DrawText(string text, float x, float y, D2DFont font, float fontSize, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
+            if (fontSize == font.FontSize)
+            {
+                _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, Width - x, Height - y), brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
+            }
+            else
+            {
+                var layout = new TextLayout(_fontFactory, text, font, Width - x, Height - y);
+
+                _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+
+                layout.Dispose();
+            }
+        }
+
         public void DrawTextWithBackground(string text, Primitives.Point location, D2DFont font, ID2DBrush brush, ID2DBrush background)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1378,6 +1759,22 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(new RawRectangleF(location.X - modifier, location.Y - modifier, location.X + layout.Metrics.Width + modifier, location.Y + layout.Metrics.Height + modifier), background.GetBrush());
 
             _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+
+            layout.Dispose();
+        }
+
+        public void DrawTextWithBackground(string text, float x, float y, D2DFont font, ID2DBrush brush, ID2DBrush background)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
+            var layout = new TextLayout(_fontFactory, text, font, Width - x, Height - y);
+
+            float modifier = layout.FontSize / 4.0f;
+
+            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), background.GetBrush());
+
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
@@ -1396,6 +1793,24 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(new RawRectangleF(location.X - modifier, location.Y - modifier, location.X + layout.Metrics.Width + modifier, location.Y + layout.Metrics.Height + modifier), background.GetBrush());
 
             _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+
+            layout.Dispose();
+        }
+
+        public void DrawTextWithBackground(string text, float x, float y, D2DFont font, float fontSize, ID2DBrush brush, ID2DBrush background)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
+            var layout = new TextLayout(_fontFactory, text, font, Width - x, Height - y);
+
+            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
+
+            float modifier = layout.FontSize / 4.0f;
+
+            _device.FillRectangle(new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier, y + layout.Metrics.Height + modifier), background.GetBrush());
+
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
 
             layout.Dispose();
         }
