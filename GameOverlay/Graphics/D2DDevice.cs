@@ -396,7 +396,7 @@ namespace GameOverlay.Graphics
             if (!IsInitialized) return false;
             if (IsDrawing) return false;
 
-            if (Width == width && height == Height) return;
+            if (Width == width && height == Height) return true;
 
             _resizeWidth = width;
             _resizeHeight = height;
