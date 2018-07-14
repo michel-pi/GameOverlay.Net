@@ -79,15 +79,6 @@ namespace GameOverlay
 
             device.DrawTextWithBackground(device.FPS.ToString(), new Graphics.Primitives.Point(10, 20), font, red, backgroundBrush);
 
-            //device.OutlineFillCircle(new Graphics.Primitives.Circle(200, 200, 100), green, red, 2.0f);
-            //device.OutlineLine(new Graphics.Primitives.Line(200, 200, 300, 200), green, red, 16.0f);
-            //device.DrawDashedRoundedRectangle(new Graphics.Primitives.RoundedRectangle(200, 200, 300, 300, 10), green, 2.0f);
-
-            //device.DrawBarH(100, 100, 150, 300, 80, red, green, 2.0f);
-            //device.DrawBarV(300, 100, 500, 150, 80, red, green, 2.0f);
-            
-            device.DrawRectangle(200, 200, 300, 300, green, 2.0f);
-
             device.EndScene();
         }
     }
