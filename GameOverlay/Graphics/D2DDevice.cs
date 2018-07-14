@@ -28,8 +28,7 @@ namespace GameOverlay.Graphics
         private Factory _factory;
         private FontFactory _fontFactory;
         private int _internalFps;
-        private bool _isDrawing;
-        private DeviceOptions _rendererOptions;
+        private DeviceOptions _deviceOptions;
         private bool _resize;
         private int _resizeHeight;
         private int _resizeWidth;
@@ -40,6 +39,22 @@ namespace GameOverlay.Graphics
         #endregion private vars
 
         #region public vars
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is initialized.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is initialized; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsInitialized { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is drawing.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is drawing; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsDrawing { get; private set; }
 
         /// <summary>
         /// Gets the FPS
@@ -92,6 +107,8 @@ namespace GameOverlay.Graphics
         /// <param name="hwnd">A valid window handle</param>
         public D2DDevice(IntPtr hwnd)
         {
+            if (hwnd == IntPtr.Zero) throw new ArgumentException(nameof(D2DDevice) + " needs a valid window handle!", nameof(hwnd));
+
             var options = new DeviceOptions()
             {
                 Hwnd = hwnd,
@@ -109,6 +126,8 @@ namespace GameOverlay.Graphics
         /// <param name="vsync">if set to <c>true</c> [vsync].</param>
         public D2DDevice(IntPtr hwnd, bool vsync)
         {
+            if (hwnd == IntPtr.Zero) throw new ArgumentException(nameof(D2DDevice) + " needs a valid window handle!", nameof(hwnd));
+
             var options = new DeviceOptions()
             {
                 Hwnd = hwnd,
@@ -127,6 +146,8 @@ namespace GameOverlay.Graphics
         /// <param name="measureFps">if set to <c>true</c> [measure FPS].</param>
         public D2DDevice(IntPtr hwnd, bool vsync, bool measureFps)
         {
+            if (hwnd == IntPtr.Zero) throw new ArgumentException(nameof(D2DDevice) + " needs a valid window handle!", nameof(hwnd));
+
             var options = new DeviceOptions()
             {
                 Hwnd = hwnd,
@@ -146,6 +167,8 @@ namespace GameOverlay.Graphics
         /// <param name="antiAliasing">if set to <c>true</c> [anti aliasing].</param>
         public D2DDevice(IntPtr hwnd, bool vsync, bool measureFps, bool antiAliasing)
         {
+            if (hwnd == IntPtr.Zero) throw new ArgumentException(nameof(D2DDevice) + " needs a valid window handle!", nameof(hwnd));
+
             var options = new DeviceOptions()
             {
                 Hwnd = hwnd,
@@ -162,6 +185,8 @@ namespace GameOverlay.Graphics
         /// <param name="options">Creation options</param>
         public D2DDevice(DeviceOptions options)
         {
+            if(options.Hwnd == IntPtr.Zero) throw new ArgumentException(nameof(D2DDevice) + " needs a valid window handle!", nameof(options.Hwnd));
+
             SetupInstance(options);
         }
 
@@ -179,6 +204,10 @@ namespace GameOverlay.Graphics
 
         private void DestroyInstance()
         {
+            if (!IsInitialized) throw new InvalidOperationException("Can not destroy an unitiliazed " + nameof(D2DDevice) + "!");
+
+            IsInitialized = false;
+
             try
             {
                 _sharedBrush.Dispose();
@@ -193,7 +222,9 @@ namespace GameOverlay.Graphics
 
         private void SetupInstance(DeviceOptions options)
         {
-            _rendererOptions = options;
+            if(IsInitialized) throw new InvalidOperationException("Destroy this " + nameof(D2DDevice) + " before initializing it again!");
+
+            _deviceOptions = options;
 
             if (options.Hwnd == IntPtr.Zero) throw new ArgumentNullException(nameof(options.Hwnd));
 
@@ -232,8 +263,15 @@ namespace GameOverlay.Graphics
             }
             catch (SharpDXException) // D2DERR_UNSUPPORTED_PIXEL_FORMAT
             {
-                renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
-                _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
+                try
+                {
+                    renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
+                    _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
+                }
+                catch(Exception ex)
+                {
+                    throw new NotSupportedException("This computer does not support Direct2D1!" + Environment.NewLine + ex.ToString());
+                }
             }
 
             _device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
@@ -241,6 +279,8 @@ namespace GameOverlay.Graphics
             _device.TextAntialiasMode = options.AntiAliasing ? SharpDX.Direct2D1.TextAntialiasMode.Cleartype : SharpDX.Direct2D1.TextAntialiasMode.Aliased;
 
             _sharedBrush = new SolidColorBrush(_device, default(RawColor4));
+
+            IsInitialized = true;
         }
 
         #endregion init & delete
@@ -252,8 +292,8 @@ namespace GameOverlay.Graphics
         /// </summary>
         public void BeginScene()
         {
-            if (_device == null) return;
-            if (_isDrawing) return;
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
 
             if (MeasureFPS && !_stopwatch.IsRunning)
             {
@@ -270,7 +310,7 @@ namespace GameOverlay.Graphics
 
             _device.BeginDraw();
 
-            _isDrawing = true;
+            IsDrawing = true;
         }
 
         /// <summary>
@@ -278,6 +318,8 @@ namespace GameOverlay.Graphics
         /// </summary>
         public void ClearScene()
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene or UseScene before ClearScene!");
+
             _device.Clear(null);
         }
 
@@ -287,6 +329,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color</param>
         public void ClearScene(D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene or UseScene before ClearScene!");
+
             _device.Clear(color);
         }
 
@@ -296,6 +340,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush</param>
         public void ClearScene(D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene or UseScene before ClearScene!");
+
             _device.Clear(brush);
         }
 
@@ -304,15 +350,16 @@ namespace GameOverlay.Graphics
         /// </summary>
         public void EndScene()
         {
-            if (_device == null) return;
-            if (!_isDrawing) return;
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+            if (!IsDrawing) return;
 
             var result = _device.TryEndDraw(out long tag_0, out long tag_1);
 
             if (result.Failure)
             {
                 DestroyInstance();
-                SetupInstance(_rendererOptions);
+                SetupInstance(_deviceOptions);
             }
 
             if (MeasureFPS && _stopwatch.IsRunning)
@@ -327,7 +374,7 @@ namespace GameOverlay.Graphics
                 }
             }
 
-            _isDrawing = false;
+            IsDrawing = false;
         }
 
         /// <summary>
@@ -350,7 +397,9 @@ namespace GameOverlay.Graphics
         /// <returns></returns>
         public D2DScene UseScene()
         {
-            // really expensive to use but i like the pattern
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+            
             return new D2DScene(this);
         }
 
@@ -365,6 +414,9 @@ namespace GameOverlay.Graphics
         /// <returns></returns>
         public D2DBrush CreateBrush(D2DColor color)
         {
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
             return new D2DBrush(_device, color);
         }
 
@@ -378,6 +430,9 @@ namespace GameOverlay.Graphics
         /// <returns></returns>
         public D2DBrush CreateBrush(int r, int g, int b, int a = 255)
         {
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
             return new D2DBrush(_device, new D2DColor(r, g, b, a));
         }
 
@@ -391,6 +446,9 @@ namespace GameOverlay.Graphics
         /// <returns></returns>
         public D2DBrush CreateBrush(float r, float g, float b, float a = 1.0f)
         {
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
             return new D2DBrush(_device, new D2DColor(r, g, b, a));
         }
 
@@ -404,6 +462,9 @@ namespace GameOverlay.Graphics
         /// <returns></returns>
         public D2DFont CreateFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
             return new D2DFont(_fontFactory, fontFamilyName, size, bold, italic);
         }
 
@@ -414,6 +475,9 @@ namespace GameOverlay.Graphics
         /// <returns></returns>
         public D2DFont CreateFont(FontOptions options)
         {
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
             TextFormat font = new TextFormat(_fontFactory, options.FontFamilyName, options.Bold ? FontWeight.Bold : FontWeight.Normal, options.GetStyle(), options.FontSize);
             return new D2DFont(font);
         }
@@ -425,6 +489,9 @@ namespace GameOverlay.Graphics
         /// <returns></returns>
         public D2DBitmap LoadBitmap(string file)
         {
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
             return new D2DBitmap(_device, file);
         }
 
@@ -435,6 +502,9 @@ namespace GameOverlay.Graphics
         /// <returns></returns>
         public D2DBitmap LoadBitmap(byte[] bytes)
         {
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
             return new D2DBitmap(_device, bytes);
         }
 
@@ -447,6 +517,9 @@ namespace GameOverlay.Graphics
         /// <param name="italic">if set to <c>true</c> [italic].</param>
         public void SetSharedFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
+            if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
             _sharedFont = new TextFormat(_fontFactory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
         }
 
@@ -464,6 +537,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">Brush to use</param>
         public void DrawCircle(float x, float y, float radius, float stroke, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush, stroke);
         }
 
@@ -477,6 +552,8 @@ namespace GameOverlay.Graphics
         /// <param name="color"><c>Direct2DColor</c></param>
         public void DrawCircle(float x, float y, float radius, float stroke, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush, stroke);
         }
@@ -492,6 +569,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush, stroke);
         }
 
@@ -506,6 +585,8 @@ namespace GameOverlay.Graphics
         /// <param name="color"><c>Direct2DColor</c></param>
         public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush, stroke);
         }
@@ -521,6 +602,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush, stroke);
         }
 
@@ -535,6 +618,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
             _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), _sharedBrush, stroke);
         }
@@ -550,6 +635,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawRectangle(float x, float y, float width, float height, float stroke, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), brush, stroke);
         }
 
@@ -564,6 +651,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawRectangle(float x, float y, float width, float height, float stroke, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
             _device.DrawRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush, stroke);
         }
@@ -579,6 +668,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             int length = (int)(((width + height) / 2.0f) * 0.2f);
 
             RawVector2 first = new RawVector2(x, y);
@@ -627,6 +718,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawRectangleEdges(float x, float y, float width, float height, float stroke, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
 
             int length = (int)(((width + height) / 2.0f) * 0.2f);
@@ -679,6 +772,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void FillCircle(float x, float y, float radius, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush);
         }
 
@@ -691,6 +786,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void FillCircle(float x, float y, float radius, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush);
         }
@@ -705,6 +802,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void FillEllipse(float x, float y, float radius_x, float radius_y, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush);
         }
 
@@ -718,6 +817,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void FillEllipse(float x, float y, float radius_x, float radius_y, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush);
         }
@@ -732,6 +833,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void FillRectangle(float x, float y, float width, float height, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), brush);
         }
 
@@ -745,6 +848,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void FillRectangle(float x, float y, float width, float height, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
             _device.FillRectangle(new RawRectangleF(x, y, x + width, y + height), _sharedBrush);
         }
@@ -764,6 +869,8 @@ namespace GameOverlay.Graphics
         /// <param name="borderColor">Color of the border.</param>
         public void BorderedCircle(float x, float y, float radius, float stroke, D2DColor color, D2DColor borderColor)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
 
             var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
@@ -796,6 +903,8 @@ namespace GameOverlay.Graphics
         /// <param name="borderBrush">The border brush.</param>
         public void BorderedCircle(float x, float y, float radius, float stroke, D2DBrush brush, D2DBrush borderBrush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
 
             _device.DrawEllipse(ellipse, brush, stroke);
@@ -825,6 +934,8 @@ namespace GameOverlay.Graphics
         /// <param name="borderColor">Color of the border.</param>
         public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DColor color, D2DColor borderColor)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
@@ -866,6 +977,8 @@ namespace GameOverlay.Graphics
         /// <param name="borderBrush">The border brush.</param>
         public void BorderedLine(float start_x, float start_y, float end_x, float end_y, float stroke, D2DBrush brush, D2DBrush borderBrush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
@@ -903,6 +1016,8 @@ namespace GameOverlay.Graphics
         /// <param name="borderColor">Color of the border.</param>
         public void BorderedRectangle(float x, float y, float width, float height, float stroke, D2DColor color, D2DColor borderColor)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             float half = stroke / 2.0f;
 
             width += x;
@@ -931,6 +1046,8 @@ namespace GameOverlay.Graphics
         /// <param name="borderBrush">The border brush.</param>
         public void BorderedRectangle(float x, float y, float width, float height, float stroke, D2DBrush brush, D2DBrush borderBrush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             float half = stroke / 2.0f;
 
             width += x;
@@ -960,6 +1077,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
@@ -990,6 +1109,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
 
             var geometry = new PathGeometry(_factory);
@@ -1021,6 +1142,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
@@ -1050,6 +1173,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
 
             var geometry = new PathGeometry(_factory);
@@ -1084,6 +1209,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
             float delta_y = end_y >= start_y ? end_y - start_y : start_y - end_y;
 
@@ -1120,6 +1247,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             float delta_x = end_x >= start_x ? end_x - start_x : start_x - end_x;
             float delta_y = end_y >= start_y ? end_y - start_y : start_y - end_y;
 
@@ -1154,6 +1283,8 @@ namespace GameOverlay.Graphics
         /// <param name="opacity">The opacity.</param>
         public void DrawBitmap(D2DBitmap bmp, float x, float y, float opacity)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             Bitmap bitmap = bmp;
             _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
         }
@@ -1169,6 +1300,8 @@ namespace GameOverlay.Graphics
         /// <param name="height">The height.</param>
         public void DrawBitmap(D2DBitmap bmp, float opacity, float x, float y, float width, float height)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             Bitmap bitmap = bmp;
             _device.DrawBitmap(bitmap, new RawRectangleF(x, y, x + width, y + height), opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
         }
@@ -1185,6 +1318,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawBox2D(float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
@@ -1221,6 +1356,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawBox2D(float x, float y, float width, float height, float stroke, D2DBrush interiorBrush, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             var geometry = new PathGeometry(_factory);
 
             var sink = geometry.Open();
@@ -1252,6 +1389,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             _sharedBrush.Color = color;
 
             if (style == CrosshairStyle.Dot)
@@ -1294,6 +1433,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             if (style == CrosshairStyle.Dot)
             {
                 FillCircle(x, y, size, brush);
@@ -1336,6 +1477,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             float half = stroke / 2.0f;
 
             _sharedBrush.Color = color;
@@ -1369,6 +1512,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawHorizontalBar(float percentage, float x, float y, float width, float height, float stroke, D2DBrush interiorBrush, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             float half = stroke / 2.0f;
             float quarter = half / 2.0f;
 
@@ -1399,6 +1544,8 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, D2DColor interiorColor, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             float half = stroke / 2.0f;
             float quarter = half / 2.0f;
 
@@ -1433,6 +1580,8 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawVerticalBar(float percentage, float x, float y, float width, float height, float stroke, D2DBrush interiorBrush, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
             float half = stroke / 2.0f;
             float quarter = half / 2.0f;
 
@@ -1464,6 +1613,9 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawText(string text, float x, float y, D2DFont font, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
             _sharedBrush.Color = color;
             _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), _sharedBrush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
@@ -1478,6 +1630,9 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawText(string text, float x, float y, D2DFont font, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
             _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, float.MaxValue, float.MaxValue), brush, DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
@@ -1492,6 +1647,9 @@ namespace GameOverlay.Graphics
         /// <param name="color">The color.</param>
         public void DrawText(string text, float x, float y, float fontSize, D2DFont font, D2DColor color)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
             _sharedBrush.Color = color;
 
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
@@ -1514,6 +1672,9 @@ namespace GameOverlay.Graphics
         /// <param name="brush">The brush.</param>
         public void DrawText(string text, float x, float y, float fontSize, D2DFont font, D2DBrush brush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             layout.SetFontSize(fontSize, new TextRange(0, text.Length));
@@ -1534,6 +1695,9 @@ namespace GameOverlay.Graphics
         /// <param name="backgroundColor">Color of the background.</param>
         public void DrawTextWithBackground(string text, float x, float y, D2DFont font, D2DColor color, D2DColor backgroundColor)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             float modifier = layout.FontSize / 4.0f;
@@ -1560,6 +1724,9 @@ namespace GameOverlay.Graphics
         /// <param name="backgroundBrush">The background brush.</param>
         public void DrawTextWithBackground(string text, float x, float y, D2DFont font, D2DBrush brush, D2DBrush backgroundBrush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             float modifier = layout.FontSize / 4.0f;
@@ -1583,6 +1750,9 @@ namespace GameOverlay.Graphics
         /// <param name="backgroundColor">Color of the background.</param>
         public void DrawTextWithBackground(string text, float x, float y, float fontSize, D2DFont font, D2DColor color, D2DColor backgroundColor)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             layout.SetFontSize(fontSize, new TextRange(0, text.Length));
@@ -1612,6 +1782,9 @@ namespace GameOverlay.Graphics
         /// <param name="backgroundBrush">The background brush.</param>
         public void DrawTextWithBackground(string text, float x, float y, float fontSize, D2DFont font, D2DBrush brush, D2DBrush backgroundBrush)
         {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+            if (text == null) throw new ArgumentNullException(nameof(text));
+
             var layout = new TextLayout(_fontFactory, text, font, float.MaxValue, float.MaxValue);
 
             layout.SetFontSize(fontSize, new TextRange(0, text.Length));
@@ -1650,7 +1823,14 @@ namespace GameOverlay.Graphics
                     // Free managed objects
                 }
 
-                DestroyInstance();
+                try
+                {
+                    DestroyInstance();
+                }
+                catch
+                {
+
+                }
 
                 disposedValue = true;
             }
