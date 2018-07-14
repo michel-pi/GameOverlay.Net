@@ -9,8 +9,7 @@ namespace GameOverlay.Graphics.Primitives
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Graphics.IShape" />
-    public struct Triangle : IShape
+    public struct Triangle
     {
         /// <summary>
         /// a
@@ -68,16 +67,6 @@ namespace GameOverlay.Graphics.Primitives
             A = new Point(a_x, a_y);
             B = new Point(b_X, b_y);
             C = new Point(c_x, c_y);
-        }
-
-        /// <summary>
-        /// Draws the specified device.
-        /// </summary>
-        /// <param name="device">The device.</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Draw(D2DDevice device)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

@@ -9,8 +9,7 @@ namespace GameOverlay.Graphics.Primitives
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Graphics.IShape" />
-    public class Rectangle : IShape
+    public struct Rectangle
     {
         /// <summary>
         /// The left
@@ -57,16 +56,6 @@ namespace GameOverlay.Graphics.Primitives
             Top = top;
             Right = right;
             Bottom = bottom;
-        }
-        
-        /// <summary>
-        /// Draws the specified device.
-        /// </summary>
-        /// <param name="device">The device.</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Draw(D2DDevice device)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

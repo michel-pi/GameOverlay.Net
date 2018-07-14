@@ -5,8 +5,7 @@ namespace GameOverlay.Graphics.Primitives
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Graphics.IShape" />
-    public struct Ellipse : IShape
+    public struct Ellipse
     {
         /// <summary>
         /// The location
@@ -74,16 +73,6 @@ namespace GameOverlay.Graphics.Primitives
             Location = new Point(x, y);
             RadiusX = radiusX;
             RadiusY = radiusY;
-        }
-
-        /// <summary>
-        /// Draws the specified device.
-        /// </summary>
-        /// <param name="device">The device.</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Draw(D2DDevice device)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

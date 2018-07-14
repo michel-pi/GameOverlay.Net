@@ -9,8 +9,7 @@ namespace GameOverlay.Graphics.Primitives
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Graphics.IShape" />
-    public struct Line : IShape
+    public struct Line
     {
         /// <summary>
         /// The start
