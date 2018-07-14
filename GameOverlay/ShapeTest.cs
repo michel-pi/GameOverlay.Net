@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEBUG
+using System;
 
 using GameOverlay.Graphics;
 using GameOverlay.Graphics.Containers;
@@ -30,3 +31,4 @@ namespace GameOverlay
         }
     }
 }
+#endif
