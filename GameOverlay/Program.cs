@@ -46,8 +46,8 @@ namespace GameOverlay
             gfx = new D2DDevice(rendererOptions);
 
             font = gfx.CreateFont("Arial", 22);
-            brush = gfx.CreateBrush(255, 0, 0, 255);
-            backgroundBrush = gfx.CreateBrush(0xCC, 0xCC, 0xCC, 80);
+            brush = gfx.CreateSolidColorBrush(255, 0, 0, 255);
+            backgroundBrush = gfx.CreateSolidColorBrush(0xCC, 0xCC, 0xCC, 80);
 
             FrameTimer timer = new FrameTimer(60);
 
@@ -68,7 +68,7 @@ namespace GameOverlay
             gfx.Resize(width, height);
         }
 
-        private static void Timer_OnFrameStart(D2DDevice device)
+        private static void Timer_OnFrameStart(FrameTimer timer, D2DDevice device)
         {
             device.BeginScene();
             device.ClearScene();
