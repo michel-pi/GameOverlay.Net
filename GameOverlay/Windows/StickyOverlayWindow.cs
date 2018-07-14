@@ -37,6 +37,10 @@ namespace GameOverlay.Windows
         /// <param name="parentWindowHandle">The parent window handle.</param>
         public StickyOverlayWindow(IntPtr parentWindowHandle) : base(DefaultOptions)
         {
+            if (parentWindowHandle == IntPtr.Zero) throw new ArgumentNullException(nameof(parentWindowHandle));
+
+            while (!base.IsInitialized) Thread.Sleep(10);
+
             ParentWindowHandle = parentWindowHandle;
             Install();
         }
@@ -48,6 +52,10 @@ namespace GameOverlay.Windows
         /// <param name="options">The options.</param>
         public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayCreationOptions options) : base(options)
         {
+            if (parentWindowHandle == IntPtr.Zero) throw new ArgumentNullException(nameof(parentWindowHandle));
+
+            while (!base.IsInitialized) Thread.Sleep(10);
+
             ParentWindowHandle = parentWindowHandle;
             Install();
         }
@@ -65,7 +73,7 @@ namespace GameOverlay.Windows
         /// </summary>
         public void Install()
         {
-            if (ParentWindowHandle == IntPtr.Zero || _exitServiceThread || _serviceThread != null) return;
+            if (_exitServiceThread || _serviceThread != null) return;
 
             base.ShowWindow();
 
