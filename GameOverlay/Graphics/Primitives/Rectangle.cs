@@ -95,6 +95,13 @@ namespace GameOverlay.Graphics.Primitives
             return "{Left=" + Left + ", Top=" + Top + ", Right=" + Right + ", Bottom=" + Bottom + "}";
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Rectangle"/> to <see cref="SharpDX.Mathematics.Interop.RawRectangleF"/>.
+        /// </summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator SharpDX.Mathematics.Interop.RawRectangleF(Rectangle rectangle)
         {
             return new SharpDX.Mathematics.Interop.RawRectangleF(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
