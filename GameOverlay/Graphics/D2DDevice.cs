@@ -1814,6 +1814,31 @@ namespace GameOverlay.Graphics
 
         #endregion Text
 
+        #region Interop
+
+        public RenderTarget GetRenderTarget()
+        {
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
+            return _device;
+        }
+
+        public Factory GetFactory()
+        {
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
+            return _factory;
+        }
+
+        public FontFactory GetFontFactory()
+        {
+            if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+
+            return _fontFactory;
+        }
+
+        #endregion
+
         #region IDisposable Support
 
         /// <summary>
@@ -1870,5 +1895,24 @@ namespace GameOverlay.Graphics
         }
 
         #endregion IDisposable Support
+
+        #region Implicit conversions
+
+        public static implicit operator RenderTarget(D2DDevice device)
+        {
+            return device.GetRenderTarget();
+        }
+
+        public static implicit operator Factory(D2DDevice device)
+        {
+            return device.GetFactory();
+        }
+
+        public static implicit operator FontFactory(D2DDevice device)
+        {
+            return device.GetFontFactory();
+        }
+
+        #endregion
     }
 }
