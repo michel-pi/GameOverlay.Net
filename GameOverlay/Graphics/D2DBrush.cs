@@ -8,7 +8,7 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// Stores a Brush compatible with <c>Direct2DRenderer</c>
     /// </summary>
-    public class D2DBrush
+    public class D2DBrush : IDisposable
     {
         /// <summary>
         /// A <c>SolidColorBrush</c> to use with a rendering device
@@ -48,7 +48,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         ~D2DBrush()
         {
-            Brush.Dispose();
+            Dispose();
         }
 
         /// <summary>
@@ -107,5 +107,25 @@ namespace GameOverlay.Graphics
         {
             return "{D2DBrush=" + Color.ToString() + "}";
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                Brush.Dispose();
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
