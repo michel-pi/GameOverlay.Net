@@ -43,7 +43,7 @@ namespace GameOverlay.Utilities
         /// 
         /// </summary>
         /// <param name="device">The device.</param>
-        public delegate void FrameStageNotifyEventHandler(D2DDevice device);
+        public delegate void FrameStageNotifyEventHandler(FrameTimer timer, D2DDevice device);
 
         /// <summary>
         /// Occurs when [frame starting].
@@ -198,9 +198,9 @@ namespace GameOverlay.Utilities
         {
             if (Device == null) throw new InvalidOperationException("Renderer is null");
 
-            FrameStarting?.Invoke(Device);
-            OnFrame?.Invoke(Device);
-            FrameEnding?.Invoke(Device);
+            FrameStarting?.Invoke(this, Device);
+            OnFrame?.Invoke(this, Device);
+            FrameEnding?.Invoke(this, Device);
         }
 
         private void CreateThread()
