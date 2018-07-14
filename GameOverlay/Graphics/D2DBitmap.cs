@@ -8,7 +8,7 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// Stores a Bitmap compatible with <c>Direct2DRenderer</c>
     /// </summary>
-    public class D2DBitmap
+    public class D2DBitmap : IDisposable
     {
         private static SharpDX.WIC.ImagingFactory ImagingFactory = new SharpDX.WIC.ImagingFactory();
 
@@ -53,7 +53,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         ~D2DBitmap()
         {
-            SharpDXBitmap.Dispose();
+            Dispose();
         }
 
         private void LoadBitmap(RenderTarget device, byte[] bytes)
@@ -110,5 +110,26 @@ namespace GameOverlay.Graphics
         {
             return "{Bitmap=" + SharpDXBitmap.PixelSize.Width + "x" + SharpDXBitmap.PixelSize.Height + "}";
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                SharpDXBitmap.Dispose();
+                SharpDXBitmap = null;
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
