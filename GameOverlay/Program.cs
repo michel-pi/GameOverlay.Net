@@ -83,8 +83,10 @@ namespace GameOverlay
             //device.OutlineLine(new Graphics.Primitives.Line(200, 200, 300, 200), green, red, 16.0f);
             //device.DrawDashedRoundedRectangle(new Graphics.Primitives.RoundedRectangle(200, 200, 300, 300, 10), green, 2.0f);
 
-            device.DrawBarH(100, 100, 150, 300, 80, red, green, 2.0f);
-            device.DrawBarV(300, 100, 500, 150, 80, red, green, 2.0f);
+            //device.DrawBarH(100, 100, 150, 300, 80, red, green, 2.0f);
+            //device.DrawBarV(300, 100, 500, 150, 80, red, green, 2.0f);
+            
+            device.DrawRectangle(200, 200, 300, 300, green, 2.0f);
 
             device.EndScene();
         }

@@ -98,7 +98,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\CrosshairStyle.cs" />
-    <Compile Include="Graphics\D2DBitmap.cs" />
+    <Compile Include="Graphics\D2DImage.cs" />
     <Compile Include="Graphics\D2DSolidColorBrush.cs" />
     <Compile Include="Graphics\D2DColor.cs" />
     <Compile Include="Graphics\D2DFont.cs" />

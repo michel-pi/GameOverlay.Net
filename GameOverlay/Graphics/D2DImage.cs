@@ -8,7 +8,7 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// Stores a Bitmap compatible with <c>Direct2DRenderer</c>
     /// </summary>
-    public class D2DBitmap : IDisposable
+    public class D2DImage : IDisposable
     {
         private static SharpDX.WIC.ImagingFactory ImagingFactory = new SharpDX.WIC.ImagingFactory();
 
@@ -17,7 +17,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         public Bitmap SharpDXBitmap;
 
-        private D2DBitmap()
+        private D2DImage()
         {
             throw new NotImplementedException();
         }
@@ -27,7 +27,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="device"><c>RenderTarget</c> device</param>
         /// <param name="bytes"><c>Bitmap</c> bytes</param>
-        public D2DBitmap(RenderTarget device, byte[] bytes)
+        public D2DImage(RenderTarget device, byte[] bytes)
         {
             if (device == null) throw new ArgumentNullException(nameof(device));
             if (bytes == null) throw new ArgumentNullException(nameof(bytes));
@@ -40,18 +40,18 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="device"><c>RenderTarget</c> device</param>
         /// <param name="file">Path to an image file</param>
-        public D2DBitmap(RenderTarget device, string file)
+        public D2DImage(RenderTarget device, string file)
         {
             if (string.IsNullOrEmpty(file)) throw new ArgumentNullException(nameof(file));
-            if (!File.Exists(file)) throw new FileNotFoundException(nameof(D2DBitmap), file);
+            if (!File.Exists(file)) throw new FileNotFoundException(nameof(D2DImage), file);
 
             LoadBitmap(device, File.ReadAllBytes(file));
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="D2DBitmap"/> class.
+        /// Finalizes an instance of the <see cref="D2DImage"/> class.
         /// </summary>
-        ~D2DBitmap()
+        ~D2DImage()
         {
             Dispose();
         }
@@ -91,11 +91,11 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="D2DBitmap"/> to <see cref="Bitmap"/>.
+        /// Performs an implicit conversion from <see cref="D2DImage"/> to <see cref="Bitmap"/>.
         /// </summary>
         /// <param name="bmp">The BMP.</param>
         /// <returns>The result of the conversion.</returns>
-        public static implicit operator Bitmap(D2DBitmap bmp)
+        public static implicit operator Bitmap(D2DImage bmp)
         {
             return bmp.SharpDXBitmap;
         }
