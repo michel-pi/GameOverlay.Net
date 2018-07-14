@@ -49,7 +49,7 @@ namespace GameOverlay
             brush = gfx.CreateSolidColorBrush(255, 0, 0, 255);
             backgroundBrush = gfx.CreateSolidColorBrush(0xCC, 0xCC, 0xCC, 80);
 
-            FrameTimer timer = new FrameTimer(60);
+            FrameTimer timer = new FrameTimer(60, gfx);
 
             timer.FrameStarting += Timer_OnFrameStart;
 
