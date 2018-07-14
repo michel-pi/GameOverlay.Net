@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 using SharpDX.Direct2D1;
 using SharpDX.Mathematics.Interop;
@@ -87,7 +88,8 @@ namespace GameOverlay.Graphics
         {
             return "{D2DBrush=" + Color.ToString() + "}";
         }
-
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Brush GetBrush()
         {
             return Brush;

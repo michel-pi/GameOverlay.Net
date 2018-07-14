@@ -346,7 +346,7 @@ namespace GameOverlay.Graphics
         /// Clears the scene with background color
         /// </summary>
         /// <param name="brush">The brush</param>
-        public void ClearScene(D2DBrush brush)
+        public void ClearScene(D2DSolidColorBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene or UseScene before ClearScene!");
 
@@ -426,12 +426,12 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="color">The color</param>
         /// <returns></returns>
-        public D2DBrush CreateSolidColorBrush(D2DColor color)
+        public D2DSolidColorBrush CreateSolidColorBrush(D2DColor color)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
             if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
 
-            return new D2DBrush(_device, color);
+            return new D2DSolidColorBrush(_device, color);
         }
 
         /// <summary>
@@ -442,12 +442,12 @@ namespace GameOverlay.Graphics
         /// <param name="b">Blue 0 - 255</param>
         /// <param name="a">Alpha 0 - 255</param>
         /// <returns></returns>
-        public D2DBrush CreateSolidColorBrush(int r, int g, int b, int a = 255)
+        public D2DSolidColorBrush CreateSolidColorBrush(int r, int g, int b, int a = 255)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
             if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
 
-            return new D2DBrush(_device, new D2DColor(r, g, b, a));
+            return new D2DSolidColorBrush(_device, new D2DColor(r, g, b, a));
         }
 
         /// <summary>
@@ -458,12 +458,12 @@ namespace GameOverlay.Graphics
         /// <param name="b">Blue 0.0f - 1.0f</param>
         /// <param name="a">Alpha 0.0f - 1.0f</param>
         /// <returns></returns>
-        public D2DBrush CreateSolidColorBrush(float r, float g, float b, float a = 1.0f)
+        public D2DSolidColorBrush CreateSolidColorBrush(float r, float g, float b, float a = 1.0f)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
             if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
 
-            return new D2DBrush(_device, new D2DColor(r, g, b, a));
+            return new D2DSolidColorBrush(_device, new D2DColor(r, g, b, a));
         }
 
         /// <summary>

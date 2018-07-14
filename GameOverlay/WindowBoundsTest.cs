@@ -24,10 +24,10 @@ namespace GameOverlay
 
             device = new D2DDevice(window.WindowHandle, false, true, true);
 
-            D2DBrush red = device.CreateSolidColorBrush(255, 0, 0);
-            D2DBrush green = device.CreateSolidColorBrush(0, 255, 0);
-            D2DBrush blue = device.CreateSolidColorBrush(0, 0, 255);
-            D2DBrush black = device.CreateSolidColorBrush(0, 0, 0);
+            D2DSolidColorBrush red = device.CreateSolidColorBrush(255, 0, 0);
+            D2DSolidColorBrush green = device.CreateSolidColorBrush(0, 255, 0);
+            D2DSolidColorBrush blue = device.CreateSolidColorBrush(0, 0, 255);
+            D2DSolidColorBrush black = device.CreateSolidColorBrush(0, 0, 0);
 
             while (true)
             {
