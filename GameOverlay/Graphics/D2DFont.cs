@@ -42,10 +42,9 @@ namespace GameOverlay.Graphics
         /// <param name="italic">if set to <c>true</c> [italic].</param>
         public D2DFont(FontFactory factory, string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
-            if (factory == null) throw new ArgumentNullException(nameof(factory));
             if (string.IsNullOrEmpty(fontFamilyName)) throw new ArgumentNullException(nameof(fontFamilyName));
 
-            _fontFactory = factory;
+            _fontFactory = factory ?? throw new ArgumentNullException(nameof(factory));
             Font = new TextFormat(factory, fontFamilyName, bold ? FontWeight.Bold : FontWeight.Normal, italic ? FontStyle.Italic : FontStyle.Normal, size);
         }
 
