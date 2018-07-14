@@ -22,6 +22,14 @@ namespace GameOverlay.Windows
         private Thread _windowThread;
 
         /// <summary>
+        /// Gets a value indicating whether this instance is initialized.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is initialized; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsInitialized { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether [bypass topmost].
         /// </summary>
         /// <value><c>true</c> if [bypass topmost]; otherwise, <c>false</c>.</value>
@@ -108,8 +116,6 @@ namespace GameOverlay.Windows
                 Priority = ThreadPriority.BelowNormal
             };
             _windowThread.Start();
-
-            while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
 
         /// <summary>
@@ -130,8 +136,6 @@ namespace GameOverlay.Windows
                 Priority = ThreadPriority.BelowNormal
             };
             _windowThread.Start();
-
-            while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
 
         /// <summary>
@@ -149,8 +153,6 @@ namespace GameOverlay.Windows
                 Priority = ThreadPriority.BelowNormal
             };
             _windowThread.Start();
-
-            while (WindowHandle == IntPtr.Zero) Thread.Sleep(10);
         }
 
         /// <summary>
@@ -204,7 +206,7 @@ namespace GameOverlay.Windows
                 hIconSm = IntPtr.Zero
             };
 
-            User32.RegisterClassEx(ref wndClassEx);
+            if (User32.RegisterClassEx(ref wndClassEx) == 0) WinApi.ThrowWin32Exception("Failed to register window class!");
 
             uint exStyle;
 
@@ -230,8 +232,12 @@ namespace GameOverlay.Windows
                 IntPtr.Zero
                 );
 
+            if (WindowHandle == IntPtr.Zero) WinApi.ThrowWin32Exception("Failed to create window!");
+
             User32.SetLayeredWindowAttributes(WindowHandle, 0, 255, (uint)(LayeredWindowAttribute.Alpha));
             User32.UpdateWindow(WindowHandle);
+
+            IsInitialized = true;
 
             // If window is incompatible on some platforms use SetWindowLong to set the style again
             // and UpdateWindow If you have changed certain window data using SetWindowLong, you must
@@ -300,6 +306,7 @@ namespace GameOverlay.Windows
         /// </summary>
         public void HideWindow()
         {
+            if (!IsInitialized) throw new InvalidOperationException("The window has not been initialized!");
             if (!IsVisible) return;
 
             User32.ShowWindow(WindowHandle, 0);
@@ -313,6 +320,8 @@ namespace GameOverlay.Windows
         /// <param name="y">The y.</param>
         public void MoveWindow(int x, int y)
         {
+            if (!IsInitialized) throw new InvalidOperationException("The window has not been initialized!");
+
             User32.MoveWindow(WindowHandle, x, y, Width, Height, 1);
             X = x;
             Y = y;
@@ -328,6 +337,8 @@ namespace GameOverlay.Windows
         /// <param name="height">The height.</param>
         public void ResizeWindow(int width, int height)
         {
+            if (!IsInitialized) throw new InvalidOperationException("The window has not been initialized!");
+
             User32.MoveWindow(WindowHandle, X, Y, width, height, 1);
             Width = width;
             Height = height;
@@ -345,6 +356,8 @@ namespace GameOverlay.Windows
         /// <param name="height">The height.</param>
         public void SetWindowBounds(int x, int y, int width, int height)
         {
+            if (!IsInitialized) throw new InvalidOperationException("The window has not been initialized!");
+
             User32.MoveWindow(WindowHandle, x, y, width, height, 1);
             X = x;
             Y = y;
@@ -360,6 +373,7 @@ namespace GameOverlay.Windows
         /// </summary>
         public void ShowWindow()
         {
+            if (!IsInitialized) throw new InvalidOperationException("The window has not been initialized!");
             if (IsVisible) return;
 
             User32.ShowWindow(WindowHandle, 5);
@@ -372,6 +386,8 @@ namespace GameOverlay.Windows
         /// </summary>
         private void ExtendFrameIntoClientArea()
         {
+            if (!IsInitialized) throw new InvalidOperationException("The window has not been initialized!");
+
             var margin = new PInvoke.MARGIN
             {
                 cxLeftWidth = -1,
@@ -404,20 +420,19 @@ namespace GameOverlay.Windows
         /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!disposedValue && IsInitialized)
             {
-                if (disposing)
-                {
-                }
 
-                if (_windowThread != null) _windowThread.Abort();
-
-                try
+                if (_windowThread != null)
                 {
-                    _windowThread.Join();
-                }
-                catch
-                {
+                    try
+                    {
+                        _windowThread.Abort();
+                        _windowThread.Join();
+                    }
+                    catch
+                    {
+                    }
                 }
 
                 User32.DestroyWindow(WindowHandle);
