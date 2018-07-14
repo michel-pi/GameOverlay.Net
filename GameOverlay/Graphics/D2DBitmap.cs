@@ -19,6 +19,7 @@ namespace GameOverlay.Graphics
 
         private D2DBitmap()
         {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -28,6 +29,9 @@ namespace GameOverlay.Graphics
         /// <param name="bytes"><c>Bitmap</c> bytes</param>
         public D2DBitmap(RenderTarget device, byte[] bytes)
         {
+            if (device == null) throw new ArgumentNullException(nameof(device));
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes));
+
             LoadBitmap(device, bytes);
         }
 
@@ -38,6 +42,9 @@ namespace GameOverlay.Graphics
         /// <param name="file">Path to an image file</param>
         public D2DBitmap(RenderTarget device, string file)
         {
+            if (string.IsNullOrEmpty(file)) throw new ArgumentNullException(nameof(file));
+            if (!File.Exists(file)) throw new FileNotFoundException(nameof(D2DBitmap), file);
+
             LoadBitmap(device, File.ReadAllBytes(file));
         }
 
@@ -51,26 +58,36 @@ namespace GameOverlay.Graphics
 
         private void LoadBitmap(RenderTarget device, byte[] bytes)
         {
-            var stream = new MemoryStream(bytes);
-            SharpDX.WIC.BitmapDecoder decoder = new SharpDX.WIC.BitmapDecoder(ImagingFactory, stream, SharpDX.WIC.DecodeOptions.CacheOnDemand);
-            var frame = decoder.GetFrame(0);
-            SharpDX.WIC.FormatConverter converter = new SharpDX.WIC.FormatConverter(ImagingFactory);
+            if (device == null) throw new ArgumentNullException(nameof(device));
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes));
+
             try
             {
-                // normal ARGB images (Bitmaps / png tested)
-                converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGBA1010102);
-            }
-            catch
-            {
-                // falling back to RGB if unsupported
-                converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGB);
-            }
-            SharpDXBitmap = Bitmap.FromWicBitmap(device, converter);
+                var stream = new MemoryStream(bytes);
+                SharpDX.WIC.BitmapDecoder decoder = new SharpDX.WIC.BitmapDecoder(ImagingFactory, stream, SharpDX.WIC.DecodeOptions.CacheOnDemand);
+                var frame = decoder.GetFrame(0);
+                SharpDX.WIC.FormatConverter converter = new SharpDX.WIC.FormatConverter(ImagingFactory);
+                try
+                {
+                    // normal ARGB images (Bitmaps / png tested)
+                    converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGBA1010102);
+                }
+                catch
+                {
+                    // falling back to RGB if unsupported
+                    converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppRGB);
+                }
+                SharpDXBitmap = Bitmap.FromWicBitmap(device, converter);
 
-            converter.Dispose();
-            frame.Dispose();
-            decoder.Dispose();
-            stream.Dispose();
+                converter.Dispose();
+                frame.Dispose();
+                decoder.Dispose();
+                stream.Dispose();
+            }
+            catch(Exception ex)
+            {
+                throw new FormatException("Invalid or unsupported image format!", ex);
+            }
         }
 
         /// <summary>
