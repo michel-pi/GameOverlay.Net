@@ -294,6 +294,7 @@ namespace GameOverlay.Graphics
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
             if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
+            if (IsDrawing) return;
 
             if (MeasureFPS && !_stopwatch.IsRunning)
             {
@@ -302,10 +303,17 @@ namespace GameOverlay.Graphics
 
             if (_resize)
             {
-                Width = _resizeWidth;
-                Height = _resizeHeight;
-                _device.Resize(new Size2(_resizeWidth, _resizeHeight));
-                _resize = false;
+                try
+                {
+                    _device.Resize(new Size2(_resizeWidth, _resizeHeight));
+                    _resize = false;
+                    Width = _resizeWidth;
+                    Height = _resizeHeight;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.ToString()); // catches a weird error here
+                }
             }
 
             _device.BeginDraw();
@@ -382,13 +390,19 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="width">The width</param>
         /// <param name="height">The height</param>
-        public void Resize(int width, int height)
+        /// <returns>true if renderer state is okay</returns>
+        public bool Resize(int width, int height)
         {
+            if (!IsInitialized) return false;
+            if (IsDrawing) return false;
+
             if (Width == width && height == Height) return;
 
             _resizeWidth = width;
             _resizeHeight = height;
             _resize = true;
+
+            return true;
         }
 
         /// <summary>
