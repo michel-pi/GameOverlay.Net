@@ -222,72 +222,65 @@ namespace GameOverlay.Graphics
 
         private void SetupInstance(DeviceOptions options)
         {
+            if(IsInitialized) throw new InvalidOperationException("Destroy this " + nameof(D2DDevice) + " before initializing it again!");
+
+            _deviceOptions = options;
+
+            if (options.Hwnd == IntPtr.Zero) throw new ArgumentNullException(nameof(options.Hwnd));
+
+            if (User32.IsWindow(options.Hwnd) == 0) throw new ArgumentException("The window does not exist (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
+
+            RECT bounds = new RECT();
+
+            if (!HelperMethods.GetWindowClientRect(options.Hwnd, out bounds)) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
+
+            this.Width = bounds.Right - bounds.Left;
+            this.Height = bounds.Bottom - bounds.Top;
+
+            this.VSync = options.VSync;
+            this.MeasureFPS = options.MeasureFps;
+
+            _deviceProperties = new HwndRenderTargetProperties()
+            {
+                Hwnd = options.Hwnd,
+                PixelSize = new Size2(this.Width, this.Height),
+                PresentOptions = options.VSync ? PresentOptions.None : PresentOptions.Immediately
+            };
+
+            var renderProperties = new RenderTargetProperties(
+                RenderTargetType.Default,
+                new PixelFormat(Format.R8G8B8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
+                96.0f, 96.0f, // we use 96.0f because it's the default value. This will scale every drawing by 1.0f (it obviously does not scale anything). Our drawing will be dpi aware!
+                RenderTargetUsage.None,
+                FeatureLevel.Level_DEFAULT);
+
+            _factory = new Factory();
+            _fontFactory = new FontFactory();
+
             try
             {
-                if (IsInitialized) throw new InvalidOperationException("Destroy this " + nameof(D2DDevice) + " before initializing it again!");
-
-                _deviceOptions = options;
-
-                if (options.Hwnd == IntPtr.Zero) throw new ArgumentNullException(nameof(options.Hwnd));
-
-                if (User32.IsWindow(options.Hwnd) == 0) throw new ArgumentException("The window does not exist (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
-
-                RECT bounds = new RECT();
-
-                if (!HelperMethods.GetWindowClientRect(options.Hwnd, out bounds)) throw new Exception("Failed to get the size of the given window (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
-
-                this.Width = bounds.Right - bounds.Left;
-                this.Height = bounds.Bottom - bounds.Top;
-
-                this.VSync = options.VSync;
-                this.MeasureFPS = options.MeasureFps;
-
-                _deviceProperties = new HwndRenderTargetProperties()
-                {
-                    Hwnd = options.Hwnd,
-                    PixelSize = new Size2(this.Width, this.Height),
-                    PresentOptions = options.VSync ? PresentOptions.None : PresentOptions.Immediately
-                };
-
-                var renderProperties = new RenderTargetProperties(
-                    RenderTargetType.Default,
-                    new PixelFormat(Format.R8G8B8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
-                    96.0f, 96.0f, // we use 96.0f because it's the default value. This will scale every drawing by 1.0f (it obviously does not scale anything). Our drawing will be dpi aware!
-                    RenderTargetUsage.None,
-                    FeatureLevel.Level_DEFAULT);
-
-                _factory = new Factory();
-                _fontFactory = new FontFactory();
-
+                _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
+            }
+            catch (SharpDXException) // D2DERR_UNSUPPORTED_PIXEL_FORMAT
+            {
                 try
                 {
+                    renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
                     _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
                 }
-                catch (SharpDXException) // D2DERR_UNSUPPORTED_PIXEL_FORMAT
+                catch(Exception ex)
                 {
-                    try
-                    {
-                        renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied);
-                        _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new NotSupportedException("This computer does not support Direct2D1!" + Environment.NewLine + ex.ToString());
-                    }
+                    throw new NotSupportedException("This computer does not support Direct2D1!" + Environment.NewLine + ex.ToString());
                 }
-
-                _device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
-                                                               // other than in the documentation: Cleartype is much faster for me than GrayScale
-                _device.TextAntialiasMode = options.AntiAliasing ? SharpDX.Direct2D1.TextAntialiasMode.Cleartype : SharpDX.Direct2D1.TextAntialiasMode.Aliased;
-
-                _sharedBrush = new SolidColorBrush(_device, default(RawColor4));
-
-                IsInitialized = true;
             }
-            catch(Exception ex)
-            {
-                throw new InvalidOperationException("Something went wrong in D2DDevice.SetupInstance!", ex);
-            }
+
+            _device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
+            // other than in the documentation: Cleartype is much faster for me than GrayScale
+            _device.TextAntialiasMode = options.AntiAliasing ? SharpDX.Direct2D1.TextAntialiasMode.Cleartype : SharpDX.Direct2D1.TextAntialiasMode.Aliased;
+
+            _sharedBrush = new SolidColorBrush(_device, default(RawColor4));
+
+            IsInitialized = true;
         }
 
         #endregion init & delete
