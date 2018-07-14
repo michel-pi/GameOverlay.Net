@@ -1825,6 +1825,15 @@ namespace GameOverlay.Graphics
 
                 try
                 {
+                    if (IsInitialized && IsDrawing) EndScene();
+                }
+                catch
+                {
+
+                }
+
+                try
+                {
                     DestroyInstance();
                 }
                 catch
