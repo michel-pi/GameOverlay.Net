@@ -10,6 +10,8 @@ using SharpDX.Mathematics.Interop;
 using FontFactory = SharpDX.DirectWrite.Factory;
 using Factory = SharpDX.Direct2D1.Factory;
 
+using GameOverlay.Graphics.Containers;
+using GameOverlay.Graphics.Primitives;
 using GameOverlay.PInvoke;
 using GameOverlay.Utilities;
 
@@ -553,7 +555,7 @@ namespace GameOverlay.Graphics
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush(), stroke);
+            _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush(), stroke);
         }
 
         /// <summary>
@@ -569,7 +571,7 @@ namespace GameOverlay.Graphics
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _sharedBrush.Color = color;
-            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush, stroke);
+            _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush, stroke);
         }
 
         /// <summary>
@@ -585,7 +587,7 @@ namespace GameOverlay.Graphics
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush(), stroke);
+            _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush(), stroke);
         }
 
         /// <summary>
@@ -602,7 +604,7 @@ namespace GameOverlay.Graphics
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _sharedBrush.Color = color;
-            _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush, stroke);
+            _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush, stroke);
         }
 
         /// <summary>
@@ -788,7 +790,7 @@ namespace GameOverlay.Graphics
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush());
+            _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush());
         }
 
         /// <summary>
@@ -803,7 +805,7 @@ namespace GameOverlay.Graphics
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _sharedBrush.Color = color;
-            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush);
+            _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), _sharedBrush);
         }
 
         /// <summary>
@@ -818,7 +820,7 @@ namespace GameOverlay.Graphics
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush());
+            _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush());
         }
 
         /// <summary>
@@ -834,7 +836,7 @@ namespace GameOverlay.Graphics
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
             _sharedBrush.Color = color;
-            _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush);
+            _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius_x, radius_y), _sharedBrush);
         }
 
         /// <summary>
@@ -887,7 +889,7 @@ namespace GameOverlay.Graphics
 
             _sharedBrush.Color = color;
 
-            var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
+            var ellipse = new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius);
 
             _device.DrawEllipse(ellipse, _sharedBrush, stroke);
 
@@ -919,7 +921,7 @@ namespace GameOverlay.Graphics
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
 
-            var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
+            var ellipse = new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius);
 
             _device.DrawEllipse(ellipse, brush.GetBrush(), stroke);
 
@@ -1813,6 +1815,21 @@ namespace GameOverlay.Graphics
         }
 
         #endregion Text
+
+        #region Shapes and containers
+
+        public void DrawShape(IShape shape)
+        {
+            shape.Draw(this);
+        }
+
+        public void DrawShapes(IShapeContainer container)
+        {
+            foreach (IShape shape in container)
+                shape.Draw(this);
+        }
+
+        #endregion
 
         #region Interop
 
