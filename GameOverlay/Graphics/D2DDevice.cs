@@ -295,7 +295,7 @@ namespace GameOverlay.Graphics
                 }
             }
 
-            _device.AntialiasMode = AntialiasMode.PerPrimitive; // AntialiasMode.PerPrimitive fails rendering some objects
+            _device.AntialiasMode = AntialiasMode.Aliased; // AntialiasMode.PerPrimitive fails rendering some objects
             // other than in the documentation: Cleartype is much faster for me than GrayScale
             _device.TextAntialiasMode = options.AntiAliasing ? SharpDX.Direct2D1.TextAntialiasMode.Cleartype : SharpDX.Direct2D1.TextAntialiasMode.Aliased;
 

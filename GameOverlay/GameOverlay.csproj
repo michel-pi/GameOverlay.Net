@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorTest.cs" />
     <Compile Include="Graphics\Containers\ConcurrentShapeContainer.cs" />
     <Compile Include="Graphics\Containers\ShapeContainer.cs" />
     <Compile Include="Graphics\ID2DBrush.cs" />
