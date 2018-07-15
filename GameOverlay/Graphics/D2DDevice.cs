@@ -1608,6 +1608,12 @@ namespace GameOverlay.Graphics
             _device.FillMesh(mesh, brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Primitives.Geometry CreateGeometry()
+        {
+            return new Primitives.Geometry(this);
+        }
+
         #endregion
 
         #region interop

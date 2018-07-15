@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 using GameOverlay.Windows;
 using GameOverlay.Graphics;
+using GameOverlay.Graphics.Primitives;
 using GameOverlay.Utilities;
 
 namespace GameOverlay
@@ -17,6 +18,8 @@ namespace GameOverlay
         private static D2DSolidColorBrush green;
         private static D2DSolidColorBrush black;
         private static D2DSolidColorBrush backgroundBrush;
+        private static Geometry skeleton;
+        private static Geometry radar;
 
         private static void Main(string[] args)
         {
@@ -51,6 +54,9 @@ namespace GameOverlay
             green = gfx.CreateSolidColorBrush(0, 255, 0, 255);
             backgroundBrush = gfx.CreateSolidColorBrush(0xCC, 0xCC, 0xCC, 80);
 
+            skeleton = CreateSkeleton(gfx);
+            radar = CreateRadarBackground(gfx, new Rectangle(100, 100, 400, 400), 10.0f);
+
             overlay.OnWindowBoundsChanged += Overlay_OnWindowBoundsChanged;
 
             FrameTimer timer = new FrameTimer(0, gfx);
@@ -77,9 +83,97 @@ namespace GameOverlay
             device.BeginScene();
             device.ClearScene();
 
-            device.DrawTextWithBackground(device.FPS.ToString(), new Graphics.Primitives.Point(10, 20), font, red, backgroundBrush);
+            device.DrawTextWithBackground(device.FPS.ToString(), new Point(10, 20), font, red, backgroundBrush);
 
+            //DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
+
+            radar.Draw(1.0f, green);
+
+            //for(int i = 0; i < 100; i++)
+            //{
+            //    //skeleton.Draw(2.0f, green);
+
+            //    device.DrawLine(new Line(200, 200, 200, 300), 2.0f, green);
+
+            //    device.DrawLine(new Line(200, 300, 150, 350), 2.0f, green);
+            //    device.DrawLine(new Line(200, 300, 250, 350), 2.0f, green);
+
+            //    device.DrawLine(new Line(200, 200, 170, 270), 2.0f, green);
+            //    device.DrawLine(new Line(200, 200, 230, 270), 2.0f, green);
+            //}
+            
             device.EndScene();
+        }
+
+        private static void DrawRadarBackground(D2DDevice device, Rectangle bounds, float size)
+        {
+            float width = bounds.Right - bounds.Left;
+
+            int steps = (int)(width / size);
+
+            for(int i = 0; i < steps + 1; i++)
+            {
+                float curHeight = bounds.Top + (i * size);
+                float curWidth = bounds.Left + (i * size);
+                device.DrawLine(new Line(bounds.Left, curHeight, bounds.Right, curHeight), 1.0f, green);
+                device.DrawLine(new Line(curWidth, bounds.Top, curWidth, bounds.Bottom), 1.0f, green);
+            }
+        }
+
+        private static Geometry CreateRadarBackground(D2DDevice device, Rectangle bounds, float size)
+        {
+            var geometry = device.CreateGeometry();
+
+            float width = bounds.Right - bounds.Left;
+
+            int steps = (int)(width / size);
+
+            for (int i = 0; i < steps + 1; i++)
+            {
+                float curHeight = bounds.Top + (i * size);
+                float curWidth = bounds.Left + (i * size);
+
+                geometry.BeginFigure(new Point(bounds.Left, curHeight));
+                geometry.AddPoint(new Point(bounds.Right, curHeight));
+                geometry.EndFigure(false);
+
+                geometry.BeginFigure(new Point(curWidth, bounds.Top));
+                geometry.AddPoint(new Point(curWidth, bounds.Bottom));
+                geometry.EndFigure(false);
+            }
+
+            geometry.Close();
+
+            return geometry;
+        }
+
+        private static Geometry CreateSkeleton(D2DDevice device)
+        {
+            var geometry = device.CreateGeometry();
+
+            geometry.BeginFigure(new Graphics.Primitives.Point(170, 270));
+
+            geometry.AddPoint(new Graphics.Primitives.Point(200, 200));
+            geometry.AddPoint(new Graphics.Primitives.Point(200, 300));
+            geometry.AddPoint(new Graphics.Primitives.Point(150, 350));
+
+            geometry.EndFigure(false);
+
+            geometry.BeginFigure(new Graphics.Primitives.Point(200, 200));
+
+            geometry.AddPoint(new Graphics.Primitives.Point(230, 270));
+
+            geometry.EndFigure(false);
+
+            geometry.BeginFigure(new Graphics.Primitives.Point(200, 300));
+
+            geometry.AddPoint(new Graphics.Primitives.Point(250, 350));
+
+            geometry.EndFigure(false);
+
+            geometry.Close();
+
+            return geometry;
         }
     }
 }
