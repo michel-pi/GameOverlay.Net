@@ -275,7 +275,7 @@ namespace GameOverlay.Graphics
                 RenderTargetUsage.None,
                 FeatureLevel.Level_DEFAULT);
 
-            _factory = new Factory();
+            _factory = new Factory(SharpDX.Direct2D1.FactoryType.MultiThreaded);
             _fontFactory = new FontFactory();
 
             try

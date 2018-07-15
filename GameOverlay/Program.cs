@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 using GameOverlay.Windows;
 using GameOverlay.Graphics;
@@ -85,26 +86,26 @@ namespace GameOverlay
 
             device.DrawTextWithBackground(device.FPS.ToString(), new Point(10, 20), font, red, backgroundBrush);
 
-            for (int i = 0; i < 60; i++)
+            Parallel.For(0, 100, (int i) =>
             {
-                DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
-            }
+                device.DrawRectangle(new Rectangle(100, 100, 400, 400), 1.0f, green);
+            });
 
-            //radar.Draw(1.0f, green);
-
-            //for(int i = 0; i < 100; i++)
+            //for (int i = 0; i < 1000; i++)
             //{
-            //    //skeleton.Draw(2.0f, green);
-
-            //    device.DrawLine(new Line(200, 200, 200, 300), 2.0f, green);
-
-            //    device.DrawLine(new Line(200, 300, 150, 350), 2.0f, green);
-            //    device.DrawLine(new Line(200, 300, 250, 350), 2.0f, green);
-
-            //    device.DrawLine(new Line(200, 200, 170, 270), 2.0f, green);
-            //    device.DrawLine(new Line(200, 200, 230, 270), 2.0f, green);
+            //    device.DrawRectangle(new Rectangle(100, 100, 400, 400), 1.0f, green);
             //}
-            
+
+            //Parallel.For(0, 100, (int i) =>
+            //{
+            //    DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
+            //});
+
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
+            //}
+
             device.EndScene();
         }
 
