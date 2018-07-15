@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 using SharpDX;
 using SharpDX.Direct2D1;
@@ -298,6 +299,7 @@ namespace GameOverlay.Graphics
         /// <summary>
         /// Begins a new scene
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void BeginScene()
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -332,6 +334,7 @@ namespace GameOverlay.Graphics
         /// <summary>
         /// Clears the scene. Transparent
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearScene()
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene or UseScene before ClearScene!");
@@ -343,6 +346,7 @@ namespace GameOverlay.Graphics
         /// Clears the scene with background color
         /// </summary>
         /// <param name="color">The color</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearScene(D2DColor color)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene or UseScene before ClearScene!");
@@ -354,6 +358,7 @@ namespace GameOverlay.Graphics
         /// Clears the scene with background color
         /// </summary>
         /// <param name="brush">The brush</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearScene(D2DSolidColorBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene or UseScene before ClearScene!");
@@ -364,6 +369,7 @@ namespace GameOverlay.Graphics
         /// <summary>
         /// Ends the scene
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void EndScene()
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -399,6 +405,7 @@ namespace GameOverlay.Graphics
         /// <param name="width">The width</param>
         /// <param name="height">The height</param>
         /// <returns>true if renderer state is okay</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Resize(int width, int height)
         {
             if (!IsInitialized) return false;
@@ -416,6 +423,7 @@ namespace GameOverlay.Graphics
         /// Fancy IDisposable pattern for scenes
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public D2DScene UseScene()
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -433,6 +441,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="color">The color</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public D2DSolidColorBrush CreateSolidColorBrush(D2DColor color)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -449,6 +458,7 @@ namespace GameOverlay.Graphics
         /// <param name="b">Blue 0 - 255</param>
         /// <param name="a">Alpha 0 - 255</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public D2DSolidColorBrush CreateSolidColorBrush(int r, int g, int b, int a = 255)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -465,6 +475,7 @@ namespace GameOverlay.Graphics
         /// <param name="b">Blue 0.0f - 1.0f</param>
         /// <param name="a">Alpha 0.0f - 1.0f</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public D2DSolidColorBrush CreateSolidColorBrush(float r, float g, float b, float a = 1.0f)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -481,6 +492,7 @@ namespace GameOverlay.Graphics
         /// <param name="bold">if set to <c>true</c> [bold].</param>
         /// <param name="italic">if set to <c>true</c> [italic].</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public D2DFont CreateFont(string fontFamilyName, float size, bool bold = false, bool italic = false)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -494,6 +506,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="options">Creation options</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public D2DFont CreateFont(FontOptions options)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -508,6 +521,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="file">Path</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public D2DImage LoadBitmap(string file)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -521,6 +535,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public D2DImage LoadBitmap(byte[] bytes)
         {
             if (_device == null) throw new InvalidOperationException("The DirectX device is not initialized");
@@ -530,9 +545,10 @@ namespace GameOverlay.Graphics
         }
 
         #endregion Fonts & Brushes & Bitmaps
-        
+
         #region Primitives
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawCircle(Primitives.Circle circle, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -540,6 +556,7 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(circle, brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawCircle(float x, float y, float radius, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -547,6 +564,7 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedCircle(Primitives.Circle circle, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -554,6 +572,7 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(circle, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedCircle(float x, float y, float radius, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -561,6 +580,7 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillCircle(Primitives.Circle circle, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -568,6 +588,7 @@ namespace GameOverlay.Graphics
             _device.FillEllipse(circle, brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillCircle(float x, float y, float radius, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -575,6 +596,7 @@ namespace GameOverlay.Graphics
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius, radius), brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawEllipse(Primitives.Ellipse ellipse, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -582,6 +604,7 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(ellipse, brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawEllipse(float x, float y, float radius_x, float radius_y, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -589,6 +612,7 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedEllipse(Primitives.Ellipse ellipse, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -596,6 +620,7 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(ellipse, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedEllipse(float x, float y, float radius_x, float radius_y, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -603,6 +628,7 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillEllipse(Primitives.Ellipse ellipse, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -610,6 +636,7 @@ namespace GameOverlay.Graphics
             _device.FillEllipse(ellipse, brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillEllipse(float x, float y, float radius_x, float radius_y, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -617,6 +644,7 @@ namespace GameOverlay.Graphics
             _device.FillEllipse(new Ellipse(new RawVector2(x, y), radius_x, radius_y), brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawLine(Primitives.Line line, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -624,6 +652,7 @@ namespace GameOverlay.Graphics
             _device.DrawLine(line.Start, line.End, brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawLine(float start_x, float start_y, float end_x, float end_y, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -631,6 +660,7 @@ namespace GameOverlay.Graphics
             _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedLine(Primitives.Line line, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -638,6 +668,7 @@ namespace GameOverlay.Graphics
             _device.DrawLine(line.Start, line.End, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedLine(float start_x, float start_y, float end_x, float end_y, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -645,6 +676,7 @@ namespace GameOverlay.Graphics
             _device.DrawLine(new RawVector2(start_x, start_y), new RawVector2(end_x, end_y), brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawRectangle(Primitives.Rectangle rectangle, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -652,6 +684,7 @@ namespace GameOverlay.Graphics
             _device.DrawRectangle(rectangle, brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawRectangle(float left, float top, float right, float bottom, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -659,6 +692,7 @@ namespace GameOverlay.Graphics
             _device.DrawRectangle(new RawRectangleF(left, top, right, bottom), brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedRectangle(Primitives.Rectangle rectangle, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -666,6 +700,7 @@ namespace GameOverlay.Graphics
             _device.DrawRectangle(rectangle, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedRectangle(float left, float top, float right, float bottom, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -673,6 +708,7 @@ namespace GameOverlay.Graphics
             _device.DrawRectangle(new RawRectangleF(left, top, right, bottom), brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillRectangle(Primitives.Rectangle rectangle, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -680,6 +716,7 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(rectangle, brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillRectangle(float left, float top, float right, float bottom, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -687,6 +724,7 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(new RawRectangleF(left, top, right, bottom), brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawRoundedRectangle(Primitives.RoundedRectangle rectangle, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -694,6 +732,7 @@ namespace GameOverlay.Graphics
             _device.DrawRoundedRectangle(rectangle, brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawRoundedRectangle(float left, float top, float right, float bottom, float radius_x, float radius_y, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -707,6 +746,7 @@ namespace GameOverlay.Graphics
             , brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedRoundedRectangle(Primitives.RoundedRectangle rectangle, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -714,6 +754,7 @@ namespace GameOverlay.Graphics
             _device.DrawRoundedRectangle(rectangle, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedRoundedRectangle(float left, float top, float right, float bottom, float radius_x, float radius_y, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -727,6 +768,7 @@ namespace GameOverlay.Graphics
             , brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillRoundedRectangle(Primitives.RoundedRectangle rectangle, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -734,6 +776,7 @@ namespace GameOverlay.Graphics
             _device.FillRoundedRectangle(rectangle, brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillRoundedRectangle(float left, float top, float right, float bottom, float radius_x, float radius_y, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -747,6 +790,7 @@ namespace GameOverlay.Graphics
             , brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawTriangle(Primitives.Triangle triangle, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -768,6 +812,7 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, ID2DBrush brush, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -789,6 +834,7 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedTriangle(Primitives.Triangle triangle, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -810,6 +856,7 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -831,6 +878,7 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillTriangle(Primitives.Triangle triangle, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -852,6 +900,7 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -877,6 +926,7 @@ namespace GameOverlay.Graphics
 
         #region Outline
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineLine(Primitives.Line line, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -902,6 +952,7 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineLine(float start_x, float start_y, float end_x, float end_y, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -927,11 +978,13 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineCircle(Primitives.Circle circle, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             OutlineCircle(circle.Location.X, circle.Location.Y, circle.Radius, stroke, brush, outline);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineCircle(float x, float y, float radius, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             var ellipse = new Ellipse(new RawVector2(x, y), radius, radius);
@@ -951,11 +1004,13 @@ namespace GameOverlay.Graphics
             _device.DrawEllipse(ellipse, outline.GetBrush(), half);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineRectangle(Primitives.Rectangle rectangle , float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             OutlineRectangle(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke, brush, outline);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineRectangle(float left, float top, float right, float bottom, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             float half = stroke / 2.0f;
@@ -970,6 +1025,7 @@ namespace GameOverlay.Graphics
             _device.DrawRectangle(new RawRectangleF(left, top, width, height), brush.GetBrush(), half);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineFillCircle(Primitives.Circle circle, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -992,6 +1048,7 @@ namespace GameOverlay.Graphics
             ellipseGeometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineFillCircle(float x, float y, float radius, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1014,6 +1071,7 @@ namespace GameOverlay.Graphics
             ellipseGeometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineFillRectangle(Primitives.Rectangle rectangle, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1037,6 +1095,7 @@ namespace GameOverlay.Graphics
             rectangleGeometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineFillRectangle(float left, float top, float right, float bottom, float stroke, ID2DBrush brush, ID2DBrush outline)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1064,6 +1123,7 @@ namespace GameOverlay.Graphics
 
         #region Special
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawBarH(Primitives.Rectangle rectangle, float percentage, float stroke, ID2DBrush outline, ID2DBrush fill)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1088,6 +1148,7 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(rect, fill.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawBarH(float left, float top, float right, float bottom, float percentage, float stroke, ID2DBrush outline, ID2DBrush fill)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1112,6 +1173,7 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(rect, fill.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawBarV(Primitives.Rectangle rectangle, float percentage, float stroke, ID2DBrush outline, ID2DBrush fill)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1136,6 +1198,7 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(rect, fill.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawBarV(float left, float top, float right, float bottom, float percentage, float stroke, ID2DBrush outline, ID2DBrush fill)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1160,6 +1223,7 @@ namespace GameOverlay.Graphics
             _device.FillRectangle(rect, fill.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawCrosshair(CrosshairStyle style, Primitives.Point location, float size, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1192,17 +1256,20 @@ namespace GameOverlay.Graphics
                 DrawLine(location.X + size, location.Y - size, location.X - size, location.Y + size, stroke, brush);
             }
         }
-        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawCrosshair(CrosshairStyle style, float x, float y, float size, float stroke, ID2DBrush brush)
         {
             DrawCrosshair(style, new Primitives.Point(x, y), size, stroke, brush);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawArrowLine(Primitives.Point start, Primitives.Point end, float size, ID2DBrush brush)
         {
             DrawArrowLine(start.X, start.Y, end.X, end.Y, size, brush);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawArrowLine(float start_x, float start_y, float end_x, float end_y, float size, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1232,11 +1299,13 @@ namespace GameOverlay.Graphics
             FillTriangle(start_x, start_y, xm, ym, xn, yn, brush);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawBox2D(Primitives.Rectangle rectangle, float stroke, ID2DBrush outline, ID2DBrush fill)
         {
             DrawBox2D(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke, outline, fill);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawBox2D(float left, float top, float right, float bottom, float stroke, ID2DBrush outline, ID2DBrush fill)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1264,11 +1333,13 @@ namespace GameOverlay.Graphics
             geometry.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawRectangleEdges(Primitives.Rectangle rectangle, float stroke, ID2DBrush brush)
         {
             DrawRectangleEdges(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke, brush);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawRectangleEdges(float left, float top, float right, float bottom, float stroke, ID2DBrush brush)
         {
             float width = right - left;
@@ -1315,6 +1386,7 @@ namespace GameOverlay.Graphics
 
         #region Text
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawText(string text, Primitives.Point location, D2DFont font, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1323,6 +1395,7 @@ namespace GameOverlay.Graphics
             _device.DrawText(text, text.Length, font, new RawRectangleF(location.X, location.Y, Width - location.X, Height - location.Y), brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawText(string text, float x, float y, D2DFont font, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1331,6 +1404,7 @@ namespace GameOverlay.Graphics
             _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, Width - x, Height - y), brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawText(string text, Primitives.Point location, D2DFont font, float fontSize, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1350,6 +1424,7 @@ namespace GameOverlay.Graphics
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawText(string text, float x, float y, D2DFont font, float fontSize, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1369,6 +1444,7 @@ namespace GameOverlay.Graphics
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawTextWithBackground(string text, Primitives.Point location, D2DFont font, ID2DBrush brush, ID2DBrush background)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1385,6 +1461,7 @@ namespace GameOverlay.Graphics
             layout.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawTextWithBackground(string text, float x, float y, D2DFont font, ID2DBrush brush, ID2DBrush background)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1401,6 +1478,7 @@ namespace GameOverlay.Graphics
             layout.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawTextWithBackground(string text, Primitives.Point location, D2DFont font, float fontSize, ID2DBrush brush, ID2DBrush background)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1419,6 +1497,7 @@ namespace GameOverlay.Graphics
             layout.Dispose();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawTextWithBackground(string text, float x, float y, D2DFont font, float fontSize, ID2DBrush brush, ID2DBrush background)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1441,6 +1520,7 @@ namespace GameOverlay.Graphics
 
         #region Images
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawImage(D2DImage bmp, Primitives.Point location, float opacity = 1.0f)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1449,6 +1529,7 @@ namespace GameOverlay.Graphics
             _device.DrawBitmap(bmp, new RawRectangleF(location.X, location.Y, location.X + bitmap.PixelSize.Width, location.Y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawImage(D2DImage bmp, float x, float y, float opacity = 1.0f)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1457,6 +1538,7 @@ namespace GameOverlay.Graphics
             _device.DrawBitmap(bmp, new RawRectangleF(x, y, x + bitmap.PixelSize.Width, y + bitmap.PixelSize.Height), opacity, BitmapInterpolationMode.Linear);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawImage(D2DImage bmp, Primitives.Rectangle rectangle, float opacity = 1.0f)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1465,6 +1547,7 @@ namespace GameOverlay.Graphics
             _device.DrawBitmap(bmp, rectangle, opacity, BitmapInterpolationMode.Linear, new RawRectangleF(0, 0, bitmap.PixelSize.Width, bitmap.PixelSize.Height));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawImage(D2DImage bmp, float x, float y, float width, float height, float opacity = 1.0f)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1477,11 +1560,13 @@ namespace GameOverlay.Graphics
 
         #region Shapes and containers
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawShape(IShape shape)
         {
             shape.Draw(this);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawShapes(IShapeContainer container)
         {
             foreach (IShape shape in container)
@@ -1492,6 +1577,7 @@ namespace GameOverlay.Graphics
 
         #region Geometry and meshes
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawGeometry(Geometry geometry, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1499,6 +1585,7 @@ namespace GameOverlay.Graphics
             _device.DrawGeometry(geometry, brush.GetBrush(), stroke);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashedGeometry(Geometry geometry, float stroke, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1506,6 +1593,7 @@ namespace GameOverlay.Graphics
             _device.DrawGeometry(geometry, brush.GetBrush(), stroke, _sharedStrokeStyle);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillGeometry(Geometry geometry, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1513,6 +1601,7 @@ namespace GameOverlay.Graphics
             _device.FillGeometry(geometry, brush.GetBrush());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void FillMesh(Mesh mesh, ID2DBrush brush)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
@@ -1524,6 +1613,7 @@ namespace GameOverlay.Graphics
 
         #region Interop
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RenderTarget GetRenderTarget()
         {
             if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
@@ -1531,6 +1621,7 @@ namespace GameOverlay.Graphics
             return _device;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Factory GetFactory()
         {
             if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
@@ -1538,6 +1629,7 @@ namespace GameOverlay.Graphics
             return _factory;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public FontFactory GetFontFactory()
         {
             if (!IsInitialized) throw new InvalidOperationException("The " + nameof(D2DDevice) + " hasn't finished initialization!");
