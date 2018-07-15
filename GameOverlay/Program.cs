@@ -52,7 +52,7 @@ namespace GameOverlay
             font = gfx.CreateFont("Arial", 22);
             red = gfx.CreateSolidColorBrush(255, 0, 0, 255);
             black = gfx.CreateSolidColorBrush(0, 0, 0, 255);
-            green = gfx.CreateSolidColorBrush(0, 255, 0, 255);
+            green = gfx.CreateSolidColorBrush(0, 255.0f, 0, 1.0f);
             backgroundBrush = gfx.CreateSolidColorBrush(0xCC, 0xCC, 0xCC, 80);
 
             skeleton = CreateSkeleton(gfx);
@@ -86,20 +86,7 @@ namespace GameOverlay
 
             device.DrawTextWithBackground(device.FPS.ToString(), new Point(10, 20), font, red, backgroundBrush);
 
-            Parallel.For(0, 100, (int i) =>
-            {
-                device.DrawRectangle(new Rectangle(100, 100, 400, 400), 1.0f, green);
-            });
-
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    device.DrawRectangle(new Rectangle(100, 100, 400, 400), 1.0f, green);
-            //}
-
-            //Parallel.For(0, 100, (int i) =>
-            //{
-            //    DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
-            //});
+            DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
 
             //for (int i = 0; i < 100; i++)
             //{
