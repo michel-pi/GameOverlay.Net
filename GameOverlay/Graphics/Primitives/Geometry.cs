@@ -21,6 +21,12 @@ namespace GameOverlay.Graphics.Primitives
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Geometry"/> class.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <exception cref="ArgumentNullException">device</exception>
+        /// <exception cref="InvalidOperationException">The render target needs to be initialized first</exception>
         public Geometry(D2DDevice device)
         {
             if (device == null) throw new ArgumentNullException(nameof(device));
@@ -39,12 +45,22 @@ namespace GameOverlay.Graphics.Primitives
             Dispose(false);
         }
 
+        /// <summary>
+        /// Begins the figure.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="fill">if set to <c>true</c> [fill].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void BeginFigure(Primitives.Point point, bool fill = false)
         {
             _sink.BeginFigure(point, fill ? FigureBegin.Filled : FigureBegin.Hollow);
         }
 
+        /// <summary>
+        /// Begins the figure.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <param name="fill">if set to <c>true</c> [fill].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void BeginFigure(Primitives.Line line, bool fill = false)
         {
@@ -52,18 +68,31 @@ namespace GameOverlay.Graphics.Primitives
             _sink.AddLine(line.End);
         }
 
+        /// <summary>
+        /// Ends the figure.
+        /// </summary>
+        /// <param name="closed">if set to <c>true</c> [closed].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void EndFigure(bool closed = true)
         {
             _sink.EndFigure(closed ? FigureEnd.Closed : FigureEnd.Open);
         }
 
+        /// <summary>
+        /// Adds the point.
+        /// </summary>
+        /// <param name="point">The point.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddPoint(Primitives.Point point)
         {
             _sink.AddLine(point);
         }
 
+        /// <summary>
+        /// Adds the rectangle.
+        /// </summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="fill">if set to <c>true</c> [fill].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddRectangle(Primitives.Rectangle rectangle, bool fill = false)
         {
@@ -74,6 +103,11 @@ namespace GameOverlay.Graphics.Primitives
             _sink.EndFigure(FigureEnd.Closed);
         }
 
+        /// <summary>
+        /// Adds the curve.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="radius">The radius.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCurve(Primitives.Point point, float radius)
         {
@@ -84,6 +118,12 @@ namespace GameOverlay.Graphics.Primitives
             });
         }
 
+        /// <summary>
+        /// Adds the curve.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="radius_x">The radius x.</param>
+        /// <param name="radius_y">The radius y.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCurve(Primitives.Point point, float radius_x, float radius_y)
         {
@@ -94,24 +134,41 @@ namespace GameOverlay.Graphics.Primitives
             });
         }
 
+        /// <summary>
+        /// Draws the specified stroke.
+        /// </summary>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Draw(float stroke, ID2DBrush brush)
         {
             _device.DrawGeometry(_geometry, stroke, brush);
         }
 
+        /// <summary>
+        /// Draws the dashed.
+        /// </summary>
+        /// <param name="stroke">The stroke.</param>
+        /// <param name="brush">The brush.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawDashed(float stroke, ID2DBrush brush)
         {
             _device.DrawDashedGeometry(_geometry, stroke, brush);
         }
 
+        /// <summary>
+        /// Fills the specified brush.
+        /// </summary>
+        /// <param name="brush">The brush.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fill(ID2DBrush brush)
         {
             _device.FillGeometry(_geometry, brush);
         }
 
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Close()
         {
@@ -152,6 +209,13 @@ namespace GameOverlay.Graphics.Primitives
         }
         #endregion
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Geometry"/> to <see cref="PathGeometry"/>.
+        /// </summary>
+        /// <param name="geometry">The geometry.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator PathGeometry(Geometry geometry)
         {
             return geometry._geometry;
