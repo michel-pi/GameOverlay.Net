@@ -9,8 +9,7 @@ namespace GameOverlay.Graphics.Primitives
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Graphics.IShape" />
-    public class Geometry : IShape
+    public class Geometry
     {
         /// <summary>
         /// Draws the specified device.

@@ -9,8 +9,7 @@ namespace GameOverlay.Graphics.Primitives
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Graphics.IShape" />
-    public class Text : IShape
+    public class Text
     {
         /// <summary>
         /// The content

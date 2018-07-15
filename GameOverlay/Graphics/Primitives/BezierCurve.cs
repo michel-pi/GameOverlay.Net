@@ -9,8 +9,7 @@ namespace GameOverlay.Graphics.Primitives
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Graphics.IShape" />
-    public class BezierCurve : IShape
+    public class BezierCurve
     {
         /// <summary>
         /// Draws the specified device.
