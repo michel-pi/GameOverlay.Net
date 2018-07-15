@@ -85,9 +85,12 @@ namespace GameOverlay
 
             device.DrawTextWithBackground(device.FPS.ToString(), new Point(10, 20), font, red, backgroundBrush);
 
-            //DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
+            for (int i = 0; i < 60; i++)
+            {
+                DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
+            }
 
-            radar.Draw(1.0f, green);
+            //radar.Draw(1.0f, green);
 
             //for(int i = 0; i < 100; i++)
             //{
