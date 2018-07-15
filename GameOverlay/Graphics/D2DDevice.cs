@@ -1490,6 +1490,38 @@ namespace GameOverlay.Graphics
 
         #endregion
 
+        #region Geometry and meshes
+
+        public void DrawGeometry(Geometry geometry, float stroke, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawGeometry(geometry, brush.GetBrush(), stroke);
+        }
+
+        public void DrawDashedGeometry(Geometry geometry, float stroke, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.DrawGeometry(geometry, brush.GetBrush(), stroke, _sharedStrokeStyle);
+        }
+
+        public void FillGeometry(Geometry geometry, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillGeometry(geometry, brush.GetBrush());
+        }
+
+        public void FillMesh(Mesh mesh, ID2DBrush brush)
+        {
+            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
+
+            _device.FillMesh(mesh, brush.GetBrush());
+        }
+
+        #endregion
+
         #region Interop
 
         public RenderTarget GetRenderTarget()
