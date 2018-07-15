@@ -11,7 +11,6 @@ using SharpDX.Mathematics.Interop;
 using FontFactory = SharpDX.DirectWrite.Factory;
 using Factory = SharpDX.Direct2D1.Factory;
 
-using GameOverlay.Graphics.Containers;
 using GameOverlay.PInvoke;
 using GameOverlay.Utilities;
 
