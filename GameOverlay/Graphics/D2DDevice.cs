@@ -293,7 +293,7 @@ namespace GameOverlay.Graphics
 
         #endregion init & delete
 
-        #region Scenes
+        #region scenes
 
         /// <summary>
         /// Begins a new scene
@@ -433,7 +433,7 @@ namespace GameOverlay.Graphics
 
         #endregion Scenes
 
-        #region Fonts & Brushes & Bitmaps
+        #region fonts & brushes & bitmaps
 
         /// <summary>
         /// Creates a new SolidColorBrush
@@ -545,7 +545,7 @@ namespace GameOverlay.Graphics
 
         #endregion Fonts & Brushes & Bitmaps
 
-        #region Primitives
+        #region primitives
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawCircle(Primitives.Circle circle, float stroke, ID2DBrush brush)
@@ -923,7 +923,7 @@ namespace GameOverlay.Graphics
 
         #endregion
 
-        #region Outline
+        #region outline
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OutlineLine(Primitives.Line line, float stroke, ID2DBrush brush, ID2DBrush outline)
@@ -1120,7 +1120,7 @@ namespace GameOverlay.Graphics
 
         #endregion
 
-        #region Special
+        #region special
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawBarH(Primitives.Rectangle rectangle, float percentage, float stroke, ID2DBrush outline, ID2DBrush fill)
@@ -1383,7 +1383,7 @@ namespace GameOverlay.Graphics
 
         #endregion
 
-        #region Text
+        #region text
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawText(string text, Primitives.Point location, D2DFont font, ID2DBrush brush)
@@ -1517,7 +1517,7 @@ namespace GameOverlay.Graphics
 
         #endregion
 
-        #region Images
+        #region images
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawImage(D2DImage bmp, Primitives.Point location, float opacity = 1.0f)
@@ -1557,7 +1557,7 @@ namespace GameOverlay.Graphics
 
         #endregion
 
-        #region Shapes and containers
+        #region shapes and containers
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawShape(IShape shape)
@@ -1574,7 +1574,7 @@ namespace GameOverlay.Graphics
 
         #endregion
 
-        #region Geometry and meshes
+        #region geometry and meshes
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawGeometry(Geometry geometry, float stroke, ID2DBrush brush)
@@ -1610,7 +1610,7 @@ namespace GameOverlay.Graphics
 
         #endregion
 
-        #region Interop
+        #region interop
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RenderTarget GetRenderTarget()
@@ -1695,7 +1695,7 @@ namespace GameOverlay.Graphics
 
         #endregion IDisposable Support
 
-        #region Implicit conversions
+        #region implicit conversions
 
         public static implicit operator RenderTarget(D2DDevice device)
         {
