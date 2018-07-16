@@ -25,5 +25,10 @@ namespace GameOverlay.Graphics
         /// The v synchronize
         /// </summary>
         public bool VSync;
+
+        /// <summary>
+        /// The multi threaded
+        /// </summary>
+        public bool MultiThreaded;
     }
 }

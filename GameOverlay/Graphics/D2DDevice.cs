@@ -275,7 +275,8 @@ namespace GameOverlay.Graphics
                 RenderTargetUsage.None,
                 FeatureLevel.Level_DEFAULT);
 
-            _factory = new Factory(); // can use multithreading
+            _factory = new Factory(options.MultiThreaded ? SharpDX.Direct2D1.FactoryType.MultiThreaded : SharpDX.Direct2D1.FactoryType.SingleThreaded);
+            
             _fontFactory = new FontFactory();
 
             try
