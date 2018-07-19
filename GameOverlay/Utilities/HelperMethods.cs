@@ -128,6 +128,12 @@ namespace GameOverlay.Utilities
             return result;
         }
 
+        /// <summary>
+        /// Gets the window client rect.
+        /// </summary>
+        /// <param name="hwnd">The HWND.</param>
+        /// <param name="rect">The rect.</param>
+        /// <returns></returns>
         public static bool GetWindowClientRect(IntPtr hwnd, out RECT rect)
         {
             rect = new RECT();

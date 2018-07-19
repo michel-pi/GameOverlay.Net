@@ -40,6 +40,9 @@ namespace GameOverlay.Graphics.Primitives
             _isSinkOpen = true;
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Geometry"/> class.
+        /// </summary>
         ~Geometry()
         {
             Dispose(false);
@@ -182,6 +185,10 @@ namespace GameOverlay.Graphics.Primitives
         #region IDisposable Support
         private bool disposedValue = false;
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -202,6 +209,9 @@ namespace GameOverlay.Graphics.Primitives
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

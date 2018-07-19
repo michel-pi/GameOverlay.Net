@@ -86,6 +86,13 @@ namespace GameOverlay.Graphics.Primitives
             return Location.ToString() + "(" + RadiusX + ", " + RadiusY + ")";
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Ellipse"/> to <see cref="SharpDX.Direct2D1.Ellipse"/>.
+        /// </summary>
+        /// <param name="ellipse">The ellipse.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator SharpDX.Direct2D1.Ellipse(Ellipse ellipse)
         {
             return new SharpDX.Direct2D1.Ellipse(ellipse.Location, ellipse.RadiusX, ellipse.RadiusY);

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameOverlay.Graphics.Primitives
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public struct RoundedRectangle
     {
         /// <summary>
