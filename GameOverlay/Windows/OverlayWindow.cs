@@ -116,6 +116,8 @@ namespace GameOverlay.Windows
                 Priority = ThreadPriority.BelowNormal
             };
             _windowThread.Start();
+
+            while (!this.IsInitialized) Thread.Sleep(10);
         }
 
         /// <summary>
@@ -136,6 +138,8 @@ namespace GameOverlay.Windows
                 Priority = ThreadPriority.BelowNormal
             };
             _windowThread.Start();
+
+            while (!this.IsInitialized) Thread.Sleep(10);
         }
 
         /// <summary>
@@ -153,6 +157,8 @@ namespace GameOverlay.Windows
                 Priority = ThreadPriority.BelowNormal
             };
             _windowThread.Start();
+
+            while (!this.IsInitialized) Thread.Sleep(10);
         }
 
         /// <summary>
