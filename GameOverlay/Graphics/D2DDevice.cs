@@ -2442,7 +2442,7 @@ namespace GameOverlay.Graphics
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator RenderTarget(D2DDevice device)
+        public static explicit operator RenderTarget(D2DDevice device)
         {
             return device.GetRenderTarget();
         }
@@ -2454,7 +2454,7 @@ namespace GameOverlay.Graphics
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Factory(D2DDevice device)
+        public static explicit operator Factory(D2DDevice device)
         {
             return device.GetFactory();
         }
@@ -2466,7 +2466,7 @@ namespace GameOverlay.Graphics
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator FontFactory(D2DDevice device)
+        public static explicit operator FontFactory(D2DDevice device)
         {
             return device.GetFontFactory();
         }
