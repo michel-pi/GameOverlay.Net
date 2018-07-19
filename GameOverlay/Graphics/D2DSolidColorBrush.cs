@@ -107,13 +107,21 @@ namespace GameOverlay.Graphics
         {
             return "{D2DBrush=" + Color.ToString() + "}";
         }
-        
+
+        /// <summary>
+        /// Gets the brush.
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Brush GetBrush()
         {
             return Brush;
         }
 
+        /// <summary>
+        /// Sets the brush.
+        /// </summary>
+        /// <param name="brush">The brush.</param>
         public void SetBrush(Brush brush)
         {
             Brush = (SolidColorBrush)brush;
