@@ -9,7 +9,7 @@ namespace GameOverlay.Graphics
     /// <summary>
     /// Stores a <c>Direct2DRenderer</c> compatible font
     /// </summary>
-    public class D2DFont
+    public class D2DFont : IDisposable
     {
         private FontFactory _fontFactory;
 
@@ -53,7 +53,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         ~D2DFont()
         {
-            Font.Dispose();
+            Dispose(false);
         }
 
         /// <summary>
@@ -184,5 +184,31 @@ namespace GameOverlay.Graphics
         {
             return "{FontFamilyName=" + Font.FontFamilyName + ", Size=" + Font.FontSize + "}";
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (Font != null) Font.Dispose();
+
+                disposedValue = true;
+            }
+        }
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
