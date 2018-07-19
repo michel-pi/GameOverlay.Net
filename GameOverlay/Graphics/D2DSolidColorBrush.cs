@@ -44,6 +44,16 @@ namespace GameOverlay.Graphics
             Brush = new SolidColorBrush(device, color);
         }
 
+        public D2DSolidColorBrush(D2DDevice device) : this(device.GetRenderTarget())
+        {
+
+        }
+
+        public D2DSolidColorBrush(D2DDevice device, D2DColor color) : this(device.GetRenderTarget(), color)
+        {
+
+        }
+
         /// <summary>
         /// Finalizes an instance of the <see cref="D2DSolidColorBrush"/> class.
         /// </summary>
