@@ -49,6 +49,39 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="D2DFont"/> class.
+        /// </summary>
+        /// <param name="factory">The factory.</param>
+        /// <param name="options">The options.</param>
+        public D2DFont(FontFactory factory, FontOptions options) : this(factory, options.FontFamilyName, options.FontSize, options.Bold, options.Italic)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="D2DFont"/> class.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="fontFamilyName">Name of the font family.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="bold">if set to <c>true</c> [bold].</param>
+        /// <param name="italic">if set to <c>true</c> [italic].</param>
+        public D2DFont(D2DDevice device, string fontFamilyName, float size, bool bold = false, bool italic = false) : this(device.GetFontFactory(), fontFamilyName, size, bold, italic)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="D2DFont"/> class.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="options">The options.</param>
+        public D2DFont(D2DDevice device, FontOptions options) : this(device.GetFontFactory(), options.FontFamilyName, options.FontSize, options.Bold, options.Italic)
+        {
+
+        }
+
+        /// <summary>
         /// Finalizes an instance of the <see cref="D2DFont"/> class.
         /// </summary>
         ~D2DFont()
