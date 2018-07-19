@@ -49,6 +49,26 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="D2DImage"/> class.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="bytes">The bytes.</param>
+        public D2DImage(D2DDevice device, byte[] bytes) : this(device.GetRenderTarget(), bytes)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="D2DImage"/> class.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="file">The file.</param>
+        public D2DImage(D2DDevice device, string file) : this(device.GetRenderTarget(), file)
+        {
+
+        }
+
+        /// <summary>
         /// Finalizes an instance of the <see cref="D2DImage"/> class.
         /// </summary>
         ~D2DImage()
