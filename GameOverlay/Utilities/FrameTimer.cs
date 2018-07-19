@@ -42,6 +42,7 @@ namespace GameOverlay.Utilities
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="timer">The timer.</param>
         /// <param name="device">The device.</param>
         public delegate void FrameStageNotifyEventHandler(FrameTimer timer, D2DDevice device);
 
