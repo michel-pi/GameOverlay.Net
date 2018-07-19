@@ -142,23 +142,23 @@ namespace GameOverlay
         {
             var geometry = device.CreateGeometry();
 
-            geometry.BeginFigure(new Graphics.Primitives.Point(170, 270));
+            geometry.BeginFigure(new Point(170, 270));
 
-            geometry.AddPoint(new Graphics.Primitives.Point(200, 200));
-            geometry.AddPoint(new Graphics.Primitives.Point(200, 300));
-            geometry.AddPoint(new Graphics.Primitives.Point(150, 350));
-
-            geometry.EndFigure(false);
-
-            geometry.BeginFigure(new Graphics.Primitives.Point(200, 200));
-
-            geometry.AddPoint(new Graphics.Primitives.Point(230, 270));
+            geometry.AddPoint(new Point(200, 200));
+            geometry.AddPoint(new Point(200, 300));
+            geometry.AddPoint(new Point(150, 350));
 
             geometry.EndFigure(false);
 
-            geometry.BeginFigure(new Graphics.Primitives.Point(200, 300));
+            geometry.BeginFigure(new Point(200, 200));
 
-            geometry.AddPoint(new Graphics.Primitives.Point(250, 350));
+            geometry.AddPoint(new Point(230, 270));
+
+            geometry.EndFigure(false);
+
+            geometry.BeginFigure(new Point(200, 300));
+
+            geometry.AddPoint(new Point(250, 350));
 
             geometry.EndFigure(false);
 
