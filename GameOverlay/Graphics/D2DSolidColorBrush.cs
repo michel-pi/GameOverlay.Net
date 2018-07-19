@@ -44,11 +44,20 @@ namespace GameOverlay.Graphics
             Brush = new SolidColorBrush(device, color);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="D2DSolidColorBrush"/> class.
+        /// </summary>
+        /// <param name="device">The device.</param>
         public D2DSolidColorBrush(D2DDevice device) : this(device.GetRenderTarget())
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="D2DSolidColorBrush"/> class.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="color">The color.</param>
         public D2DSolidColorBrush(D2DDevice device, D2DColor color) : this(device.GetRenderTarget(), color)
         {
 
