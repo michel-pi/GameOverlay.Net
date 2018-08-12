@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace GameOverlay.PInvoke
+namespace GameOverlay.PInvoke.Types
 {
     /// <summary>
-    /// Contains a WindowsMessage
+    ///     Contains a WindowsMessage
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     internal struct Message

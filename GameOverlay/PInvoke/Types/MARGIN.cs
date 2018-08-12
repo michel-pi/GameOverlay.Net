@@ -1,13 +1,12 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace GameOverlay.PInvoke
+namespace GameOverlay.PInvoke.Types
 {
     /// <summary>
-    /// <c>MARGIN</c> struct used with DesktopWindowManager
+    ///     <c>MARGIN</c> struct used with DesktopWindowManager
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    internal struct MARGIN
+    internal struct Margin
     {
         public int cxLeftWidth;
         public int cxRightWidth;

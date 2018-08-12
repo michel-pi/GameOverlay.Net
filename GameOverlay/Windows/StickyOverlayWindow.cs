@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Threading;
-
 using GameOverlay.PInvoke;
+using GameOverlay.PInvoke.Libraries;
+using GameOverlay.PInvoke.Types;
 using GameOverlay.Utilities;
 
 namespace GameOverlay.Windows
 {
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Windows.OverlayWindow" />
+    /// <seealso cref="T:GameOverlay.Windows.OverlayWindow" />
     public class StickyOverlayWindow : OverlayWindow
     {
-        private static OverlayCreationOptions DefaultOptions = new OverlayCreationOptions()
+        private static readonly OverlayCreationOptions DefaultOptions = new OverlayCreationOptions
         {
             BypassTopmost = false,
             Height = 600,
@@ -25,28 +26,24 @@ namespace GameOverlay.Windows
         private bool _exitServiceThread;
         private Thread _serviceThread;
 
+        /// <inheritdoc />
         /// <summary>
-        /// Gets the parent window handle.
-        /// </summary>
-        /// <value>The parent window handle.</value>
-        public IntPtr ParentWindowHandle { get; private set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StickyOverlayWindow"/> class.
+        ///     Initializes a new instance of the <see cref="T:GameOverlay.Windows.StickyOverlayWindow" /> class.
         /// </summary>
         /// <param name="parentWindowHandle">The parent window handle.</param>
         public StickyOverlayWindow(IntPtr parentWindowHandle) : base(DefaultOptions)
         {
             if (parentWindowHandle == IntPtr.Zero) throw new ArgumentNullException(nameof(parentWindowHandle));
 
-            while (!base.IsInitialized) Thread.Sleep(10);
+            while (!IsInitialized) Thread.Sleep(10);
 
             ParentWindowHandle = parentWindowHandle;
             Install();
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="StickyOverlayWindow"/> class.
+        ///     Initializes a new instance of the <see cref="T:GameOverlay.Windows.StickyOverlayWindow" /> class.
         /// </summary>
         /// <param name="parentWindowHandle">The parent window handle.</param>
         /// <param name="options">The options.</param>
@@ -54,14 +51,21 @@ namespace GameOverlay.Windows
         {
             if (parentWindowHandle == IntPtr.Zero) throw new ArgumentNullException(nameof(parentWindowHandle));
 
-            while (!base.IsInitialized) Thread.Sleep(10);
+            while (!IsInitialized) Thread.Sleep(10);
 
             ParentWindowHandle = parentWindowHandle;
             Install();
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="StickyOverlayWindow"/> class.
+        ///     Gets the parent window handle.
+        /// </summary>
+        /// <value>The parent window handle.</value>
+        public IntPtr ParentWindowHandle { get; }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Finalizes an instance of the <see cref="T:GameOverlay.Windows.StickyOverlayWindow" /> class.
         /// </summary>
         ~StickyOverlayWindow()
         {
@@ -69,13 +73,13 @@ namespace GameOverlay.Windows
         }
 
         /// <summary>
-        /// Installs the sticky overlay.
+        ///     Installs the sticky overlay.
         /// </summary>
         public void Install()
         {
             if (_exitServiceThread || _serviceThread != null) return;
 
-            base.ShowWindow();
+            ShowWindow();
 
             _exitServiceThread = false;
 
@@ -89,7 +93,7 @@ namespace GameOverlay.Windows
         }
 
         /// <summary>
-        /// Uns the install.
+        ///     Uns the install.
         /// </summary>
         public void UnInstall()
         {
@@ -99,7 +103,7 @@ namespace GameOverlay.Windows
 
             ExitThread();
 
-            base.HideWindow();
+            HideWindow();
         }
 
         private void ExitThread()
@@ -115,6 +119,7 @@ namespace GameOverlay.Windows
             }
             catch
             {
+                // ignored
             }
 
             _serviceThread = null;
@@ -123,33 +128,27 @@ namespace GameOverlay.Windows
 
         private void WindowService()
         {
-            RECT bounds = new RECT();
-
             while (!_exitServiceThread)
             {
                 Thread.Sleep(100);
 
                 if (User32.IsWindowVisible(ParentWindowHandle) == 0)
                 {
-                    if (base.IsVisible) base.HideWindow();
+                    if (IsVisible) HideWindow();
                     continue;
                 }
-                else
+                if (!IsVisible) ShowWindow();
+
+                if (BypassTopmost)
                 {
-                    if (!base.IsVisible) base.ShowWindow();
+                    var windowAboveParentWindow = User32.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
+
+                    if (windowAboveParentWindow != WindowHandle)
+                        User32.SetWindowPos(WindowHandle, windowAboveParentWindow, 0, 0, 0, 0,
+                            0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
                 }
 
-                if (base.BypassTopmost)
-                {
-                    IntPtr windowAboveParentWindow = User32.GetWindow(ParentWindowHandle, 3 /* GW_HWNDPREV */);
-
-                    if (windowAboveParentWindow != base.WindowHandle)
-                    {
-                        User32.SetWindowPos(base.WindowHandle, windowAboveParentWindow, 0, 0, 0, 0, 0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
-                    }
-                }
-
-                if (!HelperMethods.GetWindowClientRect(ParentWindowHandle, out bounds)) continue;
+                if (!HelperMethods.GetWindowClientRect(ParentWindowHandle, out var bounds)) continue;
 
                 int x = bounds.Left;
                 int y = bounds.Top;
@@ -157,21 +156,22 @@ namespace GameOverlay.Windows
                 int width = bounds.Right - x;
                 int height = bounds.Bottom - y;
 
-                if (base.X == x
-                    && base.Y == y
-                    && base.Width == width
-                    && base.Height == height) continue;
+                if (X == x
+                    && Y == y
+                    && Width == width
+                    && Height == height) continue;
 
-                base.SetWindowBounds(x, y, width, height);
+                SetWindowBounds(x, y, width, height);
             }
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
-        /// unmanaged resources.
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
         /// </param>
         protected override void Dispose(bool disposing)
         {

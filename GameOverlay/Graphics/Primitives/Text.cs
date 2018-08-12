@@ -1,28 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameOverlay.Graphics.Primitives
 {
     /// <summary>
-    /// 
     /// </summary>
     public class Text
     {
         /// <summary>
-        /// The content
+        ///     The content
         /// </summary>
         public string Content;
 
         /// <summary>
-        /// The font
+        ///     The font
         /// </summary>
         public D2DFont Font;
 
         /// <summary>
-        /// Draws the specified device.
+        ///     Draws the specified device.
         /// </summary>
         /// <param name="device">The device.</param>
         /// <exception cref="NotImplementedException"></exception>
@@ -32,10 +27,10 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {

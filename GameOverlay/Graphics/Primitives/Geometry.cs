@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-
+using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Mathematics.Interop;
 
 namespace GameOverlay.Graphics.Primitives
 {
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
     public class Geometry : IDisposable
     {
-        private D2DDevice _device;
-        private PathGeometry _geometry;
-        private GeometrySink _sink;
+        private readonly D2DDevice _device;
+        private readonly PathGeometry _geometry;
         private bool _isSinkOpen;
+        private readonly GeometrySink _sink;
 
         private Geometry()
         {
@@ -22,7 +22,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Geometry"/> class.
+        ///     Initializes a new instance of the <see cref="Geometry" /> class.
         /// </summary>
         /// <param name="device">The device.</param>
         /// <exception cref="ArgumentNullException">device</exception>
@@ -30,8 +30,9 @@ namespace GameOverlay.Graphics.Primitives
         public Geometry(D2DDevice device)
         {
             if (device == null) throw new ArgumentNullException(nameof(device));
-            if (!device.IsInitialized) throw new InvalidOperationException("The render target needs to be initialized first");
-            
+            if (!device.IsInitialized)
+                throw new InvalidOperationException("The render target needs to be initialized first");
+
             _device = device;
 
             _geometry = new PathGeometry(device.GetFactory());
@@ -41,7 +42,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Geometry"/> class.
+        ///     Finalizes an instance of the <see cref="Geometry" /> class.
         /// </summary>
         ~Geometry()
         {
@@ -49,30 +50,30 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Begins the figure.
+        ///     Begins the figure.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fill">if set to <c>true</c> [fill].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void BeginFigure(Primitives.Point point, bool fill = false)
+        public void BeginFigure(Point point, bool fill = false)
         {
             _sink.BeginFigure(point, fill ? FigureBegin.Filled : FigureBegin.Hollow);
         }
 
         /// <summary>
-        /// Begins the figure.
+        ///     Begins the figure.
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="fill">if set to <c>true</c> [fill].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void BeginFigure(Primitives.Line line, bool fill = false)
+        public void BeginFigure(Line line, bool fill = false)
         {
             _sink.BeginFigure(line.Start, fill ? FigureBegin.Filled : FigureBegin.Hollow);
             _sink.AddLine(line.End);
         }
 
         /// <summary>
-        /// Ends the figure.
+        ///     Ends the figure.
         /// </summary>
         /// <param name="closed">if set to <c>true</c> [closed].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -82,24 +83,25 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Adds the point.
+        ///     Adds the point.
         /// </summary>
         /// <param name="point">The point.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddPoint(Primitives.Point point)
+        public void AddPoint(Point point)
         {
             _sink.AddLine(point);
         }
 
         /// <summary>
-        /// Adds the rectangle.
+        ///     Adds the rectangle.
         /// </summary>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="fill">if set to <c>true</c> [fill].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddRectangle(Primitives.Rectangle rectangle, bool fill = false)
+        public void AddRectangle(Rectangle rectangle, bool fill = false)
         {
-            _sink.BeginFigure(new RawVector2(rectangle.Left, rectangle.Top), fill ? FigureBegin.Filled : FigureBegin.Hollow);
+            _sink.BeginFigure(new RawVector2(rectangle.Left, rectangle.Top),
+                fill ? FigureBegin.Filled : FigureBegin.Hollow);
             _sink.AddLine(new RawVector2(rectangle.Right, rectangle.Top));
             _sink.AddLine(new RawVector2(rectangle.Right, rectangle.Bottom));
             _sink.AddLine(new RawVector2(rectangle.Left, rectangle.Bottom));
@@ -107,38 +109,38 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Adds the curve.
+        ///     Adds the curve.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="radius">The radius.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCurve(Primitives.Point point, float radius)
+        public void AddCurve(Point point, float radius)
         {
-            _sink.AddArc(new ArcSegment()
+            _sink.AddArc(new ArcSegment
             {
                 Point = point,
-                Size = new SharpDX.Size2F(radius, radius)
+                Size = new Size2F(radius, radius)
             });
         }
 
         /// <summary>
-        /// Adds the curve.
+        ///     Adds the curve.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="radius_x">The radius x.</param>
         /// <param name="radius_y">The radius y.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCurve(Primitives.Point point, float radius_x, float radius_y)
+        public void AddCurve(Point point, float radius_x, float radius_y)
         {
-            _sink.AddArc(new ArcSegment()
+            _sink.AddArc(new ArcSegment
             {
                 Point = point,
-                Size = new SharpDX.Size2F(radius_x, radius_y)
+                Size = new Size2F(radius_x, radius_y)
             });
         }
 
         /// <summary>
-        /// Draws the specified stroke.
+        ///     Draws the specified stroke.
         /// </summary>
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
@@ -149,7 +151,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Draws the dashed.
+        ///     Draws the dashed.
         /// </summary>
         /// <param name="stroke">The stroke.</param>
         /// <param name="brush">The brush.</param>
@@ -160,7 +162,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Fills the specified brush.
+        ///     Fills the specified brush.
         /// </summary>
         /// <param name="brush">The brush.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -170,7 +172,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Closes this instance.
+        ///     Closes this instance.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Close()
@@ -182,53 +184,58 @@ namespace GameOverlay.Graphics.Primitives
             _sink.Close();
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false;
-
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        ///     Performs an implicit conversion from <see cref="Geometry" /> to <see cref="PathGeometry" />.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
+        /// <param name="geometry">The geometry.</param>
+        /// <returns>
+        ///     The result of the conversion.
+        /// </returns>
+        public static implicit operator PathGeometry(Geometry geometry)
         {
-            if (!disposedValue)
-            {
-                try
-                {
-                    if(_isSinkOpen) _sink.Close();
-
-                    _sink.Dispose();
-                    _geometry.Dispose();
-                }
-                catch
-                {
-
-                }
-
-                disposedValue = true;
-            }
+            return geometry._geometry;
         }
 
+        #region IDisposable Support
+
+        private bool _disposedValue;
+
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        ///     Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposedValue) return;
+
+            try
+            {
+                if (_isSinkOpen) _sink.Close();
+
+                _sink.Dispose();
+                _geometry.Dispose();
+            }
+            catch
+            {
+                // ignored
+            }
+
+            _disposedValue = true;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        #endregion
 
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="Geometry"/> to <see cref="PathGeometry"/>.
-        /// </summary>
-        /// <param name="geometry">The geometry.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator PathGeometry(Geometry geometry)
-        {
-            return geometry._geometry;
-        }
+        #endregion
     }
 }

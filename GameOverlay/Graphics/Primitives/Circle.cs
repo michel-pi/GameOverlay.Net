@@ -1,24 +1,21 @@
-﻿using System;
-
-namespace GameOverlay.Graphics.Primitives
+﻿namespace GameOverlay.Graphics.Primitives
 {
     /// <summary>
-    /// 
     /// </summary>
     public struct Circle
     {
         /// <summary>
-        /// The location
+        ///     The location
         /// </summary>
         public Point Location;
 
         /// <summary>
-        /// The radius
+        ///     The radius
         /// </summary>
         public float Radius;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Circle"/> struct.
+        ///     Initializes a new instance of the <see cref="Circle" /> struct.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="radius">The radius.</param>
@@ -29,7 +26,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Circle"/> struct.
+        ///     Initializes a new instance of the <see cref="Circle" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -41,7 +38,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Circle"/> struct.
+        ///     Initializes a new instance of the <see cref="Circle" /> struct.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="radius">The radius.</param>
@@ -52,7 +49,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Circle"/> struct.
+        ///     Initializes a new instance of the <see cref="Circle" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -64,22 +61,22 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
-            return Location.ToString() + "(" + Radius + ")";
+            return Location + "(" + Radius + ")";
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Circle"/> to <see cref="SharpDX.Direct2D1.Ellipse"/>.
+        ///     Performs an implicit conversion from <see cref="Circle" /> to <see cref="SharpDX.Direct2D1.Ellipse" />.
         /// </summary>
         /// <param name="circle">The circle.</param>
         /// <returns>
-        /// The result of the conversion.
+        ///     The result of the conversion.
         /// </returns>
         public static implicit operator SharpDX.Direct2D1.Ellipse(Circle circle)
         {

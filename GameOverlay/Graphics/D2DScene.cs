@@ -2,24 +2,19 @@
 
 namespace GameOverlay.Graphics
 {
+    /// <inheritdoc />
     /// <summary>
     /// </summary>
-    /// <seealso cref="System.IDisposable"/>
+    /// <seealso cref="T:System.IDisposable" />
     public class D2DScene : IDisposable
     {
-        /// <summary>
-        /// Gets the renderer.
-        /// </summary>
-        /// <value>The renderer.</value>
-        public D2DDevice Device { get; private set; }
-
         private D2DScene()
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="D2DScene"/> class.
+        ///     Initializes a new instance of the <see cref="D2DScene" /> class.
         /// </summary>
         /// <param name="device">The renderer.</param>
         public D2DScene(D2DDevice device)
@@ -29,7 +24,13 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="D2DScene"/> class.
+        ///     Gets the renderer.
+        /// </summary>
+        /// <value>The renderer.</value>
+        public D2DDevice Device { get; }
+
+        /// <summary>
+        ///     Finalizes an instance of the <see cref="D2DScene" /> class.
         /// </summary>
         ~D2DScene()
         {
@@ -37,7 +38,7 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="D2DScene"/> to <see cref="D2DDevice"/>.
+        ///     Performs an implicit conversion from <see cref="D2DScene" /> to <see cref="D2DDevice" />.
         /// </summary>
         /// <param name="scene">The scene.</param>
         /// <returns>The result of the conversion.</returns>
@@ -49,10 +50,10 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
@@ -62,34 +63,34 @@ namespace GameOverlay.Graphics
         #region IDisposable Support
 
         /// <summary>
-        /// The disposed value
+        ///     The disposed value
         /// </summary>
-        private bool disposedValue = false;
+        private bool _disposedValue;
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
-        /// unmanaged resources.
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
         /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (_disposedValue) return;
+
+            if (disposing)
             {
-                if (disposing)
-                {
-                }
-
-                Device.EndScene();
-
-                disposedValue = true;
             }
+
+            Device.EndScene();
+
+            _disposedValue = true;
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting
-        /// unmanaged resources.
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting
+        ///     unmanaged resources.
         /// </summary>
         public void Dispose()
         {

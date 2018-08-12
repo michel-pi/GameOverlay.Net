@@ -1,32 +1,31 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace GameOverlay.PInvoke
+namespace GameOverlay.PInvoke.Types
 {
     /// <summary>
-    /// Contains Desktop Coordinates
+    ///     Contains Desktop Coordinates
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct RECT
+    public struct Rect
     {
         /// <summary>
-        /// The left
+        ///     The left
         /// </summary>
-        public int Left;        // x position of upper-left corner
+        public int Left; // x position of upper-left corner
 
         /// <summary>
-        /// The top
+        ///     The top
         /// </summary>
-        public int Top;         // y position of upper-left corner
+        public int Top; // y position of upper-left corner
 
         /// <summary>
-        /// The right
+        ///     The right
         /// </summary>
-        public int Right;       // x position of lower-right corner
+        public int Right; // x position of lower-right corner
 
         /// <summary>
-        /// The bottom
+        ///     The bottom
         /// </summary>
-        public int Bottom;      // y position of lower-right corner
+        public int Bottom; // y position of lower-right corner
     }
 }

@@ -1,30 +1,31 @@
-﻿using System;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 
 namespace GameOverlay.Graphics.Containers
 {
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="GameOverlay.Graphics.IShapeContainer" />
+    /// <seealso cref="T:GameOverlay.Graphics.IShapeContainer" />
     public class ConcurrentShapeContainer : ConcurrentBag<IShape>, IShapeContainer
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConcurrentShapeContainer"/> class.
+        ///     Initializes a new instance of the <see cref="T:GameOverlay.Graphics.Containers.ConcurrentShapeContainer" /> class.
         /// </summary>
-        public ConcurrentShapeContainer() : base()
+        public ConcurrentShapeContainer()
         {
-
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConcurrentShapeContainer"/> class.
+        ///     Initializes a new instance of the <see cref="T:GameOverlay.Graphics.Containers.ConcurrentShapeContainer" /> class.
         /// </summary>
-        /// <param name="collection">The collection whose elements are copied to the new <see cref="T:System.Collections.Concurrent.ConcurrentBag`1" />.</param>
+        /// <param name="collection">
+        ///     The collection whose elements are copied to the new
+        ///     <see cref="T:System.Collections.Concurrent.ConcurrentBag`1" />.
+        /// </param>
         public ConcurrentShapeContainer(IEnumerable<IShape> collection) : base(collection)
         {
-
         }
     }
 }

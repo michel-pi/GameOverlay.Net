@@ -1,14 +1,11 @@
-﻿using System;
-
-namespace GameOverlay.Graphics
+﻿namespace GameOverlay.Graphics
 {
     /// <summary>
-    /// 
     /// </summary>
     public interface IShape
     {
         /// <summary>
-        /// Draws the specified device.
+        ///     Draws the specified device.
         /// </summary>
         /// <param name="device">The device.</param>
         void Draw(D2DDevice device);

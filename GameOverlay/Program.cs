@@ -37,7 +37,8 @@ namespace GameOverlay
                 Y = Console.WindowTop
             };
 
-            StickyOverlayWindow overlay = new StickyOverlayWindow(Process.GetCurrentProcess().MainWindowHandle, overlayOptions);
+            StickyOverlayWindow overlay =
+new StickyOverlayWindow(Process.GetCurrentProcess().MainWindowHandle, overlayOptions);
 
             DeviceOptions rendererOptions = new DeviceOptions()
             {
@@ -84,7 +85,7 @@ namespace GameOverlay
             device.BeginScene();
             device.ClearScene();
 
-            device.DrawTextWithBackground(device.FPS.ToString(), new Point(10, 20), font, red, backgroundBrush);
+            device.DrawTextWithBackground(device.FramesPerSecond.ToString(), new Point(10, 20), font, red, backgroundBrush);
 
             DrawRadarBackground(device, new Rectangle(100, 100, 400, 400), 10.0f);
 

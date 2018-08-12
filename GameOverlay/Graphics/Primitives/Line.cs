@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameOverlay.Graphics.Primitives
 {
     /// <summary>
-    /// 
     /// </summary>
     public struct Line
     {
         /// <summary>
-        /// The start
+        ///     The start
         /// </summary>
         public Point Start;
+
         /// <summary>
-        /// The end
+        ///     The end
         /// </summary>
         public Point End;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Line"/> struct.
+        ///     Initializes a new instance of the <see cref="Line" /> struct.
         /// </summary>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
@@ -32,33 +28,33 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Line"/> struct.
+        ///     Initializes a new instance of the <see cref="Line" /> struct.
         /// </summary>
-        /// <param name="start_x">The start x.</param>
-        /// <param name="start_y">The start y.</param>
-        /// <param name="end_x">The end x.</param>
-        /// <param name="end_y">The end y.</param>
-        public Line(float start_x, float start_y, float end_x, float end_y)
+        /// <param name="startX">The start x.</param>
+        /// <param name="startY">The start y.</param>
+        /// <param name="endX">The end x.</param>
+        /// <param name="endY">The end y.</param>
+        public Line(float startX, float startY, float endX, float endY)
         {
-            Start = new Point(start_x, start_y);
-            End = new Point(end_x, end_y);
+            Start = new Point(startX, startY);
+            End = new Point(endX, endY);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Line"/> struct.
+        ///     Initializes a new instance of the <see cref="Line" /> struct.
         /// </summary>
-        /// <param name="start_x">The start x.</param>
-        /// <param name="start_y">The start y.</param>
-        /// <param name="end_x">The end x.</param>
-        /// <param name="end_y">The end y.</param>
-        public Line(int start_x, int start_y, int end_x, int end_y)
+        /// <param name="startX">The start x.</param>
+        /// <param name="startY">The start y.</param>
+        /// <param name="endX">The end x.</param>
+        /// <param name="endY">The end y.</param>
+        public Line(int startX, int startY, int endX, int endY)
         {
-            Start = new Point(start_x, start_y);
-            End = new Point(end_x, end_y);
+            Start = new Point(startX, startY);
+            End = new Point(endX, endY);
         }
 
         /// <summary>
-        /// Draws the specified device.
+        ///     Draws the specified device.
         /// </summary>
         /// <param name="device">The device.</param>
         /// <exception cref="NotImplementedException"></exception>
@@ -68,14 +64,14 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
-            return "{Start=" + Start.ToString() + ", End=" + End.ToString() + "}";
+            return "{Start=" + Start + ", End=" + End + "}";
         }
     }
 }

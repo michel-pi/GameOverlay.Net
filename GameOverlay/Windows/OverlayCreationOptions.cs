@@ -1,38 +1,36 @@
-﻿using System;
-
-namespace GameOverlay.Windows
+﻿namespace GameOverlay.Windows
 {
     /// <summary>
     /// </summary>
     public class OverlayCreationOptions // struct -> not nullable
     {
         /// <summary>
-        /// The bypass topmost
+        ///     The bypass topmost
         /// </summary>
         public bool BypassTopmost;
 
         /// <summary>
-        /// The height
+        ///     The height
         /// </summary>
         public int Height;
 
         /// <summary>
-        /// The width
+        ///     The width
         /// </summary>
         public int Width;
 
         /// <summary>
-        /// The window title
+        ///     The window title
         /// </summary>
         public string WindowTitle;
 
         /// <summary>
-        /// The x
+        ///     The x
         /// </summary>
         public int X;
 
         /// <summary>
-        /// The y
+        ///     The y
         /// </summary>
         public int Y;
     }

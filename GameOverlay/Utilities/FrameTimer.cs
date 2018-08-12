@@ -1,73 +1,36 @@
 ﻿using System;
-using System.Threading;
 using System.Diagnostics;
-
+using System.Threading;
 using GameOverlay.Graphics;
 
 namespace GameOverlay.Utilities
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Creates a drawing loop and ca limit fps
+    ///     Creates a drawing loop and ca limit fps
     /// </summary>
-    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="T:System.IDisposable" />
     public class FrameTimer : IDisposable
     {
-        private bool _exitTimerThread;
-        private Stopwatch _stopwatch;
-        private Thread _thread;
-
         /// <summary>
-        /// Gets or sets the device.
-        /// </summary>
-        /// <value>
-        /// The device.
-        /// </value>
-        public D2DDevice Device { get; set; }
-
-        /// <summary>
-        /// Gets or sets the frames per second.
-        /// </summary>
-        /// <value>
-        /// The frames per second.
-        /// </value>
-        public int FramesPerSecond { get; set; }
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is paused.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is paused; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsPaused { get; set; }
-
-        /// <summary>
-        /// 
         /// </summary>
         /// <param name="timer">The timer.</param>
         /// <param name="device">The device.</param>
         public delegate void FrameStageNotifyEventHandler(FrameTimer timer, D2DDevice device);
 
-        /// <summary>
-        /// Occurs when [frame starting].
-        /// </summary>
-        public event FrameStageNotifyEventHandler FrameStarting;
-        /// <summary>
-        /// Occurs when [on frame].
-        /// </summary>
-        public event FrameStageNotifyEventHandler OnFrame;
-        /// <summary>
-        /// Occurs when [frame ending].
-        /// </summary>
-        public event FrameStageNotifyEventHandler FrameEnding;
+        private bool _exitTimerThread;
+        private Stopwatch _stopwatch;
+        private Thread _thread;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FrameTimer"/> class.
+        ///     Initializes a new instance of the <see cref="FrameTimer" /> class.
         /// </summary>
         public FrameTimer()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FrameTimer"/> class.
+        ///     Initializes a new instance of the <see cref="FrameTimer" /> class.
         /// </summary>
         /// <param name="framesPerSecond">The frames per second.</param>
         public FrameTimer(int framesPerSecond)
@@ -76,7 +39,7 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FrameTimer"/> class.
+        ///     Initializes a new instance of the <see cref="FrameTimer" /> class.
         /// </summary>
         /// <param name="framesPerSecond">The frames per second.</param>
         /// <param name="device">The device.</param>
@@ -88,7 +51,7 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FrameTimer"/> class.
+        ///     Initializes a new instance of the <see cref="FrameTimer" /> class.
         /// </summary>
         /// <param name="device">The device.</param>
         /// <exception cref="ArgumentNullException">device</exception>
@@ -98,7 +61,7 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FrameTimer"/> class.
+        ///     Initializes a new instance of the <see cref="FrameTimer" /> class.
         /// </summary>
         /// <param name="device">The device.</param>
         /// <param name="framesPerSecond">The frames per second.</param>
@@ -110,7 +73,46 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="FrameTimer"/> class.
+        ///     Gets or sets the device.
+        /// </summary>
+        /// <value>
+        ///     The device.
+        /// </value>
+        public D2DDevice Device { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the frames per second.
+        /// </summary>
+        /// <value>
+        ///     The frames per second.
+        /// </value>
+        public int FramesPerSecond { get; set; }
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether this instance is paused.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if this instance is paused; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsPaused { get; set; }
+
+        /// <summary>
+        ///     Occurs when [frame starting].
+        /// </summary>
+        public event FrameStageNotifyEventHandler FrameStarting;
+
+        /// <summary>
+        ///     Occurs when [on frame].
+        /// </summary>
+        public event FrameStageNotifyEventHandler OnFrame;
+
+        /// <summary>
+        ///     Occurs when [frame ending].
+        /// </summary>
+        public event FrameStageNotifyEventHandler FrameEnding;
+
+        /// <summary>
+        ///     Finalizes an instance of the <see cref="FrameTimer" /> class.
         /// </summary>
         ~FrameTimer()
         {
@@ -118,7 +120,7 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        /// Starts this instance.
+        ///     Starts this instance.
         /// </summary>
         /// <returns></returns>
         public bool Start()
@@ -131,7 +133,7 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        /// Stops this instance.
+        ///     Stops this instance.
         /// </summary>
         public void Stop()
         {
@@ -140,7 +142,7 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        /// Resumes this instance.
+        ///     Resumes this instance.
         /// </summary>
         public void Resume()
         {
@@ -148,7 +150,7 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        /// Pauses this instance.
+        ///     Pauses this instance.
         /// </summary>
         public void Pause()
         {
@@ -163,9 +165,7 @@ namespace GameOverlay.Utilities
             while (!_exitTimerThread)
             {
                 while (IsPaused)
-                {
                     Thread.Sleep(100);
-                }
 
                 int currentFps = FramesPerSecond;
 
@@ -185,7 +185,7 @@ namespace GameOverlay.Utilities
 
                     _stopwatch.Stop();
 
-                    int currentSleeptime = sleeptimePerFrame - (int)_stopwatch.ElapsedMilliseconds;
+                    int currentSleeptime = sleeptimePerFrame - (int) _stopwatch.ElapsedMilliseconds;
 
                     if (currentSleeptime > 0) Thread.Sleep(currentSleeptime);
                 }
@@ -230,7 +230,7 @@ namespace GameOverlay.Utilities
             }
             catch
             {
-
+                // ignored
             }
 
             _exitTimerThread = false;
@@ -239,38 +239,38 @@ namespace GameOverlay.Utilities
         }
 
         #region IDisposable Support
-        private bool disposedValue = false;
+
+        private bool _disposedValue;
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                }
+            if (_disposedValue) return;
+            
+            Device = null;
 
-                Device = null;
+            FrameStarting = null;
+            OnFrame = null;
+            FrameEnding = null;
 
-                FrameStarting = null;
-                OnFrame = null;
-                FrameEnding = null;
+            if (_thread != null && !_exitTimerThread) ExitThread();
 
-                if (_thread != null && !_exitTimerThread) ExitThread();
-
-                disposedValue = true;
-            }
+            _disposedValue = true;
         }
 
+        /// <inheritdoc />
         void IDisposable.Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

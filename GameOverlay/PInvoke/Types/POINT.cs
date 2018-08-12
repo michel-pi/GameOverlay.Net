@@ -1,13 +1,12 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace GameOverlay.PInvoke
+namespace GameOverlay.PInvoke.Types
 {
     /// <summary>
-    /// X and Y desktop coordinates
+    ///     X and Y desktop coordinates
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    internal struct POINT
+    internal struct Point
     {
         public int X;
         public int Y;

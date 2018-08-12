@@ -1,26 +1,26 @@
-﻿using System;
-
-namespace GameOverlay.PInvoke
+﻿namespace GameOverlay.PInvoke.Types
 {
     /// <summary>
-    /// 
     /// </summary>
     public enum LayeredWindowAttribute : uint
     {
         /// <summary>
-        /// The none
+        ///     The none
         /// </summary>
         None = 0x0,
+
         /// <summary>
-        /// The color key
+        ///     The color key
         /// </summary>
         ColorKey = 0x1,
+
         /// <summary>
-        /// The alpha
+        ///     The alpha
         /// </summary>
         Alpha = 0x2,
+
         /// <summary>
-        /// The opaque
+        ///     The opaque
         /// </summary>
         Opaque = 0x4
     }

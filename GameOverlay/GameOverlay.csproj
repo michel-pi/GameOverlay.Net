@@ -10,7 +10,7 @@
     <AssemblyName>GameOverlay</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>2.0.0.6775</AssemblyVersion>
+    <AssemblyVersion>2.3.3.6798</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -84,7 +84,7 @@
     <Compile Include="PInvoke\Types\POINT.cs" />
     <Compile Include="PInvoke\Types\RECT.cs" />
     <Compile Include="PInvoke\Types\WindowsMessage.cs" />
-    <Compile Include="PInvoke\Types\WNDCLASSEX.cs" />
+    <Compile Include="PInvoke\Types\WindowClassEx.cs" />
     <Compile Include="PInvoke\Types\WindowStyles.cs" />
     <Compile Include="ShapeTest.cs" />
     <Compile Include="Utilities\HelperMethods.cs" />

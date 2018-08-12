@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameOverlay.Graphics.Primitives
+﻿namespace GameOverlay.Graphics.Primitives
 {
     /// <summary>
-    /// 
     /// </summary>
     public struct Triangle
     {
         /// <summary>
-        /// a
+        ///     a
         /// </summary>
         public Point A;
+
         /// <summary>
-        /// The b
+        ///     The b
         /// </summary>
         public Point B;
+
         /// <summary>
-        /// The c
+        ///     The c
         /// </summary>
         public Point C;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> struct.
+        ///     Initializes a new instance of the <see cref="Triangle" /> struct.
         /// </summary>
         /// <param name="a">a.</param>
         /// <param name="b">The b.</param>
@@ -38,7 +33,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> struct.
+        ///     Initializes a new instance of the <see cref="Triangle" /> struct.
         /// </summary>
         /// <param name="a_x">a x.</param>
         /// <param name="a_y">a y.</param>
@@ -54,7 +49,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> struct.
+        ///     Initializes a new instance of the <see cref="Triangle" /> struct.
         /// </summary>
         /// <param name="a_x">a x.</param>
         /// <param name="a_y">a y.</param>
@@ -70,14 +65,14 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
-            return "{A=" + A.ToString() + ", B=" + B.ToString() + ", C=" + C.ToString() + "}";
+            return "{A=" + A + ", B=" + B + ", C=" + C + "}";
         }
     }
 }

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-
 using SharpDX.Direct2D1;
 using SharpDX.Mathematics.Interop;
 
 namespace GameOverlay.Graphics
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Stores a Brush compatible with <c>Direct2DRenderer</c>
+    ///     Stores a Brush compatible with <c>Direct2DRenderer</c>
     /// </summary>
     public class D2DSolidColorBrush : ID2DBrush
     {
         /// <summary>
-        /// A <c>SolidColorBrush</c> to use with a rendering device
+        ///     A <c>SolidColorBrush</c> to use with a rendering device
         /// </summary>
         public SolidColorBrush Brush;
 
@@ -22,7 +22,7 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Internal use only
+        ///     Internal use only
         /// </summary>
         /// <param name="device"><c>RenderTarget</c> device</param>
         public D2DSolidColorBrush(RenderTarget device)
@@ -33,7 +33,7 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Internal use only
+        ///     Internal use only
         /// </summary>
         /// <param name="device"><c>RenderTarget</c> device</param>
         /// <param name="color"><c>Direct2DColor</c> compatible color</param>
@@ -44,27 +44,60 @@ namespace GameOverlay.Graphics
             Brush = new SolidColorBrush(device, color);
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="D2DSolidColorBrush"/> class.
+        ///     Initializes a new instance of the <see cref="T:GameOverlay.Graphics.D2DSolidColorBrush" /> class.
         /// </summary>
         /// <param name="device">The device.</param>
         public D2DSolidColorBrush(D2DDevice device) : this(device.GetRenderTarget())
         {
-
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="D2DSolidColorBrush"/> class.
+        ///     Initializes a new instance of the <see cref="T:GameOverlay.Graphics.D2DSolidColorBrush" /> class.
         /// </summary>
         /// <param name="device">The device.</param>
         /// <param name="color">The color.</param>
         public D2DSolidColorBrush(D2DDevice device, D2DColor color) : this(device.GetRenderTarget(), color)
         {
-
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="D2DSolidColorBrush"/> class.
+        ///     Gets or sets the used color by this brush
+        /// </summary>
+        /// <value>
+        ///     <c>Direct2DColor</c>
+        /// </value>
+        public D2DColor Color
+        {
+            get => Brush.Color;
+            set => Brush.Color = value;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Gets the brush.
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Brush GetBrush()
+        {
+            return Brush;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Sets the brush.
+        /// </summary>
+        /// <param name="brush">The brush.</param>
+        public void SetBrush(Brush brush)
+        {
+            Brush = (SolidColorBrush) brush;
+        }
+
+        /// <summary>
+        ///     Finalizes an instance of the <see cref="D2DSolidColorBrush" /> class.
         /// </summary>
         ~D2DSolidColorBrush()
         {
@@ -72,23 +105,7 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Gets or sets the used color by this brush
-        /// </summary>
-        /// <value><c>Direct2DColor</c></value>
-        public D2DColor Color
-        {
-            get
-            {
-                return Brush.Color;
-            }
-            set
-            {
-                Brush.Color = value;
-            }
-        }
-
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="D2DSolidColorBrush"/> to <see cref="SolidColorBrush"/>.
+        ///     Performs an implicit conversion from <see cref="D2DSolidColorBrush" /> to <see cref="SolidColorBrush" />.
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <returns>The result of the conversion.</returns>
@@ -98,60 +115,46 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
-            return "{D2DBrush=" + Color.ToString() + "}";
-        }
-
-        /// <summary>
-        /// Gets the brush.
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Brush GetBrush()
-        {
-            return Brush;
-        }
-
-        /// <summary>
-        /// Sets the brush.
-        /// </summary>
-        /// <param name="brush">The brush.</param>
-        public void SetBrush(Brush brush)
-        {
-            Brush = (SolidColorBrush)brush;
+            return "{D2DBrush=" + Color + "}";
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+
+        private bool _disposedValue; // To detect redundant calls
 
         /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
+        ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
-            {
-                Brush.Dispose();
+            if (_disposedValue) return;
 
-                disposedValue = true;
-            }
+            Brush.Dispose();
+
+            _disposedValue = true;
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

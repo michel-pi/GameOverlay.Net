@@ -1,28 +1,26 @@
-﻿using System;
-
-namespace GameOverlay.Graphics.Primitives
+﻿namespace GameOverlay.Graphics.Primitives
 {
     /// <summary>
-    /// 
     /// </summary>
     public struct Ellipse
     {
         /// <summary>
-        /// The location
+        ///     The location
         /// </summary>
         public Point Location;
 
         /// <summary>
-        /// The radius x
+        ///     The radius x
         /// </summary>
         public float RadiusX;
+
         /// <summary>
-        /// The radius y
+        ///     The radius y
         /// </summary>
         public float RadiusY;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ellipse"/> struct.
+        ///     Initializes a new instance of the <see cref="Ellipse" /> struct.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="radiusX">The radius x.</param>
@@ -35,7 +33,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ellipse"/> struct.
+        ///     Initializes a new instance of the <see cref="Ellipse" /> struct.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="radiusX">The radius x.</param>
@@ -48,7 +46,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ellipse"/> struct.
+        ///     Initializes a new instance of the <see cref="Ellipse" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -62,7 +60,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ellipse"/> struct.
+        ///     Initializes a new instance of the <see cref="Ellipse" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -76,22 +74,22 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
-            return Location.ToString() + "(" + RadiusX + ", " + RadiusY + ")";
+            return Location + "(" + RadiusX + ", " + RadiusY + ")";
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Ellipse"/> to <see cref="SharpDX.Direct2D1.Ellipse"/>.
+        ///     Performs an implicit conversion from <see cref="Ellipse" /> to <see cref="SharpDX.Direct2D1.Ellipse" />.
         /// </summary>
         /// <param name="ellipse">The ellipse.</param>
         /// <returns>
-        /// The result of the conversion.
+        ///     The result of the conversion.
         /// </returns>
         public static implicit operator SharpDX.Direct2D1.Ellipse(Ellipse ellipse)
         {

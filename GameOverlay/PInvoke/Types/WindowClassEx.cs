@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace GameOverlay.PInvoke
+namespace GameOverlay.PInvoke.Types
 {
     /// <summary>
-    /// Stores information for window creation
+    ///     Stores information for window creation
     /// </summary>
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    internal struct WNDCLASSEX
+    internal struct WindowClassEx
     {
         public uint cbSize;
         public uint style;
@@ -24,7 +24,7 @@ namespace GameOverlay.PInvoke
 
         public static uint Size()
         {
-            return (uint)Marshal.SizeOf(ObfuscatorNeedsThis<WNDCLASSEX>());
+            return (uint) Marshal.SizeOf(ObfuscatorNeedsThis<WindowClassEx>());
         }
 
         private static Type ObfuscatorNeedsThis<T>()

@@ -1,35 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharpDX.Mathematics.Interop;
 
 namespace GameOverlay.Graphics.Primitives
 {
     /// <summary>
-    /// 
     /// </summary>
     public struct Rectangle
     {
         /// <summary>
-        /// The left
+        ///     The left
         /// </summary>
         public float Left;
+
         /// <summary>
-        /// The top
+        ///     The top
         /// </summary>
         public float Top;
+
         /// <summary>
-        /// The right
+        ///     The right
         /// </summary>
         public float Right;
+
         /// <summary>
-        /// The bottom
+        ///     The bottom
         /// </summary>
         public float Bottom;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle"/> class.
+        ///     Initializes a new instance of the <see cref="Rectangle" /> class.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
@@ -44,7 +42,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle"/> class.
+        ///     Initializes a new instance of the <see cref="Rectangle" /> class.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
@@ -59,7 +57,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Creates the specified x.
+        ///     Creates the specified x.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -72,7 +70,7 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Creates the specified x.
+        ///     Creates the specified x.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -85,10 +83,10 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
@@ -96,15 +94,16 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Rectangle"/> to <see cref="SharpDX.Mathematics.Interop.RawRectangleF"/>.
+        ///     Performs an implicit conversion from <see cref="Rectangle" /> to
+        ///     <see cref="SharpDX.Mathematics.Interop.RawRectangleF" />.
         /// </summary>
         /// <param name="rectangle">The rectangle.</param>
         /// <returns>
-        /// The result of the conversion.
+        ///     The result of the conversion.
         /// </returns>
-        public static implicit operator SharpDX.Mathematics.Interop.RawRectangleF(Rectangle rectangle)
+        public static implicit operator RawRectangleF(Rectangle rectangle)
         {
-            return new SharpDX.Mathematics.Interop.RawRectangleF(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
+            return new RawRectangleF(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
         }
     }
 }

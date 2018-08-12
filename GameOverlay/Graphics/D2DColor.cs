@@ -1,34 +1,34 @@
-﻿using System;
-
-using SharpDX.Mathematics.Interop;
+﻿using SharpDX.Mathematics.Interop;
 
 namespace GameOverlay.Graphics
 {
     /// <summary>
-    /// Represents a ARGB color
+    ///     Represents a ARGB color
     /// </summary>
     public struct D2DColor
     {
         /// <summary>
-        /// a
+        ///     a
         /// </summary>
         public float A;
 
         /// <summary>
-        /// The r
+        ///     The r
         /// </summary>
         public float R;
+
         /// <summary>
-        /// The g
+        ///     The g
         /// </summary>
         public float G;
+
         /// <summary>
-        /// The b
+        ///     The b
         /// </summary>
         public float B;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="D2DColor"/> struct.
+        ///     Initializes a new instance of the <see cref="D2DColor" /> struct.
         /// </summary>
         /// <param name="r">The r.</param>
         /// <param name="g">The g.</param>
@@ -44,7 +44,7 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="D2DColor"/> struct.
+        ///     Initializes a new instance of the <see cref="D2DColor" /> struct.
         /// </summary>
         /// <param name="r">The r.</param>
         /// <param name="g">The g.</param>
@@ -60,7 +60,7 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="D2DColor"/> struct.
+        ///     Initializes a new instance of the <see cref="D2DColor" /> struct.
         /// </summary>
         /// <param name="r">The r.</param>
         /// <param name="g">The g.</param>
@@ -68,25 +68,22 @@ namespace GameOverlay.Graphics
         /// <param name="a">a.</param>
         public D2DColor(byte r, byte g, byte b, byte a = 255)
         {
-            R = (float)r / 255.0f;
-            G = (float)g / 255.0f;
-            B = (float)b / 255.0f;
+            R = r / 255.0f;
+            G = g / 255.0f;
+            B = b / 255.0f;
 
-            A = (float)a / 255.0f;
+            A = a / 255.0f;
         }
 
         private static float NormalizeColor(float color)
         {
             if (color < 0.0f) color *= -1.0f;
 
-            if (color > 1.0f)
-            {
-                while (color > 255.0f) color /= 255.0f;
+            if (!(color > 1.0f)) return color;
 
-                return color / 255.0f;
-            }
+            while (color > 255.0f) color /= 255.0f;
 
-            return color;
+            return color / 255.0f;
         }
 
         private static float NormalizeColor(int color)
@@ -95,11 +92,11 @@ namespace GameOverlay.Graphics
 
             while (color > 255) color /= 255;
 
-            return (float)color / 255.0f;
+            return color / 255.0f;
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="RawColor4"/> to <see cref="D2DColor"/>.
+        ///     Performs an implicit conversion from <see cref="RawColor4" /> to <see cref="D2DColor" />.
         /// </summary>
         /// <param name="color">The color.</param>
         /// <returns>The result of the conversion.</returns>
@@ -109,7 +106,7 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="D2DColor"/> to <see cref="RawColor4"/>.
+        ///     Performs an implicit conversion from <see cref="D2DColor" /> to <see cref="RawColor4" />.
         /// </summary>
         /// <param name="color">The color.</param>
         /// <returns>The result of the conversion.</returns>
@@ -119,10 +116,10 @@ namespace GameOverlay.Graphics
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {

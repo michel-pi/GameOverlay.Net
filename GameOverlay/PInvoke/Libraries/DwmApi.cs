@@ -1,11 +1,13 @@
 ﻿using System;
+using GameOverlay.PInvoke.Types;
 
-namespace GameOverlay.PInvoke
+namespace GameOverlay.PInvoke.Libraries
 {
     internal static class DwmApi
     {
-        public static DwmExtendFrameIntoClientArea_t DwmExtendFrameIntoClientArea = WinApi.GetMethod<DwmExtendFrameIntoClientArea_t>("dwmapi.dll", "DwmExtendFrameIntoClientArea");
+        public delegate void DwmExtendFrameIntoClientAreaDelegate(IntPtr hWnd, ref Margin pMargins);
 
-        public delegate void DwmExtendFrameIntoClientArea_t(IntPtr hWnd, ref MARGIN pMargins);
+        public static DwmExtendFrameIntoClientAreaDelegate DwmExtendFrameIntoClientArea =
+            WinApi.GetMethod<DwmExtendFrameIntoClientAreaDelegate>("dwmapi.dll", "DwmExtendFrameIntoClientArea");
     }
 }

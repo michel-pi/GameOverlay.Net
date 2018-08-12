@@ -7,27 +7,27 @@ namespace GameOverlay.Graphics
     public struct DeviceOptions
     {
         /// <summary>
-        /// The anti aliasing
+        ///     The anti aliasing
         /// </summary>
         public bool AntiAliasing;
 
         /// <summary>
-        /// The HWND
+        ///     The HWND
         /// </summary>
         public IntPtr Hwnd;
 
         /// <summary>
-        /// The measure FPS
+        ///     The measure FramesPerSecond
         /// </summary>
         public bool MeasureFps;
 
         /// <summary>
-        /// The v synchronize
+        ///     The v synchronize
         /// </summary>
         public bool VSync;
 
         /// <summary>
-        /// The multi threaded
+        ///     The multi threaded
         /// </summary>
         public bool MultiThreaded;
     }

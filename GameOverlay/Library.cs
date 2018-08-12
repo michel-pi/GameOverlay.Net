@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace GameOverlay
 {
@@ -8,40 +7,22 @@ namespace GameOverlay
     public static class Library
     {
         /// <summary>
-        /// Returns the Author of this Library
+        ///     Returns the Author of this Library
         /// </summary>
-        public static string Author
-        {
-            get
-            {
-                return "michel-pi";
-            }
-        }
+        public static string Author => "michel-pi";
 
         /// <summary>
-        /// Returns the Library Name
+        ///     Returns the Library Name
         /// </summary>
-        public static string Name
-        {
-            get
-            {
-                return "GameOverlay.Net";
-            }
-        }
+        public static string Name => "GameOverlay.Net";
 
         /// <summary>
-        /// Returns the URL of the Github Repository
+        ///     Returns the URL of the Github Repository
         /// </summary>
-        public static string URL
-        {
-            get
-            {
-                return "https://github.com/michel-pi/GameOverlay.Net";
-            }
-        }
+        public static string ProjectUrl => "https://github.com/michel-pi/GameOverlay.Net";
 
         /// <summary>
-        /// Returns the <c>AssemblyVersion</c> of this Library
+        ///     Returns the <c>AssemblyVersion</c> of this Library
         /// </summary>
         public static string Version
         {
@@ -49,8 +30,8 @@ namespace GameOverlay
             {
                 try
                 {
-                    Assembly assembly = Assembly.GetExecutingAssembly();
-                    AssemblyName assemblyName = assembly.GetName();
+                    var assembly = Assembly.GetExecutingAssembly();
+                    var assemblyName = assembly.GetName();
 
                     return assemblyName.Version.ToString();
                 }
