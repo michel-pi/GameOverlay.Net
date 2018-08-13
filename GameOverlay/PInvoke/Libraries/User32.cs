@@ -29,11 +29,11 @@ namespace GameOverlay.PInvoke.Libraries
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         public delegate int DispatchMessageDelegate(ref Message msg);
 
-        public delegate int GetClientRectDelegate(IntPtr hwnd, out Rect lpRect);
+        public delegate int GetClientRectDelegate(IntPtr hwnd, out NativeRect lpNativeRect);
 
         public delegate IntPtr GetWindowDelegate(IntPtr hwnd, uint cmd);
 
-        public delegate int GetWindowRectDelegate(IntPtr hwnd, out Rect lpRect);
+        public delegate int GetWindowRectDelegate(IntPtr hwnd, out NativeRect lpNativeRect);
 
         public delegate int IsProcessDPIAwareDelegate();
 

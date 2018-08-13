@@ -390,7 +390,7 @@ namespace GameOverlay.Windows
         {
             if (!IsInitialized) throw new InvalidOperationException("The window has not been initialized!");
 
-            var margin = new Margin
+            var margin = new NativeMargin
             {
                 cxLeftWidth = -1,
                 cxRightWidth = -1,

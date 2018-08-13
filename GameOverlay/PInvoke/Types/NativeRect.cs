@@ -6,7 +6,7 @@ namespace GameOverlay.PInvoke.Types
     ///     Contains Desktop Coordinates
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct Rect
+    public struct NativeRect
     {
         /// <summary>
         ///     The left

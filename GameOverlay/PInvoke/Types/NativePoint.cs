@@ -6,7 +6,7 @@ namespace GameOverlay.PInvoke.Types
     ///     X and Y desktop coordinates
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    internal struct Point
+    internal struct NativePoint
     {
         public int X;
         public int Y;

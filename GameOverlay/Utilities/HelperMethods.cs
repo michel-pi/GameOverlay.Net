@@ -81,16 +81,16 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
-        ///     Gets the real window rect.
+        ///     Gets the real window nativeRect.
         /// </summary>
         /// <param name="hwnd">Window Handle</param>
-        /// <param name="rect">Real window bounds</param>
+        /// <param name="nativeRect">Real window bounds</param>
         /// <returns>Non-zero on success</returns>
-        public static int GetRealWindowRect(IntPtr hwnd, out Rect rect)
+        public static int GetRealWindowRect(IntPtr hwnd, out NativeRect nativeRect)
         {
-            rect = new Rect();
+            nativeRect = new NativeRect();
 
-            int result = User32.GetWindowRect(hwnd, out rect);
+            int result = User32.GetWindowRect(hwnd, out nativeRect);
 
             if (User32.GetClientRect(hwnd, out var clientRect) == 0) return result;
 
@@ -99,8 +99,8 @@ namespace GameOverlay.Utilities
             int clientWidth = clientRect.Right - clientRect.Left;
             int clientHeight = clientRect.Bottom - clientRect.Top;
 
-            int windowWidth = rect.Right - rect.Left;
-            int windowHeight = rect.Bottom - rect.Top;
+            int windowWidth = nativeRect.Right - nativeRect.Left;
+            int windowHeight = nativeRect.Bottom - nativeRect.Top;
 
             if (clientWidth == windowWidth && clientHeight == windowHeight) return result;
 
@@ -109,8 +109,8 @@ namespace GameOverlay.Utilities
                 int difX = clientWidth > windowWidth ? clientWidth - windowWidth : windowWidth - clientWidth;
                 difX /= 2;
 
-                rect.Right -= difX;
-                rect.Left += difX;
+                nativeRect.Right -= difX;
+                nativeRect.Left += difX;
             }
 
             if (clientHeight == windowHeight) return result;
@@ -118,41 +118,41 @@ namespace GameOverlay.Utilities
             int difY = clientHeight > windowHeight ? clientHeight - windowHeight : windowHeight - clientHeight;
             difY /= 2;
 
-            rect.Bottom -= difY;
-            rect.Top += difY;
+            nativeRect.Bottom -= difY;
+            nativeRect.Top += difY;
 
             return result;
         }
 
         /// <summary>
-        ///     Gets the window client rect.
+        ///     Gets the window client nativeRect.
         /// </summary>
         /// <param name="hwnd">The HWND.</param>
-        /// <param name="rect">The rect.</param>
+        /// <param name="nativeRect">The nativeRect.</param>
         /// <returns></returns>
-        public static bool GetWindowClientRect(IntPtr hwnd, out Rect rect)
+        public static bool GetWindowClientRect(IntPtr hwnd, out NativeRect nativeRect)
         {
-            rect = new Rect();
+            nativeRect = new NativeRect();
 
-            if (User32.GetWindowRect(hwnd, out rect) == 0) return false;
+            if (User32.GetWindowRect(hwnd, out nativeRect) == 0) return false;
             if (User32.GetClientRect(hwnd, out var client) == 0) return true;
 
             int clientWidth = client.Right - client.Left;
             int clientHeight = client.Bottom - client.Top;
 
-            int windowWidth = rect.Right - rect.Left;
-            int windowHeight = rect.Bottom - rect.Top;
+            int windowWidth = nativeRect.Right - nativeRect.Left;
+            int windowHeight = nativeRect.Bottom - nativeRect.Top;
 
             int difX = clientWidth > windowWidth ? clientWidth - windowWidth : windowWidth - clientWidth;
             int difY = clientHeight > windowHeight ? clientHeight - windowHeight : windowHeight - clientHeight;
 
             difX /= 2;
 
-            rect.Left += difX;
-            rect.Right -= difX;
+            nativeRect.Left += difX;
+            nativeRect.Right -= difX;
 
-            rect.Top += difY - difX;
-            rect.Bottom -= difX;
+            nativeRect.Top += difY - difX;
+            nativeRect.Bottom -= difX;
 
             return true;
         }

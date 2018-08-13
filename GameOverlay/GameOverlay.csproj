@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColorTest.cs" />
     <Compile Include="Graphics\Containers\ConcurrentShapeContainer.cs" />
     <Compile Include="Graphics\Containers\ShapeContainer.cs" />
     <Compile Include="Graphics\ID2DBrush.cs" />
@@ -79,25 +78,22 @@
     <Compile Include="Graphics\Primitives\Triangle.cs" />
     <Compile Include="PInvoke\Types\LayeredWindowAttribute.cs" />
     <Compile Include="PInvoke\Types\ExtendedWindowStyles.cs" />
-    <Compile Include="PInvoke\Types\MARGIN.cs" />
+    <Compile Include="PInvoke\Types\NativeMargin.cs" />
     <Compile Include="PInvoke\Types\Message.cs" />
-    <Compile Include="PInvoke\Types\POINT.cs" />
-    <Compile Include="PInvoke\Types\RECT.cs" />
+    <Compile Include="PInvoke\Types\NativePoint.cs" />
+    <Compile Include="PInvoke\Types\NativeRect.cs" />
     <Compile Include="PInvoke\Types\WindowsMessage.cs" />
     <Compile Include="PInvoke\Types\WindowClassEx.cs" />
     <Compile Include="PInvoke\Types\WindowStyles.cs" />
-    <Compile Include="ShapeTest.cs" />
     <Compile Include="Utilities\HelperMethods.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Utilities\FrameTimer.cs" />
-    <Compile Include="WindowBoundsTest.cs" />
     <Compile Include="Windows\StickyOverlayWindow.cs" />
     <Compile Include="Windows\OverlayCreationOptions.cs" />
     <Compile Include="Windows\OverlayWindow.cs" />
     <Compile Include="PInvoke\Libraries\DwmApi.cs" />
     <Compile Include="PInvoke\Libraries\User32.cs" />
     <Compile Include="PInvoke\WinApi.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\CrosshairStyle.cs" />
     <Compile Include="Graphics\D2DImage.cs" />

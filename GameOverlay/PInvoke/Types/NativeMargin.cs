@@ -6,7 +6,7 @@ namespace GameOverlay.PInvoke.Types
     ///     <c>MARGIN</c> struct used with DesktopWindowManager
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    internal struct Margin
+    internal struct NativeMargin
     {
         public int cxLeftWidth;
         public int cxRightWidth;
