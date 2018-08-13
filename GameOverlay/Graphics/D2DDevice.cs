@@ -2519,7 +2519,7 @@ namespace GameOverlay.Graphics
 
         #endregion IDisposable Support
 
-        #region implicit conversions
+        #region explicit conversions
 
         /// <summary>
         ///     Performs an implicit conversion from <see cref="D2DDevice" /> to <see cref="RenderTarget" />.
