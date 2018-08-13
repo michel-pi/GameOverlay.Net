@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// </summary>
-    public class OverlayCreationOptions // struct -> not nullable
+    public class OverlayOptions // struct -> not nullable
     {
         /// <summary>
         ///     The bypass topmost

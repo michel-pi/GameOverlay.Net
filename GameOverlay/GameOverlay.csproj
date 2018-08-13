@@ -89,7 +89,7 @@
     <Compile Include="Library.cs" />
     <Compile Include="Utilities\FrameTimer.cs" />
     <Compile Include="Windows\StickyOverlayWindow.cs" />
-    <Compile Include="Windows\OverlayCreationOptions.cs" />
+    <Compile Include="Windows\OverlayOptions.cs" />
     <Compile Include="Windows\OverlayWindow.cs" />
     <Compile Include="PInvoke\Libraries\DwmApi.cs" />
     <Compile Include="PInvoke\Libraries\User32.cs" />
