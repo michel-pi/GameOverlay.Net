@@ -13,7 +13,7 @@ namespace GameOverlay.Windows
     /// <seealso cref="T:GameOverlay.Windows.OverlayWindow" />
     public class StickyOverlayWindow : OverlayWindow
     {
-        private static readonly OverlayCreationOptions DefaultOptions = new OverlayCreationOptions
+        private static readonly OverlayOptions DefaultOptions = new OverlayOptions
         {
             BypassTopmost = false,
             Height = 600,
@@ -47,7 +47,7 @@ namespace GameOverlay.Windows
         /// </summary>
         /// <param name="parentWindowHandle">The parent window handle.</param>
         /// <param name="options">The options.</param>
-        public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayCreationOptions options) : base(options)
+        public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayOptions options) : base(options)
         {
             if (parentWindowHandle == IntPtr.Zero) throw new ArgumentNullException(nameof(parentWindowHandle));
 

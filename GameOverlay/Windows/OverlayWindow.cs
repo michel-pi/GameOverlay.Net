@@ -73,7 +73,7 @@ namespace GameOverlay.Windows
         ///     Initializes a new instance of the <see cref="OverlayWindow" /> class.
         /// </summary>
         /// <param name="options">The options.</param>
-        public OverlayWindow(OverlayCreationOptions options)
+        public OverlayWindow(OverlayOptions options)
         {
             WindowTitle = options.WindowTitle;
             BypassTopmost = options.BypassTopmost;
