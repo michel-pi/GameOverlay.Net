@@ -271,7 +271,7 @@ namespace GameOverlay.Utilities
         }
 
         /// <inheritdoc />
-        void IDisposable.Dispose()
+        public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
