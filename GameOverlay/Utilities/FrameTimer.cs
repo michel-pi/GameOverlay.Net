@@ -99,7 +99,7 @@ namespace GameOverlay.Utilities
         /// <summary>
         ///     Occurs when [frame starting].
         /// </summary>
-        public event FrameStageNotifyEventHandler FrameStarting;
+        public event FrameStageNotifyEventHandler OnFrameStarting;
 
         /// <summary>
         ///     Occurs when [on frame].
@@ -109,7 +109,7 @@ namespace GameOverlay.Utilities
         /// <summary>
         ///     Occurs when [frame ending].
         /// </summary>
-        public event FrameStageNotifyEventHandler FrameEnding;
+        public event FrameStageNotifyEventHandler OnFrameEnding;
 
         /// <summary>
         ///     Finalizes an instance of the <see cref="FrameTimer" /> class.
@@ -199,9 +199,9 @@ namespace GameOverlay.Utilities
         {
             if (Device == null) throw new InvalidOperationException("Renderer is null");
 
-            FrameStarting?.Invoke(this, Device);
+            OnFrameStarting?.Invoke(this, Device);
             OnFrame?.Invoke(this, Device);
-            FrameEnding?.Invoke(this, Device);
+            OnFrameEnding?.Invoke(this, Device);
         }
 
         private void CreateThread()
@@ -255,9 +255,9 @@ namespace GameOverlay.Utilities
             
             Device = null;
 
-            FrameStarting = null;
+            OnFrameStarting = null;
             OnFrame = null;
-            FrameEnding = null;
+            OnFrameEnding = null;
 
             if (_thread != null && !_exitTimerThread) ExitThread();
 
