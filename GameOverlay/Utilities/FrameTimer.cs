@@ -200,7 +200,13 @@ namespace GameOverlay.Utilities
             if (Device == null) throw new InvalidOperationException("Renderer is null");
 
             OnFrameStarting?.Invoke(this, Device);
+
+            if(!Device.IsDrawing) Device.BeginScene();
+
             OnFrame?.Invoke(this, Device);
+
+            if(Device.IsDrawing) Device.EndScene();
+
             OnFrameEnding?.Invoke(this, Device);
         }
 
