@@ -273,11 +273,11 @@ namespace GameOverlay.Windows
                     ExtendFrameIntoClientArea();
                     return (IntPtr) 0;
 
+                case WindowsMessage.DpiChanged:
+                    return (IntPtr)0; // block DPI Changed message
+
                 default: break;
             }
-
-            if ((int) msg == 0x02E0) // DPI Changed
-                return (IntPtr) 0; // block DPI Changed message
 
             return User32.DefWindowProc(hwnd, msg, wParam, lParam);
         }

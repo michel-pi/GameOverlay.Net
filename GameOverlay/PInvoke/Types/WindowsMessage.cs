@@ -215,6 +215,8 @@
         TabletFirst = 0x02c0,
         TabletLast = 0x02df,
 
+        DpiChanged = 0x02E0,
+
         Cut = 0x0300,
         Copy = 0x0301,
         Paste = 0x0302,
