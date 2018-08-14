@@ -98,7 +98,7 @@ namespace GameOverlayExample
             if (!device.IsInitialized) return;
             if (device.IsDrawing) return;
 
-            _backgroundColor = new D2DColor(0x33, 0x33, 0x33, 0xEF);
+            _backgroundColor = new D2DColor(0x24, 0x29, 0x2E, 0xFF);
 
             _font = _device.CreateFont(new FontOptions()
             {
