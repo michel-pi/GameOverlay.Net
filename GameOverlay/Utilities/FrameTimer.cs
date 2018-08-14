@@ -137,7 +137,7 @@ namespace GameOverlay.Utilities
         /// </summary>
         public void Stop()
         {
-            IsPaused = true;
+            IsPaused = false;
             ExitThread();
         }
 
