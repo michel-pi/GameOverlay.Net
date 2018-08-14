@@ -34,7 +34,7 @@ Help adding features, fixing issues or provide a better documentation.
 
 # Donate
 
-Do you like this project and want to give something back?
+Do you like this project?
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YJDWMDUSM8KKQ)
 
