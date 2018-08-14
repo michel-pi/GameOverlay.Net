@@ -61,6 +61,13 @@ namespace GameOverlay.Graphics.Primitives
             return new RawVector2(point.X, point.Y);
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="RawVector2"/> to <see cref="Point"/>.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator Point(RawVector2 vector)
         {
             return new Point(vector.X, vector.Y);
