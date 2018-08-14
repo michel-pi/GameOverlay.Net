@@ -10,7 +10,7 @@
     <AssemblyName>GameOverlay</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>2.8.8.6800</AssemblyVersion>
+    <AssemblyVersion>2.19.19.6801</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Graphics\Containers\ConcurrentShapeContainer.cs" />
     <Compile Include="Graphics\Containers\ShapeContainer.cs" />
+    <Compile Include="Graphics\D2DLinearGradientBrush.cs" />
     <Compile Include="Graphics\ID2DBrush.cs" />
     <Compile Include="Graphics\IShape.cs" />
     <Compile Include="Graphics\IShapeContainer.cs" />
