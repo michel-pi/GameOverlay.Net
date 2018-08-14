@@ -25,6 +25,8 @@ namespace GameOverlayExample
         private D2DSolidColorBrush _greenBrush;
         private D2DSolidColorBrush _blueBrush;
 
+        private D2DLinearGradientBrush _gradient;
+
         private D2DImage _image;
 
         public Example()
@@ -58,7 +60,7 @@ namespace GameOverlayExample
                 VSync = false
             });
 
-            _frameTimer = new FrameTimer(_device, 60);
+            _frameTimer = new FrameTimer(_device, 0);
 
             _window.OnWindowBoundsChanged += _window_OnWindowBoundsChanged;
 
@@ -116,6 +118,8 @@ namespace GameOverlayExample
             _greenBrush = device.CreateSolidColorBrush(0x0, 0xFF, 0x0, 0xFF);
             _blueBrush = device.CreateSolidColorBrush(0x0, 0x0, 0xFF, 0xFF);
 
+            _gradient = new D2DLinearGradientBrush(device, new D2DColor(0, 0, 80), new D2DColor(0x88, 0, 125), new D2DColor(0, 0, 225));
+
             // loads an image from resource bytes (.png in this case)
             _image = device.LoadImage(Properties.Resources.placeholder_image_bytes);
 
@@ -163,7 +167,9 @@ namespace GameOverlayExample
             device.FillCircle(250, 275, 50, _greenBrush);
 
             device.OutlineRectangle(Rectangle.Create(350, 225, 100, 100), 4.0f, _blueBrush, _blackBrush);
-            device.FillRoundedRectangle(RoundedRectangle.Create(500, 225, 100, 100, 6.0f), _redBrush);
+
+            _gradient.SetRange(500, 225, 600, 325);
+            device.FillRoundedRectangle(RoundedRectangle.Create(500, 225, 100, 100, 6.0f), _gradient);
             
             device.FillTriangle(650, 325, 750, 325, 700, 225, _greenBrush);
 
