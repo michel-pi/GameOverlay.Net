@@ -118,6 +118,8 @@ namespace GameOverlayExample
 
             // loads an image from resource bytes (.png in this case)
             _image = device.LoadImage(Properties.Resources.placeholder_image_bytes);
+
+            _initializeGraphicObjects = false;
         }
 
         private void _frameTimer_OnFrame(FrameTimer timer, D2DDevice device)
