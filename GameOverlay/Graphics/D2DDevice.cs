@@ -1317,7 +1317,7 @@ namespace GameOverlay.Graphics
 
             var sink = geometry.Open();
 
-            sink.BeginFigure(new RawVector2(aX, aY), FigureBegin.Hollow);
+            sink.BeginFigure(new RawVector2(aX, aY), FigureBegin.Filled);
             sink.AddLine(new RawVector2(bX, bY));
             sink.AddLine(new RawVector2(cX, cY));
             sink.EndFigure(FigureEnd.Closed);
