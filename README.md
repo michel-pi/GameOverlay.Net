@@ -2,6 +2,8 @@
 
 An easy to use Direct2D1 drawing library with the ability to create transparent windows.
 
+![A running overlay window](https://github.com/michel-pi/GameOverlay.Net/blob/master/example_picture.png)
+
 ### NuGet
 
     Install-Package GameOverlay.Net
