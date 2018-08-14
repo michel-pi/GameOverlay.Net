@@ -192,7 +192,7 @@ namespace GameOverlay.Utilities
             }
 
             _stopwatch = null;
-            IsPaused = true;
+            IsPaused = false;
         }
 
         private void InvokeEvents()
@@ -258,14 +258,14 @@ namespace GameOverlay.Utilities
         protected virtual void Dispose(bool disposing)
         {
             if (_disposedValue) return;
-            
+
+            if (_thread != null && !_exitTimerThread) ExitThread();
+
             Device = null;
 
             OnFrameStarting = null;
             OnFrame = null;
             OnFrameEnding = null;
-
-            if (_thread != null && !_exitTimerThread) ExitThread();
 
             _disposedValue = true;
         }
