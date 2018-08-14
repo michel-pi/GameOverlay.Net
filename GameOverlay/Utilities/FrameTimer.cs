@@ -7,7 +7,7 @@ namespace GameOverlay.Utilities
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Creates a drawing loop and ca limit fps
+    ///     Creates a drawing loop and optionally limits fps
     /// </summary>
     /// <seealso cref="T:System.IDisposable" />
     public class FrameTimer : IDisposable
