@@ -109,12 +109,14 @@ namespace GameOverlayExample
                 WordWrapping = true
             });
 
+            // colors automatically normalize values to fit. you can use 1.0f but also 255.0f.
             _blackBrush = device.CreateSolidColorBrush(0x0, 0x0, 0x0, 0xFF);
 
             _redBrush = device.CreateSolidColorBrush(0xFF, 0x0, 0x0, 0xFF);
             _greenBrush = device.CreateSolidColorBrush(0x0, 0xFF, 0x0, 0xFF);
             _blueBrush = device.CreateSolidColorBrush(0x0, 0x0, 0xFF, 0xFF);
 
+            // loads an image from resource bytes (.png in this case)
             _image = device.LoadImage(Properties.Resources.placeholder_image_bytes);
         }
 
@@ -134,6 +136,7 @@ namespace GameOverlayExample
 
             // text
 
+            // the background is dynamically adjusted to the text's size
             device.DrawTextWithBackground("FPS: " + device.FramesPerSecond, 10, 10, _font, _redBrush, _blackBrush);
 
             // primitives
@@ -141,6 +144,7 @@ namespace GameOverlayExample
             device.DrawCircle(100, 100, 50, 2.0f, _redBrush);
             device.DrawDashedCircle(250, 100, 50, 2.0f, _greenBrush);
 
+            // Rectangle.Create offers a method to create rectangles with x, y, width, heigth 
             device.DrawRectangle(Rectangle.Create(350, 50, 100, 100), 2.0f, _blueBrush);
             device.DrawRoundedRectangle(RoundedRectangle.Create(500, 50, 100, 100, 6.0f), 2.0f, _redBrush);
 
