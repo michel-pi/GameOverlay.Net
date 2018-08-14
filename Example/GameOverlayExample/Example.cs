@@ -120,6 +120,8 @@ namespace GameOverlayExample
 
         private void _frameTimer_OnFrame(FrameTimer timer, D2DDevice device)
         {
+            // the render loop will call device.BeginScene() and device.EndScene() for us
+
             if (!device.IsDrawing)
             {
                 _initializeGraphicObjects = true;
