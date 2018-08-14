@@ -60,5 +60,10 @@ namespace GameOverlay.Graphics.Primitives
         {
             return new RawVector2(point.X, point.Y);
         }
+
+        public static implicit operator Point(RawVector2 vector)
+        {
+            return new Point(vector.X, vector.Y);
+        }
     }
 }
