@@ -101,7 +101,7 @@ namespace GameOverlay.Graphics
         /// </summary>
         ~D2DSolidColorBrush()
         {
-            Dispose();
+            Dispose(false);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace GameOverlay.Graphics
         {
             if (_disposedValue) return;
 
-            Brush.Dispose();
+            if(Brush != null) Brush.Dispose();
 
             _disposedValue = true;
         }
