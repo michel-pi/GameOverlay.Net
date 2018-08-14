@@ -20,6 +20,7 @@ An easy to use Direct2D1 drawing library with the ability to create transparent 
 - Hardware accelerated
 - Create transparent windows
 
+*[Example code](https://github.com/michel-pi/GameOverlay.Net/blob/master/Example/GameOverlayExample/Example.cs#L123)*
 
 # Contribute
 
