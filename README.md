@@ -40,7 +40,7 @@ Do you like this project?
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YJDWMDUSM8KKQ)
 
 ```
-BTC     1PG3wsY4Znz3ubYkFM8b8NTfrhKcNK4NMG
+BTC     14ES7f4GB3vD1C8Faz6ywqTcdDevxZoMyY
 
 ETH     0xd9E2CB12d310E7BF5E72F591D7A2b8820adced04
 ```
