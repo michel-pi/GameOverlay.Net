@@ -16,6 +16,10 @@ namespace GameOverlayTest
         private static D2DDevice _device;
         private static FrameTimer _frameTimer;
         private static D2DImage _image;
+        private static OverlayNotification _notification;
+        private static D2DSolidColorBrush _backgroundBrush;
+        private static D2DSolidColorBrush _foregroundBrush;
+        private static D2DFont _font;
 
         static void Main(string[] args)
         {
@@ -38,7 +42,28 @@ namespace GameOverlayTest
                 VSync = false
             });
 
-            _image = _device.LoadImage(@"C:\Users\Michel\Desktop\alpha.png");
+            _image = _device.LoadImage(@"C:\Users\Michel\Desktop\NotificationBackOrange.png");
+
+            _backgroundBrush = _device.CreateSolidColorBrush(0xF1, 0x9A, 0x4C, 255);
+
+            _foregroundBrush = _device.CreateSolidColorBrush(0, 0, 0, 255);
+
+            _font = _device.CreateFont(new FontOptions()
+            {
+                Bold = false,
+                FontFamilyName = "Arial",
+                FontSize = 14,
+                Italic = false,
+                WordWrapping = false
+            });
+
+            _notification = new OverlayNotification(_device, _backgroundBrush, _foregroundBrush, _font)
+            {
+                Body = "You earned an achievement!",
+                BodySize = 14,
+                Header = "Achievement",
+                HeaderSize = 18
+            };
 
             _frameTimer = new FrameTimer(_device, 0);
 
@@ -55,9 +80,11 @@ namespace GameOverlayTest
 
         private static void _frameTimer_OnFrame(FrameTimer timer, D2DDevice device)
         {
+            _notification.Setup(100, 100, 310, 94);
+
             device.ClearScene();
 
-            device.DrawImage(_image, 100, 100, 100, 100);
+            device.DrawShape(_notification);
         }
 
         private static void _window_OnWindowBoundsChanged(int x, int y, int width, int height)
