@@ -92,7 +92,6 @@ namespace GameOverlay.Graphics
                 var converter = new FormatConverter(ImagingFactory);
                 try
                 {
-                    // normal ARGB images (Bitmaps / png tested)
                     converter.Initialize(frame, PixelFormat.Format32bppRGBA1010102);
                 }
                 catch
