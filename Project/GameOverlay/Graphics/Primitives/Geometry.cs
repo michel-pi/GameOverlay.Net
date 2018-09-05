@@ -114,13 +114,22 @@ namespace GameOverlay.Graphics.Primitives
         /// <param name="point">The point.</param>
         /// <param name="radius">The radius.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCurve(Point point, float radius)
+        public void AddCurve(Point point, float radius, float rotationAngle = 0.0f)
         {
-            _sink.AddArc(new ArcSegment
+            bool minus = radius < 0.0f;
+
+            if (minus) radius *= -1.0f;
+
+            var arc = new ArcSegment()
             {
+                ArcSize = radius > 179.0f ? ArcSize.Large : ArcSize.Small,
                 Point = point,
-                Size = new Size2F(radius, radius)
-            });
+                RotationAngle = rotationAngle,
+                Size = new Size2F(radius, radius),
+                SweepDirection = minus ? SweepDirection.Clockwise : SweepDirection.CounterClockwise
+            };
+
+            _sink.AddArc(arc);
         }
 
         /// <summary>
@@ -130,7 +139,7 @@ namespace GameOverlay.Graphics.Primitives
         /// <param name="radius_x">The radius x.</param>
         /// <param name="radius_y">The radius y.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddCurve(Point point, float radius_x, float radius_y)
+        public void AddCurve(Point point, float radius_x, float radius_y, float rotationAngle = 0.0f)
         {
             _sink.AddArc(new ArcSegment
             {
@@ -191,7 +200,7 @@ namespace GameOverlay.Graphics.Primitives
         /// <returns>
         ///     The result of the conversion.
         /// </returns>
-        public static implicit operator PathGeometry(Geometry geometry)
+        public static implicit operator SharpDX.Direct2D1.Geometry(Geometry geometry)
         {
             return geometry._geometry;
         }

@@ -2069,6 +2069,7 @@ namespace GameOverlay.Graphics
             else
             {
                 var layout = new TextLayout(_fontFactory, text, font, Width - location.X, Height - location.Y);
+                layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
                 _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
 
@@ -2101,6 +2102,7 @@ namespace GameOverlay.Graphics
             else
             {
                 var layout = new TextLayout(_fontFactory, text, font, Width - x, Height - y);
+                layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
                 _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
 
