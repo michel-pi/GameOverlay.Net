@@ -170,9 +170,9 @@ namespace GameOverlay.Graphics
         public bool WordWrapping
         {
             get => Font.WordWrapping != SharpDX.DirectWrite.WordWrapping.NoWrap;
-            set => Font.SetWordWrapping(value
+            set => Font.WordWrapping = value
                 ? SharpDX.DirectWrite.WordWrapping.Wrap
-                : SharpDX.DirectWrite.WordWrapping.NoWrap);
+                : SharpDX.DirectWrite.WordWrapping.NoWrap;
         }
 
         /// <summary>

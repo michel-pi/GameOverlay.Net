@@ -109,10 +109,11 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        ///     Adds the curve.
+        /// Adds the curve.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="radius">The radius.</param>
+        /// <param name="rotationAngle">The rotation angle.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCurve(Point point, float radius, float rotationAngle = 0.0f)
         {
@@ -133,11 +134,12 @@ namespace GameOverlay.Graphics.Primitives
         }
 
         /// <summary>
-        ///     Adds the curve.
+        /// Adds the curve.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="radius_x">The radius x.</param>
         /// <param name="radius_y">The radius y.</param>
+        /// <param name="rotationAngle">The rotation angle.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCurve(Point point, float radius_x, float radius_y, float rotationAngle = 0.0f)
         {
