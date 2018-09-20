@@ -18,7 +18,7 @@ namespace GameOverlay.Windows
             BypassTopmost = false,
             Height = 600,
             Width = 800,
-            WindowTitle = HelperMethods.GenerateRandomString(5, 11),
+            WindowTitle = WindowHelpers.GenerateRandomString(5, 11),
             X = 0,
             Y = 0
         };
@@ -148,7 +148,7 @@ namespace GameOverlay.Windows
                             0x10 | 0x2 | 0x1 | 0x4000); // SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_ASYNCWINDOWPOS
                 }
 
-                if (!HelperMethods.GetWindowClientRect(ParentWindowHandle, out var bounds)) continue;
+                if (!WindowHelpers.GetWindowClientRectInternal(ParentWindowHandle, out var bounds)) continue;
 
                 int x = bounds.Left;
                 int y = bounds.Top;

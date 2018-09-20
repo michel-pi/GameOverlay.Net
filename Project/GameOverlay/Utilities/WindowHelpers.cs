@@ -9,7 +9,7 @@ namespace GameOverlay.Utilities
     /// <summary>
     ///     Useful Methods
     /// </summary>
-    public static class HelperMethods
+    public static class WindowHelpers
     {
         private static Random _rng = new Random();
 
@@ -81,12 +81,24 @@ namespace GameOverlay.Utilities
         }
 
         /// <summary>
+        /// Gets the size of the window client.
+        /// </summary>
+        /// <param name="hwnd">The HWND.</param>
+        /// <returns></returns>
+        public static Tuple<int, int> GetWindowClientSize(IntPtr hwnd)
+        {
+            GetWindowClientRectInternal(hwnd, out NativeRect rect);
+
+            return new Tuple<int, int>(rect.Right - rect.Left, rect.Bottom - rect.Top);
+        }
+        
+        /// <summary>
         ///     Gets the real window nativeRect.
         /// </summary>
         /// <param name="hwnd">Window Handle</param>
         /// <param name="nativeRect">Real window bounds</param>
         /// <returns>Non-zero on success</returns>
-        public static int GetRealWindowRect(IntPtr hwnd, out NativeRect nativeRect)
+        internal static int GetRealWindowRectInternal(IntPtr hwnd, out NativeRect nativeRect)
         {
             nativeRect = new NativeRect();
 
@@ -130,7 +142,7 @@ namespace GameOverlay.Utilities
         /// <param name="hwnd">The HWND.</param>
         /// <param name="nativeRect">The nativeRect.</param>
         /// <returns></returns>
-        public static bool GetWindowClientRect(IntPtr hwnd, out NativeRect nativeRect)
+        internal static bool GetWindowClientRectInternal(IntPtr hwnd, out NativeRect nativeRect)
         {
             nativeRect = new NativeRect();
 

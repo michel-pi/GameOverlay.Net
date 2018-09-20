@@ -186,10 +186,10 @@ namespace GameOverlay.Windows
             Width = width;
             Height = height;
 
-            WindowClassName = HelperMethods.GenerateRandomString(5, 11);
-            string randomMenuName = HelperMethods.GenerateRandomString(5, 11);
+            WindowClassName = WindowHelpers.GenerateRandomString(5, 11);
+            string randomMenuName = WindowHelpers.GenerateRandomString(5, 11);
 
-            if (WindowTitle == null) WindowTitle = HelperMethods.GenerateRandomString(5, 11);
+            if (WindowTitle == null) WindowTitle = WindowHelpers.GenerateRandomString(5, 11);
 
             // prepare method
             _windowProc = WindowProcedure;

@@ -274,7 +274,7 @@ namespace GameOverlay.Graphics
             if (User32.IsWindow(options.Hwnd) == 0)
                 throw new ArgumentException("The window does not exist (hwnd = 0x" + options.Hwnd.ToString("X") + ")");
 
-            if (!HelperMethods.GetWindowClientRect(options.Hwnd, out var bounds))
+            if (!WindowHelpers.GetWindowClientRectInternal(options.Hwnd, out var bounds))
                 throw new Exception("Failed to get the size of the given window (hwnd = 0x" +
                                     options.Hwnd.ToString("X") + ")");
 

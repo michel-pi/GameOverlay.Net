@@ -86,7 +86,7 @@
     <Compile Include="PInvoke\Types\WindowsMessage.cs" />
     <Compile Include="PInvoke\Types\WindowClassEx.cs" />
     <Compile Include="PInvoke\Types\WindowStyles.cs" />
-    <Compile Include="Utilities\HelperMethods.cs" />
+    <Compile Include="Utilities\WindowHelpers.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Utilities\FrameTimer.cs" />
     <Compile Include="Windows\StickyOverlayWindow.cs" />
