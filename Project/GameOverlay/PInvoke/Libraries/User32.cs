@@ -71,6 +71,10 @@ namespace GameOverlay.PInvoke.Libraries
 
         public delegate int WaitMessageDelegate();
 
+        public delegate int PostMessageWDelegate(IntPtr hwnd, WindowsMessage message, IntPtr wparam, IntPtr lparam);
+
+        public static PostMessageWDelegate PostMessage = WinApi.GetMethod<PostMessageWDelegate>("user32.dll", "PostMessageW");
+
         public static CreateWindowExDelegate CreateWindowEx =
             WinApi.GetMethod<CreateWindowExDelegate>("user32.dll", "CreateWindowExW");
 

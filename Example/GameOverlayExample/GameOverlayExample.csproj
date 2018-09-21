@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GameOverlay, Version=2.6.6.6800, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GameOverlay, Version=2.19.19.6801, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GameOverlay\bin\Release\GameOverlay.dll</HintPath>
+      <HintPath>..\..\Project\GameOverlay\bin\Debug\GameOverlay.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

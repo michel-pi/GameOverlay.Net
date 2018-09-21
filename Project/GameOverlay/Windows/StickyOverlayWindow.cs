@@ -113,17 +113,7 @@ namespace GameOverlay.Windows
 
             _exitServiceThread = true;
 
-            try
-            {
-                _serviceThread.Join();
-            }
-            catch
-            {
-                // ignored
-            }
-
             _serviceThread = null;
-            _exitServiceThread = false;
         }
 
         private void WindowService()

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOverlayExample", "GameOverlayExample\GameOverlayExample.csproj", "{23F7A2C8-0057-41D5-B24E-2855BC6DB3DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOverlay", "..\Project\GameOverlay\GameOverlay.csproj", "{313A83B1-C9C1-411D-A747-63BFA1FFA24C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{23F7A2C8-0057-41D5-B24E-2855BC6DB3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23F7A2C8-0057-41D5-B24E-2855BC6DB3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23F7A2C8-0057-41D5-B24E-2855BC6DB3DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{313A83B1-C9C1-411D-A747-63BFA1FFA24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{313A83B1-C9C1-411D-A747-63BFA1FFA24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{313A83B1-C9C1-411D-A747-63BFA1FFA24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{313A83B1-C9C1-411D-A747-63BFA1FFA24C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

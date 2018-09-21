@@ -256,9 +256,6 @@ namespace GameOverlay.Windows
         {
             switch (msg)
             {
-                case WindowsMessage.Destroy:
-                    return (IntPtr) 0;
-
                 case WindowsMessage.Erasebkgnd:
                     User32.SendMessage(WindowHandle, WindowsMessage.Paint, (IntPtr) 0, (IntPtr) 0);
                     break;
@@ -296,11 +293,20 @@ namespace GameOverlay.Windows
 
                 if (User32.PeekMessageW(ref message, WindowHandle, 0, 0, 1) == 0) continue;
 
-                if (message.Msg == WindowsMessage.Quit) continue;
+                if (message.Msg == WindowsMessage.Quit)
+                    continue;
 
+                if (message.Msg == (WindowsMessage)0x1337)
+                    User32.DestroyWindow(WindowHandle);
+                
                 User32.TranslateMessage(ref message);
                 User32.DispatchMessage(ref message);
+
+                if (message.Msg == WindowsMessage.Destroy || message.Msg == WindowsMessage.Ncdestroy)
+                    break;
             }
+
+            User32.UnregisterClass(WindowClassName, IntPtr.Zero);
         }
 
         /// <summary>
@@ -424,25 +430,13 @@ namespace GameOverlay.Windows
         /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposedValue || !IsInitialized) return;
-
-            if (_windowThread != null)
-            {
-                try
-                {
-                    _windowThread.Abort();
-                    _windowThread.Join();
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-
-            User32.DestroyWindow(WindowHandle);
-            User32.UnregisterClass(WindowClassName, IntPtr.Zero);
+            if (_disposedValue) return;
 
             _disposedValue = true;
+
+            if (!IsInitialized) return;
+
+            User32.SendMessage(WindowHandle, (WindowsMessage)0x1337, IntPtr.Zero, IntPtr.Zero);
         }
 
         /// <inheritdoc />

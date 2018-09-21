@@ -30,6 +30,8 @@ namespace GameOverlayExample
 
                 if (line.ToLower() == "exit") exit = true;
             }
+
+            example.DestroyInstance();
         }
     }
 }

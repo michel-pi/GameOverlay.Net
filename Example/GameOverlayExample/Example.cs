@@ -36,7 +36,7 @@ namespace GameOverlayExample
 
         ~Example()
         {
-            DestroyInstance();
+            //DestroyInstance();
         }
 
         private void SetupInstance()
@@ -72,7 +72,7 @@ namespace GameOverlayExample
             _frameTimer.Start();
         }
 
-        private void DestroyInstance()
+        public void DestroyInstance()
         {
             _frameTimer.Stop();
 
