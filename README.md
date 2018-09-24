@@ -55,3 +55,4 @@ ETH     0xd9E2CB12d310E7BF5E72F591D7A2b8820adced04
 - [BigMo (Zat)](https://github.com/BigMo "BigMo (Zat)") for his [SharpDXRenderer](https://github.com/BigMo/ExternalUtilsCSharp/tree/master/ExternalUtilsCSharp.SharpDXRenderer "SharpDXRenderer")
 - [ReactiioN](https://github.com/ReactiioN1337 "ReactiioN") for his [C++ aero-overlay](https://github.com/ReactiioN1337/aero-overlay "C++ aero-overlay")
 - [SharpDX](http://sharpdx.org/ "SharpDX") for their open source DirectX wrapper
+- [aliakbo](https://github.com/aliakbo "aliakbo") for his contribution towards the project fixing several issues
