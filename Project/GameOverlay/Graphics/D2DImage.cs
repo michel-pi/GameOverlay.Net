@@ -92,14 +92,16 @@ namespace GameOverlay.Graphics
                 var converter = new FormatConverter(ImagingFactory);
                 try
                 {
-                    converter.Initialize(frame, PixelFormat.Format32bppRGBA1010102);
+                    converter.Initialize(frame, PixelFormat.Format32bppPRGBA);
+                    SharpDxBitmap = Bitmap.FromWicBitmap(device, converter);
                 }
                 catch
                 {
                     // falling back to RGB if unsupported
+                    converter = new FormatConverter(ImagingFactory);
                     converter.Initialize(frame, PixelFormat.Format32bppRGB);
+                    SharpDxBitmap = Bitmap.FromWicBitmap(device, converter);
                 }
-                SharpDxBitmap = Bitmap.FromWicBitmap(device, converter);
 
                 converter.Dispose();
                 frame.Dispose();
