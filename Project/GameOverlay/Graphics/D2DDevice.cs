@@ -2064,14 +2064,14 @@ namespace GameOverlay.Graphics
             {
                 _device.DrawText(text, text.Length, font,
                     new RawRectangleF(location.X, location.Y, Width - location.X, Height - location.Y),
-                    brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
+                    brush.GetBrush(), DrawTextOptions.Clip, MeasuringMode.Natural);
             }
             else
             {
                 var layout = new TextLayout(_fontFactory, text, font, Width - location.X, Height - location.Y);
                 layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
-                _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+                _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.Clip);
 
                 layout.Dispose();
             }
@@ -2097,14 +2097,14 @@ namespace GameOverlay.Graphics
             if (fontSize == font.FontSize)
             {
                 _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, Width - x, Height - y),
-                    brush.GetBrush(), DrawTextOptions.NoSnap, MeasuringMode.Natural);
+                    brush.GetBrush(), DrawTextOptions.Clip, MeasuringMode.Natural);
             }
             else
             {
                 var layout = new TextLayout(_fontFactory, text, font, Width - x, Height - y);
                 layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
-                _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+                _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.Clip);
 
                 layout.Dispose();
             }
@@ -2136,7 +2136,7 @@ namespace GameOverlay.Graphics
                     location.X + layout.Metrics.Width + modifier, location.Y + layout.Metrics.Height + modifier),
                 background.GetBrush());
 
-            _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.Clip);
 
             layout.Dispose();
         }
@@ -2167,7 +2167,7 @@ namespace GameOverlay.Graphics
                 new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier,
                     y + layout.Metrics.Height + modifier), background.GetBrush());
 
-            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.Clip);
 
             layout.Dispose();
         }
@@ -2201,7 +2201,7 @@ namespace GameOverlay.Graphics
                     location.X + layout.Metrics.Width + modifier, location.Y + layout.Metrics.Height + modifier),
                 background.GetBrush());
 
-            _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.Clip);
 
             layout.Dispose();
         }
@@ -2235,7 +2235,7 @@ namespace GameOverlay.Graphics
                 new RawRectangleF(x - modifier, y - modifier, x + layout.Metrics.Width + modifier,
                     y + layout.Metrics.Height + modifier), background.GetBrush());
 
-            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.NoSnap);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.Clip);
 
             layout.Dispose();
         }
@@ -2414,6 +2414,11 @@ namespace GameOverlay.Graphics
         {
             return new Primitives.Geometry(this);
         }
+
+        #endregion
+
+        #region helper methods
+        
 
         #endregion
 

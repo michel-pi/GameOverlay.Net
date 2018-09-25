@@ -73,6 +73,10 @@ namespace GameOverlay.PInvoke.Libraries
 
         public delegate int PostMessageWDelegate(IntPtr hwnd, WindowsMessage message, IntPtr wparam, IntPtr lparam);
 
+        public delegate IntPtr GetForegroundWindowDelegate();
+
+        public static GetForegroundWindowDelegate GetForegroundWindow = WinApi.GetMethod<GetForegroundWindowDelegate>("user32.dll", "GetForegroundWindow");
+
         public static PostMessageWDelegate PostMessage = WinApi.GetMethod<PostMessageWDelegate>("user32.dll", "PostMessageW");
 
         public static CreateWindowExDelegate CreateWindowEx =

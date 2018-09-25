@@ -25,6 +25,16 @@
         public string WindowTitle;
 
         /// <summary>
+        ///     The windows class name
+        /// </summary>
+        public string ClassName;
+
+        /// <summary>
+        ///     The windows menu name
+        /// </summary>
+        public string MenuName;
+
+        /// <summary>
         ///     The x
         /// </summary>
         public int X;

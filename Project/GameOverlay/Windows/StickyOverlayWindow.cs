@@ -18,14 +18,13 @@ namespace GameOverlay.Windows
             BypassTopmost = false,
             Height = 600,
             Width = 800,
-            WindowTitle = WindowHelpers.GenerateRandomString(5, 11),
             X = 0,
             Y = 0
         };
 
         private bool _exitServiceThread;
         private Thread _serviceThread;
-
+        
         /// <inheritdoc />
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:GameOverlay.Windows.StickyOverlayWindow" /> class.
@@ -50,7 +49,7 @@ namespace GameOverlay.Windows
         public StickyOverlayWindow(IntPtr parentWindowHandle, OverlayOptions options) : base(options)
         {
             if (parentWindowHandle == IntPtr.Zero) throw new ArgumentNullException(nameof(parentWindowHandle));
-
+            
             while (!IsInitialized) Thread.Sleep(10);
 
             ParentWindowHandle = parentWindowHandle;
@@ -80,6 +79,23 @@ namespace GameOverlay.Windows
             if (_exitServiceThread || _serviceThread != null) return;
 
             ShowWindow();
+
+            if (WindowHelpers.GetWindowClientRectInternal(ParentWindowHandle, out var bounds))
+            {
+                int x = bounds.Left;
+                int y = bounds.Top;
+
+                int width = bounds.Right - x;
+                int height = bounds.Bottom - y;
+
+                if (X != x
+                    || Y != y
+                    || Width != width
+                    || Height != height)
+                {
+                    SetWindowBounds(x, y, width, height);
+                }
+            }
 
             _exitServiceThread = false;
 

@@ -76,6 +76,8 @@ namespace GameOverlay.Windows
         public OverlayWindow(OverlayOptions options)
         {
             WindowTitle = options.WindowTitle;
+            WindowClassName = options.ClassName;
+            WindowMenuName = options.MenuName;
             BypassTopmost = options.BypassTopmost;
 
             _windowThread = new Thread(() => WindowThreadProcedure(options.X, options.Y, options.Width, options.Height))
@@ -127,6 +129,11 @@ namespace GameOverlay.Windows
         public int Width { get; private set; }
 
         /// <summary>
+        ///     Gets the window menu name
+        /// </summary>
+        public string WindowMenuName { get; private set; }
+
+        /// <summary>
         ///     Gets the name of the window class.
         /// </summary>
         /// <value>The name of the window class.</value>
@@ -143,7 +150,7 @@ namespace GameOverlay.Windows
         /// </summary>
         /// <value>The window title.</value>
         public string WindowTitle { get; private set; }
-
+        
         /// <summary>
         ///     Gets the x.
         /// </summary>
@@ -186,8 +193,8 @@ namespace GameOverlay.Windows
             Width = width;
             Height = height;
 
-            WindowClassName = WindowHelpers.GenerateRandomString(5, 11);
-            string randomMenuName = WindowHelpers.GenerateRandomString(5, 11);
+            if(string.IsNullOrEmpty(WindowClassName)) WindowClassName = WindowHelpers.GenerateRandomString(5, 11);
+            if(string.IsNullOrEmpty(WindowMenuName)) WindowMenuName = WindowHelpers.GenerateRandomString(5, 11);
 
             if (WindowTitle == null) WindowTitle = WindowHelpers.GenerateRandomString(5, 11);
 
@@ -207,7 +214,7 @@ namespace GameOverlay.Windows
                 hIcon = IntPtr.Zero,
                 hCursor = IntPtr.Zero,
                 hbrBackground = IntPtr.Zero,
-                lpszMenuName = randomMenuName,
+                lpszMenuName = WindowMenuName,
                 lpszClassName = WindowClassName,
                 hIconSm = IntPtr.Zero
             };

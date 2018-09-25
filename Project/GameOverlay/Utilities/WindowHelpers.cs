@@ -91,7 +91,16 @@ namespace GameOverlay.Utilities
 
             return new Tuple<int, int>(rect.Right - rect.Left, rect.Bottom - rect.Top);
         }
-        
+
+        /// <summary>
+        ///     Retrieves a handle to the foreground window (the window with which the user is currently working). The system assigns a slightly higher priority to the thread that creates the foreground window than it does to other threads.
+        /// </summary>
+        /// <returns>The return value is a handle to the foreground window. The foreground window can be NULL in certain circumstances, such as when a window is losing activation.</returns>
+        public static IntPtr GetForegroundWindow()
+        {
+            return User32.GetForegroundWindow();
+        }
+
         /// <summary>
         ///     Gets the real window nativeRect.
         /// </summary>
