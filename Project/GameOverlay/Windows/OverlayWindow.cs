@@ -39,8 +39,7 @@ namespace GameOverlay.Windows
 
             _windowThread = new Thread(() => WindowThreadProcedure())
             {
-                IsBackground = true,
-                Priority = ThreadPriority.BelowNormal
+                IsBackground = true
             };
             _windowThread.Start();
 

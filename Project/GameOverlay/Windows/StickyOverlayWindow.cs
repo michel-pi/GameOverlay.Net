@@ -101,8 +101,7 @@ namespace GameOverlay.Windows
 
             _serviceThread = new Thread(WindowService)
             {
-                IsBackground = true,
-                Priority = ThreadPriority.BelowNormal
+                IsBackground = true
             };
 
             _serviceThread.Start();
@@ -138,12 +137,7 @@ namespace GameOverlay.Windows
             {
                 Thread.Sleep(100);
 
-                if (User32.IsWindowVisible(ParentWindowHandle) == 0)
-                {
-                    if (IsVisible) HideWindow();
-                    continue;
-                }
-                if (!IsVisible) ShowWindow();
+                if (!IsVisible) continue;
 
                 if (BypassTopmost)
                 {
