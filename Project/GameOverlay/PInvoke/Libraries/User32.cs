@@ -24,27 +24,27 @@ namespace GameOverlay.PInvoke.Libraries
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         public delegate IntPtr DefWindowProcDelegate(IntPtr hwnd, WindowsMessage msg, IntPtr wparam, IntPtr lparam);
 
-        public delegate int DestroyWindowDelegate(IntPtr hwnd);
+        public delegate bool DestroyWindowDelegate(IntPtr hwnd);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         public delegate int DispatchMessageDelegate(ref Message msg);
 
-        public delegate int GetClientRectDelegate(IntPtr hwnd, out NativeRect lpNativeRect);
+        public delegate bool GetClientRectDelegate(IntPtr hwnd, out NativeRect lpNativeRect);
 
         public delegate IntPtr GetWindowDelegate(IntPtr hwnd, uint cmd);
 
-        public delegate int GetWindowRectDelegate(IntPtr hwnd, out NativeRect lpNativeRect);
+        public delegate bool GetWindowRectDelegate(IntPtr hwnd, out NativeRect lpNativeRect);
 
-        public delegate int IsProcessDPIAwareDelegate();
+        public delegate bool IsProcessDPIAwareDelegate();
 
-        public delegate int IsWindowDelegate(IntPtr hwnd);
+        public delegate bool IsWindowDelegate(IntPtr hwnd);
 
-        public delegate int IsWindowVisibleDelegate(IntPtr hwnd);
+        public delegate bool IsWindowVisibleDelegate(IntPtr hwnd);
 
-        public delegate int MoveWindowDelegate(IntPtr hwnd, int x, int y, int width, int height, int repaint);
+        public delegate bool MoveWindowDelegate(IntPtr hwnd, int x, int y, int width, int height, int repaint);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
-        public delegate int PeekMessageWDelegate(ref Message msg, IntPtr hwnd, uint filterMin, uint filterMax,
+        public delegate bool PeekMessageWDelegate(ref Message msg, IntPtr hwnd, uint filterMin, uint filterMax,
             uint removeMsg);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
@@ -57,21 +57,21 @@ namespace GameOverlay.PInvoke.Libraries
 
         public delegate IntPtr SetThreadDpiAwarenessContextDelegate(ref int dpiContext);
 
-        public delegate int SetWindowPosDelegate(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int cx, int cy,
+        public delegate bool SetWindowPosDelegate(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int cx, int cy,
             uint flags);
 
-        public delegate int ShowWindowDelegate(IntPtr hWnd, uint nCmdShow);
+        public delegate bool ShowWindowDelegate(IntPtr hWnd, uint nCmdShow);
 
-        public delegate int TranslateMessageDelegate(ref Message msg);
+        public delegate bool TranslateMessageDelegate(ref Message msg);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
-        public delegate int UnregisterClassDelegate(string lpClassName, IntPtr hInstance);
+        public delegate bool UnregisterClassDelegate(string lpClassName, IntPtr hInstance);
 
         public delegate bool UpdateWindowDelegate(IntPtr hWnd);
 
-        public delegate int WaitMessageDelegate();
+        public delegate bool WaitMessageDelegate();
 
-        public delegate int PostMessageWDelegate(IntPtr hwnd, WindowsMessage message, IntPtr wparam, IntPtr lparam);
+        public delegate bool PostMessageWDelegate(IntPtr hwnd, WindowsMessage message, IntPtr wparam, IntPtr lparam);
 
         public delegate IntPtr GetForegroundWindowDelegate();
 
