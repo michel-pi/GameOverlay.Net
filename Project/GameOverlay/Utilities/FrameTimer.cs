@@ -21,6 +21,7 @@ namespace GameOverlay.Utilities
         private bool _exitTimerThread;
         private Stopwatch _stopwatch;
         private Thread _thread;
+        private volatile bool _isPaused;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="FrameTimer" /> class.
@@ -94,7 +95,11 @@ namespace GameOverlay.Utilities
         /// <value>
         ///     <c>true</c> if this instance is paused; otherwise, <c>false</c>.
         /// </value>
-        public bool IsPaused { get; set; }
+        public bool IsPaused
+        {
+            get { return _isPaused; }
+            set { _isPaused = value; }
+        }
 
         /// <summary>
         ///     Occurs when [frame starting].
