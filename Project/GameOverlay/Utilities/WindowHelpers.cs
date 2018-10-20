@@ -106,16 +106,16 @@ namespace GameOverlay.Utilities
         /// </summary>
         /// <param name="hwnd">Window Handle</param>
         /// <param name="nativeRect">Real window bounds</param>
-        /// <returns>true on success</returns>
-        internal static bool GetRealWindowRectInternal(IntPtr hwnd, out NativeRect nativeRect)
+        /// <returns>Non-zero on success</returns>
+        internal static int GetRealWindowRectInternal(IntPtr hwnd, out NativeRect nativeRect)
         {
             nativeRect = new NativeRect();
 
-            bool result = User32.GetWindowRect(hwnd, out nativeRect);
+            int result = User32.GetWindowRect(hwnd, out nativeRect);
 
-            if (!User32.GetClientRect(hwnd, out var clientRect)) return result;
+            if (User32.GetClientRect(hwnd, out var clientRect) == 0) return result;
 
-            if (!result) return result;
+            if (result == 0) return result;
 
             int clientWidth = clientRect.Right - clientRect.Left;
             int clientHeight = clientRect.Bottom - clientRect.Top;
@@ -155,8 +155,8 @@ namespace GameOverlay.Utilities
         {
             nativeRect = new NativeRect();
 
-            if (!User32.GetWindowRect(hwnd, out nativeRect)) return false;
-            if (!User32.GetClientRect(hwnd, out var client)) return true;
+            if (User32.GetWindowRect(hwnd, out nativeRect) == 0) return false;
+            if (User32.GetClientRect(hwnd, out var client) == 0) return true;
 
             int clientWidth = client.Right - client.Left;
             int clientHeight = client.Bottom - client.Top;

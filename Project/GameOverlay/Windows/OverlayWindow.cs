@@ -297,7 +297,7 @@ namespace GameOverlay.Windows
 
                 var message = new Message();
 
-                if (!User32.PeekMessageW(ref message, WindowHandle, 0, 0, 1)) continue;
+                if (User32.PeekMessageW(ref message, WindowHandle, 0, 0, 1) == 0) continue;
 
                 if (message.Msg == WindowsMessage.Quit)
                     continue;
