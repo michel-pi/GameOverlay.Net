@@ -2003,7 +2003,7 @@ namespace GameOverlay.Graphics
         #endregion
 
         #region text
-
+        
         /// <summary>
         ///     Draws the text.
         /// </summary>
@@ -2019,9 +2019,11 @@ namespace GameOverlay.Graphics
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            _device.DrawText(text, text.Length, font,
-                new RawRectangleF(location.X, location.Y, Width - location.X, Height - location.Y), brush.GetBrush(),
-                DrawTextOptions.NoSnap, MeasuringMode.Natural);
+            var layout = new TextLayout(_fontFactory, text, font, Width - location.X, Height - location.Y);
+
+            _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.Clip);
+
+            layout.Dispose();
         }
 
         /// <summary>
@@ -2040,8 +2042,11 @@ namespace GameOverlay.Graphics
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, Width - x, Height - y), brush.GetBrush(),
-                DrawTextOptions.NoSnap, MeasuringMode.Natural);
+            var layout = new TextLayout(_fontFactory, text, font, Width - x, Height - y);
+
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.Clip);
+
+            layout.Dispose();
         }
 
         /// <summary>
@@ -2060,21 +2065,12 @@ namespace GameOverlay.Graphics
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            if (fontSize == font.FontSize)
-            {
-                _device.DrawText(text, text.Length, font,
-                    new RawRectangleF(location.X, location.Y, Width - location.X, Height - location.Y),
-                    brush.GetBrush(), DrawTextOptions.Clip, MeasuringMode.Natural);
-            }
-            else
-            {
-                var layout = new TextLayout(_fontFactory, text, font, Width - location.X, Height - location.Y);
-                layout.SetFontSize(fontSize, new TextRange(0, text.Length));
+            var layout = new TextLayout(_fontFactory, text, font, Width - location.X, Height - location.Y);
+            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
-                _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.Clip);
+            _device.DrawTextLayout(location, layout, brush.GetBrush(), DrawTextOptions.Clip);
 
-                layout.Dispose();
-            }
+            layout.Dispose();
         }
 
         /// <summary>
@@ -2094,20 +2090,12 @@ namespace GameOverlay.Graphics
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing any primitives!");
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            if (fontSize == font.FontSize)
-            {
-                _device.DrawText(text, text.Length, font, new RawRectangleF(x, y, Width - x, Height - y),
-                    brush.GetBrush(), DrawTextOptions.Clip, MeasuringMode.Natural);
-            }
-            else
-            {
-                var layout = new TextLayout(_fontFactory, text, font, Width - x, Height - y);
-                layout.SetFontSize(fontSize, new TextRange(0, text.Length));
+            var layout = new TextLayout(_fontFactory, text, font, Width - x, Height - y);
+            layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 
-                _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.Clip);
+            _device.DrawTextLayout(new RawVector2(x, y), layout, brush.GetBrush(), DrawTextOptions.Clip);
 
-                layout.Dispose();
-            }
+            layout.Dispose();
         }
 
         /// <summary>
