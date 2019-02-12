@@ -19,7 +19,8 @@ An easy to use Direct2D1 drawing library with the ability to create transparent 
 - Create transparent overlay windows
 - Make your overlay stick to a parent window
 
-### *[Examples](https://github.com/michel-pi/GameOverlay.Net/tree/master/example)*
+### [Example](https://github.com/michel-pi/GameOverlay.Net/tree/master/example)
+### [Documentation](https://michel-pi.github.io/GameOverlay.Net/)
 
 # Contribute
 
