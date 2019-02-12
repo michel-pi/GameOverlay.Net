@@ -143,7 +143,7 @@ namespace GameOverlay.Windows
         /// </summary>
         public void StopThreadAsync()
         {
-            if (_isRunning) throw new InvalidOperationException("Graphics window is already running");
+            if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
 
             _isRunning = false;
             _isPaused = false;
@@ -154,7 +154,7 @@ namespace GameOverlay.Windows
         /// </summary>
         public void Pause()
         {
-            if (_isRunning) throw new InvalidOperationException("Graphics window is already running");
+            if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
 
             _isPaused = true;
         }
@@ -164,9 +164,23 @@ namespace GameOverlay.Windows
         /// </summary>
         public void Unpause()
         {
-            if (_isRunning) throw new InvalidOperationException("Graphics window is already running");
+            if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
 
             _isPaused = false;
+        }
+
+        /// <summary>
+        /// Waits until the Thread used by this instance has exited.
+        /// </summary>
+        public void JoinGraphicsThread()
+        {
+            if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
+
+            try
+            {
+                _thread.Join();
+            }
+            catch { }
         }
 
         private void GraphicsWindowThread()
