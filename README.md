@@ -1,6 +1,6 @@
 # GameOverlay.Net
 
-An easy to use Direct2D1 drawing library with the ability to create transparent windows.
+An easy to use Direct2D1 drawing library with the ability to create transparent overlay windows.
 
 ![A running overlay window](https://github.com/michel-pi/GameOverlay.Net/blob/master/example_picture.png)
 
@@ -8,34 +8,36 @@ An easy to use Direct2D1 drawing library with the ability to create transparent 
 
     Install-Package GameOverlay.Net
 
-
 # Features
 
-- Windows 7, 8, 8.1 and 10
-- Draw Text, Lines, Rectangles, Circles, Triangles...
-- Draw dotted lines and many more
-- Load and Draw images (.bmp .png .jpg)
-- Multithreaded rendering
-- Already implemented render loop with fps limitation
+- Supports Windows 7, 8, 8.1 and 10
 - Hardware accelerated
-- Create transparent windows
+- Draw Text, Lines, Rectangles, Circles, Triangles...
+- Load and Draw images (.bmp, .png, .jpg)
+- Multithreaded rendering is possible
+- Already implemented render loop with fps limitation
+- Create transparent overlay windows
+- Make your overlay stick to a parent window
 
-*[Example code](https://github.com/michel-pi/GameOverlay.Net/blob/master/Example/GameOverlayExample/Example.cs#L123)*
+### *[Examples](https://github.com/michel-pi/GameOverlay.Net/tree/master/example)*
 
 # Contribute
 
-Clone or download the repository and update/install the NuGet dependencies.
+The project file was generated using Visual Studio 2017.
 
-Help adding features, fixing issues or provide a better documentation.
+Clone or download the repository and update/install the required NuGet packages.
+
+You can help by reporting issues, adding new features, fixing bugs and by providing a better documentation.  
 
 ### Dependencies
 
     SharpDX.Direct2D1, SharpDX.DXGI, SharpDX
 
-
 # Donate
 
-Do you like this project?
+Do you like this project and want to help me to keep working on it?
+
+Then maybe consider to donate any amount you like.
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YJDWMDUSM8KKQ)
 
