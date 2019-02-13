@@ -364,6 +364,50 @@ namespace GameOverlay.Windows
         }
 
         /// <summary>
+        /// Adapts to another window in the postion and size.
+        /// </summary>
+        /// <param name="windowHandle">The target window handle.</param>
+        /// <param name="attachToClientArea">A Boolean determining whether to fit to the client area of the target window.</param>
+        public void FitToWindow(IntPtr windowHandle, bool attachToClientArea = false)
+        {
+            bool result = attachToClientArea ? WindowHelper.GetWindowClient(windowHandle, out NativeRect rect) : WindowHelper.GetWindowRect(windowHandle, out rect);
+
+            if (result)
+            {
+                int x = rect.Left;
+                int y = rect.Top;
+                int width = rect.Right - rect.Left;
+                int height = rect.Bottom - rect.Top;
+
+                if (X != x
+                    || Y != y
+                    || Width != width
+                    || Height != height)
+                {
+                    Resize(x, y, width, height);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Places the OverlayWindow above the target window according to the windows z-order.
+        /// </summary>
+        /// <param name="windowHandle">The target window handle.</param>
+        public void PlaceAboveWindow(IntPtr windowHandle)
+        {
+            var windowAboveParentWindow = User32.GetWindow(windowHandle, 3 /* GW_HWNDPREV */);
+
+            if (windowAboveParentWindow != Handle)
+            {
+                User32.SetWindowPos(
+                    Handle,
+                    windowAboveParentWindow,
+                    0, 0, 0, 0,
+                    SwpFlags.NoActivate | SwpFlags.NoMove | SwpFlags.NoSize | SwpFlags.AsyncWindowPos);
+            }
+        }
+
+        /// <summary>
         /// Gets called whenever the size of the window changes.
         /// </summary>
         /// <param name="width">The new width of the window.</param>
