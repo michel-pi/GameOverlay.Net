@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">GameOverlay.Net
-   &#160;<span id="projectnumber">4.0.0</span>
+   &#160;<span id="projectnumber">4.0.1</span>
    </div>
   </td>
  </tr>
@@ -136,6 +136,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a82ff98886b25230024c8030aeff2d1d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#a82ff98886b25230024c8030aeff2d1d6">Resize</a> (int x, int y, int width, int height)</td></tr>
 <tr class="memdesc:a82ff98886b25230024c8030aeff2d1d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the size of the window using the given dimension.  <a href="#a82ff98886b25230024c8030aeff2d1d6">More...</a><br /></td></tr>
 <tr class="separator:a82ff98886b25230024c8030aeff2d1d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb2cfad26f788af9cbadda5253dbe8be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#abb2cfad26f788af9cbadda5253dbe8be">FitToWindow</a> (IntPtr windowHandle, bool attachToClientArea=false)</td></tr>
+<tr class="memdesc:abb2cfad26f788af9cbadda5253dbe8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adapts to another window in the postion and size.  <a href="#abb2cfad26f788af9cbadda5253dbe8be">More...</a><br /></td></tr>
+<tr class="separator:abb2cfad26f788af9cbadda5253dbe8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83ad63a82fe7461fd2df2152daa7612f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#a83ad63a82fe7461fd2df2152daa7612f">PlaceAboveWindow</a> (IntPtr windowHandle)</td></tr>
+<tr class="memdesc:a83ad63a82fe7461fd2df2152daa7612f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Places the <a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html" title="Represents a transparent overlay window.">OverlayWindow</a> above the target window according to the windows z-order.  <a href="#a83ad63a82fe7461fd2df2152daa7612f">More...</a><br /></td></tr>
+<tr class="separator:a83ad63a82fe7461fd2df2152daa7612f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cfc011ff690f4dca84c1e08fb7f4dad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#a2cfc011ff690f4dca84c1e08fb7f4dad">Dispose</a> ()</td></tr>
 <tr class="memdesc:a2cfc011ff690f4dca84c1e08fb7f4dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all resources used by this <a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html" title="Represents a transparent overlay window.">OverlayWindow</a>.  <a href="#a2cfc011ff690f4dca84c1e08fb7f4dad">More...</a><br /></td></tr>
 <tr class="separator:a2cfc011ff690f4dca84c1e08fb7f4dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -354,6 +360,43 @@ Events</h2></td></tr>
 
 </div>
 </div>
+<a id="abb2cfad26f788af9cbadda5253dbe8be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb2cfad26f788af9cbadda5253dbe8be">&#9670;&nbsp;</a></span>FitToWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameOverlay.Windows.OverlayWindow.FitToWindow </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>windowHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>attachToClientArea</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adapts to another window in the postion and size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">windowHandle</td><td>The target window handle.</td></tr>
+    <tr><td class="paramname">attachToClientArea</td><td>A Boolean determining whether to fit to the client area of the target window.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a7ec9fce6d9bdaf2d5c6a03ec8a38da81"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ec9fce6d9bdaf2d5c6a03ec8a38da81">&#9670;&nbsp;</a></span>Hide()</h2>
 
@@ -528,6 +571,32 @@ Events</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">isVisible</td><td>A Boolean indicating the new visibility of the window.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a83ad63a82fe7461fd2df2152daa7612f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83ad63a82fe7461fd2df2152daa7612f">&#9670;&nbsp;</a></span>PlaceAboveWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameOverlay.Windows.OverlayWindow.PlaceAboveWindow </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>windowHandle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Places the <a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html" title="Represents a transparent overlay window.">OverlayWindow</a> above the target window according to the windows z-order. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">windowHandle</td><td>The target window handle.</td></tr>
   </table>
   </dd>
 </dl>
