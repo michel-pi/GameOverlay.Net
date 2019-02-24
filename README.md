@@ -8,7 +8,7 @@ Using the provided methods you can draw the most basic shapes, text and even som
 
 The overlay window has the ability to always be in the top of the target window, follow its position, and track its size.
 
-![A running overlay window](https://github.com/michel-pi/GameOverlay.Net/blob/master/example_picture.png)
+![A running Overlay Window](https://github.com/michel-pi/GameOverlay.Net/blob/master/example_picture.png)
 
 ### NuGet
 
