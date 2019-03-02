@@ -19,11 +19,6 @@ namespace GameOverlay.Windows
         private volatile bool _isPaused;
 
         private volatile int _fps;
-        
-        /// <summary>
-        /// Gets or sets the window handle of the parent window.
-        /// </summary>
-        public IntPtr ParenWindowHandle { get; set; }
 
         /// <summary>
         /// Gets or sets the used Graphics surface.
@@ -38,15 +33,6 @@ namespace GameOverlay.Windows
         /// Gets or sets a Boolean which determines whether this instance is paused.
         /// </summary>
         public bool IsPaused { get => _isPaused; set => _isPaused = value; }
-
-        /// <summary>
-        /// Gets or sets a Boolean which determines whether this instance sticks to the client aread of the parent window.
-        /// </summary>
-        public bool StickToClientArea { get; set; }
-        /// <summary>
-        /// Gets or sets a Boolean which determines whether this instance place itself on top of the parent window.
-        /// </summary>
-        public bool BypassTopmost { get; set; }
 
         /// <summary>
         /// Gets or sets the frames per second (frame rate) at which this instance invokes its DrawGraphics event.
@@ -66,36 +52,18 @@ namespace GameOverlay.Windows
         /// </summary>
         public event EventHandler<SetupGraphicsEventArgs> SetupGraphics;
         
-        private GraphicsWindow()
+        /// <summary>
+        /// Initializes a new GraphicsWindow.
+        /// </summary>
+        /// <param name="device"></param>
+        public GraphicsWindow(Graphics device = null)
         {
             _watch = Stopwatch.StartNew();
 
             SizeChanged += GraphicsWindow_SizeChanged;
             VisibilityChanged += GraphicsWindow_VisibilityChanged;
-        }
-        
-        /// <summary>
-        /// Initializes a new GraphicsWindow using a window handle.
-        /// </summary>
-        /// <param name="parentWindow">The window handle of the parent window.</param>
-        public GraphicsWindow(IntPtr parentWindow) : this()
-        {
-            if (!User32.IsWindow(parentWindow)) throw new ArgumentOutOfRangeException(nameof(parentWindow));
 
-            ParenWindowHandle = parentWindow;
-            Graphics = new Graphics();
-        }
-
-        /// <summary>
-        /// Initializes a new GraphicsWindow using a window handle and a Graphics surface.
-        /// </summary>
-        /// <param name="parentWindow">The window handle of the parent window.</param>
-        /// <param name="device">A Graphics surface.</param>
-        public GraphicsWindow(IntPtr parentWindow, Graphics device) : this()
-        {
-            if (!User32.IsWindow(parentWindow)) throw new ArgumentOutOfRangeException(nameof(parentWindow));
-            ParenWindowHandle = parentWindow;
-            Graphics = device ?? throw new ArgumentNullException(nameof(device));
+            Graphics = device ?? new Graphics();
         }
 
         /// <summary>
@@ -187,13 +155,6 @@ namespace GameOverlay.Windows
         {
             if (!IsInitialized)
             {
-                WindowHelper.GetWindowRect(ParenWindowHandle, out var rect);
-
-                X = rect.Left;
-                Y = rect.Top;
-                Width = rect.Right - rect.Left;
-                Height = rect.Bottom - rect.Top;
-
                 CreateWindow();
             }
 
@@ -210,9 +171,6 @@ namespace GameOverlay.Windows
 
             while (_isRunning)
             {
-                if (BypassTopmost) BypassTopmostHelper();
-                StickToParentWindow();
-
                 int currentFPS = _fps;
 
                 if (currentFPS > 0)
@@ -244,41 +202,6 @@ namespace GameOverlay.Windows
             }
 
             OnDestroyGraphics(Graphics);
-        }
-
-        private void StickToParentWindow()
-        {
-            bool result = StickToClientArea ? WindowHelper.GetWindowClient(ParenWindowHandle, out NativeRect rect) : WindowHelper.GetWindowRect(ParenWindowHandle, out rect);
-
-            if (result)
-            {
-                int x = rect.Left;
-                int y = rect.Top;
-                int width = rect.Right - rect.Left;
-                int height = rect.Bottom - rect.Top;
-
-                if (X != x
-                    || Y != y
-                    || Width != width
-                    || Height != height)
-                {
-                    Resize(x, y, width, height);
-                }
-            }
-        }
-
-        private void BypassTopmostHelper()
-        {
-            var windowAboveParentWindow = User32.GetWindow(ParenWindowHandle, 3 /* GW_HWNDPREV */);
-
-            if (windowAboveParentWindow != Handle)
-            {
-                User32.SetWindowPos(
-                    Handle,
-                    windowAboveParentWindow,
-                    0, 0, 0, 0,
-                    SwpFlags.NoActivate | SwpFlags.NoMove | SwpFlags.NoSize | SwpFlags.AsyncWindowPos);
-            }
         }
         
         private void GraphicsWindow_SizeChanged(object sender, OverlaySizeEventArgs e)
