@@ -8,7 +8,7 @@ using GameOverlay.PInvoke;
 namespace GameOverlay.Windows
 {
     /// <summary>
-    /// Represents an OverlayWindow which sticks to a parent window and is used to draw at any given frame rate.
+    /// Represents an OverlayWindow which is used to draw at any given frame rate.
     /// </summary>
     public class GraphicsWindow : OverlayWindow
     {
@@ -55,7 +55,7 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Initializes a new GraphicsWindow.
         /// </summary>
-        /// <param name="device"></param>
+        /// <param name="device">Optionally specify a Graphics device to use.</param>
         public GraphicsWindow(Graphics device = null)
         {
             _watch = Stopwatch.StartNew();
