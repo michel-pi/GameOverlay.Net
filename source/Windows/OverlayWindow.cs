@@ -269,6 +269,18 @@ namespace GameOverlay.Windows
                 while (!_isInitialized) Thread.Sleep(10);
             }
         }
+
+        /// <summary>
+        /// Waits until the Thread used by this instance has exited.
+        /// </summary>
+        public void JoinWindowThread()
+        {
+            try
+            {
+                _windowThread.Join();
+            }
+            catch { }
+        }
         
         /// <summary>
         /// Makes the window visible.
