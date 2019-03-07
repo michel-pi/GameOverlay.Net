@@ -1,14 +1,8 @@
 # GameOverlay.Net
 
-This library offers you a comprehensive interface to allow you to render visuals to another window.
+This library offers a comprehensive interface for drawing hardware accelerated graphics using our [Direct2D1 renderer](https://github.com/michel-pi/GameOverlay.Net/blob/master/source/Drawing/Graphics.cs "Direct2D1 renderer") and creating transparent click-through windows.
 
-This is done by using a transparent window which is on top of the target window and the direct2d drawing interface provided by this library.
-
-Using the provided methods you can draw the most basic shapes, text and even some more complex ones.
-
-The overlay window has the ability to always be in the top of the target window, follow its position, and track its size.
-
-![A running Overlay Window](https://github.com/michel-pi/GameOverlay.Net/blob/master/example_picture.png)
+![A running Overlay Window](https://raw.githubusercontent.com/michel-pi/GameOverlay.Net/master/example_picture.png)
 
 ### NuGet
 
@@ -18,12 +12,12 @@ The overlay window has the ability to always be in the top of the target window,
 
 - Supports Windows 7, 8, 8.1 and 10
 - Hardware accelerated
-- Draw Text, Lines, Rectangles, Circles, Triangles...
-- Load and Draw images (.bmp, .png, .jpg)
-- Multithreaded rendering is possible
-- Already implemented render loop with fps limitation
 - Create transparent overlay windows
 - Make your overlay stick to a parent window
+- Draw Text, Lines, Rectangles, Circles, Triangles...
+- Load and Draw images (.bmp, .png, .jpg)
+- Multithreaded rendering
+- Already implemented render loop with fps limitation
 
 ### [Example](https://github.com/michel-pi/GameOverlay.Net/tree/master/example)
 ### [Documentation](https://michel-pi.github.io/GameOverlay.Net/)
@@ -56,8 +50,8 @@ ETH     0xd9E2CB12d310E7BF5E72F591D7A2b8820adced04
 
 # License
 
-- [GameOverlay.Net License](https://github.com/michel-pi/GameOverlay.Net/blob/master/LICENSE.md "GameOverlay.Net License")
-- [SharpDX License](https://github.com/sharpdx/SharpDX/blob/master/License.txt "SharpDX License")
+- [GameOverlay.Net License](https://github.com/michel-pi/GameOverlay.Net/blob/master/LICENSE "GameOverlay.Net License")
+- [SharpDX License](https://github.com/sharpdx/SharpDX/blob/master/LICENSE "SharpDX License")
 
 # Special Thanks
 
