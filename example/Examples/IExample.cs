@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GameOverlayExample.Examples
+﻿namespace GameOverlayExample.Examples
 {
     public interface IExample
     {

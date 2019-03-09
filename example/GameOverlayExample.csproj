@@ -45,8 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Examples\Basics.cs" />
+    <Compile Include="Examples\GraphicsWindowExample.cs" />
     <Compile Include="Examples\IExample.cs" />
+    <Compile Include="Examples\OverlayWindowExample.cs" />
+    <Compile Include="Examples\StickyWindowExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -54,7 +56,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Examples\StickyOverlayWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
