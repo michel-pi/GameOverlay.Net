@@ -1,5 +1,7 @@
 # GameOverlay.Net
 
+[![GameOverlay.Net on NuGet](https://buildstats.info/nuget/GameOverlay.Net)](https://nuget.org/packages/GameOverlay.Net)
+
 This library offers a comprehensive interface for drawing hardware accelerated graphics using our [Direct2D1 renderer](https://github.com/michel-pi/GameOverlay.Net/blob/master/source/Drawing/Graphics.cs "Direct2D1 renderer") and creating transparent click-through windows.
 
 ![A running Overlay Window](https://raw.githubusercontent.com/michel-pi/GameOverlay.Net/master/example_picture.png)
