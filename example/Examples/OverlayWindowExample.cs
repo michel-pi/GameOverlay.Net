@@ -1,14 +1,14 @@
 ﻿using System;
-
 using GameOverlay.Drawing;
 using GameOverlay.Windows;
+using GameOverlayExample.Properties;
 
 namespace GameOverlayExample.Examples
 {
-    public class Basics : IExample
+    public class OverlayWindowExample : IExample
     {
-        private OverlayWindow _window;
-        private Graphics _graphics;
+        private readonly OverlayWindow _window;
+        private readonly Graphics _graphics;
 
         private Font _font;
 
@@ -20,7 +20,7 @@ namespace GameOverlayExample.Examples
 
         private Image _image;
 
-        public Basics()
+        public OverlayWindowExample()
         {
             // it is important to set the window to visible (and topmost) if you want to see it!
             _window = new OverlayWindow(0, 0, 800, 600)
@@ -34,7 +34,7 @@ namespace GameOverlayExample.Examples
 
             // initialize a new Graphics object
             // set everything before you call _graphics.Setup()
-            _graphics = new Graphics()
+            _graphics = new Graphics
             {
                 MeasureFPS = true,
                 Height = _window.Height,
@@ -46,10 +46,10 @@ namespace GameOverlayExample.Examples
                 WindowHandle = IntPtr.Zero
             };
         }
-        
-        ~Basics()
+
+        ~OverlayWindowExample()
         {
-            // dont forget to free resources
+            // don't forget to free resources
             _graphics.Dispose();
             _window.Dispose();
         }
@@ -73,7 +73,7 @@ namespace GameOverlayExample.Examples
             _green = _graphics.CreateSolidBrush(Color.Green);
             _blue = _graphics.CreateSolidBrush(Color.Blue);
 
-            _image = _graphics.CreateImage(Properties.Resources.image); // loads the image using our image.bytes file in our resources
+            _image = _graphics.CreateImage(Resources.image); // loads the image using our image.bytes file in our resources
         }
 
         public void Run()
@@ -85,7 +85,7 @@ namespace GameOverlayExample.Examples
                 gfx.BeginScene(); // call before you start any drawing
                 gfx.ClearScene(_gray); // set the background of the scene (can be transparent)
 
-                gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, "FPS: " + gfx.FPS.ToString());
+                gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, "FPS: " + gfx.FPS);
 
                 gfx.DrawCircle(_red, 100, 100, 50, 2);
                 gfx.DashedCircle(_green, 250, 100, 50, 2);

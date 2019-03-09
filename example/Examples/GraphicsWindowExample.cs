@@ -1,16 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
-
-using GameOverlay.Drawing;
+﻿using GameOverlay.Drawing;
 using GameOverlay.Windows;
+using GameOverlayExample.Properties;
+using System;
 
 namespace GameOverlayExample.Examples
 {
-    public class StickyOverlayWindow : IExample
+    public class GraphicsWindowExample : IExample
     {
-        private GraphicsWindow _window;
-        private Graphics _graphics;
+        private readonly GraphicsWindow _window;
 
         private Font _font;
 
@@ -22,11 +19,11 @@ namespace GameOverlayExample.Examples
 
         private Image _image;
 
-        public StickyOverlayWindow()
+        public GraphicsWindowExample()
         {
             // initialize a new Graphics object
             // GraphicsWindow will do the remaining initialization
-            _graphics = new Graphics()
+            var graphics = new Graphics
             {
                 MeasureFPS = true,
                 PerPrimitiveAntiAliasing = true,
@@ -37,39 +34,34 @@ namespace GameOverlayExample.Examples
             };
 
             // it is important to set the window to visible (and topmost) if you want to see it!
-            _window = new GraphicsWindow(GetConsoleWindowHandle(), _graphics)
+            _window = new GraphicsWindow(graphics)
             {
                 IsTopmost = true,
                 IsVisible = true,
-                FPS = 60
+                FPS = 60,
+                X = 0,
+                Y = 0,
+                Width = 800,
+                Height = 600
             };
-            
+
             _window.SetupGraphics += _window_SetupGraphics;
             _window.DestroyGraphics += _window_DestroyGraphics;
             _window.DrawGraphics += _window_DrawGraphics;
         }
 
-        ~StickyOverlayWindow()
+        ~GraphicsWindowExample()
         {
             // you do not need to dispose the Graphics surface
             _window.Dispose();
         }
 
-        public void Initialize()
-        {
-            Console.WindowWidth = 110;
-            Console.WindowHeight = 35;
-        }
+        public void Initialize() { }
 
         public void Run()
         {
             // creates the window and setups the graphics
             _window.StartThread();
-
-            while (true)
-            {
-                Thread.Sleep(100);
-            }
         }
 
         private void _window_SetupGraphics(object sender, SetupGraphicsEventArgs e)
@@ -87,7 +79,7 @@ namespace GameOverlayExample.Examples
             _green = gfx.CreateSolidBrush(Color.Green);
             _blue = gfx.CreateSolidBrush(Color.Blue);
 
-            _image = gfx.CreateImage(Properties.Resources.image); // loads the image using our image.bytes file in our resources
+            _image = gfx.CreateImage(Resources.image); // loads the image using our image.bytes file in our resources
         }
 
         private void _window_DrawGraphics(object sender, DrawGraphicsEventArgs e)
@@ -97,7 +89,7 @@ namespace GameOverlayExample.Examples
 
             gfx.ClearScene(_gray); // set the background of the scene (can be transparent)
 
-            gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, "FPS: " + gfx.FPS.ToString());
+            gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, "FPS: " + gfx.FPS);
 
             gfx.DrawCircle(_red, 100, 100, 50, 2);
             gfx.DashedCircle(_green, 250, 100, 50, 2);
@@ -127,11 +119,6 @@ namespace GameOverlayExample.Examples
         private void _window_DestroyGraphics(object sender, DestroyGraphicsEventArgs e)
         {
             // you may want to dispose any brushes, fonts or images
-        }
-
-        private static IntPtr GetConsoleWindowHandle()
-        {
-            return Process.GetCurrentProcess().MainWindowHandle;
         }
     }
 }

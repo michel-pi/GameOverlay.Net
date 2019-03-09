@@ -1,36 +1,48 @@
 ﻿using System;
-
 using GameOverlayExample.Examples;
 
 namespace GameOverlayExample
 {
-    class Program
+    internal static class Program
     {
-        // make sure to have the nuget packag or reference installed for GameOverlay.dll
+        // make sure to have the nuget package or reference installed for GameOverlay.dll
 
         static void Main(string[] args)
         {
-            RunBasicsExample();
+            RunOverlayWindowExample();
 
-            //RunAdvancedExample();
+            //RunGraphicsWindowExample();
+
+            //RunStickyWindowExample();
         }
 
-        private static void RunBasicsExample()
+        private static void RunOverlayWindowExample()
         {
-            var example = new Basics();
+            var example = new OverlayWindowExample();
 
             example.Initialize();
 
             example.Run();
         }
 
-        public static void RunAdvancedExample()
+        private static void RunGraphicsWindowExample()
         {
-            var example = new StickyOverlayWindow();
+            var example = new GraphicsWindowExample();
 
             example.Initialize();
 
             example.Run();
+            Console.ReadLine();
+        }
+
+        private static void RunStickyWindowExample()
+        {
+            var example = new StickyWindowExample();
+
+            example.Initialize();
+
+            example.Run();
+            Console.ReadLine();
         }
     }
 }
