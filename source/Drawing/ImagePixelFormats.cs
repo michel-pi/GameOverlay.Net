@@ -6,9 +6,7 @@ namespace GameOverlay.Drawing
 {
     internal static class ImagePixelFormats
     {
-        /// <summary>
-        /// PixelFormat sorted in a best compatibility and best color accuracy order
-        /// </summary>
+        // PixelFormat sorted in a best compatibility and best color accuracy order
         private static readonly Guid[] _bestPixelFormats = new Guid[]
         {
             PixelFormat.Format144bpp8ChannelsAlpha,

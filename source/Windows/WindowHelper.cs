@@ -19,10 +19,7 @@ namespace GameOverlay.Windows
         {
             return GenerateRandomAsciiString(MinRandomStringLen, MaxRandomStringLen);
         }
-        /// <summary>
-        /// Generates a random window class name and respects the already used ones in the blacklist.
-        /// </summary>
-        /// <returns>A window class name.</returns>
+        // Generates a random window class name and respects the already used ones in the blacklist.
         public static string GenerateRandomClass()
         {
             lock (_blacklistLock)
@@ -48,19 +45,9 @@ namespace GameOverlay.Windows
         public static void MakeTopmost(IntPtr hwnd) => User32.SetWindowPos(hwnd, User32.HwndInsertTopMost, 0, 0, 0, 0, SwpFlags.ShowWindow | SwpFlags.NoActivate | SwpFlags.NoMove | SwpFlags.NoSize);
         public static void RemoveTopmost(IntPtr hwnd) => User32.SetWindowPos(hwnd, User32.HwndInsertNoTopmost, 0, 0, 0, 0, SwpFlags.NoActivate | SwpFlags.NoMove | SwpFlags.NoSize);
         
-        /// <summary>
-        /// Gets the boundaries of a window using its handle.
-        /// </summary>
-        /// <param name="hwnd">The handle of a window.</param>
-        /// <param name="rect">A NativeRect structure receiving the data.</param>
-        /// <returns>Whether this method succeeded.</returns>
+        // Gets the boundaries of a window using its handle.
         public static bool GetWindowRect(IntPtr hwnd, out NativeRect rect) => User32.GetWindowRect(hwnd, out rect);
-        /// <summary>
-        /// Gets the boundaries of a window client area using its handle.
-        /// </summary>
-        /// <param name="hwnd">The handle of a window.</param>
-        /// <param name="rect">A NativeRect structure receiving the data.</param>
-        /// <returns>Whether this method succeeded.</returns>
+        // Gets the boundaries of a window client area using its handle.
         public static bool GetWindowClient(IntPtr hwnd, out NativeRect rect)
         {
             // calculates the window bounds based on the difference of the client and the window rect
@@ -105,11 +92,8 @@ namespace GameOverlay.Windows
             
             return true;
         }
-
-        /// <summary>
-        /// Extends the window frame into the client area.
-        /// </summary>
-        /// <param name="hwnd">The handle to the window in which the frame will be extended into the client area.</param>
+        
+        // Extends the window frame into the client area.
         public static void ExtendFrameIntoClientArea(IntPtr hwnd)
         {
             var margin = new NativeMargin

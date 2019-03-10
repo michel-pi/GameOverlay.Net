@@ -3,9 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace GameOverlay.PInvoke
 {
-    /// <summary>
-    ///     <c>MARGIN</c> struct used with DwmApi
-    /// </summary>
+    // MARGIN struct used with DwmApi
     [StructLayout(LayoutKind.Sequential)]
     internal struct NativeMargin
     {

@@ -3,7 +3,7 @@
 namespace GameOverlay.Drawing
 {
     /// <summary>
-    /// Represents a Scene / Frame of a Graphics surface.
+    /// Represents a Scene / frame of a Graphics surface.
     /// </summary>
     public class Scene : IDisposable
     {
