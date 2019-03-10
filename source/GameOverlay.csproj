@@ -63,6 +63,7 @@
     <Compile Include="Drawing\Geometry.cs" />
     <Compile Include="Drawing\IBrush.cs" />
     <Compile Include="Drawing\Image.cs" />
+    <Compile Include="Drawing\ImagePixelFormats.cs" />
     <Compile Include="Drawing\LinearGradientBrush.cs" />
     <Compile Include="Drawing\Graphics.Primitives.cs" />
     <Compile Include="Drawing\Graphics.cs" />

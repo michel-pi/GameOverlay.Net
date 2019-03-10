@@ -125,19 +125,26 @@ namespace GameOverlay.Drawing
             if (bytes == null) throw new ArgumentNullException(nameof(bytes));
             if (bytes.Length == 0) throw new ArgumentOutOfRangeException(nameof(bytes));
 
+            Bitmap bmp = null;
+            MemoryStream stream = null;
+            BitmapDecoder decoder = null;
+            BitmapFrameDecode frame = null;
+            FormatConverter converter = null;
+
             try
             {
-                Bitmap bmp = null;
+                stream = new MemoryStream(bytes);
+                decoder = new BitmapDecoder(ImageFactory, stream, DecodeOptions.CacheOnDemand);
 
-                var stream = new MemoryStream(bytes);
-                var decoder = new BitmapDecoder(ImageFactory, stream, DecodeOptions.CacheOnDemand);
-                var frame = decoder.GetFrame(0);
-                
-                var converter = new FormatConverter(ImageFactory);
+                var pixelFormat = ImagePixelFormats.GetBestPixelFormat(decoder.DecoderInfo?.PixelFormats);
+
+                frame = decoder.GetFrame(0);
+
+                converter = new FormatConverter(ImageFactory);
 
                 try
                 {
-                    converter.Initialize(frame, PixelFormat.Format32bppPRGBA);
+                    converter.Initialize(frame, pixelFormat);
                     bmp = Bitmap.FromWicBitmap(device, converter);
                 }
                 catch
@@ -158,12 +165,18 @@ namespace GameOverlay.Drawing
             }
             catch
             {
+                if (converter != null && !converter.IsDisposed) converter.Dispose();
+                if (frame != null && !frame.IsDisposed) frame.Dispose();
+                if (decoder != null && !decoder.IsDisposed) decoder.Dispose();
+                if (stream != null) TryCatch(() => stream.Dispose());
+                if (bmp != null && !bmp.IsDisposed) bmp.Dispose();
+
                 throw;
             }
         }
 
         private static Bitmap LoadBitmapFromFile(RenderTarget device, string path) => LoadBitmapFromMemory(device, File.ReadAllBytes(path));
-
+        
         private static void TryCatch(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
