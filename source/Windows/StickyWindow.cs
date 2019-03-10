@@ -44,7 +44,7 @@ namespace GameOverlay.Windows
         /// Gets called when the timer thread needs to render a new Scene / frame.
         /// </summary>
         /// <param name="graphics">A Graphics surface.</param>
-        protected override void OnPaintGraphics(Graphics graphics)
+        protected override void OnDrawGraphics(Graphics graphics)
         {
             if (_watch == null)
             {
@@ -59,7 +59,7 @@ namespace GameOverlay.Windows
                 _watch.Restart();
             }
 
-            base.OnPaintGraphics(graphics);
+            base.OnDrawGraphics(graphics);
         }
     }
 }

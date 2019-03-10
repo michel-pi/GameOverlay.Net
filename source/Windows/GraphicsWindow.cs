@@ -177,7 +177,7 @@ namespace GameOverlay.Windows
                 {
                     long startTime = _watch.ElapsedMilliseconds;
 
-                    OnPaintGraphics(Graphics);
+                    OnDrawGraphics(Graphics);
 
                     long endTime = _watch.ElapsedMilliseconds;
 
@@ -192,7 +192,7 @@ namespace GameOverlay.Windows
                 }
                 else
                 {
-                    OnPaintGraphics(Graphics);
+                    OnDrawGraphics(Graphics);
                 }
 
                 while (_isPaused)
@@ -226,7 +226,7 @@ namespace GameOverlay.Windows
         /// Gets called when the timer thread needs to render a new Scene / frame.
         /// </summary>
         /// <param name="graphics">A Graphics surface.</param>
-        protected virtual void OnPaintGraphics(Graphics graphics)
+        protected virtual void OnDrawGraphics(Graphics graphics)
         {
             graphics.BeginScene();
 
