@@ -129,7 +129,7 @@ namespace GameOverlay.Drawing
         {
             if (color < 0.0f) color *= -1.0f;
 
-            if (!(color > 1.0f)) return color;
+            if (color <= 1.0f) return color;
 
             while (color > 255.0f) color /= 255.0f;
 
