@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">GameOverlay.Net
-   &#160;<span id="projectnumber">4.0.1</span>
+   &#160;<span id="projectnumber">4.0.3</span>
    </div>
   </td>
  </tr>
@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('class_game_overlay_1_1_windows_1_1_gra
 </div><!--header-->
 <div class="contents">
 
-<p>Represents an <a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html" title="Represents a transparent overlay window.">OverlayWindow</a> which sticks to a parent window and is used to draw at any given frame rate.  
+<p>Represents an <a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html" title="Represents a transparent overlay window.">OverlayWindow</a> which is used to draw at any given frame rate.  
  <a href="class_game_overlay_1_1_windows_1_1_graphics_window.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for GameOverlay.Windows.GraphicsWindow:</div>
@@ -106,17 +106,18 @@ Inheritance diagram for GameOverlay.Windows.GraphicsWindow:</div>
   <img src="class_game_overlay_1_1_windows_1_1_graphics_window.png" usemap="#GameOverlay.Windows.GraphicsWindow_map" alt=""/>
   <map id="GameOverlay.Windows.GraphicsWindow_map" name="GameOverlay.Windows.GraphicsWindow_map">
 <area href="class_game_overlay_1_1_windows_1_1_overlay_window.html" title="Represents a transparent overlay window." alt="GameOverlay.Windows.OverlayWindow" shape="rect" coords="0,56,243,80"/>
+<area href="class_game_overlay_1_1_windows_1_1_sticky_window.html" title="Represents a StickyWindow which uses a GraphicsWindow sticks to a parent window." alt="GameOverlay.Windows.StickyWindow" shape="rect" coords="0,168,243,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a72882be156bbe7b59b9a5c20387da430"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a72882be156bbe7b59b9a5c20387da430">GraphicsWindow</a> (IntPtr parentWindow)</td></tr>
-<tr class="memdesc:a72882be156bbe7b59b9a5c20387da430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which sticks to a parent window and is used to draw at any given frame ra...">GraphicsWindow</a> using a window handle.  <a href="#a72882be156bbe7b59b9a5c20387da430">More...</a><br /></td></tr>
-<tr class="separator:a72882be156bbe7b59b9a5c20387da430"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef751568eebd4a09874556b1aa04fba9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#aef751568eebd4a09874556b1aa04fba9">GraphicsWindow</a> (IntPtr parentWindow, <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> device)</td></tr>
-<tr class="memdesc:aef751568eebd4a09874556b1aa04fba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which sticks to a parent window and is used to draw at any given frame ra...">GraphicsWindow</a> using a window handle and a Graphics surface.  <a href="#aef751568eebd4a09874556b1aa04fba9">More...</a><br /></td></tr>
-<tr class="separator:aef751568eebd4a09874556b1aa04fba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a845c48808475d8bdefcaabd9c003c715"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a845c48808475d8bdefcaabd9c003c715">GraphicsWindow</a> (<a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> device=null)</td></tr>
+<tr class="memdesc:a845c48808475d8bdefcaabd9c003c715"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which is used to draw at any given frame rate.">GraphicsWindow</a>.  <a href="#a845c48808475d8bdefcaabd9c003c715">More...</a><br /></td></tr>
+<tr class="separator:a845c48808475d8bdefcaabd9c003c715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1af18fb4b1ffeb595d607b86282ea405"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a1af18fb4b1ffeb595d607b86282ea405">GraphicsWindow</a> (int x, int y, int width, int height, <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> device=null)</td></tr>
+<tr class="memdesc:a1af18fb4b1ffeb595d607b86282ea405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which is used to draw at any given frame rate.">GraphicsWindow</a> with the specified window position and size.  <a href="#a1af18fb4b1ffeb595d607b86282ea405">More...</a><br /></td></tr>
+<tr class="separator:a1af18fb4b1ffeb595d607b86282ea405"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff4124ee7580b4c6d5f5bf685eebd031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#aff4124ee7580b4c6d5f5bf685eebd031">StartThread</a> ()</td></tr>
 <tr class="memdesc:aff4124ee7580b4c6d5f5bf685eebd031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a timer thread which invokes the DrawGraphics event and measures frames per second.  <a href="#aff4124ee7580b4c6d5f5bf685eebd031">More...</a><br /></td></tr>
 <tr class="separator:aff4124ee7580b4c6d5f5bf685eebd031"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,6 +146,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae32468a09fefca38c49f0ca97375c0d5 inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#ae32468a09fefca38c49f0ca97375c0d5">CreateWindow</a> ()</td></tr>
 <tr class="memdesc:ae32468a09fefca38c49f0ca97375c0d5 inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup and initializes the window.  <a href="class_game_overlay_1_1_windows_1_1_overlay_window.html#ae32468a09fefca38c49f0ca97375c0d5">More...</a><br /></td></tr>
 <tr class="separator:ae32468a09fefca38c49f0ca97375c0d5 inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb901bab915aa1b33d1f09075a9c09db inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#adb901bab915aa1b33d1f09075a9c09db">JoinWindowThread</a> ()</td></tr>
+<tr class="memdesc:adb901bab915aa1b33d1f09075a9c09db inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits until the Thread used by this instance has exited.  <a href="class_game_overlay_1_1_windows_1_1_overlay_window.html#adb901bab915aa1b33d1f09075a9c09db">More...</a><br /></td></tr>
+<tr class="separator:adb901bab915aa1b33d1f09075a9c09db inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75d3046f87f0816ced3ef04cb6a62daa inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#a75d3046f87f0816ced3ef04cb6a62daa">Show</a> ()</td></tr>
 <tr class="memdesc:a75d3046f87f0816ced3ef04cb6a62daa inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the window visible.  <a href="class_game_overlay_1_1_windows_1_1_overlay_window.html#a75d3046f87f0816ced3ef04cb6a62daa">More...</a><br /></td></tr>
 <tr class="separator:a75d3046f87f0816ced3ef04cb6a62daa inherit pub_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,9 +176,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a367e8d3fb78d28c75eacb172b3561af0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a367e8d3fb78d28c75eacb172b3561af0">OnPaintGraphics</a> (<a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> graphics)</td></tr>
-<tr class="memdesc:a367e8d3fb78d28c75eacb172b3561af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets called when the timer thread needs to render a new Scene / frame.  <a href="#a367e8d3fb78d28c75eacb172b3561af0">More...</a><br /></td></tr>
-<tr class="separator:a367e8d3fb78d28c75eacb172b3561af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c6a6355b4c5b4530d0af7a7e65f7b86"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a8c6a6355b4c5b4530d0af7a7e65f7b86">OnDrawGraphics</a> (<a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> graphics)</td></tr>
+<tr class="memdesc:a8c6a6355b4c5b4530d0af7a7e65f7b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets called when the timer thread needs to render a new Scene / frame.  <a href="#a8c6a6355b4c5b4530d0af7a7e65f7b86">More...</a><br /></td></tr>
+<tr class="separator:a8c6a6355b4c5b4530d0af7a7e65f7b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae205fc5ada36ff6f8402896127e6f81d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#ae205fc5ada36ff6f8402896127e6f81d">OnSetupGraphics</a> (<a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> graphics)</td></tr>
 <tr class="memdesc:ae205fc5ada36ff6f8402896127e6f81d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets called when the timer thread setups the Graphics surface.  <a href="#ae205fc5ada36ff6f8402896127e6f81d">More...</a><br /></td></tr>
 <tr class="separator:ae205fc5ada36ff6f8402896127e6f81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,7 +186,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:af456dd85bbc115c1814e301388b3e15a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets called when the timer thread destorys the Graphics surface.  <a href="#af456dd85bbc115c1814e301388b3e15a">More...</a><br /></td></tr>
 <tr class="separator:af456dd85bbc115c1814e301388b3e15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a063d4e0cd58aa2c2314680cf17085a5a"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a063d4e0cd58aa2c2314680cf17085a5a">Dispose</a> (bool disposing)</td></tr>
-<tr class="memdesc:a063d4e0cd58aa2c2314680cf17085a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all resources used by this <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which sticks to a parent window and is used to draw at any given frame ra...">GraphicsWindow</a>.  <a href="#a063d4e0cd58aa2c2314680cf17085a5a">More...</a><br /></td></tr>
+<tr class="memdesc:a063d4e0cd58aa2c2314680cf17085a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all resources used by this <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which is used to draw at any given frame rate.">GraphicsWindow</a>.  <a href="#a063d4e0cd58aa2c2314680cf17085a5a">More...</a><br /></td></tr>
 <tr class="separator:a063d4e0cd58aa2c2314680cf17085a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_game_overlay_1_1_windows_1_1_overlay_window')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html">GameOverlay.Windows.OverlayWindow</a></td></tr>
 <tr class="memitem:a305fb87673ca782860d9c61af72ae7d5 inherit pro_methods_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#a305fb87673ca782860d9c61af72ae7d5">OnSizeChanged</a> (int width, int height)</td></tr>
@@ -197,9 +201,6 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a619e8dba997e62ba856d051c4e8452b2"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a619e8dba997e62ba856d051c4e8452b2">ParenWindowHandle</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a619e8dba997e62ba856d051c4e8452b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the window handle of the parent window.  <a href="#a619e8dba997e62ba856d051c4e8452b2">More...</a><br /></td></tr>
-<tr class="separator:a619e8dba997e62ba856d051c4e8452b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71a8978adce687c98c84a6cf61b6815a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a71a8978adce687c98c84a6cf61b6815a">Graphics</a><code> [get]</code></td></tr>
 <tr class="memdesc:a71a8978adce687c98c84a6cf61b6815a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the used Graphics surface.  <a href="#a71a8978adce687c98c84a6cf61b6815a">More...</a><br /></td></tr>
 <tr class="separator:a71a8978adce687c98c84a6cf61b6815a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,12 +210,6 @@ Properties</h2></td></tr>
 <tr class="memitem:ad2966a3493ca622d3862187250d0d5c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#ad2966a3493ca622d3862187250d0d5c8">IsPaused</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ad2966a3493ca622d3862187250d0d5c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets a Boolean which determines whether this instance is paused.  <a href="#ad2966a3493ca622d3862187250d0d5c8">More...</a><br /></td></tr>
 <tr class="separator:ad2966a3493ca622d3862187250d0d5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adab74d80bda4e62fe8e92b1b04aa6a9d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#adab74d80bda4e62fe8e92b1b04aa6a9d">StickToClientArea</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:adab74d80bda4e62fe8e92b1b04aa6a9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets a Boolean which determines whether this instance sticks to the client aread of the parent window.  <a href="#adab74d80bda4e62fe8e92b1b04aa6a9d">More...</a><br /></td></tr>
-<tr class="separator:adab74d80bda4e62fe8e92b1b04aa6a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefb57a5266f2ff626b8dc438230e8e7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#aefb57a5266f2ff626b8dc438230e8e7e">BypassTopmost</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:aefb57a5266f2ff626b8dc438230e8e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets a Boolean which determines whether this instance place itself on top of the parent window.  <a href="#aefb57a5266f2ff626b8dc438230e8e7e">More...</a><br /></td></tr>
-<tr class="separator:aefb57a5266f2ff626b8dc438230e8e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a081bc7f46fab8180ad2096ff71af4496"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html#a081bc7f46fab8180ad2096ff71af4496">FPS</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a081bc7f46fab8180ad2096ff71af4496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the frames per second (frame rate) at which this instance invokes its DrawGraphics event.  <a href="#a081bc7f46fab8180ad2096ff71af4496">More...</a><br /></td></tr>
 <tr class="separator:a081bc7f46fab8180ad2096ff71af4496"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -280,10 +275,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:afd491bdfe0156764d6cd82ea212748b2 inherit pub_attribs_class_game_overlay_1_1_windows_1_1_overlay_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents an <a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html" title="Represents a transparent overlay window.">OverlayWindow</a> which sticks to a parent window and is used to draw at any given frame rate. </p>
+<div class="textblock"><p>Represents an <a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html" title="Represents a transparent overlay window.">OverlayWindow</a> which is used to draw at any given frame rate. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a72882be156bbe7b59b9a5c20387da430"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72882be156bbe7b59b9a5c20387da430">&#9670;&nbsp;</a></span>GraphicsWindow() <span class="overload">[1/2]</span></h2>
+<a id="a845c48808475d8bdefcaabd9c003c715"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a845c48808475d8bdefcaabd9c003c715">&#9670;&nbsp;</a></span>GraphicsWindow() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,25 +286,25 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">GameOverlay.Windows.GraphicsWindow.GraphicsWindow </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>parentWindow</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a>&#160;</td>
+          <td class="paramname"><em>device</em> = <code>null</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a new <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which sticks to a parent window and is used to draw at any given frame ra...">GraphicsWindow</a> using a window handle. </p>
+<p>Initializes a new <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which is used to draw at any given frame rate.">GraphicsWindow</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parentWindow</td><td>The window handle of the parent window.</td></tr>
+    <tr><td class="paramname">device</td><td>Optionally specify a Graphics device to use.</td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="aef751568eebd4a09874556b1aa04fba9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef751568eebd4a09874556b1aa04fba9">&#9670;&nbsp;</a></span>GraphicsWindow() <span class="overload">[2/2]</span></h2>
+<a id="a1af18fb4b1ffeb595d607b86282ea405"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1af18fb4b1ffeb595d607b86282ea405">&#9670;&nbsp;</a></span>GraphicsWindow() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -317,14 +312,32 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">GameOverlay.Windows.GraphicsWindow.GraphicsWindow </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>parentWindow</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a>&#160;</td>
-          <td class="paramname"><em>device</em>&#160;</td>
+          <td class="paramname"><em>device</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -334,11 +347,14 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a new <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which sticks to a parent window and is used to draw at any given frame ra...">GraphicsWindow</a> using a window handle and a Graphics surface. </p>
+<p>Initializes a new <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which is used to draw at any given frame rate.">GraphicsWindow</a> with the specified window position and size. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parentWindow</td><td>The window handle of the parent window.</td></tr>
-    <tr><td class="paramname">device</td><td>A Graphics surface.</td></tr>
+    <tr><td class="paramname">x</td><td>The window position on the X-Axis.</td></tr>
+    <tr><td class="paramname">y</td><td>The window position on the Y-Axis.</td></tr>
+    <tr><td class="paramname">width</td><td>The width of the window.</td></tr>
+    <tr><td class="paramname">height</td><td>The height of the window.</td></tr>
+    <tr><td class="paramname">device</td><td>Optionally specify a Graphics device to use.</td></tr>
   </table>
   </dd>
 </dl>
@@ -370,7 +386,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Releases all resources used by this <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which sticks to a parent window and is used to draw at any given frame ra...">GraphicsWindow</a>. </p>
+<p>Releases all resources used by this <a class="el" href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which is used to draw at any given frame rate.">GraphicsWindow</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">disposing</td><td>A Boolean value indicating whether this is called from the destructor.</td></tr>
@@ -435,8 +451,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a367e8d3fb78d28c75eacb172b3561af0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a367e8d3fb78d28c75eacb172b3561af0">&#9670;&nbsp;</a></span>OnPaintGraphics()</h2>
+<a id="a8c6a6355b4c5b4530d0af7a7e65f7b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c6a6355b4c5b4530d0af7a7e65f7b86">&#9670;&nbsp;</a></span>OnDrawGraphics()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,7 +461,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void GameOverlay.Windows.GraphicsWindow.OnPaintGraphics </td>
+          <td class="memname">virtual void GameOverlay.Windows.GraphicsWindow.OnDrawGraphics </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a>&#160;</td>
           <td class="paramname"><em>graphics</em></td><td>)</td>
@@ -466,6 +482,8 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p>Reimplemented in <a class="el" href="class_game_overlay_1_1_windows_1_1_sticky_window.html#a1b1b08e6492115e91b2832fcd9ef60b1">GameOverlay.Windows.StickyWindow</a>.</p>
 
 </div>
 </div>
@@ -599,30 +617,6 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="aefb57a5266f2ff626b8dc438230e8e7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefb57a5266f2ff626b8dc438230e8e7e">&#9670;&nbsp;</a></span>BypassTopmost</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool GameOverlay.Windows.GraphicsWindow.BypassTopmost</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets a Boolean which determines whether this instance place itself on top of the parent window. </p>
-
-</div>
-</div>
 <a id="a081bc7f46fab8180ad2096ff71af4496"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a081bc7f46fab8180ad2096ff71af4496">&#9670;&nbsp;</a></span>FPS</h2>
 
@@ -719,54 +713,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a619e8dba997e62ba856d051c4e8452b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a619e8dba997e62ba856d051c4e8452b2">&#9670;&nbsp;</a></span>ParenWindowHandle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">IntPtr GameOverlay.Windows.GraphicsWindow.ParenWindowHandle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets the window handle of the parent window. </p>
-
-</div>
-</div>
-<a id="adab74d80bda4e62fe8e92b1b04aa6a9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adab74d80bda4e62fe8e92b1b04aa6a9d">&#9670;&nbsp;</a></span>StickToClientArea</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool GameOverlay.Windows.GraphicsWindow.StickToClientArea</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets or sets a Boolean which determines whether this instance sticks to the client aread of the parent window. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Event Documentation</h2>
 <a id="a2e2a70dfba40eb67d6572d834947ed0c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e2a70dfba40eb67d6572d834947ed0c">&#9670;&nbsp;</a></span>DestroyGraphics</h2>
@@ -817,7 +763,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Michel/Documents/Github/Public/GameOverlay.Net/source/Windows/GraphicsWindow.cs</li>
+<li>source/Windows/GraphicsWindow.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

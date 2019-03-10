@@ -24,7 +24,9 @@ var hierarchy =
       [ "GameOverlay.Drawing.Scene", "class_game_overlay_1_1_drawing_1_1_scene.html", null ],
       [ "GameOverlay.Drawing.SolidBrush", "class_game_overlay_1_1_drawing_1_1_solid_brush.html", null ],
       [ "GameOverlay.Windows.OverlayWindow", "class_game_overlay_1_1_windows_1_1_overlay_window.html", [
-        [ "GameOverlay.Windows.GraphicsWindow", "class_game_overlay_1_1_windows_1_1_graphics_window.html", null ]
+        [ "GameOverlay.Windows.GraphicsWindow", "class_game_overlay_1_1_windows_1_1_graphics_window.html", [
+          [ "GameOverlay.Windows.StickyWindow", "class_game_overlay_1_1_windows_1_1_sticky_window.html", null ]
+        ] ]
       ] ]
     ] ],
     [ "GameOverlay.Drawing.Line", "struct_game_overlay_1_1_drawing_1_1_line.html", null ],

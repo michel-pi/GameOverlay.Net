@@ -7,6 +7,7 @@ var class_game_overlay_1_1_windows_1_1_overlay_window =
     [ "Dispose", "class_game_overlay_1_1_windows_1_1_overlay_window.html#a2cfc011ff690f4dca84c1e08fb7f4dad", null ],
     [ "FitToWindow", "class_game_overlay_1_1_windows_1_1_overlay_window.html#abb2cfad26f788af9cbadda5253dbe8be", null ],
     [ "Hide", "class_game_overlay_1_1_windows_1_1_overlay_window.html#a7ec9fce6d9bdaf2d5c6a03ec8a38da81", null ],
+    [ "JoinWindowThread", "class_game_overlay_1_1_windows_1_1_overlay_window.html#adb901bab915aa1b33d1f09075a9c09db", null ],
     [ "Move", "class_game_overlay_1_1_windows_1_1_overlay_window.html#a9b282f612866c4ffb69978bd9c5f75fe", null ],
     [ "OnPositionChanged", "class_game_overlay_1_1_windows_1_1_overlay_window.html#afae56967854674685e800a8a6dcda388", null ],
     [ "OnSizeChanged", "class_game_overlay_1_1_windows_1_1_overlay_window.html#a305fb87673ca782860d9c61af72ae7d5", null ],

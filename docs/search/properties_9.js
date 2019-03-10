@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['parenwindowhandle',['ParenWindowHandle',['../class_game_overlay_1_1_windows_1_1_graphics_window.html#a619e8dba997e62ba856d051c4e8452b2',1,'GameOverlay::Windows::GraphicsWindow']]],
-  ['perprimitiveantialiasing',['PerPrimitiveAntiAliasing',['../class_game_overlay_1_1_drawing_1_1_graphics.html#abeb7934ecd52789fde355e48b847b960',1,'GameOverlay::Drawing::Graphics']]]
+  ['measurefps',['MeasureFPS',['../class_game_overlay_1_1_drawing_1_1_graphics.html#a749f593948255e04c786cdce1f237966',1,'GameOverlay::Drawing::Graphics']]],
+  ['menuname',['MenuName',['../class_game_overlay_1_1_windows_1_1_overlay_window.html#ab1823cf73c6bab9efda1282516ecc558',1,'GameOverlay::Windows::OverlayWindow']]]
 ];

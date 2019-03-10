@@ -7,5 +7,6 @@ var namespace_game_overlay_1_1_windows =
     [ "OverlaySizeEventArgs", "class_game_overlay_1_1_windows_1_1_overlay_size_event_args.html", "class_game_overlay_1_1_windows_1_1_overlay_size_event_args" ],
     [ "OverlayVisibilityEventArgs", "class_game_overlay_1_1_windows_1_1_overlay_visibility_event_args.html", "class_game_overlay_1_1_windows_1_1_overlay_visibility_event_args" ],
     [ "OverlayWindow", "class_game_overlay_1_1_windows_1_1_overlay_window.html", "class_game_overlay_1_1_windows_1_1_overlay_window" ],
-    [ "SetupGraphicsEventArgs", "class_game_overlay_1_1_windows_1_1_setup_graphics_event_args.html", "class_game_overlay_1_1_windows_1_1_setup_graphics_event_args" ]
+    [ "SetupGraphicsEventArgs", "class_game_overlay_1_1_windows_1_1_setup_graphics_event_args.html", "class_game_overlay_1_1_windows_1_1_setup_graphics_event_args" ],
+    [ "StickyWindow", "class_game_overlay_1_1_windows_1_1_sticky_window.html", "class_game_overlay_1_1_windows_1_1_sticky_window" ]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['handle',['Handle',['../class_game_overlay_1_1_windows_1_1_overlay_window.html#abce805978a01ccb17b6cb03b7254ea31',1,'GameOverlay::Windows::OverlayWindow']]],
-  ['height',['Height',['../class_game_overlay_1_1_drawing_1_1_graphics.html#ae5b8ae1bf7a214209f08d9a9e09509dd',1,'GameOverlay.Drawing.Graphics.Height()'],['../class_game_overlay_1_1_windows_1_1_overlay_window.html#a092b4791ed20a17b341fdab082708921',1,'GameOverlay.Windows.OverlayWindow.Height()'],['../class_game_overlay_1_1_windows_1_1_overlay_size_event_args.html#a209b82bf32249c93b73df0ce1c85733a',1,'GameOverlay.Windows.OverlaySizeEventArgs.Height()']]]
+  ['graphics',['Graphics',['../class_game_overlay_1_1_windows_1_1_graphics_window.html#a71a8978adce687c98c84a6cf61b6815a',1,'GameOverlay.Windows.GraphicsWindow.Graphics()'],['../class_game_overlay_1_1_windows_1_1_draw_graphics_event_args.html#a206f21da9a3fa1e3bac6fcbb59806ce5',1,'GameOverlay.Windows.DrawGraphicsEventArgs.Graphics()'],['../class_game_overlay_1_1_windows_1_1_setup_graphics_event_args.html#af9d582a39f277b4d950864e6be95ba33',1,'GameOverlay.Windows.SetupGraphicsEventArgs.Graphics()'],['../class_game_overlay_1_1_windows_1_1_destroy_graphics_event_args.html#ad5b1c2f29641aebcb3c6a463613ece76',1,'GameOverlay.Windows.DestroyGraphicsEventArgs.Graphics()']]]
 ];

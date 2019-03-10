@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">GameOverlay.Net
-   &#160;<span id="projectnumber">4.0.1</span>
+   &#160;<span id="projectnumber">4.0.3</span>
    </div>
   </td>
  </tr>
@@ -106,7 +106,8 @@ Inheritance diagram for GameOverlay.Windows.OverlayWindow:</div>
  <div class="center">
   <img src="class_game_overlay_1_1_windows_1_1_overlay_window.png" usemap="#GameOverlay.Windows.OverlayWindow_map" alt=""/>
   <map id="GameOverlay.Windows.OverlayWindow_map" name="GameOverlay.Windows.OverlayWindow_map">
-<area href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which sticks to a parent window and is used to draw at any given frame ra..." alt="GameOverlay.Windows.GraphicsWindow" shape="rect" coords="0,112,243,136"/>
+<area href="class_game_overlay_1_1_windows_1_1_graphics_window.html" title="Represents an OverlayWindow which is used to draw at any given frame rate." alt="GameOverlay.Windows.GraphicsWindow" shape="rect" coords="0,112,243,136"/>
+<area href="class_game_overlay_1_1_windows_1_1_sticky_window.html" title="Represents a StickyWindow which uses a GraphicsWindow sticks to a parent window." alt="GameOverlay.Windows.StickyWindow" shape="rect" coords="0,168,243,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -121,6 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae32468a09fefca38c49f0ca97375c0d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#ae32468a09fefca38c49f0ca97375c0d5">CreateWindow</a> ()</td></tr>
 <tr class="memdesc:ae32468a09fefca38c49f0ca97375c0d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup and initializes the window.  <a href="#ae32468a09fefca38c49f0ca97375c0d5">More...</a><br /></td></tr>
 <tr class="separator:ae32468a09fefca38c49f0ca97375c0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb901bab915aa1b33d1f09075a9c09db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#adb901bab915aa1b33d1f09075a9c09db">JoinWindowThread</a> ()</td></tr>
+<tr class="memdesc:adb901bab915aa1b33d1f09075a9c09db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits until the Thread used by this instance has exited.  <a href="#adb901bab915aa1b33d1f09075a9c09db">More...</a><br /></td></tr>
+<tr class="separator:adb901bab915aa1b33d1f09075a9c09db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75d3046f87f0816ced3ef04cb6a62daa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_windows_1_1_overlay_window.html#a75d3046f87f0816ced3ef04cb6a62daa">Show</a> ()</td></tr>
 <tr class="memdesc:a75d3046f87f0816ced3ef04cb6a62daa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the window visible.  <a href="#a75d3046f87f0816ced3ef04cb6a62daa">More...</a><br /></td></tr>
 <tr class="separator:a75d3046f87f0816ced3ef04cb6a62daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -413,6 +417,25 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Makes the window invisible. </p>
+
+</div>
+</div>
+<a id="adb901bab915aa1b33d1f09075a9c09db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb901bab915aa1b33d1f09075a9c09db">&#9670;&nbsp;</a></span>JoinWindowThread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameOverlay.Windows.OverlayWindow.JoinWindowThread </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Waits until the Thread used by this instance has exited. </p>
 
 </div>
 </div>
@@ -1018,7 +1041,7 @@ Events</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Michel/Documents/Github/Public/GameOverlay.Net/source/Windows/OverlayWindow.cs</li>
+<li>source/Windows/OverlayWindow.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

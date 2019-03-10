@@ -1,7 +1,7 @@
 var searchData=
 [
   ['palettewindow',['PaletteWindow',['../namespace_game_overlay_1_1_p_invoke.html#a1a796e1f70872ca3ca28d326c262b197ac95d5546d9f5ae1d8197f09db9a287ab',1,'GameOverlay::PInvoke']]],
-  ['parenwindowhandle',['ParenWindowHandle',['../class_game_overlay_1_1_windows_1_1_graphics_window.html#a619e8dba997e62ba856d051c4e8452b2',1,'GameOverlay::Windows::GraphicsWindow']]],
+  ['parentwindowhandle',['ParentWindowHandle',['../class_game_overlay_1_1_windows_1_1_sticky_window.html#a07f1500e0e8cfe62352f76eb0779a53d',1,'GameOverlay::Windows::StickyWindow']]],
   ['pause',['Pause',['../class_game_overlay_1_1_windows_1_1_graphics_window.html#a6cf335ada531606433e9e40244e3c028',1,'GameOverlay::Windows::GraphicsWindow']]],
   ['permonitoraware',['PerMonitorAware',['../namespace_game_overlay_1_1_p_invoke.html#a12f7e736bff398a8bb5d9a2e5fd8b070aa7badf2a6d478499fedc9540bbf2dc6a',1,'GameOverlay.PInvoke.PerMonitorAware()'],['../namespace_game_overlay_1_1_p_invoke.html#a5c20666ea1d0457d9eff01c775b76665aa7badf2a6d478499fedc9540bbf2dc6a',1,'GameOverlay.PInvoke.PerMonitorAware()']]],
   ['permonitorawarev2',['PerMonitorAwareV2',['../namespace_game_overlay_1_1_p_invoke.html#a5c20666ea1d0457d9eff01c775b76665a648e47a96f371ca4661435e0bec1cb8d',1,'GameOverlay::PInvoke']]],

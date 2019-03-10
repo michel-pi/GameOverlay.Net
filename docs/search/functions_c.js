@@ -1,7 +1,7 @@
 var searchData=
 [
   ['ondestroygraphics',['OnDestroyGraphics',['../class_game_overlay_1_1_windows_1_1_graphics_window.html#af456dd85bbc115c1814e301388b3e15a',1,'GameOverlay::Windows::GraphicsWindow']]],
-  ['onpaintgraphics',['OnPaintGraphics',['../class_game_overlay_1_1_windows_1_1_graphics_window.html#a367e8d3fb78d28c75eacb172b3561af0',1,'GameOverlay::Windows::GraphicsWindow']]],
+  ['ondrawgraphics',['OnDrawGraphics',['../class_game_overlay_1_1_windows_1_1_graphics_window.html#a8c6a6355b4c5b4530d0af7a7e65f7b86',1,'GameOverlay.Windows.GraphicsWindow.OnDrawGraphics()'],['../class_game_overlay_1_1_windows_1_1_sticky_window.html#a1b1b08e6492115e91b2832fcd9ef60b1',1,'GameOverlay.Windows.StickyWindow.OnDrawGraphics()']]],
   ['onpositionchanged',['OnPositionChanged',['../class_game_overlay_1_1_windows_1_1_overlay_window.html#afae56967854674685e800a8a6dcda388',1,'GameOverlay::Windows::OverlayWindow']]],
   ['onsetupgraphics',['OnSetupGraphics',['../class_game_overlay_1_1_windows_1_1_graphics_window.html#ae205fc5ada36ff6f8402896127e6f81d',1,'GameOverlay::Windows::GraphicsWindow']]],
   ['onsizechanged',['OnSizeChanged',['../class_game_overlay_1_1_windows_1_1_overlay_window.html#a305fb87673ca782860d9c61af72ae7d5',1,'GameOverlay::Windows::OverlayWindow']]],
