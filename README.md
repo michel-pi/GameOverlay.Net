@@ -1,6 +1,6 @@
 # GameOverlay.Net
 
-[![GameOverlay.Net on NuGet](https://buildstats.info/nuget/GameOverlay.Net)](https://nuget.org/packages/GameOverlay.Net)
+![Nuget](https://img.shields.io/nuget/v/GameOverlay.Net.svg) ![Nuget](https://img.shields.io/nuget/dt/GameOverlay.Net.svg) ![GitHub issues](https://img.shields.io/github/issues-raw/michel-pi/GameOverlay.Net.svg) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/michel-pi/GameOverlay.Net.svg) ![GitHub](https://img.shields.io/github/license/michel-pi/GameOverlay.Net.svg)
 
 This library offers a comprehensive interface for drawing hardware accelerated graphics using our [Direct2D1 renderer](https://github.com/michel-pi/GameOverlay.Net/blob/master/source/Drawing/Graphics.cs "Direct2D1 renderer") and creating transparent click-through windows.
 
@@ -21,8 +21,8 @@ This library offers a comprehensive interface for drawing hardware accelerated g
 - Multithreaded rendering
 - Already implemented render loop with fps limitation
 
-### [Example](https://github.com/michel-pi/GameOverlay.Net/tree/master/example)
-### [Documentation](https://michel-pi.github.io/GameOverlay.Net/)
+### [Examples](https://github.com/michel-pi/GameOverlay.Net/tree/master/example "GameOverlay.Net examples")
+### [Documentation](https://michel-pi.github.io/GameOverlay.Net/ "GameOverlay.Net Documentation")
 
 # Contribute
 
@@ -42,7 +42,7 @@ Do you like this project and want to help me to keep working on it?
 
 Then maybe consider to donate any amount you like.
 
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YJDWMDUSM8KKQ)
+[![Donate via PayPal](https://media.wtf/assets/img/pp.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YJDWMDUSM8KKQ "Donate via PayPal")
 
 ```
 BTC     14ES7f4GB3vD1C8Faz6ywqTcdDevxZoMyY
