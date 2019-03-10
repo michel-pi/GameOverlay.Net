@@ -8,7 +8,7 @@ using GameOverlay.PInvoke;
 namespace GameOverlay.Windows
 {
     /// <summary>
-    /// Represents a GraphicsWindow which sticks to a parent window.
+    /// Represents a StickyWindow which uses a GraphicsWindow sticks to a parent window.
     /// </summary>
     public class StickyWindow : GraphicsWindow
     {
@@ -29,7 +29,46 @@ namespace GameOverlay.Windows
         public bool AttachToClientArea { get; set; }
 
         /// <summary>
-        /// Initializes a new GraphicsWindow with the ability to stick to a parent window.
+        /// Initializes a new StickyWindow with a default window position and size.
+        /// </summary>
+        public StickyWindow() : base()
+        {
+            X = 0;
+            Y = 0;
+            Width = 800;
+            Height = 600;
+        }
+
+        /// <summary>
+        /// Initializes a new StickyWindow with the given window position and size.
+        /// </summary>
+        /// <param name="x">The position of the window on the X-Axis of the desktop.</param>
+        /// <param name="y">The position of the window on the Y-Axis of the desktop.</param>
+        /// <param name="width">The width of the window.</param>
+        /// <param name="height">The height of the window.</param>
+        public StickyWindow(int x, int y, int width, int height) : base(x, y, width, height)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new StickyWindow with the given window position and size and the window handle of the parent window.
+        /// </summary>
+        /// <param name="x">The position of the window on the X-Axis of the desktop.</param>
+        /// <param name="y">The position of the window on the Y-Axis of the desktop.</param>
+        /// <param name="width">The width of the window.</param>
+        /// <param name="height">The height of the window.</param>
+        /// <param name="parentWindow">An IntPtr representing the parent windows handle.</param>
+        /// <param name="device">Optionally specify a Graphics device to use.</param>
+        public StickyWindow(int x, int y, int width, int height, IntPtr parentWindow, Graphics device = null) : base(x, y, width, height, device)
+        {
+            if (!User32.IsWindow(parentWindow)) throw new ArgumentOutOfRangeException(nameof(parentWindow));
+
+            ParentWindowHandle = parentWindow;
+        }
+
+        /// <summary>
+        /// Initializes a new StickyWindow with the ability to stick to a parent window.
         /// </summary>
         /// <param name="parentWindow">An IntPtr representing the parent windows handle.</param>
         /// <param name="device">Optionally specify a Graphics device to use.</param>

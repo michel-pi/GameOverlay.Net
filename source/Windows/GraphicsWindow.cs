@@ -67,6 +67,22 @@ namespace GameOverlay.Windows
         }
 
         /// <summary>
+        /// Initializes a new GraphicsWindow with the specified window position and size.
+        /// </summary>
+        /// <param name="x">The window position on the X-Axis.</param>
+        /// <param name="y">The window position on the Y-Axis.</param>
+        /// <param name="width">The width of the window.</param>
+        /// <param name="height">The height of the window.</param>
+        /// <param name="device">Optionally specify a Graphics device to use.</param>
+        public GraphicsWindow(int x, int y, int width, int height, Graphics device = null) : this(device)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+        }
+
+        /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
         ~GraphicsWindow()
