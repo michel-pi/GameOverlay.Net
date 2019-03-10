@@ -1,6 +1,6 @@
 # GameOverlay.Net
 
-![Nuget](https://img.shields.io/nuget/v/GameOverlay.Net.svg) ![Nuget](https://img.shields.io/nuget/dt/GameOverlay.Net.svg) ![GitHub issues](https://img.shields.io/github/issues-raw/michel-pi/GameOverlay.Net.svg) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/michel-pi/GameOverlay.Net.svg) ![GitHub](https://img.shields.io/github/license/michel-pi/GameOverlay.Net.svg)
+[![Nuget](https://img.shields.io/nuget/v/GameOverlay.Net.svg)](https://www.nuget.org/packages/GameOverlay.Net/ "GameOverlay.Net on NuGet") [![Nuget](https://img.shields.io/nuget/dt/GameOverlay.Net.svg)](https://www.nuget.org/packages/GameOverlay.Net/ "Downloads on NuGet") [![Open issues](https://img.shields.io/github/issues-raw/michel-pi/GameOverlay.Net.svg)](https://github.com/michel-pi/GameOverlay.Net/issues "Open issues on Github") [![Closed issues](https://img.shields.io/github/issues-closed-raw/michel-pi/GameOverlay.Net.svg)](https://github.com/michel-pi/GameOverlay.Net/issues?q=is%3Aissue+is%3Aclosed "Closed issues on Github") [![MIT License](https://img.shields.io/github/license/michel-pi/GameOverlay.Net.svg)](https://github.com/michel-pi/GameOverlay.Net/issues?q=is%3Aissue+is%3Aclosed "GameOverlay.Net license")
 
 This library offers a comprehensive interface for drawing hardware accelerated graphics using our [Direct2D1 renderer](https://github.com/michel-pi/GameOverlay.Net/blob/master/source/Drawing/Graphics.cs "Direct2D1 renderer") and creating transparent click-through windows.
 
