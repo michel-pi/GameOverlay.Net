@@ -158,9 +158,12 @@ namespace GameOverlay.Drawing
                 PresentOptions = VSync ? PresentOptions.None : PresentOptions.Immediately
             };
 
+            // documentation: https://docs.microsoft.com/en-us/windows/desktop/direct2d/supported-pixel-formats-and-alpha-modes
+            // those 3 PixelFormats are the only supported ones of a HwndRenderTarget (WindowRenderTarget)
             var renderProperties = new RenderTargetProperties(
                 RenderTargetType.Default,
-                new PixelFormat(Format.R8G8B8A8_UNorm, AlphaMode.Premultiplied),
+                // msdn: B8G8R8A8_UNorm should be used for best performance
+                new PixelFormat(Format.B8G8R8A8_UNorm, AlphaMode.Premultiplied), // supports hardware rendering & software rendering
                 96.0f,
                 96.0f,
                 RenderTargetUsage.None,
@@ -172,8 +175,16 @@ namespace GameOverlay.Drawing
             }
             catch (SharpDXException)
             {
-                renderProperties.PixelFormat = new PixelFormat(Format.B8G8R8A8_UNorm, AlphaMode.Premultiplied);
-                _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
+                try
+                {
+                    renderProperties.PixelFormat = new PixelFormat(Format.R8G8B8A8_UNorm, AlphaMode.Premultiplied); // supports hardware rendering
+                    _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
+                }
+                catch (SharpDXException)
+                {
+                    renderProperties.PixelFormat = new PixelFormat(Format.Unknown, AlphaMode.Premultiplied); // supports hardware & software rendering
+                    _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
+                }
             }
 
             _device.AntialiasMode = PerPrimitiveAntiAliasing ? AntialiasMode.PerPrimitive : AntialiasMode.Aliased; // anti aliasing does not preserve colors correctly
