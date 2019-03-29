@@ -56,7 +56,7 @@ namespace GameOverlay.Windows
         /// Initializes a new GraphicsWindow.
         /// </summary>
         /// <param name="device">Optionally specify a Graphics device to use.</param>
-        public GraphicsWindow(Graphics device = null)
+        public GraphicsWindow(Graphics device = null) : base()
         {
             _watch = Stopwatch.StartNew();
 

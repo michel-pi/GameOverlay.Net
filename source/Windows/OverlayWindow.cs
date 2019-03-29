@@ -223,6 +223,11 @@ namespace GameOverlay.Windows
 
             Title = string.Empty;
             ClassName = string.Empty;
+
+            Width = 800;
+            Height = 600;
+
+            IsVisible = true;
         }
 
         /// <summary>
