@@ -6,52 +6,52 @@ using SharpDX.Mathematics.Interop;
 namespace GameOverlay.Drawing
 {
     /// <summary>
-    /// Represents an ARGB (alpha, red, green, blue) color.
+    /// Represents an ARGB (alpha, red, green, blue) Color.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Color
     {
         /// <summary>
-        /// Returns a transparent color.
+        /// Returns a transparent Color.
         /// </summary>
         public static Color Transparent => new Color(0.0f, 0.0f, 0.0f, 0.0f);
         /// <summary>
-        /// Returns a red color.
+        /// Returns a red Color.
         /// </summary>
         public static Color Red => new Color(1.0f, 0.0f, 0.0f);
         /// <summary>
-        /// Returns a green color.
+        /// Returns a green Color.
         /// </summary>
         public static Color Green => new Color(0.0f, 1.0f, 0.0f);
         /// <summary>
-        /// Returns a blue color.
+        /// Returns a blue Color.
         /// </summary>
         public static Color Blue => new Color(0.0f, 0.0f, 1.0f);
 
         /// <summary>
-        /// Gets the alpha component value of this color.
+        /// Gets the alpha component value of this Color.
         /// </summary>
         public float A;
         /// <summary>
-        /// Gets the red component value of this color.
+        /// Gets the red component value of this Color.
         /// </summary>
         public float R;
         /// <summary>
-        /// Gets the green component value of this color.
+        /// Gets the green component value of this Color.
         /// </summary>
         public float G;
         /// <summary>
-        /// Gets the blue component value of this color.
+        /// Gets the blue component value of this Color.
         /// </summary>
         public float B;
 
         /// <summary>
-        /// Initializes a new color using the specified components.
+        /// Initializes a new Color using the specified components.
         /// </summary>
-        /// <param name="r">The red component value of this color.</param>
-        /// <param name="g">The green component value of this color.</param>
-        /// <param name="b">The blue component value of this color.</param>
-        /// <param name="a">The alpha component value of this color.</param>
+        /// <param name="r">The red component value of this Color.</param>
+        /// <param name="g">The green component value of this Color.</param>
+        /// <param name="b">The blue component value of this Color.</param>
+        /// <param name="a">The alpha component value of this Color.</param>
         public Color(float r, float g, float b, float a = 1.0f)
         {
             R = NormalizeColor(r);
@@ -62,12 +62,12 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
-        /// Initializes a new color using the specified components.
+        /// Initializes a new Color using the specified components.
         /// </summary>
-        /// <param name="r">The red component value of this color.</param>
-        /// <param name="g">The green component value of this color.</param>
-        /// <param name="b">The blue component value of this color.</param>
-        /// <param name="a">The alpha component value of this color.</param>
+        /// <param name="r">The red component value of this Color.</param>
+        /// <param name="g">The green component value of this Color.</param>
+        /// <param name="b">The blue component value of this Color.</param>
+        /// <param name="a">The alpha component value of this Color.</param>
         public Color(int r, int g, int b, int a = 255)
         {
             R = NormalizeColor(r);
@@ -78,12 +78,12 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
-        /// Initializes a new color using the specified components.
+        /// Initializes a new Color using the specified components.
         /// </summary>
-        /// <param name="r">The red component value of this color.</param>
-        /// <param name="g">The green component value of this color.</param>
-        /// <param name="b">The blue component value of this color.</param>
-        /// <param name="a">The alpha component value of this color.</param>
+        /// <param name="r">The red component value of this Color.</param>
+        /// <param name="g">The green component value of this Color.</param>
+        /// <param name="b">The blue component value of this Color.</param>
+        /// <param name="a">The alpha component value of this Color.</param>
         public Color(byte r, byte g, byte b, byte a = 255)
         {
             R = r / 255.0f;
@@ -94,10 +94,10 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
-        /// Initializes a new Color using the specified color and the alpha value.
+        /// Initializes a new Color using the specified Color and the alpha value.
         /// </summary>
         /// <param name="color">A Color structure.</param>
-        /// <param name="alpha">The alpha component of the color.</param>
+        /// <param name="alpha">The alpha component of the Color.</param>
         public Color(Color color, float alpha = 1.0f)
         {
             R = color.R;
@@ -108,10 +108,10 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
-        /// Initializes a new Color using the specified color and the alpha value.
+        /// Initializes a new Color using the specified Color and the alpha value.
         /// </summary>
         /// <param name="color">A Color structure.</param>
-        /// <param name="alpha">The alpha component of the color.</param>
+        /// <param name="alpha">The alpha component of the Color.</param>
         public Color(Color color, int alpha = 255)
         {
             R = color.R;
@@ -122,10 +122,10 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
-        /// Initializes a new Color using the specified color and the alpha value.
+        /// Initializes a new Color using the specified Color and the alpha value.
         /// </summary>
         /// <param name="color">A Color structure.</param>
-        /// <param name="alpha">The alpha component of the color.</param>
+        /// <param name="alpha">The alpha component of the Color.</param>
         public Color(Color color, byte alpha = 255)
         {
             R = color.R;
