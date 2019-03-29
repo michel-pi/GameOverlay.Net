@@ -78,6 +78,7 @@
     <Compile Include="Windows\GraphicsWindow.cs" />
     <Compile Include="Windows\OverlayWindow.cs" />
     <Compile Include="Windows\StickyWindow.cs" />
+    <Compile Include="Windows\WindowBounds.cs" />
     <Compile Include="Windows\WindowHelper.cs" />
   </ItemGroup>
   <ItemGroup>

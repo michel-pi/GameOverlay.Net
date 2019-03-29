@@ -387,7 +387,7 @@ namespace GameOverlay.Windows
         /// <param name="attachToClientArea">A Boolean determining whether to fit to the client area of the target window.</param>
         public void FitToWindow(IntPtr windowHandle, bool attachToClientArea = false)
         {
-            bool result = attachToClientArea ? WindowHelper.GetWindowClient(windowHandle, out NativeRect rect) : WindowHelper.GetWindowRect(windowHandle, out rect);
+            bool result = attachToClientArea ? WindowHelper.GetWindowClientBounds(windowHandle, out WindowBounds rect) : WindowHelper.GetWindowBounds(windowHandle, out rect);
 
             if (result)
             {

@@ -5,7 +5,10 @@ using GameOverlay.PInvoke;
 
 namespace GameOverlay.Windows
 {
-    internal static class WindowHelper
+    /// <summary>
+    /// Provides methods to interact with windows.
+    /// </summary>
+    public static class WindowHelper
     {
         private const int MinRandomStringLen = 8;
         private const int MaxRandomStringLen = 16;
@@ -15,11 +18,18 @@ namespace GameOverlay.Windows
 
         private static List<string> _windowClassesBlacklist = new List<string>();
 
+        /// <summary>
+        /// Generates a random window title.
+        /// </summary>
+        /// <returns>The string this method creates.</returns>
         public static string GenerateRandomTitle()
         {
             return GenerateRandomAsciiString(MinRandomStringLen, MaxRandomStringLen);
         }
-        // Generates a random window class name and respects the already used ones in the blacklist.
+        /// <summary>
+        /// Generates a random window class name.
+        /// </summary>
+        /// <returns>The string this method creates.</returns>
         public static string GenerateRandomClass()
         {
             lock (_blacklistLock)
@@ -42,13 +52,90 @@ namespace GameOverlay.Windows
             }
         }
 
+        /// <summary>
+        /// Adds the topmost flag to a window.
+        /// </summary>
+        /// <param name="hwnd">A IntPtr representing the handle of a window.</param>
         public static void MakeTopmost(IntPtr hwnd) => User32.SetWindowPos(hwnd, User32.HwndInsertTopMost, 0, 0, 0, 0, SwpFlags.ShowWindow | SwpFlags.NoActivate | SwpFlags.NoMove | SwpFlags.NoSize);
+        /// <summary>
+        /// Removes the topmost flag from a window.
+        /// </summary>
+        /// <param name="hwnd">A IntPtr representing the handle of a window.</param>
         public static void RemoveTopmost(IntPtr hwnd) => User32.SetWindowPos(hwnd, User32.HwndInsertNoTopmost, 0, 0, 0, 0, SwpFlags.NoActivate | SwpFlags.NoMove | SwpFlags.NoSize);
+
+        /// <summary>
+        /// Returns the boundaries of a window.
+        /// </summary>
+        /// <param name="hwnd">A IntPtr representing the handle of a window.</param>
+        /// <param name="bounds">A WindowBounds structure representing the boundaries of a window.</param>
+        /// <returns></returns>
+        public static bool GetWindowBounds(IntPtr hwnd, out WindowBounds bounds)
+        {
+            if (User32.GetWindowRect(hwnd, out var rect))
+            {
+                bounds = new WindowBounds()
+                {
+                    Left = rect.Left,
+                    Top = rect.Top,
+                    Right = rect.Right,
+                    Bottom = rect.Bottom
+                };
+
+                return true;
+            }
+            else
+            {
+                bounds = default(WindowBounds);
+
+                return false;
+            }
+        }
+        /// <summary>
+        /// Returns the boundaries of a windows client area.
+        /// </summary>
+        /// <param name="hwnd">A IntPtr representing the handle of a window.</param>
+        /// <param name="bounds">A WindowBounds structure representing the boundaries of a window.</param>
+        /// <returns></returns>
+        public static bool GetWindowClientBounds(IntPtr hwnd, out WindowBounds bounds)
+        {
+            if (GetWindowClientInternal(hwnd, out var rect))
+            {
+                bounds = new WindowBounds()
+                {
+                    Left = rect.Left,
+                    Top = rect.Top,
+                    Right = rect.Right,
+                    Bottom = rect.Bottom
+                };
+
+                return true;
+            }
+            else
+            {
+                bounds = default(WindowBounds);
+
+                return false;
+            }
+        }
         
-        // Gets the boundaries of a window using its handle.
-        public static bool GetWindowRect(IntPtr hwnd, out NativeRect rect) => User32.GetWindowRect(hwnd, out rect);
-        // Gets the boundaries of a window client area using its handle.
-        public static bool GetWindowClient(IntPtr hwnd, out NativeRect rect)
+        /// <summary>
+        /// Extends a windows frame into the client area of the window.
+        /// </summary>
+        /// <param name="hwnd">A IntPtr representing the handle of a window.</param>
+        public static void ExtendFrameIntoClientArea(IntPtr hwnd)
+        {
+            var margin = new NativeMargin
+            {
+                cxLeftWidth = -1,
+                cxRightWidth = -1,
+                cyBottomHeight = -1,
+                cyTopHeight = -1
+            };
+
+            DwmApi.DwmExtendFrameIntoClientArea(hwnd, ref margin);
+        }
+
+        private static bool GetWindowClientInternal(IntPtr hwnd, out NativeRect rect)
         {
             // calculates the window bounds based on the difference of the client and the window rect
 
@@ -56,7 +143,7 @@ namespace GameOverlay.Windows
 
             if (!User32.GetWindowRect(hwnd, out rect)) return false;
             if (!User32.GetClientRect(hwnd, out var clientRect)) return true;
-            
+
             int clientWidth = clientRect.Right - clientRect.Left;
             int clientHeight = clientRect.Bottom - clientRect.Top;
 
@@ -89,22 +176,8 @@ namespace GameOverlay.Windows
                 rect.Bottom -= difY;
                 rect.Top += difY;
             }
-            
-            return true;
-        }
-        
-        // Extends the window frame into the client area.
-        public static void ExtendFrameIntoClientArea(IntPtr hwnd)
-        {
-            var margin = new NativeMargin
-            {
-                cxLeftWidth = -1,
-                cxRightWidth = -1,
-                cyBottomHeight = -1,
-                cyTopHeight = -1
-            };
 
-            DwmApi.DwmExtendFrameIntoClientArea(hwnd, ref margin);
+            return true;
         }
 
         private static string GenerateRandomAsciiString(int minLength, int maxLength)
