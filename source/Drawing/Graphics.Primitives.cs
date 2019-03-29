@@ -115,6 +115,28 @@ namespace GameOverlay.Drawing
         {
             return new SharpDX.Direct2D1.Ellipse(circle.Location, circle.Radius, circle.Radius);
         }
+
+        /// <summary>
+        /// Determines whether two specified instances are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator ==(Circle left, Circle right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> do not represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator !=(Circle left, Circle right)
+        {
+            return !left.Equals(right);
+        }
     }
 
     /// <summary>
@@ -242,6 +264,28 @@ namespace GameOverlay.Drawing
         {
             return new SharpDX.Direct2D1.Ellipse(ellipse.Location, ellipse.RadiusX, ellipse.RadiusY);
         }
+
+        /// <summary>
+        /// Determines whether two specified instances are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator ==(Ellipse left, Ellipse right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> do not represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator !=(Ellipse left, Ellipse right)
+        {
+            return !left.Equals(right);
+        }
     }
 
     /// <summary>
@@ -334,6 +378,28 @@ namespace GameOverlay.Drawing
             return OverrideHelper.ToString(
                 "Start", Start.ToString(),
                 "End", End.ToString());
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator ==(Line left, Line right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> do not represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator !=(Line left, Line right)
+        {
+            return !left.Equals(right);
         }
     }
 
@@ -430,6 +496,28 @@ namespace GameOverlay.Drawing
         public static implicit operator Point(RawVector2 vector)
         {
             return new Point(vector.X, vector.Y);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator ==(Point left, Point right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> do not represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator !=(Point left, Point right)
+        {
+            return !left.Equals(right);
         }
     }
 
@@ -574,6 +662,28 @@ namespace GameOverlay.Drawing
         public static implicit operator RawRectangleF(Rectangle rectangle)
         {
             return new RawRectangleF(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator ==(Rectangle left, Rectangle right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> do not represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator !=(Rectangle left, Rectangle right)
+        {
+            return !left.Equals(right);
         }
     }
 
@@ -738,6 +848,28 @@ namespace GameOverlay.Drawing
                 Rect = rectangle.Rectangle
             };
         }
+
+        /// <summary>
+        /// Determines whether two specified instances are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator ==(RoundedRectangle left, RoundedRectangle right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> do not represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator !=(RoundedRectangle left, RoundedRectangle right)
+        {
+            return !left.Equals(right);
+        }
     }
     
     /// <summary>
@@ -845,6 +977,28 @@ namespace GameOverlay.Drawing
                 "A", A.ToString(),
                 "B", B.ToString(),
                 "C", C.ToString());
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator ==(Triangle left, Triangle right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> do not represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator !=(Triangle left, Triangle right)
+        {
+            return !left.Equals(right);
         }
     }
 }

@@ -258,6 +258,28 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
+        /// Determines whether two specified instances are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator ==(Color left, Color right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether two specified instances are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns><see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> do not represent the same value; otherwise, <see langword="false" />.</returns>
+        public static bool operator !=(Color left, Color right)
+        {
+            return !Equals(left, right);
+        }
+
+        /// <summary>
         /// Returns a value indicating whether two specified instances of Color represent the same value.
         /// </summary>
         /// <param name="left">The first object to compare.</param>
