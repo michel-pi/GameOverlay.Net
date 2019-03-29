@@ -70,6 +70,7 @@
     <Compile Include="Drawing\Font.cs" />
     <Compile Include="Drawing\Scene.cs" />
     <Compile Include="Drawing\SolidBrush.cs" />
+    <Compile Include="OverrideHelper.cs" />
     <Compile Include="PInvoke\DwmApi.cs" />
     <Compile Include="PInvoke\DwmApi.Types.cs" />
     <Compile Include="PInvoke\DynamicImport.cs" />

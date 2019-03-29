@@ -68,12 +68,43 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Circle and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Circle value)
+            {
+                return value.Location.Equals(Location)
+                    && value.Radius == Radius;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                Location.GetHashCode(),
+                Radius.GetHashCode());
+        }
+
+        /// <summary>
         /// Converts the Circle structure to a human-readable string.
         /// </summary>
         /// <returns>A string representation of this Circle.</returns>
         public override string ToString()
         {
-            return "{Location=" + Location + ", Radius=" + Radius + "}";
+            return OverrideHelper.ToString(
+                "Location", Location.ToString(),
+                "Radius", Radius.ToString());
         }
 
         /// <summary>
@@ -161,12 +192,46 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Ellipse and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Ellipse value)
+            {
+                return value.Location.Equals(Location)
+                    && value.RadiusX == RadiusX
+                    && value.RadiusY == RadiusY;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                Location.GetHashCode(),
+                RadiusX.GetHashCode(),
+                RadiusY.GetHashCode());
+        }
+
+        /// <summary>
         /// Converts the Ellipse structure to a human-readable string.
         /// </summary>
         /// <returns>A string representation of this Ellipse.</returns>
         public override string ToString()
         {
-            return "{Location=" + Location + ", RadiusX=" + RadiusX + ", RadiusY=" + RadiusY + "}";
+            return OverrideHelper.ToString(
+                "Location", Location.ToString(),
+                "RadiusX", RadiusX.ToString(),
+                "RadiusY", RadiusY.ToString());
         }
         
         /// <summary>
@@ -232,12 +297,43 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Line and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Line value)
+            {
+                return value.Start.Equals(Start)
+                    && value.End.Equals(End);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                Start.GetHashCode(),
+                End.GetHashCode());
+        }
+
+        /// <summary>
         /// Converts the Line structure to a human-readable string.
         /// </summary>
         /// <returns>A string representation of this Line.</returns>
         public override string ToString()
         {
-            return "{Start=" + Start + ", End=" + End + "}";
+            return OverrideHelper.ToString(
+                "Start", Start.ToString(),
+                "End", End.ToString());
         }
     }
 
@@ -279,12 +375,43 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Point and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Point value)
+            {
+                return value.X == X
+                    && value.Y == Y;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                X.GetHashCode(),
+                Y.GetHashCode());
+        }
+
+        /// <summary>
         /// Converts the Point structure to a human-readable string.
         /// </summary>
         /// <returns>A string representation of this Point.</returns>
         public override string ToString()
         {
-            return "{X=" + X + ", Y=" + Y + "}";
+            return OverrideHelper.ToString(
+                "X", X.ToString(),
+                "Y", Y.ToString());
         }
 
         /// <summary>
@@ -393,14 +520,51 @@ namespace GameOverlay.Drawing
         {
             return new Rectangle(x, y, x + width, y + height);
         }
-        
+
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Rectangle and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Rectangle value)
+            {
+                return value.Left == Left
+                    && value.Top == Top
+                    && value.Right == Right
+                    && value.Bottom == Bottom;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                Left.GetHashCode(),
+                Top.GetHashCode(),
+                Right.GetHashCode(),
+                Bottom.GetHashCode());
+        }
+
         /// <summary>
         /// Converts this Rectangle structure to a human-readable string.
         /// </summary>
         /// <returns>A string representation of this Rectangle.</returns>
         public override string ToString()
         {
-            return "{Left=" + Left + ", Top=" + Top + ", Right=" + Right + ", Bottom=" + Bottom + "}";
+            return OverrideHelper.ToString(
+                "Left", Left.ToString(),
+                "Top", Top.ToString(),
+                "Right", Right.ToString(),
+                "Bottom", Bottom.ToString());
         }
         
         /// <summary>
@@ -488,14 +652,48 @@ namespace GameOverlay.Drawing
             RadiusX = radiusX;
             RadiusY = radiusY;
         }
-        
+
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a RoundedRectangle and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is RoundedRectangle value)
+            {
+                return value.Rectangle.Equals(Rectangle)
+                    && value.RadiusX == RadiusX
+                    && value.RadiusY == RadiusY;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                Rectangle.GetHashCode(),
+                RadiusX.GetHashCode(),
+                RadiusY.GetHashCode());
+        }
+
         /// <summary>
         /// Converts this RoundedRectangle structure to a human-readable string.
         /// </summary>
         /// <returns>A string representation of this RoundedRectangle</returns>
         public override string ToString()
         {
-            return "{Rectangle= " + Rectangle.ToString() + ", RadiusX= " + RadiusX + ", RadiusY= " + RadiusY + "}";
+            return OverrideHelper.ToString(
+                "Rectangle", Rectangle.ToString(),
+                "RadiusX", RadiusX.ToString(),
+                "RadiusY", RadiusY.ToString());
         }
 
         /// <summary>
@@ -605,14 +803,48 @@ namespace GameOverlay.Drawing
             B = new Point(b_x, b_y);
             C = new Point(c_x, c_y);
         }
-        
+
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Triangle and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Triangle value)
+            {
+                return value.A.Equals(A)
+                    && value.B.Equals(B)
+                    && value.C.Equals(C);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                A.GetHashCode(),
+                B.GetHashCode(),
+                C.GetHashCode());
+        }
+
         /// <summary>
         /// Converts this Triangle structure to a human-readable string.
         /// </summary>
         /// <returns>The string representation of this Triangle.</returns>
         public override string ToString()
         {
-            return "{A=" + A + ", B=" + B + ", C=" + C + "}";
+            return OverrideHelper.ToString(
+                "A", A.ToString(),
+                "B", B.ToString(),
+                "C", C.ToString());
         }
     }
 }

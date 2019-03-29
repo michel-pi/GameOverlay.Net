@@ -14,7 +14,10 @@ namespace GameOverlay.Drawing
         private readonly PathGeometry _geometry;
         private readonly GeometrySink _sink;
 
-        private bool _isSinkOpen;
+        /// <summary>
+        /// Determines whether this Geometry is open.
+        /// </summary>
+        public bool IsOpen { get; private set; }
 
         private Geometry()
         {
@@ -33,7 +36,7 @@ namespace GameOverlay.Drawing
             _geometry = new PathGeometry(device.GetFactory());
             _sink = _geometry.Open();
 
-            _isSinkOpen = true;
+            IsOpen = true;
         }
 
         /// <summary>
@@ -142,11 +145,67 @@ namespace GameOverlay.Drawing
         /// </summary>
         public void Close()
         {
-            if (!_isSinkOpen) return;
+            if (!IsOpen) return;
 
-            _isSinkOpen = false;
+            IsOpen = false;
 
             _sink.Close();
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Geometry and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            var geometry = obj as Geometry;
+
+            if (geometry == null)
+            {
+                return false;
+            }
+            else
+            {
+                return geometry.IsOpen == IsOpen
+                    && geometry._geometry.NativePointer == _geometry.NativePointer;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Geometry represent the same value.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="value" /> is equal to this instance; otherwise, <see langword="false" />.</returns>
+        public bool Equals(Geometry value)
+        {
+            return value != null
+                && value.IsOpen == IsOpen
+                && value._geometry.NativePointer == _geometry.NativePointer;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                IsOpen.GetHashCode(),
+                _geometry.NativePointer.GetHashCode());
+        }
+
+        /// <summary>
+        /// Converts this Geometry instance to a human-readable string.
+        /// </summary>
+        /// <returns>A string representation of this Geometry.</returns>
+        public override string ToString()
+        {
+            return OverrideHelper.ToString(
+                "Geometry", "PathGeometry",
+                "FigureCount", _geometry.FigureCount.ToString(),
+                "SegmentCount", _geometry.SegmentCount.ToString(),
+                "IsOpen", IsOpen.ToString());
         }
 
         #region IDisposable Support
@@ -162,7 +221,7 @@ namespace GameOverlay.Drawing
             {
                 try
                 {
-                    if (_isSinkOpen) _sink.Close();
+                    if (IsOpen) _sink.Close();
 
                     _sink.Dispose();
                     _geometry.Dispose();
@@ -190,6 +249,18 @@ namespace GameOverlay.Drawing
         public static implicit operator SharpDX.Direct2D1.Geometry(Geometry geometry)
         {
             return geometry._geometry;
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Geometry represent the same value.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
+        public static bool Equals(Geometry left, Geometry right)
+        {
+            return left != null
+                && left.Equals(right);
         }
     }
 }

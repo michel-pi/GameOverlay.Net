@@ -35,6 +35,56 @@ namespace GameOverlay.Drawing
             Dispose(false);
         }
 
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Scene and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            var scene = obj as Scene;
+
+            if (scene == null)
+            {
+                return false;
+            }
+            else
+            {
+                return scene.Device == Device;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Scene represent the same value.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="value" /> is equal to this instance; otherwise, <see langword="false" />.</returns>
+        public bool Equals(Scene value)
+        {
+            return value != null
+                && value.Device == Device;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return Device.GetHashCode();
+        }
+
+        /// <summary>
+        /// Converts this Scene to a human-readable string.
+        /// </summary>
+        /// <returns>A string representation of this Scene.</returns>
+        public override string ToString()
+        {
+            return OverrideHelper.ToString(
+                "Scene", GetHashCode().ToString(),
+                "Device", Device.ToString());
+        }
+
         #region IDisposable Support
         private bool disposedValue = false;
 
@@ -71,6 +121,18 @@ namespace GameOverlay.Drawing
             if (scene.Device == null) throw new InvalidOperationException(nameof(scene.Device) + " is null");
 
             return scene.Device;
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Scene represent the same value.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
+        public static bool Equals(Scene left, Scene right)
+        {
+            return left != null
+                && left.Equals(right);
         }
     }
 }

@@ -86,6 +86,72 @@ namespace GameOverlay.Drawing
             Dispose(false);
         }
 
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Font and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            var font = obj as Font;
+
+            if (font == null)
+            {
+                return false;
+            }
+            else
+            {
+                return font.Bold == Bold
+                    && font.Italic == Italic
+                    && font.WordWeapping == WordWeapping
+                    && font.FontSize == FontSize
+                    && font.FontFamilyName == FontFamilyName;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Font represent the same value.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="value" /> is equal to this instance; otherwise, <see langword="false" />.</returns>
+        public bool Equals(Font value)
+        {
+            return value != null
+                && value.Bold == Bold
+                && value.Italic == Italic
+                && value.WordWeapping == WordWeapping
+                && value.FontSize == FontSize
+                && value.FontFamilyName == FontFamilyName;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                Bold.GetHashCode(),
+                Italic.GetHashCode(),
+                WordWeapping.GetHashCode(),
+                FontSize.GetHashCode(),
+                FontFamilyName.GetHashCode());
+        }
+
+        /// <summary>
+        /// Converts this Font instance to a human-readable string.
+        /// </summary>
+        /// <returns>A string representation of this Font.</returns>
+        public override string ToString()
+        {
+            return OverrideHelper.ToString(
+                "FontFamilyName", FontFamilyName,
+                "FontSize", FontSize.ToString(),
+                "Italic", Italic.ToString(),
+                "Bold", Bold.ToString(),
+                "WordWrapping", WordWeapping.ToString());
+        }
+
         #region IDisposable Support
         private bool disposedValue = false;
 
@@ -122,6 +188,18 @@ namespace GameOverlay.Drawing
             if (font == null) throw new ArgumentNullException(nameof(font));
 
             return font.TextFormat;
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Font represent the same value.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
+        public static bool Equals(Font left, Font right)
+        {
+            return left != null
+                && left.Equals(right);
         }
     }
 }

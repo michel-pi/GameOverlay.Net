@@ -59,12 +59,54 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a SolidBrush and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            var value = obj as SolidBrush;
+
+            if (value == null)
+            {
+                return false;
+            }
+            else
+            {
+                return value._brush.NativePointer == _brush.NativePointer;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of SolidBrush represent the same value.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="value" /> is equal to this instance; otherwise, <see langword="false" />.</returns>
+        public bool Equals(SolidBrush value)
+        {
+            return value != null
+                && value._brush.NativePointer == _brush.NativePointer;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                _brush.NativePointer.GetHashCode());
+        }
+
+        /// <summary>
         /// Converts this SolidBrush to a human-readable string.
         /// </summary>
         /// <returns>The string representation of this SolidBrush.</returns>
         public override string ToString()
         {
-            return "{Brush=" + Color.ToString() + "}"; 
+            return OverrideHelper.ToString(
+                "Brush", "SolidBrush",
+                "Color", Color.ToString()); 
         }
 
         #region IDisposable Support
@@ -105,6 +147,18 @@ namespace GameOverlay.Drawing
         public static implicit operator SolidColorBrush(SolidBrush brush)
         {
             return brush._brush;
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of SolidBrush represent the same value.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
+        public static bool Equals(SolidBrush left, SolidBrush right)
+        {
+            return left != null
+                && left.Equals(right);
         }
     }
 }

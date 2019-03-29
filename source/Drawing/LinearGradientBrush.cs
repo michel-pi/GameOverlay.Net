@@ -106,6 +106,59 @@ namespace GameOverlay.Drawing
             _brush.EndPoint = new RawVector2(endX, endY);
         }
 
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a LinearGradientBrush and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            var brush = obj as LinearGradientBrush;
+
+            if (brush == null)
+            {
+                return false;
+            }
+            else
+            {
+                return brush._brush.NativePointer == _brush.NativePointer;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of LinearGradientBrush represent the same value.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="value" /> is equal to this instance; otherwise, <see langword="false" />.</returns>
+        public bool Equals(LinearGradientBrush value)
+        {
+            return value != null
+                && value._brush.NativePointer == _brush.NativePointer;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                _brush.NativePointer.GetHashCode());
+        }
+
+        /// <summary>
+        /// Converts this LinearGradientBrush instance to a human-readable string.
+        /// </summary>
+        /// <returns>A string representation of this LinearGradientBrush.</returns>
+        public override string ToString()
+        {
+            return OverrideHelper.ToString(
+                "Brush", "LinearGradientBrush",
+                "Start", Start.ToString(),
+                "End", End.ToString(),
+                "Colors", _brush.GradientStopCollection.ToString());
+        }
+
         #region IDisposable Support
         private bool disposedValue = false;
 
@@ -134,5 +187,17 @@ namespace GameOverlay.Drawing
             GC.SuppressFinalize(this);
         }
         #endregion
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of LinearGradientBrush represent the same value.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
+        public static bool Equals(LinearGradientBrush left, LinearGradientBrush right)
+        {
+            return left != null
+                && left.Equals(right);
+        }
     }
 }

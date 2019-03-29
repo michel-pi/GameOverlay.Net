@@ -136,12 +136,64 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Color and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Color)
+            {
+                var clr = (Color)obj;
+
+                return clr.R == R
+                    && clr.G == G
+                    && clr.B == B
+                    && clr.A == A;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Color represent the same value.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="value" /> is equal to this instance; otherwise, <see langword="false" />.</returns>
+        public bool Equals(Color value)
+        {
+            return value.R == R
+                && value.G == G
+                && value.B == B
+                && value.A == A;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                R.GetHashCode(),
+                G.GetHashCode(),
+                B.GetHashCode(),
+                A.GetHashCode());
+        }
+
+        /// <summary>
         /// Converts this Color structure to a human-readable string.
         /// </summary>
         /// <returns>A string representation of this Color.</returns>
         public override string ToString()
         {
-            return "{A=" + A + ", R=" + R + ", G=" + G + ", B=" + B + "}";
+            return OverrideHelper.ToString(
+                "R", R.ToString(),
+                "G", G.ToString(),
+                "B", B.ToString(),
+                "A", A.ToString());
         }
 
         /// <summary>
@@ -203,6 +255,17 @@ namespace GameOverlay.Drawing
         public static implicit operator RawColor4(Color color)
         {
             return new RawColor4(color.R, color.G, color.B, color.A);
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Color represent the same value.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
+        public static bool Equals(Color left, Color right)
+        {
+            return left.Equals(right);
         }
     }
 }

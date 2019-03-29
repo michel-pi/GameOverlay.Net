@@ -638,7 +638,67 @@ namespace GameOverlay.Windows
 
             return User32.DefWindowProc(hwnd, msg, wParam, lParam);
         }
-        
+
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a OverlayWindow and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            var value = obj as OverlayWindow;
+
+            if (value == null)
+            {
+                return false;
+            }
+            else
+            {
+                return value.IsInitialized == IsInitialized
+                    && value.Handle == Handle;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of OverlayWindow represent the same value.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="value" /> is equal to this instance; otherwise, <see langword="false" />.</returns>
+        public bool Equals(OverlayWindow value)
+        {
+            return value != null
+                && value.IsInitialized == IsInitialized
+                && value.Handle == Handle;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                IsInitialized.GetHashCode(),
+                Handle.GetHashCode());
+        }
+
+        /// <summary>
+        /// Converts this OverlayWindow structure to a human-readable string.
+        /// </summary>
+        /// <returns>A string representation of this OverlayWindow.</returns>
+        public override string ToString()
+        {
+            return OverrideHelper.ToString(
+                "Handle", Handle.ToString("X"),
+                "IsInitialized", IsInitialized.ToString(),
+                "IsVisible", IsVisible.ToString(),
+                "IsTopmost", IsTopmost.ToString(),
+                "X", X.ToString(),
+                "Y", Y.ToString(),
+                "Width", Width.ToString(),
+                "Height", Height.ToString());
+        }
+
         #region IDisposable Support
         private bool disposedValue = false;
 
@@ -678,5 +738,17 @@ namespace GameOverlay.Windows
             GC.SuppressFinalize(this);
         }
         #endregion
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of OverlayWindow represent the same value.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
+        public static bool Equals(OverlayWindow left, OverlayWindow right)
+        {
+            return left != null
+                && left.Equals(right);
+        }
     }
 }

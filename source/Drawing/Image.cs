@@ -81,6 +81,59 @@ namespace GameOverlay.Drawing
             Dispose(false);
         }
 
+        /// <summary>
+        /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
+        /// </summary>
+        /// <param name="obj">The object to compare with this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="obj" /> is a Image and equal to this instance; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj)
+        {
+            var image = obj as Image;
+
+            if (image == null)
+            {
+                return false;
+            }
+            else
+            {
+                return image.Bitmap.NativePointer == Bitmap.NativePointer;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Image represent the same value.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns><see langword="true" /> if <paramref name="value" /> is equal to this instance; otherwise, <see langword="false" />.</returns>
+        public bool Equals(Image value)
+        {
+            return value != null
+                && value.Bitmap.NativePointer == Bitmap.NativePointer;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return OverrideHelper.HashCodes(
+                Bitmap.NativePointer.GetHashCode());
+        }
+
+        /// <summary>
+        /// Converts this Image instance to a human-readable string.
+        /// </summary>
+        /// <returns>A string representation of this Image.</returns>
+        public override string ToString()
+        {
+            return OverrideHelper.ToString(
+                "Image", "Bitmap",
+                "Width", Width.ToString(),
+                "Height", Height.ToString(),
+                "PixelFormat", Bitmap.PixelFormat.Format.ToString());
+        }
+
         #region IDisposable Support
         private bool disposedValue = false;
 
@@ -117,6 +170,18 @@ namespace GameOverlay.Drawing
             if (image == null) throw new ArgumentNullException(nameof(image));
 
             return image.Bitmap;
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two specified instances of Image represent the same value.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
+        public static bool Equals(Image left, Image right)
+        {
+            return left != null
+                && left.Equals(right);
         }
 
         private static Bitmap LoadBitmapFromMemory(RenderTarget device, byte[] bytes)
