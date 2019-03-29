@@ -94,6 +94,48 @@ namespace GameOverlay.Drawing
         }
 
         /// <summary>
+        /// Initializes a new Color using the specified color and the alpha value.
+        /// </summary>
+        /// <param name="color">A Color structure.</param>
+        /// <param name="alpha">The alpha component of the color.</param>
+        public Color(Color color, float alpha = 1.0f)
+        {
+            R = color.R;
+            G = color.G;
+            B = color.B;
+
+            A = NormalizeColor(alpha);
+        }
+
+        /// <summary>
+        /// Initializes a new Color using the specified color and the alpha value.
+        /// </summary>
+        /// <param name="color">A Color structure.</param>
+        /// <param name="alpha">The alpha component of the color.</param>
+        public Color(Color color, int alpha = 255)
+        {
+            R = color.R;
+            G = color.G;
+            B = color.B;
+
+            A = NormalizeColor(alpha);
+        }
+
+        /// <summary>
+        /// Initializes a new Color using the specified color and the alpha value.
+        /// </summary>
+        /// <param name="color">A Color structure.</param>
+        /// <param name="alpha">The alpha component of the color.</param>
+        public Color(Color color, byte alpha = 255)
+        {
+            R = color.R;
+            G = color.G;
+            B = color.B;
+
+            A = alpha;
+        }
+
+        /// <summary>
         /// Converts this Color structure to a human-readable string.
         /// </summary>
         /// <returns>A string representation of this Color.</returns>
