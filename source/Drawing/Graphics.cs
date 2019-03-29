@@ -252,12 +252,7 @@ namespace GameOverlay.Drawing
         {
             if (!IsInitialized) throw new InvalidOperationException("The DirectX device is not initialized");
             if (IsDrawing) return;
-
-            if (MeasureFPS && !_watch.IsRunning)
-            {
-                _watch.Restart();
-            }
-
+            
             if (_resize)
             {
                 try
@@ -270,6 +265,11 @@ namespace GameOverlay.Drawing
                     _device.Resize(new Size2(_resizeWidth, _resizeHeight));
                 }
                 catch { } // idk sometimes fails?
+            }
+
+            if (MeasureFPS && !_watch.IsRunning)
+            {
+                _watch.Restart();
             }
 
             _device.BeginDraw();
