@@ -90,7 +90,7 @@ namespace GameOverlay.Windows
                 _watch = Stopwatch.StartNew();
             }
 
-            if (_watch.ElapsedMilliseconds > 32) // executes 30 times per second
+            if (_watch.ElapsedMilliseconds > 34) // executes 30 times per second
             {
                 if (BypassTopmost) PlaceAboveWindow(ParentWindowHandle);
                 FitToWindow(ParentWindowHandle, AttachToClientArea);
