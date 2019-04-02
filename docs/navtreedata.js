@@ -28,7 +28,6 @@ var NAVTREE =
       [ "Packages", "namespaces.html", "namespaces_dup" ],
       [ "Package Functions", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
@@ -50,7 +49,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"class_game_overlay_1_1_windows_1_1_overlay_window.html#a9ed33e1acdd558f31280de9f4de8a7b4"
+"class_game_overlay_1_1_windows_1_1_graphics_window.html#af456dd85bbc115c1814e301388b3e15a",
+"struct_game_overlay_1_1_drawing_1_1_triangle.html#ad991ae8452e875634fb11d9214085d54"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

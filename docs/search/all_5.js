@@ -11,8 +11,6 @@ var searchData=
   ['font',['Font',['../class_game_overlay_1_1_drawing_1_1_font.html',1,'GameOverlay.Drawing.Font'],['../class_game_overlay_1_1_drawing_1_1_font.html#a952ade2cf2c3534ccc65509697ec8c75',1,'GameOverlay.Drawing.Font.Font(TextFormat textFormat)'],['../class_game_overlay_1_1_drawing_1_1_font.html#a32a97a179c194dace8825f0fe08c311a',1,'GameOverlay.Drawing.Font.Font(FontFactory factory, string fontFamilyName, float size, bool bold=false, bool italic=false, bool wordWrapping=false)']]],
   ['fontfamilyname',['FontFamilyName',['../class_game_overlay_1_1_drawing_1_1_font.html#ad95ec961d05f0ef7068d6ade84092b0a',1,'GameOverlay::Drawing::Font']]],
   ['fontsize',['FontSize',['../class_game_overlay_1_1_drawing_1_1_font.html#a4b05fd333f83f44d8a709caa74bb77da',1,'GameOverlay::Drawing::Font']]],
-  ['forceminimize',['ForceMinimize',['../namespace_game_overlay_1_1_p_invoke.html#a463ed0bb10a276d7840abd21bfd900e6aa91aef823413348af759e994d08e98bd',1,'GameOverlay::PInvoke']]],
   ['fps',['FPS',['../class_game_overlay_1_1_drawing_1_1_graphics.html#a8a8ae8d97ca9b834f7b5931ea4848321',1,'GameOverlay.Drawing.Graphics.FPS()'],['../class_game_overlay_1_1_windows_1_1_graphics_window.html#a081bc7f46fab8180ad2096ff71af4496',1,'GameOverlay.Windows.GraphicsWindow.FPS()']]],
-  ['framechanged',['FrameChanged',['../namespace_game_overlay_1_1_p_invoke.html#a9bfe9dec48032fec2ff42dc79d17963aa782be40c064e824a1db981514b04c9b9',1,'GameOverlay::PInvoke']]],
   ['fromargb',['FromARGB',['../struct_game_overlay_1_1_drawing_1_1_color.html#abab306641b2113c8640bccdae0c4d175',1,'GameOverlay::Drawing::Color']]]
 ];

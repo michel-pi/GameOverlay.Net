@@ -6,5 +6,5 @@ var searchData=
   ['radiusy',['RadiusY',['../struct_game_overlay_1_1_drawing_1_1_ellipse.html#a01f03e0050beb4e95c292663e180352b',1,'GameOverlay.Drawing.Ellipse.RadiusY()'],['../struct_game_overlay_1_1_drawing_1_1_rounded_rectangle.html#a80185bbdbbd5fefcdc29e809ab09263c',1,'GameOverlay.Drawing.RoundedRectangle.RadiusY()']]],
   ['rectangle',['Rectangle',['../struct_game_overlay_1_1_drawing_1_1_rounded_rectangle.html#ae60a2c702073e2ad9a86ee7dc3c296cf',1,'GameOverlay::Drawing::RoundedRectangle']]],
   ['red',['Red',['../struct_game_overlay_1_1_drawing_1_1_color.html#a23a29991e54280f9f53565fa43d439b0',1,'GameOverlay::Drawing::Color']]],
-  ['right',['Right',['../struct_game_overlay_1_1_drawing_1_1_rectangle.html#ab9dcbf852284132dcd0bd662a2302a47',1,'GameOverlay.Drawing.Rectangle.Right()'],['../struct_game_overlay_1_1_p_invoke_1_1_native_rect.html#aecbee9207a61d104dacbd4b9592f8c08',1,'GameOverlay.PInvoke.NativeRect.Right()']]]
+  ['right',['Right',['../struct_game_overlay_1_1_drawing_1_1_rectangle.html#ab9dcbf852284132dcd0bd662a2302a47',1,'GameOverlay.Drawing.Rectangle.Right()'],['../struct_game_overlay_1_1_windows_1_1_window_bounds.html#a9e9169072446f096a511d1078aeb3e80',1,'GameOverlay.Windows.WindowBounds.Right()']]]
 ];

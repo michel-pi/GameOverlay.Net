@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">GameOverlay.Net
-   &#160;<span id="projectnumber">4.0.3</span>
+   &#160;<span id="projectnumber">4.0.4</span>
    </div>
   </td>
  </tr>
@@ -88,6 +88,7 @@ $(document).ready(function(){initNavTree('class_game_overlay_1_1_drawing_1_1_gra
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
@@ -99,12 +100,8 @@ $(document).ready(function(){initNavTree('class_game_overlay_1_1_drawing_1_1_gra
 
 <p>Encapsulates a Direct2D drawing surface.  
  <a href="class_game_overlay_1_1_drawing_1_1_graphics.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for GameOverlay.Drawing.Graphics:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_game_overlay_1_1_drawing_1_1_graphics.png" alt=""/>
- </div></div>
+
+<p>Inherits IDisposable.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -124,25 +121,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7fe66f5e7884d0840c32d2af0f485a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys an already initialized <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface and frees its resources.  <a href="#a7fe66f5e7884d0840c32d2af0f485a0d">More...</a><br /></td></tr>
 <tr class="separator:a7fe66f5e7884d0840c32d2af0f485a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae08726322402a2bc6b61086ab65fedc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#ae08726322402a2bc6b61086ab65fedc1">Resize</a> (int width, int height)</td></tr>
-<tr class="memdesc:ae08726322402a2bc6b61086ab65fedc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface to resize itself on the next <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a>.  <a href="#ae08726322402a2bc6b61086ab65fedc1">More...</a><br /></td></tr>
+<tr class="memdesc:ae08726322402a2bc6b61086ab65fedc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface to resize itself on the next <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a>.  <a href="#ae08726322402a2bc6b61086ab65fedc1">More...</a><br /></td></tr>
 <tr class="separator:ae08726322402a2bc6b61086ab65fedc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90236b216ad3fb396b6e19bea4d0ae10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a90236b216ad3fb396b6e19bea4d0ae10">BeginScene</a> ()</td></tr>
-<tr class="memdesc:a90236b216ad3fb396b6e19bea4d0ae10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame).  <a href="#a90236b216ad3fb396b6e19bea4d0ae10">More...</a><br /></td></tr>
+<tr class="memdesc:a90236b216ad3fb396b6e19bea4d0ae10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame).  <a href="#a90236b216ad3fb396b6e19bea4d0ae10">More...</a><br /></td></tr>
 <tr class="separator:a90236b216ad3fb396b6e19bea4d0ae10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c357812a35b98880c6ba8cfffcd6372"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a2c357812a35b98880c6ba8cfffcd6372">ClearScene</a> ()</td></tr>
-<tr class="memdesc:a2c357812a35b98880c6ba8cfffcd6372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame) using a transparent background color.  <a href="#a2c357812a35b98880c6ba8cfffcd6372">More...</a><br /></td></tr>
+<tr class="memdesc:a2c357812a35b98880c6ba8cfffcd6372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame) using a transparent background color.  <a href="#a2c357812a35b98880c6ba8cfffcd6372">More...</a><br /></td></tr>
 <tr class="separator:a2c357812a35b98880c6ba8cfffcd6372"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd8ceee38e5d47d939a4e8d380940315"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#afd8ceee38e5d47d939a4e8d380940315">ClearScene</a> (<a class="el" href="struct_game_overlay_1_1_drawing_1_1_color.html">Color</a> color)</td></tr>
-<tr class="memdesc:afd8ceee38e5d47d939a4e8d380940315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame) using the given background color.  <a href="#afd8ceee38e5d47d939a4e8d380940315">More...</a><br /></td></tr>
+<tr class="memdesc:afd8ceee38e5d47d939a4e8d380940315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame) using the given background color.  <a href="#afd8ceee38e5d47d939a4e8d380940315">More...</a><br /></td></tr>
 <tr class="separator:afd8ceee38e5d47d939a4e8d380940315"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae98f80363de1b18062ae0bcc718dc074"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#ae98f80363de1b18062ae0bcc718dc074">ClearScene</a> (<a class="el" href="class_game_overlay_1_1_drawing_1_1_solid_brush.html">SolidBrush</a> brush)</td></tr>
-<tr class="memdesc:ae98f80363de1b18062ae0bcc718dc074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame) using the given brush.  <a href="#ae98f80363de1b18062ae0bcc718dc074">More...</a><br /></td></tr>
+<tr class="memdesc:ae98f80363de1b18062ae0bcc718dc074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame) using the given brush.  <a href="#ae98f80363de1b18062ae0bcc718dc074">More...</a><br /></td></tr>
 <tr class="separator:ae98f80363de1b18062ae0bcc718dc074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad96255dd792e985f79c11951c13595be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#ad96255dd792e985f79c11951c13595be">EndScene</a> ()</td></tr>
-<tr class="memdesc:ad96255dd792e985f79c11951c13595be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame).  <a href="#ad96255dd792e985f79c11951c13595be">More...</a><br /></td></tr>
+<tr class="memdesc:ad96255dd792e985f79c11951c13595be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame).  <a href="#ad96255dd792e985f79c11951c13595be">More...</a><br /></td></tr>
 <tr class="separator:ad96255dd792e985f79c11951c13595be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ee8e20233420fe27072238423849fcb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html">Scene</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a0ee8e20233420fe27072238423849fcb">UseScene</a> ()</td></tr>
-<tr class="memdesc:a0ee8e20233420fe27072238423849fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> which handles BeginScene and EndScene within a using block.  <a href="#a0ee8e20233420fe27072238423849fcb">More...</a><br /></td></tr>
+<tr class="memdesc:a0ee8e20233420fe27072238423849fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> which handles BeginScene and EndScene within a using block.  <a href="#a0ee8e20233420fe27072238423849fcb">More...</a><br /></td></tr>
 <tr class="separator:a0ee8e20233420fe27072238423849fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfa836557a97aea3c0e70ab3e055b9a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_overlay_1_1_drawing_1_1_solid_brush.html">SolidBrush</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#adfa836557a97aea3c0e70ab3e055b9a4">CreateSolidBrush</a> (float r, float g, float b, float a=1.0f)</td></tr>
 <tr class="memdesc:adfa836557a97aea3c0e70ab3e055b9a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_solid_brush.html" title="Represents a SolidBrush which is used for drawing on a Graphics surface.">SolidBrush</a> by using the given color components.  <a href="#adfa836557a97aea3c0e70ab3e055b9a4">More...</a><br /></td></tr>
@@ -453,14 +450,32 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a030f753378713a32013a2a55abdf284c"><td class="memItemLeft" align="right" valign="top">FontFactory&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a030f753378713a32013a2a55abdf284c">GetFontFactory</a> ()</td></tr>
 <tr class="memdesc:a030f753378713a32013a2a55abdf284c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the FontFactory used by this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface.  <a href="#a030f753378713a32013a2a55abdf284c">More...</a><br /></td></tr>
 <tr class="separator:a030f753378713a32013a2a55abdf284c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92c680cab8cba779d7a2ad83f2383648"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a92c680cab8cba779d7a2ad83f2383648">Equals</a> (object obj)</td></tr>
+<tr class="memdesc:a92c680cab8cba779d7a2ad83f2383648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value indicating whether this instance and a specified T:System.Object represent the same type and value.  <a href="#a92c680cab8cba779d7a2ad83f2383648">More...</a><br /></td></tr>
+<tr class="separator:a92c680cab8cba779d7a2ad83f2383648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1611c185a2b3237bff8d3340cb476c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#ad1611c185a2b3237bff8d3340cb476c1">Equals</a> (<a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> value)</td></tr>
+<tr class="memdesc:ad1611c185a2b3237bff8d3340cb476c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value indicating whether two specified instances of <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> represent the same value.  <a href="#ad1611c185a2b3237bff8d3340cb476c1">More...</a><br /></td></tr>
+<tr class="separator:ad1611c185a2b3237bff8d3340cb476c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e97468bdcf3e93c064d6ea3af4d1580"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a4e97468bdcf3e93c064d6ea3af4d1580">GetHashCode</a> ()</td></tr>
+<tr class="memdesc:a4e97468bdcf3e93c064d6ea3af4d1580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hash code for this instance.  <a href="#a4e97468bdcf3e93c064d6ea3af4d1580">More...</a><br /></td></tr>
+<tr class="separator:a4e97468bdcf3e93c064d6ea3af4d1580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a8d3193f81b52a879eb277a3d5bf194"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a8a8d3193f81b52a879eb277a3d5bf194">ToString</a> ()</td></tr>
+<tr class="memdesc:a8a8d3193f81b52a879eb277a3d5bf194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> instance to a human-readable string.  <a href="#a8a8d3193f81b52a879eb277a3d5bf194">More...</a><br /></td></tr>
+<tr class="separator:a8a8d3193f81b52a879eb277a3d5bf194"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17c84343ec1a1e6e29734c110797ca51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a17c84343ec1a1e6e29734c110797ca51">Dispose</a> ()</td></tr>
 <tr class="memdesc:a17c84343ec1a1e6e29734c110797ca51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all resources used by this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface.  <a href="#a17c84343ec1a1e6e29734c110797ca51">More...</a><br /></td></tr>
 <tr class="separator:a17c84343ec1a1e6e29734c110797ca51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a9e18b6a5a1ed1b0328c6a934bc8aacfa"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a9e18b6a5a1ed1b0328c6a934bc8aacfa">Equals</a> (<a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> left, <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a> right)</td></tr>
+<tr class="memdesc:a9e18b6a5a1ed1b0328c6a934bc8aacfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value indicating whether two specified instances of <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> represent the same value.  <a href="#a9e18b6a5a1ed1b0328c6a934bc8aacfa">More...</a><br /></td></tr>
+<tr class="separator:a9e18b6a5a1ed1b0328c6a934bc8aacfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ac0bc4bf80b90136c9afa5280cbf86ced"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#ac0bc4bf80b90136c9afa5280cbf86ced">IsResizing</a> =&gt; _resize</td></tr>
-<tr class="memdesc:ac0bc4bf80b90136c9afa5280cbf86ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface will change its size on the next <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a>.  <a href="#ac0bc4bf80b90136c9afa5280cbf86ced">More...</a><br /></td></tr>
+<tr class="memdesc:ac0bc4bf80b90136c9afa5280cbf86ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface will change its size on the next <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a>.  <a href="#ac0bc4bf80b90136c9afa5280cbf86ced">More...</a><br /></td></tr>
 <tr class="separator:ac0bc4bf80b90136c9afa5280cbf86ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
@@ -475,7 +490,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:a77a248cca07aa5dd09223f73fd188ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface is initialized.  <a href="#a77a248cca07aa5dd09223f73fd188ed5">More...</a><br /></td></tr>
 <tr class="separator:a77a248cca07aa5dd09223f73fd188ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea6f54f32e838079e772f44f557c5eb2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#aea6f54f32e838079e772f44f557c5eb2">IsDrawing</a><code> [get]</code></td></tr>
-<tr class="memdesc:aea6f54f32e838079e772f44f557c5eb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface is currently drawing on a <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a>.  <a href="#aea6f54f32e838079e772f44f557c5eb2">More...</a><br /></td></tr>
+<tr class="memdesc:aea6f54f32e838079e772f44f557c5eb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface is currently drawing on a <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a>.  <a href="#aea6f54f32e838079e772f44f557c5eb2">More...</a><br /></td></tr>
 <tr class="separator:aea6f54f32e838079e772f44f557c5eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a749f593948255e04c786cdce1f237966"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html#a749f593948255e04c786cdce1f237966">MeasureFPS</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a749f593948255e04c786cdce1f237966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> device will measure the resulting frames per second.  <a href="#a749f593948255e04c786cdce1f237966">More...</a><br /></td></tr>
@@ -613,7 +628,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Starts a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame). </p>
+<p>Starts a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame). </p>
 
 </div>
 </div>
@@ -632,7 +647,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame) using a transparent background color. </p>
+<p>Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame) using a transparent background color. </p>
 
 </div>
 </div>
@@ -652,10 +667,10 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame) using the given background color. </p>
+<p>Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame) using the given background color. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">color</td><td>The background color of this <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a>.</td></tr>
+    <tr><td class="paramname">color</td><td>The background color of this <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -678,10 +693,10 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame) using the given brush. </p>
+<p>Clears the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame) using the given brush. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">brush</td><td>The brush used to draw the background of this <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a>.</td></tr>
+    <tr><td class="paramname">brush</td><td>The brush used to draw the background of this <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -4398,7 +4413,107 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Ends the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> (Frame). </p>
+<p>Ends the current <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> (Frame). </p>
+
+</div>
+</div>
+<a id="a92c680cab8cba779d7a2ad83f2383648"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92c680cab8cba779d7a2ad83f2383648">&#9670;&nbsp;</a></span>Equals() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">override bool GameOverlay.Drawing.Graphics.Equals </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a value indicating whether this instance and a specified T:System.Object represent the same type and value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>The object to compare with this instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em>obj</em>  is a <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> and equal to this instance; otherwise, <code>false</code>.</dd></dl>
+
+</div>
+</div>
+<a id="ad1611c185a2b3237bff8d3340cb476c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1611c185a2b3237bff8d3340cb476c1">&#9670;&nbsp;</a></span>Equals() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool GameOverlay.Drawing.Graphics.Equals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a>&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a value indicating whether two specified instances of <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> represent the same value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>An object to compare to this instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em>value</em>  is equal to this instance; otherwise, <code>false</code>.</dd></dl>
+
+</div>
+</div>
+<a id="a9e18b6a5a1ed1b0328c6a934bc8aacfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e18b6a5a1ed1b0328c6a934bc8aacfa">&#9670;&nbsp;</a></span>Equals() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool GameOverlay.Drawing.Graphics.Equals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a>&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html">Graphics</a>&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a value indicating whether two specified instances of <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> represent the same value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>The first object to compare.</td></tr>
+    <tr><td class="paramname">right</td><td>The second object to compare.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <em>left</em>  and <em>right</em>  are equal; otherwise, <code>false</code>.</dd></dl>
 
 </div>
 </div>
@@ -5148,6 +5263,26 @@ Properties</h2></td></tr>
 
 <p>Gets the FontFactory used by this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface. </p>
 <dl class="section return"><dt>Returns</dt><dd>The FontFactory of this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface.</dd></dl>
+
+</div>
+</div>
+<a id="a4e97468bdcf3e93c064d6ea3af4d1580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e97468bdcf3e93c064d6ea3af4d1580">&#9670;&nbsp;</a></span>GetHashCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">override int GameOverlay.Drawing.Graphics.GetHashCode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the hash code for this instance. </p>
+<dl class="section return"><dt>Returns</dt><dd>A 32-bit signed integer hash code.</dd></dl>
 
 </div>
 </div>
@@ -6348,7 +6483,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Tells the <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface to resize itself on the next <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a>. </p>
+<p>Tells the <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface to resize itself on the next <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">width</td><td>A value Determining the new width of this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface.</td></tr>
@@ -6378,6 +6513,26 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a8a8d3193f81b52a879eb277a3d5bf194"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a8d3193f81b52a879eb277a3d5bf194">&#9670;&nbsp;</a></span>ToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">override string GameOverlay.Drawing.Graphics.ToString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> instance to a human-readable string. </p>
+<dl class="section return"><dt>Returns</dt><dd>A string representation of this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a>.</dd></dl>
+
+</div>
+</div>
 <a id="a0ee8e20233420fe27072238423849fcb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ee8e20233420fe27072238423849fcb">&#9670;&nbsp;</a></span>UseScene()</h2>
 
@@ -6393,8 +6548,8 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> which handles BeginScene and EndScene within a using block. </p>
-<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a> this method creates.</dd></dl>
+<p>Creates a new <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> which handles BeginScene and EndScene within a using block. </p>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a> this method creates.</dd></dl>
 
 </div>
 </div>
@@ -6411,7 +6566,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface will change its size on the next <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a>. </p>
+<p>Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface will change its size on the next <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a>. </p>
 
 </div>
 </div>
@@ -6484,7 +6639,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface is currently drawing on a <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / Frame of a Graphics surface.">Scene</a>. </p>
+<p>Indicates whether this <a class="el" href="class_game_overlay_1_1_drawing_1_1_graphics.html" title="Encapsulates a Direct2D drawing surface.">Graphics</a> surface is currently drawing on a <a class="el" href="class_game_overlay_1_1_drawing_1_1_scene.html" title="Represents a Scene / frame of a Graphics surface.">Scene</a>. </p>
 
 </div>
 </div>
