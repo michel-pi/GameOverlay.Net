@@ -1,6 +1,10 @@
+<div align="center">
+
 # GameOverlay.Net
 
 [![Nuget](https://img.shields.io/nuget/v/GameOverlay.Net.svg)](https://www.nuget.org/packages/GameOverlay.Net/ "GameOverlay.Net on NuGet") [![Nuget](https://img.shields.io/nuget/dt/GameOverlay.Net.svg)](https://www.nuget.org/packages/GameOverlay.Net/ "Downloads on NuGet") [![Open issues](https://img.shields.io/github/issues-raw/michel-pi/GameOverlay.Net.svg)](https://github.com/michel-pi/GameOverlay.Net/issues "Open issues on Github") [![Closed issues](https://img.shields.io/github/issues-closed-raw/michel-pi/GameOverlay.Net.svg)](https://github.com/michel-pi/GameOverlay.Net/issues?q=is%3Aissue+is%3Aclosed "Closed issues on Github") [![MIT License](https://img.shields.io/github/license/michel-pi/GameOverlay.Net.svg)](https://github.com/michel-pi/GameOverlay.Net/blob/master/LICENSE "GameOverlay.Net license")
+![Net Framework 4.0](https://img.shields.io/badge/.Net-4.0-informational.svg) ![Net Framework 4.5](https://img.shields.io/badge/.Net-4.5-informational.svg) ![Net Framework 4.7](https://img.shields.io/badge/.Net-4.7-informational.svg) ![Net Standard 2.0](https://img.shields.io/badge/.Net_Standard-2.0-informational.svg)
+</div>
 
 This library offers a comprehensive interface for drawing hardware accelerated graphics using our [Direct2D1 renderer](https://github.com/michel-pi/GameOverlay.Net/blob/master/source/Drawing/Graphics.cs "Direct2D1 renderer") and creating transparent click-through windows.
 
