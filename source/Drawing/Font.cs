@@ -54,7 +54,7 @@ namespace GameOverlay.Drawing
         /// </summary>
         /// <param name="textFormat"></param>
         public Font(TextFormat textFormat)
-            => TextFormat = textFormat ?? throw new ArgumentNullException();
+            => TextFormat = textFormat ?? throw new ArgumentNullException(nameof(textFormat));
 
         /// <summary>
         /// Initializes a new Font by using the specified name and style.
