@@ -21,9 +21,8 @@ namespace GameOverlay.Drawing
 
         private Geometry()
         {
-            throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// Initializes a new Geometry using a Graphics device.
         /// </summary>
@@ -32,7 +31,7 @@ namespace GameOverlay.Drawing
         {
             if (device == null) throw new ArgumentNullException(nameof(device));
             if (!device.IsInitialized) throw new InvalidOperationException("The render target needs to be initialized first");
-            
+
             _geometry = new PathGeometry(device.GetFactory());
             _sink = _geometry.Open();
 
@@ -42,10 +41,7 @@ namespace GameOverlay.Drawing
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~Geometry()
-        {
-            Dispose(false);
-        }
+        ~Geometry() => Dispose(false);
 
         /// <summary>
         /// Starts a new figure within this Geometry using a starting point.
@@ -136,7 +132,8 @@ namespace GameOverlay.Drawing
             _sink.AddArc(new ArcSegment
             {
                 Point = point,
-                Size = new Size2F(radius_x, radius_y)
+                Size = new Size2F(radius_x, radius_y),
+                RotationAngle = rotationAngle
             });
         }
 
@@ -159,16 +156,14 @@ namespace GameOverlay.Drawing
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a Geometry and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            var geometry = obj as Geometry;
-
-            if (geometry == null)
-            {
-                return false;
-            }
-            else
+            if (obj is Geometry geometry)
             {
                 return geometry.IsOpen == IsOpen
                     && geometry._geometry.NativePointer == _geometry.NativePointer;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -259,8 +254,7 @@ namespace GameOverlay.Drawing
         /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         public static bool Equals(Geometry left, Geometry right)
         {
-            return left != null
-                && left.Equals(right);
+            return left?.Equals(right) == true;
         }
     }
 }

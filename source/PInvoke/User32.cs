@@ -6,15 +6,10 @@ namespace GameOverlay.PInvoke
     internal static class User32
     {
         public static readonly IntPtr HwndBroadcast = (IntPtr)0xffff;
-
         public static readonly IntPtr HwndInsertNoTopmost = (IntPtr)(-2);
         public static readonly IntPtr HwndInsertTopMost = (IntPtr)(-1);
         public static readonly IntPtr HwndInsertTop = IntPtr.Zero;
         public static readonly IntPtr HwndInsertBottom = (IntPtr)1;
-        
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private delegate bool IsProcessDPIAwareDelegate();
-        private static readonly IsProcessDPIAwareDelegate _isProcessDPIAware;
 
         private delegate IntPtr SetThreadDpiAwarenessContextDelegate(ref DpiAwareness awareness); // returns a handle to a DpiAwarenessContext
         private static readonly SetThreadDpiAwarenessContextDelegate _setThreadDpiAwarenessContext;
@@ -33,25 +28,31 @@ namespace GameOverlay.PInvoke
             IntPtr hMenu,
             IntPtr hInstance,
             IntPtr lpParam);
+
         public static readonly CreateWindowExDelegate CreateWindowEx;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         public delegate IntPtr DefWindowProcDelegate(IntPtr hwnd, WindowMessage msg, IntPtr wparam, IntPtr lparam);
+
         public static readonly DefWindowProcDelegate DefWindowProc;
 
         public delegate int DestroyWindowDelegate(IntPtr hwnd);
+
         public static readonly DestroyWindowDelegate DestroyWindow;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool DispatchMessageDelegate(ref Message msg);
+
         public static readonly DispatchMessageDelegate DispatchMessage;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool GetClientRectDelegate(IntPtr hwnd, out NativeRect lpNativeRect);
+
         public static readonly GetClientRectDelegate GetClientRect;
 
         public delegate IntPtr GetForegroundWindowDelegate();
+
         public static readonly GetForegroundWindowDelegate GetForegroundWindow;
 
         public delegate IntPtr GetWindowDelegate(IntPtr hwnd, uint cmd);
@@ -59,67 +60,82 @@ namespace GameOverlay.PInvoke
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool GetWindowRectDelegate(IntPtr hwnd, out NativeRect lpNativeRect);
+
         public static readonly GetWindowRectDelegate GetWindowRect;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool IsWindowDelegate(IntPtr hwnd);
+
         public static readonly IsWindowDelegate IsWindow;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool IsWindowVisibleDelegate(IntPtr hwnd);
+
         public static readonly IsWindowVisibleDelegate IsWindowVisible;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool MoveWindowDelegate(IntPtr hwnd, int x, int y, int width, int height, [MarshalAs(UnmanagedType.Bool)] bool repaint);
+
         public static readonly MoveWindowDelegate MoveWindow;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool PeekMessageWDelegate(ref Message msg, IntPtr hwnd, uint filterMin, uint filterMax, uint removeMsg);
+
         public static readonly PeekMessageWDelegate PeekMessage;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         public delegate ushort RegisterClassExDelegate(ref WindowClassEx windowClassEx);
+
         public static readonly RegisterClassExDelegate RegisterClassEx;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool SendMessageDelegate(IntPtr hwnd, WindowMessage msg, IntPtr wparam, IntPtr lparam);
+
         public static readonly SendMessageDelegate SendMessage;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool SetLayeredWindowAttributesDelegate(IntPtr hwnd, uint crKey, byte bAlpha, LayeredWindowAttributes dwFlags);
+
         public static readonly SetLayeredWindowAttributesDelegate SetLayeredWindowAttributes;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool SetWindowPosDelegate(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int cx, int cy, SwpFlags flags);
+
         public static readonly SetWindowPosDelegate SetWindowPos;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool ShowWindowDelegate(IntPtr hWnd, ShowWindowCommand nCmdShow);
+
         public static readonly ShowWindowDelegate ShowWindow;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool TranslateMessageDelegate(ref Message msg);
+
         public static readonly TranslateMessageDelegate TranslateMessage;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool UnregisterClassDelegate(string lpClassName, IntPtr hInstance);
+
         public static readonly UnregisterClassDelegate UnregisterClass;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool UpdateWindowDelegate(IntPtr hWnd);
+
         public static readonly UpdateWindowDelegate UpdateWindow;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool WaitMessageDelegate();
+
         public static readonly WaitMessageDelegate WaitMessage;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool PostMessageWDelegate(IntPtr hwnd, WindowMessage message, IntPtr wparam, IntPtr lparam);
+
         public static readonly PostMessageWDelegate PostMessage;
-        
+
         static User32()
         {
             IntPtr library = DynamicImport.ImportLibrary("user32.dll");
@@ -146,12 +162,6 @@ namespace GameOverlay.PInvoke
             WaitMessage = DynamicImport.Import<WaitMessageDelegate>(library, "WaitMessage");
             PostMessage = DynamicImport.Import<PostMessageWDelegate>(library, "PostMessageW");
             GetForegroundWindow = DynamicImport.Import<GetForegroundWindowDelegate>(library, "GetForegroundWindow");
-
-            try
-            {
-                _isProcessDPIAware = DynamicImport.Import<IsProcessDPIAwareDelegate>(library, "IsProcessDPIAware");
-            }
-            catch { } // ignored
 
             try
             {

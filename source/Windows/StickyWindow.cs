@@ -23,6 +23,7 @@ namespace GameOverlay.Windows
         /// Gets or sets a Boolean which indicates wether to bypass the need of the windows Topmost flag.
         /// </summary>
         public bool BypassTopmost { get; set; }
+
         /// <summary>
         /// Gets or sets a Boolean which indicates wether to stick to the parents client area.
         /// </summary>
@@ -48,7 +49,6 @@ namespace GameOverlay.Windows
         /// <param name="height">The height of the window.</param>
         public StickyWindow(int x, int y, int width, int height) : base(x, y, width, height)
         {
-
         }
 
         /// <summary>

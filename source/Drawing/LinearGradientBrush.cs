@@ -23,6 +23,7 @@ namespace GameOverlay.Drawing
         /// Gets or sets the start point of this LineatGradientBrush.
         /// </summary>
         public Point Start { get => _brush.StartPoint; set => _brush.StartPoint = value; }
+
         /// <summary>
         /// Gets or sets the end point of this LineatGradientBrush.
         /// </summary>
@@ -30,7 +31,6 @@ namespace GameOverlay.Drawing
 
         private LinearGradientBrush()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -71,16 +71,12 @@ namespace GameOverlay.Drawing
         /// <param name="colors">The colors</param>
         public LinearGradientBrush(Graphics device, params Color[] colors) : this(device.GetRenderTarget(), colors)
         {
-
         }
 
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~LinearGradientBrush()
-        {
-            Dispose(false);
-        }
+        ~LinearGradientBrush() => Dispose(false);
 
         /// <summary>
         /// Sets the range where the gradient gets applied.
@@ -113,15 +109,13 @@ namespace GameOverlay.Drawing
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a LinearGradientBrush and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            var brush = obj as LinearGradientBrush;
-
-            if (brush == null)
+            if (obj is LinearGradientBrush brush)
             {
-                return false;
+                return brush._brush.NativePointer == _brush.NativePointer;
             }
             else
             {
-                return brush._brush.NativePointer == _brush.NativePointer;
+                return false;
             }
         }
 
@@ -196,8 +190,7 @@ namespace GameOverlay.Drawing
         /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         public static bool Equals(LinearGradientBrush left, LinearGradientBrush right)
         {
-            return left != null
-                && left.Equals(right);
+            return left?.Equals(right) == true;
         }
     }
 }

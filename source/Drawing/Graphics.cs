@@ -31,7 +31,7 @@ namespace GameOverlay.Drawing
 
         private StrokeStyle _strokeStyle;
 
-        private Stopwatch _watch;
+        private readonly Stopwatch _watch;
 
         private volatile bool _resize;
 
@@ -39,7 +39,7 @@ namespace GameOverlay.Drawing
         private volatile int _resizeHeight;
 
         private volatile int _fpsCount;
-        
+
         /// <summary>
         /// Indicates whether this Graphics surface will change its size on the next Scene.
         /// </summary>
@@ -49,6 +49,7 @@ namespace GameOverlay.Drawing
         /// Indicates whether this Graphics surface is initialized.
         /// </summary>
         public bool IsInitialized { get; private set; }
+
         /// <summary>
         /// Indicates whether this Graphics surface is currently drawing on a Scene.
         /// </summary>
@@ -63,14 +64,17 @@ namespace GameOverlay.Drawing
         /// Determines whether Anti-Aliasing for each primitive (Line, Rectangle, Circle, Geometry) is enabled.
         /// </summary>
         public bool PerPrimitiveAntiAliasing { get; set; }
+
         /// <summary>
         /// Determines whether Anti-Aliasing for Text is enabled.
         /// </summary>
         public bool TextAntiAliasing { get; set; }
+
         /// <summary>
         /// Determines whether this Graphics surface will be locked to the monitors refresh rate.
         /// </summary>
         public bool VSync { get; set; }
+
         /// <summary>
         /// Determines whether factories (Font, Geometry, Brush) will be used in a multi-threaded environment.
         /// </summary>
@@ -80,6 +84,7 @@ namespace GameOverlay.Drawing
         /// Gets or sets the width of this Graphics surface.
         /// </summary>
         public int Width { get; set; }
+
         /// <summary>
         /// Gets or sets the width of this Graphics surface.
         /// </summary>
@@ -113,9 +118,7 @@ namespace GameOverlay.Drawing
         /// </summary>
         /// <param name="windowHandle">A handle to the window used as a surface.</param>
         public Graphics(IntPtr windowHandle) : this()
-        {
-            WindowHandle = windowHandle;
-        }
+            => WindowHandle = windowHandle;
 
         /// <summary>
         /// Initializes a new Graphics surface using a window handle and its width and height.
@@ -133,10 +136,7 @@ namespace GameOverlay.Drawing
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~Graphics()
-        {
-            Dispose(false);
-        }
+        ~Graphics() => Dispose(false);
 
         /// <summary>
         /// Sets up and finishes the initialization of this Graphics surface by using this objects properties.
@@ -219,7 +219,7 @@ namespace GameOverlay.Drawing
                 _device.Dispose();
             }
             catch { }
-            
+
             IsInitialized = false;
         }
 
@@ -252,7 +252,7 @@ namespace GameOverlay.Drawing
         {
             if (!IsInitialized) throw new InvalidOperationException("The DirectX device is not initialized");
             if (IsDrawing) return;
-            
+
             if (_resize)
             {
                 try
@@ -324,7 +324,7 @@ namespace GameOverlay.Drawing
                 Destroy();
                 Setup();
             }
-            
+
             if (MeasureFPS && _watch.IsRunning)
             {
                 _fpsCount++;
@@ -464,7 +464,8 @@ namespace GameOverlay.Drawing
         /// <param name="location">A Point structureure which includes the x- and y-coordinate of the center of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void DrawCircle(IBrush brush, Point location, float radius, float stroke) => DrawCircle(brush, location.X, location.Y, radius, stroke);
+        public void DrawCircle(IBrush brush, Point location, float radius, float stroke)
+            => DrawCircle(brush, location.X, location.Y, radius, stroke);
 
         /// <summary>
         /// Draws a circle using the given brush and dimension.
@@ -472,7 +473,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the circle.</param>
         /// <param name="circle">A Circle structure which includes the dimension of the circle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void DrawCircle(IBrush brush, Circle circle, float stroke) => DrawCircle(brush, circle.Location.X, circle.Location.Y, circle.Radius, stroke);
+        public void DrawCircle(IBrush brush, Circle circle, float stroke)
+            => DrawCircle(brush, circle.Location.X, circle.Location.Y, circle.Radius, stroke);
 
         /// <summary>
         /// Draws a circle with an outline around it using the given brush and dimension.
@@ -488,7 +490,7 @@ namespace GameOverlay.Drawing
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
 
             var ellipse = new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius);
-            
+
             _device.DrawEllipse(ellipse, fill.Brush, stroke);
 
             float halfStroke = stroke * 0.5f;
@@ -512,7 +514,8 @@ namespace GameOverlay.Drawing
         /// <param name="location">A Point structureure which includes the x- and y-coordinate of the center of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void OutlineCircle(IBrush outline, IBrush fill, Point location, float radius, float stroke) => OutlineCircle(outline, fill, location.X, location.Y, radius, stroke);
+        public void OutlineCircle(IBrush outline, IBrush fill, Point location, float radius, float stroke)
+            => OutlineCircle(outline, fill, location.X, location.Y, radius, stroke);
 
         /// <summary>
         /// Draws a circle with an outline around it using the given brush and dimension.
@@ -521,7 +524,8 @@ namespace GameOverlay.Drawing
         /// <param name="fill">A brush that determines the color of the circle.</param>
         /// <param name="circle">A Circle structure which includes the dimension of the circle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void OutlineCircle(IBrush outline, IBrush fill, Circle circle, float stroke) => OutlineCircle(outline, fill, circle.Location.X, circle.Location.Y, circle.Radius, stroke);
+        public void OutlineCircle(IBrush outline, IBrush fill, Circle circle, float stroke)
+            => OutlineCircle(outline, fill, circle.Location.X, circle.Location.Y, circle.Radius, stroke);
 
         /// <summary>
         /// Draws a circle with a dashed line by using the given brush and dimension.
@@ -545,7 +549,8 @@ namespace GameOverlay.Drawing
         /// <param name="location">A Point structureure which includes the x- and y-coordinate of the center of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void DashedCircle(IBrush brush, Point location, float radius, float stroke) => DashedCircle(brush, location.X, location.Y, radius, stroke);
+        public void DashedCircle(IBrush brush, Point location, float radius, float stroke)
+            => DashedCircle(brush, location.X, location.Y, radius, stroke);
 
         /// <summary>
         /// Draws a circle with a dashed line by using the given brush and dimension.
@@ -553,7 +558,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the circle.</param>
         /// <param name="circle">A Circle structure which includes the dimension of the circle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void DashedCircle(IBrush brush, Circle circle, float stroke) => DashedCircle(brush, circle.Location.X, circle.Location.Y, circle.Radius, stroke);
+        public void DashedCircle(IBrush brush, Circle circle, float stroke)
+            => DashedCircle(brush, circle.Location.X, circle.Location.Y, circle.Radius, stroke);
 
         /// <summary>
         /// Fills a circle by using the given brush and dimesnion.
@@ -575,14 +581,16 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the circle.</param>
         /// <param name="location">A Point structureure which includes the x- and y-coordinate of the center of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
-        public void FillCircle(IBrush brush, Point location, float radius) => FillCircle(brush, location.X, location.Y, radius);
+        public void FillCircle(IBrush brush, Point location, float radius)
+            => FillCircle(brush, location.X, location.Y, radius);
 
         /// <summary>
         /// Fills a circle by using the given brush and dimesnion.
         /// </summary>
         /// <param name="brush">A brush that determines the color of the circle.</param>
         /// <param name="circle">A Circle structure which includes the dimension of the circle.</param>
-        public void FillCircle(IBrush brush, Circle circle) => FillCircle(brush, circle.Location.X, circle.Location.Y, circle.Radius);
+        public void FillCircle(IBrush brush, Circle circle)
+            => FillCircle(brush, circle.Location.X, circle.Location.Y, circle.Radius);
 
         /// <summary>
         /// Draws a filled circle with an outline around it.
@@ -621,7 +629,8 @@ namespace GameOverlay.Drawing
         /// <param name="location">A Point structureure which includes the x- and y-coordinate of the center of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void OutlineFillCircle(IBrush outline, IBrush fill, Point location, float radius, float stroke) => OutlineFillCircle(outline, fill, location.X, location.Y, radius, stroke);
+        public void OutlineFillCircle(IBrush outline, IBrush fill, Point location, float radius, float stroke)
+            => OutlineFillCircle(outline, fill, location.X, location.Y, radius, stroke);
 
         /// <summary>
         /// Draws a filled circle with an outline around it.
@@ -630,7 +639,8 @@ namespace GameOverlay.Drawing
         /// <param name="fill">A brush that determines the color of the circle.</param>
         /// <param name="circle">A Circle structure which includes the dimension of the circle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void OutlineFillCircle(IBrush outline, IBrush fill, Circle circle, float stroke) => OutlineFillCircle(outline, fill, circle.Location.X, circle.Location.Y, circle.Radius, stroke);
+        public void OutlineFillCircle(IBrush outline, IBrush fill, Circle circle, float stroke)
+            => OutlineFillCircle(outline, fill, circle.Location.X, circle.Location.Y, circle.Radius, stroke);
 
         /// <summary>
         /// Draws an ellipse by using the given brush and dimension.
@@ -656,7 +666,8 @@ namespace GameOverlay.Drawing
         /// <param name="radiusX">The radius of this ellipse on the x-axis.</param>
         /// <param name="radiusY">The radius of this ellipse on the y-axis.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void DrawEllipse(IBrush brush, Point location, float radiusX, float radiusY, float stroke) => DrawEllipse(brush, location.X, location.Y, radiusX, radiusY, stroke);
+        public void DrawEllipse(IBrush brush, Point location, float radiusX, float radiusY, float stroke)
+            => DrawEllipse(brush, location.X, location.Y, radiusX, radiusY, stroke);
 
         /// <summary>
         /// Draws an ellipse by using the given brush and dimension.
@@ -664,7 +675,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the ellipse.</param>
         /// <param name="ellipse">An Ellipse structure which includes the dimension of the ellipse.</param>
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
-        public void DrawEllipse(IBrush brush, Ellipse ellipse, float stroke) => DrawEllipse(brush, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY, stroke);
+        public void DrawEllipse(IBrush brush, Ellipse ellipse, float stroke)
+            => DrawEllipse(brush, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY, stroke);
 
         /// <summary>
         /// Draws an ellipse with an outline around it using the given brush and dimension.
@@ -706,7 +718,8 @@ namespace GameOverlay.Drawing
         /// <param name="radiusX">The radius of the ellipse on the x-axis.</param>
         /// <param name="radiusY">The radius of the ellipse on the y-axis.</param>
         /// <param name="stroke">A value that determines the width/thickness of the ellipse.</param>
-        public void OutlineEllipse(IBrush outline, IBrush fill, Point location, float radiusX, float radiusY, float stroke) => OutlineEllipse(outline, fill, location.X, location.Y, radiusX, radiusY, stroke);
+        public void OutlineEllipse(IBrush outline, IBrush fill, Point location, float radiusX, float radiusY, float stroke)
+            => OutlineEllipse(outline, fill, location.X, location.Y, radiusX, radiusY, stroke);
 
         /// <summary>
         /// Draws an ellipse with an outline around it using the given brush and dimension.
@@ -715,7 +728,8 @@ namespace GameOverlay.Drawing
         /// <param name="fill">A brush that determines the color of the ellipse.</param>
         /// <param name="ellipse">An Ellipse structure which includes the dimension of the ellipse.</param>
         /// <param name="stroke">A value that determines the width/thickness of the ellipse.</param>
-        public void OutlineEllipse(IBrush outline, IBrush fill, Ellipse ellipse, float stroke) => OutlineEllipse(outline, fill, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY, stroke);
+        public void OutlineEllipse(IBrush outline, IBrush fill, Ellipse ellipse, float stroke)
+            => OutlineEllipse(outline, fill, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY, stroke);
 
         /// <summary>
         /// Draws an ellipse with a dashed line by using the given brush and dimension.
@@ -741,7 +755,8 @@ namespace GameOverlay.Drawing
         /// <param name="radiusX">The radius of the ellipse on the x-axis.</param>
         /// <param name="radiusY">The radius of the ellipse on the y-axis.</param>
         /// <param name="stroke">A value that determines the width/thickness of the ellipse.</param>
-        public void DashedEllipse(IBrush brush, Point location, float radiusX, float radiusY, float stroke) => DashedEllipse(brush, location.X, location.Y, radiusX, radiusY, stroke);
+        public void DashedEllipse(IBrush brush, Point location, float radiusX, float radiusY, float stroke)
+            => DashedEllipse(brush, location.X, location.Y, radiusX, radiusY, stroke);
 
         /// <summary>
         /// Draws an ellipse with a dashed line by using the given brush and dimension.
@@ -749,7 +764,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the ellipse.</param>
         /// <param name="ellipse">An Ellipse structure which includes the dimension of the ellipse.</param>
         /// <param name="stroke">A value that determines the width/thickness of the ellipse.</param>
-        public void DashedEllipse(IBrush brush, Ellipse ellipse, float stroke) => DashedEllipse(brush, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY, stroke);
+        public void DashedEllipse(IBrush brush, Ellipse ellipse, float stroke)
+            => DashedEllipse(brush, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY, stroke);
 
         /// <summary>
         /// Fills an ellipse by using the given brush and dimesnion.
@@ -773,14 +789,16 @@ namespace GameOverlay.Drawing
         /// <param name="location">A Point structureure which includes the x- and y-coordinate of the center of the ellipse.</param>
         /// <param name="radiusX">The radius of the ellipse on the x-axis.</param>
         /// <param name="radiusY">The radius of the ellipse on the y-axis.</param>
-        public void FillEllipse(IBrush brush, Point location, float radiusX, float radiusY) => FillEllipse(brush, location.X, location.Y, radiusX, radiusY);
+        public void FillEllipse(IBrush brush, Point location, float radiusX, float radiusY)
+            => FillEllipse(brush, location.X, location.Y, radiusX, radiusY);
 
         /// <summary>
         /// Fills an ellipse by using the given brush and dimesnion.
         /// </summary>
         /// <param name="brush">A brush that determines the color of the ellipse.</param>
         /// <param name="ellipse">An Ellipse structure which includes the dimension of the ellipse.</param>
-        public void FillEllipse(IBrush brush, Ellipse ellipse) => FillEllipse(brush, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY);
+        public void FillEllipse(IBrush brush, Ellipse ellipse)
+            => FillEllipse(brush, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY);
 
         /// <summary>
         /// Draws a filled ellipse with an outline around it.
@@ -821,7 +839,8 @@ namespace GameOverlay.Drawing
         /// <param name="radiusX">The radius of the ellipse on the x-axis.</param>
         /// <param name="radiusY">The radius of the ellipse on the y-axis.</param>
         /// <param name="stroke">A value that determines the width/thickness of the ellipse.</param>
-        public void OutlineFillEllipse(IBrush outline, IBrush fill, Point location, float radiusX, float radiusY, float stroke) => OutlineFillEllipse(outline, fill, location.X, location.Y, radiusX, radiusY, stroke);
+        public void OutlineFillEllipse(IBrush outline, IBrush fill, Point location, float radiusX, float radiusY, float stroke)
+            => OutlineFillEllipse(outline, fill, location.X, location.Y, radiusX, radiusY, stroke);
 
         /// <summary>
         /// Draws a filled ellipse with an outline around it.
@@ -830,7 +849,8 @@ namespace GameOverlay.Drawing
         /// <param name="fill">A brush that determines the color of the ellipse.</param>
         /// <param name="ellipse">An Ellipse structure which includes the dimension of the ellipse.</param>
         /// <param name="stroke">A value that determines the width/thickness of the ellipse.</param>
-        public void OutlineFillEllipse(IBrush outline, IBrush fill, Ellipse ellipse, float stroke) => OutlineFillEllipse(outline, fill, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY, stroke);
+        public void OutlineFillEllipse(IBrush outline, IBrush fill, Ellipse ellipse, float stroke)
+            => OutlineFillEllipse(outline, fill, ellipse.Location.X, ellipse.Location.Y, ellipse.RadiusX, ellipse.RadiusY, stroke);
 
         /// <summary>
         /// Draws a line starting and ending at the given points.
@@ -855,7 +875,8 @@ namespace GameOverlay.Drawing
         /// <param name="start">A Point structure including the start position of the line.</param>
         /// <param name="end">A Point structure including the end position of the line.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DrawLine(IBrush brush, Point start, Point end, float stroke) => DrawLine(brush, start.X, start.Y, end.X, end.Y, stroke);
+        public void DrawLine(IBrush brush, Point start, Point end, float stroke)
+            => DrawLine(brush, start.X, start.Y, end.X, end.Y, stroke);
 
         /// <summary>
         /// Draws a line starting and ending at the given points.
@@ -863,7 +884,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the line.</param>
         /// <param name="line">A Line structure including the start and end Point of the line.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DrawLine(IBrush brush, Line line, float stroke) => DrawLine(brush, line.Start.X, line.Start.Y, line.End.X, line.End.Y, stroke);
+        public void DrawLine(IBrush brush, Line line, float stroke)
+            => DrawLine(brush, line.Start.X, line.Start.Y, line.End.X, line.End.Y, stroke);
 
         /// <summary>
         /// Draws a line at the given start and end point with an outline around it.
@@ -908,7 +930,8 @@ namespace GameOverlay.Drawing
         /// <param name="start">A Point structure including the start position of the line.</param>
         /// <param name="end">A Point structure including the end position of the line.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void OutlineLine(IBrush outline, IBrush fill, Point start, Point end, float stroke) => OutlineLine(outline, fill, start.X, start.Y, end.X, end.Y, stroke);
+        public void OutlineLine(IBrush outline, IBrush fill, Point start, Point end, float stroke)
+            => OutlineLine(outline, fill, start.X, start.Y, end.X, end.Y, stroke);
 
         /// <summary>
         /// Draws a line at the given start and end point with an outline around it.
@@ -917,7 +940,8 @@ namespace GameOverlay.Drawing
         /// <param name="fill">A brush that determines the color of the line.</param>
         /// <param name="line">A Line structure including the start and end Point of the line.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void OutlineLine(IBrush outline, IBrush fill, Line line, float stroke) => OutlineLine(outline, fill, line.Start.X, line.Start.Y, line.End.X, line.End.Y, stroke);
+        public void OutlineLine(IBrush outline, IBrush fill, Line line, float stroke)
+            => OutlineLine(outline, fill, line.Start.X, line.Start.Y, line.End.X, line.End.Y, stroke);
 
         /// <summary>
         /// Draws a dashed line at the given start and end point.
@@ -942,7 +966,8 @@ namespace GameOverlay.Drawing
         /// <param name="start">A Point structure including the start position of the line.</param>
         /// <param name="end">A Point structure including the end position of the line.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DashedLine(IBrush brush, Point start, Point end, float stroke) => DashedLine(brush, start.X, start.Y, end.X, end.Y, stroke);
+        public void DashedLine(IBrush brush, Point start, Point end, float stroke)
+            => DashedLine(brush, start.X, start.Y, end.X, end.Y, stroke);
 
         /// <summary>
         /// Draws a dashed line at the given start and end point.
@@ -950,7 +975,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the line.</param>
         /// <param name="line">A Line structure including the start and end Point of the line.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DashedLine(IBrush brush, Line line, float stroke) => DashedLine(brush, line.Start.X, line.Start.Y, line.End.X, line.End.Y, stroke);
+        public void DashedLine(IBrush brush, Line line, float stroke)
+            => DashedLine(brush, line.Start.X, line.Start.Y, line.End.X, line.End.Y, stroke);
 
         /// <summary>
         /// Draws a rectangle by using the given brush and dimension.
@@ -974,7 +1000,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the rectangle.</param>
         /// <param name="rectangle">A Rectangle structure that determines the boundaries of the rectangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DrawRectangle(IBrush brush, Rectangle rectangle, float stroke) => DrawRectangle(brush, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
+        public void DrawRectangle(IBrush brush, Rectangle rectangle, float stroke)
+            => DrawRectangle(brush, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
 
         /// <summary>
         /// Draws a rectangle with an outline around it by using the given brush and dimension.
@@ -1009,7 +1036,8 @@ namespace GameOverlay.Drawing
         /// <param name="fill">A brush that determines the color of the rectangle.</param>
         /// <param name="rectangle">A Rectangle structure that determines the boundaries of the rectangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void OutlineRectangle(IBrush outline, IBrush fill, Rectangle rectangle, float stroke) => OutlineRectangle(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
+        public void OutlineRectangle(IBrush outline, IBrush fill, Rectangle rectangle, float stroke)
+            => OutlineRectangle(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
 
         /// <summary>
         /// Draws a rectangle with dashed lines by using the given brush and dimension.
@@ -1033,7 +1061,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the rectangle.</param>
         /// <param name="rectangle">A Rectangle structure that determines the boundaries of the rectangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DashedRectangle(IBrush brush, Rectangle rectangle, float stroke) => DashedRectangle(brush, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
+        public void DashedRectangle(IBrush brush, Rectangle rectangle, float stroke)
+            => DashedRectangle(brush, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
 
         /// <summary>
         /// Fills a rectangle by using the given brush and dimension.
@@ -1055,7 +1084,8 @@ namespace GameOverlay.Drawing
         /// </summary>
         /// <param name="brush">A brush that determines the color of the rectangle.</param>
         /// <param name="rectangle">A Rectangle structure that determines the boundaries of the rectangle.</param>
-        public void FillRectangle(IBrush brush, Rectangle rectangle) => FillRectangle(brush, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
+        public void FillRectangle(IBrush brush, Rectangle rectangle)
+            => FillRectangle(brush, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
 
         /// <summary>
         /// Draws a filled rectangle with an outline around it by using the given brush and dimension.
@@ -1097,7 +1127,8 @@ namespace GameOverlay.Drawing
         /// <param name="fill">A brush that determines the color of the rectangle.</param>
         /// <param name="rectangle">A Rectangle structure that determines the boundaries of the rectangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void OutlineFillRectangle(IBrush outline, IBrush fill, Rectangle rectangle, float stroke) => OutlineFillRectangle(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
+        public void OutlineFillRectangle(IBrush outline, IBrush fill, Rectangle rectangle, float stroke)
+            => OutlineFillRectangle(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
 
         /// <summary>
         /// Draws a rectangle with rounded edges by using the given brush and dimension.
@@ -1132,7 +1163,7 @@ namespace GameOverlay.Drawing
         public void DrawRoundedRectangle(IBrush brush, RoundedRectangle rectangle, float stroke)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
-            
+
             _device.DrawRoundedRectangle(rectangle, brush.Brush, stroke);
         }
 
@@ -1204,7 +1235,7 @@ namespace GameOverlay.Drawing
         public void FillRoundedRectangle(IBrush brush, RoundedRectangle rectangle)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
-            
+
             _device.FillRoundedRectangle(rectangle, brush.Brush);
         }
 
@@ -1248,7 +1279,8 @@ namespace GameOverlay.Drawing
         /// <param name="b">A Point structure including the coordinates of the lower-right corner of the triangle.</param>
         /// <param name="c">A Point structure including the coordinates of the upper-center corner of the triangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DrawTriangle(IBrush brush, Point a, Point b, Point c, float stroke) => DrawTriangle(brush, a.X, a.Y, b.X, b.Y, c.X, c.Y, stroke);
+        public void DrawTriangle(IBrush brush, Point a, Point b, Point c, float stroke)
+            => DrawTriangle(brush, a.X, a.Y, b.X, b.Y, c.X, c.Y, stroke);
 
         /// <summary>
         /// Draws a triangle using the given brush and dimension.
@@ -1256,7 +1288,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the triangle.</param>
         /// <param name="triangle">A Triangle structure including the dimension of the triangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DrawTriangle(IBrush brush, Triangle triangle, float stroke) => DrawTriangle(brush, triangle.A.X, triangle.A.Y, triangle.B.X, triangle.B.Y, triangle.C.X, triangle.C.Y, stroke);
+        public void DrawTriangle(IBrush brush, Triangle triangle, float stroke)
+            => DrawTriangle(brush, triangle.A.X, triangle.A.Y, triangle.B.X, triangle.B.Y, triangle.C.X, triangle.C.Y, stroke);
 
         /// <summary>
         /// Draws a triangle with dashed lines using the given brush and dimension.
@@ -1298,7 +1331,8 @@ namespace GameOverlay.Drawing
         /// <param name="b">A Point structure including the coordinates of the lower-right corner of the triangle.</param>
         /// <param name="c">A Point structure including the coordinates of the upper-center corner of the triangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DashedTriangle(IBrush brush, Point a, Point b, Point c, float stroke) => DashedTriangle(brush, a.X, a.Y, b.X, b.Y, c.X, c.Y, stroke);
+        public void DashedTriangle(IBrush brush, Point a, Point b, Point c, float stroke)
+            => DashedTriangle(brush, a.X, a.Y, b.X, b.Y, c.X, c.Y, stroke);
 
         /// <summary>
         /// Draws a triangle with dashed lines using the given brush and dimension.
@@ -1306,7 +1340,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the triangle.</param>
         /// <param name="triangle">A Triangle structure including the dimension of the triangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DashedTriangle(IBrush brush, Triangle triangle, float stroke) => DashedTriangle(brush, triangle.A.X, triangle.A.Y, triangle.B.X, triangle.B.Y, triangle.C.X, triangle.C.Y, stroke);
+        public void DashedTriangle(IBrush brush, Triangle triangle, float stroke)
+            => DashedTriangle(brush, triangle.A.X, triangle.A.Y, triangle.B.X, triangle.B.Y, triangle.C.X, triangle.C.Y, stroke);
 
         /// <summary>
         /// Fills a triangle using the given brush and dimension.
@@ -1346,14 +1381,16 @@ namespace GameOverlay.Drawing
         /// <param name="a">A Point structure including the coordinates of the lower-left corner of the triangle.</param>
         /// <param name="b">A Point structure including the coordinates of the lower-right corner of the triangle.</param>
         /// <param name="c">A Point structure including the coordinates of the upper-center corner of the triangle.</param>
-        public void FillTriangle(IBrush brush, Point a, Point b, Point c) => FillTriangle(brush, a.X, a.Y, b.X, b.Y, c.X, c.Y);
+        public void FillTriangle(IBrush brush, Point a, Point b, Point c)
+            => FillTriangle(brush, a.X, a.Y, b.X, b.Y, c.X, c.Y);
 
         /// <summary>
         /// Fills a triangle using the given brush and dimension.
         /// </summary>
         /// <param name="brush">A brush that determines the color of the triangle.</param>
         /// <param name="triangle">A Triangle structure including the dimension of the triangle.</param>
-        public void FillTriangle(IBrush brush, Triangle triangle) => FillTriangle(brush, triangle.A.X, triangle.A.Y, triangle.B.X, triangle.B.Y, triangle.C.X, triangle.C.Y);
+        public void FillTriangle(IBrush brush, Triangle triangle)
+            => FillTriangle(brush, triangle.A.X, triangle.A.Y, triangle.B.X, triangle.B.Y, triangle.C.X, triangle.C.Y);
 
         /// <summary>
         /// Draws a horizontal progrss bar using the given brush, dimension and percentage value.
@@ -1398,7 +1435,8 @@ namespace GameOverlay.Drawing
         /// <param name="rectangle">A Rectangle structure including the dimension of the rectangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         /// <param name="percentage">A value indicating the progress in percent.</param>
-        public void DrawHorizontalProgressBar(IBrush outline, IBrush fill, Rectangle rectangle, float stroke, float percentage) => DrawHorizontalProgressBar(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke, percentage);
+        public void DrawHorizontalProgressBar(IBrush outline, IBrush fill, Rectangle rectangle, float stroke, float percentage)
+            => DrawHorizontalProgressBar(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke, percentage);
 
         /// <summary>
         /// Draws a vertical progrss bar using the given brush, dimension and percentage value.
@@ -1414,7 +1452,7 @@ namespace GameOverlay.Drawing
         public void DrawVerticalProgressBar(IBrush outline, IBrush fill, float left, float top, float right, float bottom, float stroke, float percentage)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
-            
+
             var outer = new RawRectangleF(left, top, right, bottom);
 
             if (percentage < 1.0f)
@@ -1443,7 +1481,8 @@ namespace GameOverlay.Drawing
         /// <param name="rectangle">A Rectangle structure including the dimension of the rectangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         /// <param name="percentage">A value indicating the progress in percent.</param>
-        public void DrawVerticalProgressBar(IBrush outline, IBrush fill, Rectangle rectangle, float stroke, float percentage) => DrawVerticalProgressBar(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke, percentage);
+        public void DrawVerticalProgressBar(IBrush outline, IBrush fill, Rectangle rectangle, float stroke, float percentage)
+            => DrawVerticalProgressBar(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke, percentage);
 
         /// <summary>
         /// Draws a crosshair by using the given brush and style.
@@ -1495,7 +1534,8 @@ namespace GameOverlay.Drawing
         /// <param name="size">The size of the crosshair in pixels.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         /// <param name="style">A value that determines the appearance of the crosshair.</param>
-        public void DrawCrosshair(IBrush brush, Point location, float size, float stroke, CrosshairStyle style) => DrawCrosshair(brush, location.X, location.Y, size, stroke, style);
+        public void DrawCrosshair(IBrush brush, Point location, float size, float stroke, CrosshairStyle style)
+            => DrawCrosshair(brush, location.X, location.Y, size, stroke, style);
 
         /// <summary>
         /// Draws a pointed line using the given brush and dimension.
@@ -1513,7 +1553,7 @@ namespace GameOverlay.Drawing
             float deltaX = endX >= startX ? endX - startX : startX - endX;
             float deltaY = endY >= startY ? endY - startY : startY - endY;
 
-            float length = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+            float length = (float)Math.Sqrt((deltaX * deltaX) + (deltaY * deltaY));
 
             float xm = length - size;
             float xn = xm;
@@ -1524,12 +1564,12 @@ namespace GameOverlay.Drawing
             float sin = deltaY / length;
             float cos = deltaX / length;
 
-            float x = xm * cos - ym * sin + endX;
-            ym = xm * sin + ym * cos + endY;
+            float x = (xm * cos) - (ym * sin) + endX;
+            ym = (xm * sin) + (ym * cos) + endY;
             xm = x;
 
-            x = xn * cos - yn * sin + endX;
-            yn = xn * sin + yn * cos + endY;
+            x = (xn * cos) - (yn * sin) + endX;
+            yn = (xn * sin) + (yn * cos) + endY;
             xn = x;
 
             FillTriangle(brush, startX, startY, xm, ym, xn, yn);
@@ -1542,7 +1582,8 @@ namespace GameOverlay.Drawing
         /// <param name="start">A Point structure including the start position of the arrow line. (the direction it points to)</param>
         /// <param name="end">A Point structure including the end position of the arrow line. (the direction it points to)</param>
         /// <param name="size">A value determining the size of the arrow line.</param>
-        public void DrawArrowLine(IBrush brush, Point start, Point end, float size) => DrawArrowLine(brush, start.X, start.Y, end.X, end.Y, size);
+        public void DrawArrowLine(IBrush brush, Point start, Point end, float size)
+            => DrawArrowLine(brush, start.X, start.Y, end.X, end.Y, size);
 
         /// <summary>
         /// Draws a pointed line using the given brush and dimension.
@@ -1550,7 +1591,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the arrow line.</param>
         /// <param name="line">A Line structure including the start (direction) and end point of the arrow line.</param>
         /// <param name="size">A value determining the size of the arrow line.</param>
-        public void DrawArrowLine(IBrush brush, Line line, float size) => DrawArrowLine(brush, line.Start.X, line.Start.Y, line.End.X, line.End.Y, size);
+        public void DrawArrowLine(IBrush brush, Line line, float size)
+            => DrawArrowLine(brush, line.Start.X, line.Start.Y, line.End.X, line.End.Y, size);
 
         /// <summary>
         /// Draws a 2D Box with an outline using the given brush and dimension.
@@ -1582,7 +1624,6 @@ namespace GameOverlay.Drawing
             sink.Close();
             _device.DrawGeometry(geometry, outline.Brush, stroke);
             _device.FillGeometry(geometry, fill.Brush);
-            
 
             sink.Dispose();
             geometry.Dispose();
@@ -1595,7 +1636,8 @@ namespace GameOverlay.Drawing
         /// <param name="fill">A brush that determines the color of the rectangle.</param>
         /// <param name="rectangle">A Rectangle structure including the dimension of the rectangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DrawBox2D(IBrush outline, IBrush fill, Rectangle rectangle, float stroke) => DrawBox2D(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
+        public void DrawBox2D(IBrush outline, IBrush fill, Rectangle rectangle, float stroke)
+            => DrawBox2D(outline, fill, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
 
         /// <summary>
         /// Draws the corners (edges) of a rectangle using the given brush and dimension.
@@ -1656,7 +1698,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the rectangle.</param>
         /// <param name="rectangle">A Rectangle structure including the dimension of the rectangle.</param>
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
-        public void DrawRectangleEdges(IBrush brush, Rectangle rectangle, float stroke) => DrawRectangle(brush, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
+        public void DrawRectangleEdges(IBrush brush, Rectangle rectangle, float stroke)
+            => DrawRectangle(brush, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom, stroke);
 
         /// <summary>
         /// Draws a string using the given font, size and position.
@@ -1672,10 +1715,10 @@ namespace GameOverlay.Drawing
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
 
             if (text == null) throw new ArgumentNullException(nameof(text));
-            if (text == string.Empty) return;
+            if (text.Length == 0) return;
 
-            float clippedWidth = Width - x;
-            float clippedHeight = Height - y;
+            float clippedWidth = x < 0 ? Width + x : Width - x;
+            float clippedHeight = y < 0 ? Height + y : Height - y;
 
             if (clippedWidth <= fontSize)
             {
@@ -1692,7 +1735,7 @@ namespace GameOverlay.Drawing
             {
                 layout.SetFontSize(fontSize, new TextRange(0, text.Length));
             }
-            
+
             _device.DrawTextLayout(new RawVector2(x, y), layout, brush.Brush, DrawTextOptions.Clip);
 
             layout.Dispose();
@@ -1706,7 +1749,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the text.</param>
         /// <param name="location">A Point structure including the starting position.</param>
         /// <param name="text">The string to be drawn.</param>
-        public void DrawText(Font font, float fontSize, IBrush brush, Point location, string text) => DrawText(font, fontSize, brush, location.X, location.Y, text);
+        public void DrawText(Font font, float fontSize, IBrush brush, Point location, string text)
+            => DrawText(font, fontSize, brush, location.X, location.Y, text);
 
         /// <summary>
         /// Draws a string using the given font and position.
@@ -1716,7 +1760,8 @@ namespace GameOverlay.Drawing
         /// <param name="x">The x-coordinate of the starting position.</param>
         /// <param name="y">The y-coordinate of the starting position.</param>
         /// <param name="text">The string to be drawn.</param>
-        public void DrawText(Font font, IBrush brush, float x, float y, string text) => DrawText(font, font.FontSize, brush, x, y, text);
+        public void DrawText(Font font, IBrush brush, float x, float y, string text)
+            => DrawText(font, font.FontSize, brush, x, y, text);
 
         /// <summary>
         /// Draws a string using the given font and position.
@@ -1725,7 +1770,8 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the text.</param>
         /// <param name="location">A Point structure including the starting position.</param>
         /// <param name="text">The string to be drawn.</param>
-        public void DrawText(Font font, IBrush brush, Point location, string text) => DrawText(font, font.FontSize, brush, location.X, location.Y, text);
+        public void DrawText(Font font, IBrush brush, Point location, string text)
+            => DrawText(font, font.FontSize, brush, location.X, location.Y, text);
 
         /// <summary>
         /// Draws a string with a background box in behind using the given font, size and position.
@@ -1740,12 +1786,12 @@ namespace GameOverlay.Drawing
         public void DrawTextWithBackground(Font font, float fontSize, IBrush brush, IBrush background, float x, float y, string text)
         {
             if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
-            
-            if (text == null) throw new ArgumentNullException(nameof(text));
-            if (text == string.Empty) return;
 
-            float clippedWidth = Width - x;
-            float clippedHeight = Height - y;
+            if (text == null) throw new ArgumentNullException(nameof(text));
+            if (text.Length == 0) return;
+
+            float clippedWidth = x < 0 ? Width + x : Width - x;
+            float clippedHeight = y < 0 ? Height + y : Height - y;
 
             if (clippedWidth <= fontSize)
             {
@@ -1782,7 +1828,8 @@ namespace GameOverlay.Drawing
         /// <param name="background">A brush that determines the color of the background box.</param>
         /// <param name="location">A Point structure including the starting position.</param>
         /// <param name="text">The string to be drawn.</param>
-        public void DrawTextWithBackground(Font font, float fontSize, IBrush brush, IBrush background, Point location, string text) => DrawTextWithBackground(font, fontSize, brush, background, location.X, location.Y, text);
+        public void DrawTextWithBackground(Font font, float fontSize, IBrush brush, IBrush background, Point location, string text)
+            => DrawTextWithBackground(font, fontSize, brush, background, location.X, location.Y, text);
 
         /// <summary>
         /// Draws a string with a background box in behind using the given font, size and position.
@@ -1793,7 +1840,8 @@ namespace GameOverlay.Drawing
         /// <param name="x">The x-coordinate of the starting position.</param>
         /// <param name="y">The y-coordinate of the starting position.</param>
         /// <param name="text">The string to be drawn.</param>
-        public void DrawTextWithBackground(Font font, IBrush brush, IBrush background, float x, float y, string text) => DrawTextWithBackground(font, font.FontSize, brush, background, x, y, text);
+        public void DrawTextWithBackground(Font font, IBrush brush, IBrush background, float x, float y, string text)
+            => DrawTextWithBackground(font, font.FontSize, brush, background, x, y, text);
 
         /// <summary>
         /// Draws a string with a background box in behind using the given font, size and position.
@@ -1803,7 +1851,8 @@ namespace GameOverlay.Drawing
         /// <param name="background">A brush that determines the color of the background box.</param>
         /// <param name="location">A Point structure including the starting position.</param>
         /// <param name="text">The string to be drawn.</param>
-        public void DrawTextWithBackground(Font font, IBrush brush, IBrush background, Point location, string text) => DrawTextWithBackground(font, font.FontSize, brush, background, location.X, location.Y, text);
+        public void DrawTextWithBackground(Font font, IBrush brush, IBrush background, Point location, string text)
+            => DrawTextWithBackground(font, font.FontSize, brush, background, location.X, location.Y, text);
 
         /// <summary>
         /// Draws an image to the given position and optional applies an alpha value.
@@ -1832,7 +1881,8 @@ namespace GameOverlay.Drawing
         /// <param name="image">The Image to be drawn.</param>
         /// <param name="location">A Point structure inclduing the position of the upper-left corner of the image.</param>
         /// <param name="opacity">A value indicating the opacity of the image. (alpha)</param>
-        public void DrawImage(Image image, Point location, float opacity = 1.0f) => DrawImage(image, location.X, location.Y, opacity);
+        public void DrawImage(Image image, Point location, float opacity = 1.0f)
+            => DrawImage(image, location.X, location.Y, opacity);
 
         /// <summary>
         /// Draws an image to the given position, scales it and optional applies an alpha value.
@@ -1863,7 +1913,8 @@ namespace GameOverlay.Drawing
         /// <param name="bottom">The y-coordinate of the lower-right corner of the image.</param>
         /// <param name="opacity">A value indicating the opacity of the image. (alpha)</param>
         /// <param name="linearScale">A Boolean indicating whether linear scaling should be applied</param>
-        public void DrawImage(Image image, float left, float top, float right, float bottom, float opacity = 1.0f, bool linearScale = true) => DrawImage(image, new Rectangle(left, top, right, bottom), opacity, linearScale);
+        public void DrawImage(Image image, float left, float top, float right, float bottom, float opacity = 1.0f, bool linearScale = true)
+            => DrawImage(image, new Rectangle(left, top, right, bottom), opacity, linearScale);
 
         /// <summary>
         /// Draws a Geometry using the given brush and thickness.
@@ -1914,7 +1965,7 @@ namespace GameOverlay.Drawing
 
             _device.FillMesh(mesh, brush.Brush);
         }
-        
+
         /// <summary>
         /// Gets the RenderTarget used by this Graphics surface.
         /// </summary>
@@ -1955,17 +2006,15 @@ namespace GameOverlay.Drawing
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a Graphics and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            var gfx = obj as Graphics;
-
-            if (gfx == null)
-            {
-                return false;
-            }
-            else
+            if (obj is Graphics gfx)
             {
                 return gfx.WindowHandle == WindowHandle
                     && gfx.IsInitialized == IsInitialized
                     && gfx._device.NativePointer == _device.NativePointer;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -2056,8 +2105,7 @@ namespace GameOverlay.Drawing
         /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         public static bool Equals(Graphics left, Graphics right)
         {
-            return left != null
-                && left.Equals(right);
+            return left?.Equals(right) == true;
         }
     }
 }

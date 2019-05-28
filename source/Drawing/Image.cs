@@ -25,6 +25,7 @@ namespace GameOverlay.Drawing
         /// Gets the width of this Image
         /// </summary>
         public float Width => Bitmap.PixelSize.Width;
+
         /// <summary>
         /// Gets the height of this Image
         /// </summary>
@@ -32,7 +33,6 @@ namespace GameOverlay.Drawing
 
         private Image()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -41,9 +41,7 @@ namespace GameOverlay.Drawing
         /// <param name="device">The Graphics device.</param>
         /// <param name="bytes">A byte[] containing image data.</param>
         public Image(RenderTarget device, byte[] bytes)
-        {
-            Bitmap = LoadBitmapFromMemory(device, bytes);
-        }
+            => Bitmap = LoadBitmapFromMemory(device, bytes);
 
         /// <summary>
         /// Initializes a new Image for the given device by using a file on disk.
@@ -51,9 +49,7 @@ namespace GameOverlay.Drawing
         /// <param name="device">The Graphics device.</param>
         /// <param name="path">The path to an image file on disk.</param>
         public Image(RenderTarget device, string path)
-        {
-            Bitmap = LoadBitmapFromFile(device, path);
-        }
+            => Bitmap = LoadBitmapFromFile(device, path);
 
         /// <summary>
         /// Initializes a new Image for the given device by using a byte[].
@@ -76,10 +72,7 @@ namespace GameOverlay.Drawing
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~Image()
-        {
-            Dispose(false);
-        }
+        ~Image() => Dispose(false);
 
         /// <summary>
         /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
@@ -88,15 +81,13 @@ namespace GameOverlay.Drawing
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a Image and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            var image = obj as Image;
-
-            if (image == null)
+            if (obj is Image image)
             {
-                return false;
+                return image.Bitmap.NativePointer == Bitmap.NativePointer;
             }
             else
             {
-                return image.Bitmap.NativePointer == Bitmap.NativePointer;
+                return false;
             }
         }
 
@@ -145,7 +136,7 @@ namespace GameOverlay.Drawing
         {
             if (!disposedValue)
             {
-                if (Bitmap != null) Bitmap.Dispose();
+                Bitmap?.Dispose();
 
                 disposedValue = true;
             }
@@ -180,8 +171,7 @@ namespace GameOverlay.Drawing
         /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         public static bool Equals(Image left, Image right)
         {
-            return left != null
-                && left.Equals(right);
+            return left?.Equals(right) == true;
         }
 
         private static Bitmap LoadBitmapFromMemory(RenderTarget device, byte[] bytes)
@@ -230,18 +220,18 @@ namespace GameOverlay.Drawing
             }
             catch
             {
-                if (converter != null && !converter.IsDisposed) converter.Dispose();
-                if (frame != null && !frame.IsDisposed) frame.Dispose();
-                if (decoder != null && !decoder.IsDisposed) decoder.Dispose();
+                if (converter?.IsDisposed == false) converter.Dispose();
+                if (frame?.IsDisposed == false) frame.Dispose();
+                if (decoder?.IsDisposed == false) decoder.Dispose();
                 if (stream != null) TryCatch(() => stream.Dispose());
-                if (bmp != null && !bmp.IsDisposed) bmp.Dispose();
+                if (bmp?.IsDisposed == false) bmp.Dispose();
 
                 throw;
             }
         }
 
         private static Bitmap LoadBitmapFromFile(RenderTarget device, string path) => LoadBitmapFromMemory(device, File.ReadAllBytes(path));
-        
+
         private static void TryCatch(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));

@@ -10,11 +10,10 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Gets a Boolean indicating the visibility of the window.
         /// </summary>
-        public bool IsVisible { get; private set; }
+        public bool IsVisible { get; }
 
         private OverlayVisibilityEventArgs()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -22,9 +21,7 @@ namespace GameOverlay.Windows
         /// </summary>
         /// <param name="isVisible"></param>
         public OverlayVisibilityEventArgs(bool isVisible)
-        {
-            IsVisible = isVisible;
-        }
+            => IsVisible = isVisible;
     }
 
     /// <summary>
@@ -35,15 +32,15 @@ namespace GameOverlay.Windows
         /// <summary>
         /// The new x-coordinate of the window.
         /// </summary>
-        public int X { get; private set; }
+        public int X { get; }
+
         /// <summary>
         /// The new y-coordinate of the window.
         /// </summary>
-        public int Y { get; private set; }
+        public int Y { get; }
 
         private OverlayPositionEventArgs()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -66,15 +63,15 @@ namespace GameOverlay.Windows
         /// <summary>
         /// The new width of the window.
         /// </summary>
-        public int Width { get; private set; }
+        public int Width { get; }
+
         /// <summary>
         /// The new height of the window.
         /// </summary>
-        public int Height { get; private set; }
+        public int Height { get; }
 
         private OverlaySizeEventArgs()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>

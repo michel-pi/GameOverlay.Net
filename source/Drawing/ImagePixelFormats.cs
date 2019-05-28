@@ -101,7 +101,6 @@ namespace GameOverlay.Drawing
 
         private static readonly Guid[] _mostCommonPixelFormats = new Guid[]
         {
-
             PixelFormat.Format32bppRGBA,
             PixelFormat.Format32bppBGRA,
             PixelFormat.Format32bppPRGBA,

@@ -13,7 +13,7 @@ namespace GameOverlay.Windows
     public class GraphicsWindow : OverlayWindow
     {
         private Thread _thread;
-        private Stopwatch _watch;
+        private readonly Stopwatch _watch;
 
         private volatile bool _isRunning;
         private volatile bool _isPaused;
@@ -23,12 +23,13 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Gets or sets the used Graphics surface.
         /// </summary>
-        public Graphics Graphics { get; private set; }
+        public Graphics Graphics { get; }
 
         /// <summary>
         /// Gets or sets a Boolean which determines whether this instance is running.
         /// </summary>
         public bool IsRunning { get => _isRunning; set => _isRunning = value; }
+
         /// <summary>
         /// Gets or sets a Boolean which determines whether this instance is paused.
         /// </summary>
@@ -43,15 +44,17 @@ namespace GameOverlay.Windows
         /// Fires when a new Scene / frame needs to be rendered.
         /// </summary>
         public event EventHandler<DrawGraphicsEventArgs> DrawGraphics;
+
         /// <summary>
         /// Fires when you should free any resources used for drawing with this instance.
         /// </summary>
         public event EventHandler<DestroyGraphicsEventArgs> DestroyGraphics;
+
         /// <summary>
         /// Fires when you should allocate any resources you use to draw using this instance.
         /// </summary>
         public event EventHandler<SetupGraphicsEventArgs> SetupGraphics;
-        
+
         /// <summary>
         /// Initializes a new GraphicsWindow.
         /// </summary>
@@ -85,10 +88,7 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~GraphicsWindow()
-        {
-            Dispose(false);
-        }
+        ~GraphicsWindow() => Dispose(false);
 
         /// <summary>
         /// Runs a timer thread which invokes the DrawGraphics event and measures frames per second.
@@ -219,7 +219,7 @@ namespace GameOverlay.Windows
 
             OnDestroyGraphics(Graphics);
         }
-        
+
         private void GraphicsWindow_SizeChanged(object sender, OverlaySizeEventArgs e)
         {
             if (Graphics.IsInitialized)
@@ -280,10 +280,7 @@ namespace GameOverlay.Windows
                 StopThread();
             }
 
-            if (Graphics != null)
-            {
-                Graphics.Dispose();
-            }
+            Graphics?.Dispose();
 
             base.Dispose(disposing);
         }

@@ -10,11 +10,10 @@ namespace GameOverlay.Drawing
         /// <summary>
         /// The Graphics surface.
         /// </summary>
-        public Graphics Device { get; private set; }
+        public Graphics Device { get; }
 
         private Scene()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -30,10 +29,7 @@ namespace GameOverlay.Drawing
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~Scene()
-        {
-            Dispose(false);
-        }
+        ~Scene() => Dispose(false);
 
         /// <summary>
         /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
@@ -42,15 +38,13 @@ namespace GameOverlay.Drawing
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a Scene and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            var scene = obj as Scene;
-
-            if (scene == null)
+            if (obj is Scene scene)
             {
-                return false;
+                return scene.Device.Equals(Device);
             }
             else
             {
-                return scene.Device == Device;
+                return false;
             }
         }
 
@@ -131,8 +125,7 @@ namespace GameOverlay.Drawing
         /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         public static bool Equals(Scene left, Scene right)
         {
-            return left != null
-                && left.Equals(right);
+            return left?.Equals(right) == true;
         }
     }
 }

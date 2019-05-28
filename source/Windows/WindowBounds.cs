@@ -13,14 +13,17 @@ namespace GameOverlay.Windows
         /// The position on the x-axis of the upper-left corner of a window.
         /// </summary>
         public int Left;
+
         /// <summary>
         /// The position on the y-axis of the upper-left corner of a window.
         /// </summary>
         public int Top;
+
         /// <summary>
         /// The position on the x-axis of the lower-right corner of a window.
         /// </summary>
         public int Right;
+
         /// <summary>
         /// The position on the y-axis of the lower-right corner of a window.
         /// </summary>

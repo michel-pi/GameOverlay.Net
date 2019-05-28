@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 
 namespace GameOverlay.PInvoke
 {
@@ -18,7 +18,8 @@ namespace GameOverlay.PInvoke
 
         public static IntPtr ImportLibrary(string libraryName)
         {
-            if (libraryName == string.Empty) throw new ArgumentOutOfRangeException(nameof(libraryName));
+            if (libraryName == null) throw new ArgumentNullException(nameof(libraryName));
+            if (libraryName.Length == 0) throw new ArgumentOutOfRangeException(nameof(libraryName));
 
             IntPtr hModule = GetModuleHandle(libraryName);
 
@@ -29,7 +30,7 @@ namespace GameOverlay.PInvoke
 
             if (hModule == IntPtr.Zero)
             {
-                throw new DynamicImportException("DynamicImport failed to import library \"" + libraryName + "\"!");
+                throw new DynamicImportException($"DynamicImport failed to import library \"{ libraryName }\"!");
             }
             else
             {
@@ -40,13 +41,15 @@ namespace GameOverlay.PInvoke
         public static IntPtr ImportMethod(IntPtr moduleHandle, string methodName)
         {
             if (moduleHandle == IntPtr.Zero) throw new ArgumentOutOfRangeException(nameof(moduleHandle));
-            if (string.IsNullOrEmpty(methodName)) throw new ArgumentOutOfRangeException(nameof(methodName));
+
+            if (methodName == null) throw new ArgumentNullException(nameof(methodName));
+            if (methodName.Length == 0) throw new ArgumentOutOfRangeException(nameof(methodName));
 
             IntPtr procAddress = GetProcAddress(moduleHandle, methodName);
 
             if (procAddress == IntPtr.Zero)
             {
-                throw new DynamicImportException("DynamicImport failed to find method \"" + methodName + "\" in module \"0x" + moduleHandle.ToString("X") + "\"!");
+                throw new DynamicImportException($"DynamicImport failed to find method \"{ methodName }\" in module \"0x{ moduleHandle.ToString("X") }\"!");
             }
             else
             {

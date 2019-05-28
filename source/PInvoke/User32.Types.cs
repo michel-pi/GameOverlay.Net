@@ -5,7 +5,7 @@ namespace GameOverlay.PInvoke
 {
     // An application-defined function that processes messages sent to a window.
     internal delegate IntPtr WindowProc(IntPtr hWnd, WindowMessage msg, IntPtr wParam, IntPtr lParam);
-    
+
     // Identifies the dots per inch (dpi) setting for a thread, process, or window.
     internal enum DpiAwareness
     {
@@ -18,46 +18,46 @@ namespace GameOverlay.PInvoke
     // Identifies the awareness context for a window.
     internal enum DpiAwarenessContext
     {
-        Unaware = -1,
-        SystemAware = -2,
-        PerMonitorAware = -3,
+        UnawareGdiScaled = -5,
         PerMonitorAwareV2 = -4,
-        UnawareGdiScaled = -5
+        PerMonitorAware = -3,
+        SystemAware = -2,
+        Unaware = -1
     }
 
     // Extended Window Styles
     [Flags]
     internal enum ExtendedWindowStyle : uint
     {
-        AcceptFiles = 0x00000010,
-        AppWindow = 0x00040000,
-        ClientEdge = 0x00000200,
-        Composited = 0x02000000,
-        ContextHelp = 0x00000400,
-        ControlParent = 0x00010000,
-        DlgModalFrame = 0x00000001,
-        Layered = 0x00080000,
-        LayoutRtl = 0x00400000,
         Left = 0x00000000,
-        LeftScrollbar = 0x00004000,
         LtrReading = 0x00000000,
-        MdiChild = 0x00000040,
-        NoActivate = 0x08000000,
-        NoInheritLayout = 0x00100000,
-        NoParentNotify = 0x00000004,
-        NoRedirectionBitmap = 0x00200000,
-        OverlappedWindow = WindowEdge | ClientEdge,
-        PaletteWindow = WindowEdge | ToolWindow | Topmost,
-        Right = 0x00001000,
         RightScrollbar = 0x00000000,
-        RtlReading = 0x00002000,
-        StaticEdge = 0x00020000,
-        ToolWindow = 0x00000080,
+        DlgModalFrame = 0x00000001,
+        NoParentNotify = 0x00000004,
         Topmost = 0x00000008,
+        AcceptFiles = 0x00000010,
         Transparent = 0x00000020,
-        WindowEdge = 0x00000100
+        MdiChild = 0x00000040,
+        ToolWindow = 0x00000080,
+        WindowEdge = 0x00000100,
+        PaletteWindow = WindowEdge | ToolWindow | Topmost,
+        ClientEdge = 0x00000200,
+        OverlappedWindow = WindowEdge | ClientEdge,
+        ContextHelp = 0x00000400,
+        Right = 0x00001000,
+        RtlReading = 0x00002000,
+        LeftScrollbar = 0x00004000,
+        ControlParent = 0x00010000,
+        StaticEdge = 0x00020000,
+        AppWindow = 0x00040000,
+        Layered = 0x00080000,
+        NoInheritLayout = 0x00100000,
+        NoRedirectionBitmap = 0x00200000,
+        LayoutRtl = 0x00400000,
+        Composited = 0x02000000,
+        NoActivate = 0x08000000
     }
-    
+
     // Layered Window Attributes
     internal enum LayeredWindowAttributes : uint
     {
@@ -66,79 +66,80 @@ namespace GameOverlay.PInvoke
         Alpha = 0x2,
         Opaque = 0x4
     }
-    
+
     // Controls how the window is to be shown.
     internal enum ShowWindowCommand : uint
     {
-        ForceMinimize = 11,
         Hide = 0,
-        Maximize = 3,
-        Minimize = 6,
-        Restore = 9,
-        Show = 5,
-        ShowDefault = 10,
-        ShowMaximized = 3,
+        ShowNormal = 1,
         ShowMinimized = 2,
+        Maximize = 3,
+        ShowMaximized = 3,
+        ShowNoActivate = 4,
+        Show = 5,
+        Minimize = 6,
         ShowMinNoActivate = 7,
         ShowNA = 8,
-        ShowNoActivate = 4,
-        ShowNormal = 1
+        Restore = 9,
+        ShowDefault = 10,
+        ForceMinimize = 11
     }
-    
+
     // SetWindowPos flags
     [Flags]
     internal enum SwpFlags : uint
     {
-        AsyncWindowPos = 0x4000,
-        DeferErase = 0x2000,
+        None = 0,
+        NoSize = 0x0001,
+        NoMove = 0x0002,
+        NoZOrder = 0x0004,
+        NoRedraw = 0x0008,
+        NoActivate = 0x0010,
         DrawFrame = 0x0020,
         FrameChanged = 0x0020,
+        ShowWindow = 0x0040,
         HideWindow = 0x0080,
-        NoActivate = 0x0010,
         NoCopyBits = 0x0100,
-        NoMove = 0x0002,
         NoOwnerZOrder = 0x0200,
-        NoRedraw = 0x0008,
         NoReposition = 0x0200,
         NoSendChanging = 0x0400,
-        NoSize = 0x0001,
-        NoZOrder = 0x0004,
-        ShowWindow = 0x0040,
+        DeferErase = 0x2000,
+        AsyncWindowPos = 0x4000,
     }
-    
+
     // Window Styles
     [Flags]
     internal enum WindowStyle : uint
     {
+        Overlapped = 0x00000000,
+        Tiled = 0x00000000,
+        MaximizeBox = 00010000,
+        Tabstop = 0x00010000,
+        Group = 0x00020000,
+        MinimizeBox = 0x00020000,
+        Sizebox = 0x00040000,
+        ThickFrame = 0x00040000,
+        SysMenu = 0x00080000,
+        HScroll = 0x00100000,
+        VScroll = 0x00200000,
+        DlgFrame = 0x00400000,
         Border = 0x00800000,
-        Caption = 0x00C00000,
-        Child = 0x40000000,
-        ChildWindow = 0x40000000,
+        Caption = DlgFrame | Border,
+        OverlappedWindow = Overlapped | Caption | SysMenu | ThickFrame | MinimizeBox | MaximizeBox,
+        TiledWindow = Overlapped | Caption | SysMenu | ThickFrame | MinimizeBox | MaximizeBox,
+        Maximize = 0x01000000,
         ClipChildren = 0x02000000,
         ClipSiblings = 0x04000000,
         Disabled = 0x08000000,
-        DlgFrame = 0x00400000,
-        Group = 0x00020000,
-        HScroll = 0x00100000,
-        Iconic = 0x20000000,
-        Maximize = 0x01000000,
-        MaximizeBox = 00010000,
-        Minimize = 0x20000000,
-        MinimizeBox = 0x00020000,
-        Overlapped = 0x00000000,
-        OverlappedWindow = Overlapped | Caption | SysMenu | ThickFrame | MinimizeBox | MaximizeBox,
-        Popup = 0x80000000,
-        PopupWindow = Popup | Border | SysMenu,
-        Sizebox = 0x00040000,
-        SysMenu = 0x00080000,
-        Tabstop = 0x00010000,
-        ThickFrame = 0x00040000,
-        Tiled = 0x00000000,
-        TiledWindow = Overlapped | Caption | SysMenu | ThickFrame | MinimizeBox | MaximizeBox,
         Visible = 0x10000000,
-        VScroll = 0x00200000
+        Iconic = 0x20000000,
+        Minimize = 0x20000000,
+        Child = 0x40000000,
+        ChildWindow = 0x40000000,
+        Popup = 0x80000000,
+        PopupWindow = Popup | Border | SysMenu
     }
-    
+
     // All WindowMessages
     internal enum WindowMessage : uint
     {
@@ -158,11 +159,11 @@ namespace GameOverlay.PInvoke
         Paint = 0x000F,
         Close = 0x0010,
         Queryendsession = 0x0011,
-        Queryopen = 0x0013,
-        Endsession = 0x0016,
         Quit = 0x0012,
+        Queryopen = 0x0013,
         EraseBackground = 0x0014,
         Syscolorchange = 0x0015,
+        Endsession = 0x0016,
         Showwindow = 0x0018,
         Wininichange = 0x001A,
         Settingchange = Wininichange,
@@ -220,7 +221,6 @@ namespace GameOverlay.PInvoke
         Ncactivate = 0x0086,
         Getdlgcode = 0x0087,
         Syncpaint = 0x0088,
-
         Ncmousemove = 0x00A0,
         Nclbuttondown = 0x00A1,
         Nclbuttonup = 0x00A2,
@@ -234,10 +234,8 @@ namespace GameOverlay.PInvoke
         Ncxbuttondown = 0x00AB,
         Ncxbuttonup = 0x00AC,
         Ncxbuttondblclk = 0x00AD,
-
         InputDeviceChange = 0x00FE,
         Input = 0x00FF,
-
         Keyfirst = 0x0100,
         Keydown = 0x0100,
         Keyup = 0x0101,
@@ -249,12 +247,10 @@ namespace GameOverlay.PInvoke
         Sysdeadchar = 0x0107,
         Unichar = 0x0109,
         Keylast = 0x0109,
-
         ImeStartcomposition = 0x010D,
         ImeEndcomposition = 0x010E,
         ImeComposition = 0x010F,
         ImeKeylast = 0x010F,
-
         Initdialog = 0x0110,
         Command = 0x0111,
         Syscommand = 0x0112,
@@ -271,11 +267,9 @@ namespace GameOverlay.PInvoke
         Menugetobject = 0x0124,
         Uninitmenupopup = 0x0125,
         Menucommand = 0x0126,
-
         Changeuistate = 0x0127,
         Updateuistate = 0x0128,
         Queryuistate = 0x0129,
-
         Ctlcolormsgbox = 0x0132,
         Ctlcoloredit = 0x0133,
         Ctlcolorlistbox = 0x0134,
@@ -284,7 +278,6 @@ namespace GameOverlay.PInvoke
         Ctlcolorscrollbar = 0x0137,
         Ctlcolorstatic = 0x0138,
         Gethmenu = 0x01E1,
-
         Mousefirst = 0x0200,
         Mousemove = 0x0200,
         Lbuttondown = 0x0201,
@@ -301,20 +294,15 @@ namespace GameOverlay.PInvoke
         Xbuttonup = 0x020C,
         Xbuttondblclk = 0x020D,
         Mousehwheel = 0x020E,
-
         Parentnotify = 0x0210,
         Entermenuloop = 0x0211,
         Exitmenuloop = 0x0212,
-
         Nextmenu = 0x0213,
         Sizing = 0x0214,
         Capturechanged = 0x0215,
         Moving = 0x0216,
-
         Powerbroadcast = 0x0218,
-
         Devicechange = 0x0219,
-
         Mdicreate = 0x0220,
         Mdidestroy = 0x0221,
         Mdiactivate = 0x0222,
@@ -325,13 +313,11 @@ namespace GameOverlay.PInvoke
         Mdicascade = 0x0227,
         Mdiiconarrange = 0x0228,
         Mdigetactive = 0x0229,
-
         Mdisetmenu = 0x0230,
         Entersizemove = 0x0231,
         Exitsizemove = 0x0232,
         Dropfiles = 0x0233,
         Mdirefreshmenu = 0x0234,
-
         ImeSetcontext = 0x0281,
         ImeNotify = 0x0282,
         ImeControl = 0x0283,
@@ -341,19 +327,14 @@ namespace GameOverlay.PInvoke
         ImeRequest = 0x0288,
         ImeKeydown = 0x0290,
         ImeKeyup = 0x0291,
-
-        Mousehover = 0x02A1,
-        Mouseleave = 0x02A3,
         Ncmousehover = 0x02A0,
+        Mousehover = 0x02A1,
         Ncmouseleave = 0x02A2,
-
+        Mouseleave = 0x02A3,
         WtssessionChange = 0x02B1,
-
         TabletFirst = 0x02c0,
         TabletLast = 0x02df,
-
         DpiChanged = 0x02E0,
-
         Cut = 0x0300,
         Copy = 0x0301,
         Paste = 0x0302,
@@ -373,39 +354,27 @@ namespace GameOverlay.PInvoke
         Paletteischanging = 0x0310,
         Palettechanged = 0x0311,
         Hotkey = 0x0312,
-
         Print = 0x0317,
         Printclient = 0x0318,
-
         Appcommand = 0x0319,
-
         Themechanged = 0x031A,
-
         Clipboardupdate = 0x031D,
-
         DwmCompositionChanged = 0x031E,
         Dwmncrenderingchanged = 0x031F,
         Dwmcolorizationcolorchanged = 0x0320,
         Dwmwindowmaximizedchange = 0x0321,
-
         Gettitlebarinfoex = 0x033F,
-
         Handheldfirst = 0x0358,
         Handheldlast = 0x035F,
-
         Afxfirst = 0x0360,
         Afxlast = 0x037F,
-
         Penwinfirst = 0x0380,
         Penwinlast = 0x038F,
-
-        App = 0x8000,
-
         User = 0x0400,
-
-        Reflect = User + 0x1C00
+        Reflect = User + 0x1C00,
+        App = 0x8000
     }
-    
+
     // Contains a WindowsMessage
     [StructLayout(LayoutKind.Sequential)]
     internal struct Message
@@ -418,7 +387,7 @@ namespace GameOverlay.PInvoke
         public int X;
         public int Y;
     }
-    
+
     // X and Y desktop coordinates
     [StructLayout(LayoutKind.Sequential)]
     internal struct NativePoint
@@ -426,7 +395,7 @@ namespace GameOverlay.PInvoke
         public int X;
         public int Y;
     }
-    
+
     // Contains Desktop Coordinates
     [StructLayout(LayoutKind.Sequential)]
     internal struct NativeRect
@@ -434,9 +403,9 @@ namespace GameOverlay.PInvoke
         public int Left; // x position of upper-left corner
 
         public int Top; // x position of upper-left corner
-        
+
         public int Right; // x position of lower-right corner
-        
+
         public int Bottom; // y position of lower-right corner
     }
 

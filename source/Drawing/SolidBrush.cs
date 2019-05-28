@@ -24,7 +24,6 @@ namespace GameOverlay.Drawing
 
         private SolidBrush()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace GameOverlay.Drawing
         {
             if (renderTarget == null) throw new ArgumentNullException(nameof(renderTarget));
 
-            _brush = new SolidColorBrush(renderTarget, default(RawColor4));
+            _brush = new SolidColorBrush(renderTarget, default);
         }
 
         /// <summary>
@@ -53,10 +52,7 @@ namespace GameOverlay.Drawing
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~SolidBrush()
-        {
-            Dispose(false);
-        }
+        ~SolidBrush() => Dispose(false);
 
         /// <summary>
         /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
@@ -65,15 +61,13 @@ namespace GameOverlay.Drawing
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a SolidBrush and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            var value = obj as SolidBrush;
-
-            if (value == null)
+            if (obj is SolidBrush value)
             {
-                return false;
+                return value._brush.NativePointer == _brush.NativePointer;
             }
             else
             {
-                return value._brush.NativePointer == _brush.NativePointer;
+                return false;
             }
         }
 
@@ -106,7 +100,7 @@ namespace GameOverlay.Drawing
         {
             return OverrideHelper.ToString(
                 "Brush", "SolidBrush",
-                "Color", Color.ToString()); 
+                "Color", Color.ToString());
         }
 
         #region IDisposable Support
@@ -157,8 +151,7 @@ namespace GameOverlay.Drawing
         /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         public static bool Equals(SolidBrush left, SolidBrush right)
         {
-            return left != null
-                && left.Equals(right);
+            return left?.Equals(right) == true;
         }
     }
 }

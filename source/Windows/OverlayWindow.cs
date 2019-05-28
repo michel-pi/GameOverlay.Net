@@ -19,7 +19,7 @@ namespace GameOverlay.Windows
 
         private WindowProc _windowProc;
         private IntPtr _windowProcAddress;
-        
+
         private volatile bool _isInitialized;
 
         private volatile IntPtr _handle;
@@ -58,10 +58,12 @@ namespace GameOverlay.Windows
                 _title = value;
             }
         }
+
         /// <summary>
         /// Gets the windows menu name.
         /// </summary>
         public string MenuName { get; private set; }
+
         /// <summary>
         /// Gets or sets the windows class name.
         /// </summary>
@@ -101,6 +103,7 @@ namespace GameOverlay.Windows
                 }
             }
         }
+
         /// <summary>
         /// Gets or sets a Boolean indicating whether this window is topmost.
         /// </summary>
@@ -145,6 +148,7 @@ namespace GameOverlay.Windows
                 }
             }
         }
+
         /// <summary>
         /// Gets or sets the y-coordinate of the window.
         /// </summary>
@@ -182,6 +186,7 @@ namespace GameOverlay.Windows
                 }
             }
         }
+
         /// <summary>
         /// Gets or sets the height of the window.
         /// </summary>
@@ -205,10 +210,12 @@ namespace GameOverlay.Windows
         /// Fires when the size of the window has changed.
         /// </summary>
         public event EventHandler<OverlaySizeEventArgs> SizeChanged;
+
         /// <summary>
         /// Fires when the postion of the window has changed.
         /// </summary>
         public event EventHandler<OverlayPositionEventArgs> PositionChanged;
+
         /// <summary>
         /// Fires when the visibility of the window has changed.
         /// </summary>
@@ -248,10 +255,7 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~OverlayWindow()
-        {
-            Dispose(false);
-        }
+        ~OverlayWindow() => Dispose(false);
 
         /// <summary>
         /// Setup and initializes the window.
@@ -286,7 +290,7 @@ namespace GameOverlay.Windows
             }
             catch { }
         }
-        
+
         /// <summary>
         /// Makes the window visible.
         /// </summary>
@@ -473,7 +477,7 @@ namespace GameOverlay.Windows
         private void RemoveTopmost()
         {
             if (!_isTopmost) return;
-            
+
             WindowHelper.RemoveTopmost(_handle);
 
             _isTopmost = false;
@@ -495,7 +499,7 @@ namespace GameOverlay.Windows
             while (true)
             {
                 User32.WaitMessage();
-                
+
                 var message = default(Message);
 
                 if (User32.PeekMessage(ref message, _handle, 0, 0, 1))
@@ -537,7 +541,7 @@ namespace GameOverlay.Windows
             if (string.IsNullOrEmpty(MenuName)) MenuName = WindowHelper.GenerateRandomTitle();
             // if no class name is given then generate a "unique" one
             if (string.IsNullOrEmpty(_className)) _className = WindowHelper.GenerateRandomClass();
-            
+
             // prepare window procedure
             _windowProc = WindowProcedure;
             _windowProcAddress = Marshal.GetFunctionPointerForDelegate(_windowProc);
@@ -646,16 +650,14 @@ namespace GameOverlay.Windows
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a OverlayWindow and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            var value = obj as OverlayWindow;
-
-            if (value == null)
-            {
-                return false;
-            }
-            else
+            if (obj is OverlayWindow value)
             {
                 return value.IsInitialized == IsInitialized
                     && value.Handle == Handle;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -718,7 +720,7 @@ namespace GameOverlay.Windows
                 SizeChanged = null;
                 PositionChanged = null;
                 VisibilityChanged = null;
-                
+
                 _windowThread = null;
                 _windowProc = null;
 
@@ -747,8 +749,7 @@ namespace GameOverlay.Windows
         /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         public static bool Equals(OverlayWindow left, OverlayWindow right)
         {
-            return left != null
-                && left.Equals(right);
+            return left?.Equals(right) == true;
         }
     }
 }

@@ -12,11 +12,10 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Gets the Graphics surface.
         /// </summary>
-        public Graphics Graphics { get; private set; }
+        public Graphics Graphics { get; }
 
-		private DrawGraphicsEventArgs()
+        private DrawGraphicsEventArgs()
         {
-
         }
 
         /// <summary>
@@ -24,9 +23,7 @@ namespace GameOverlay.Windows
         /// </summary>
         /// <param name="graphics"></param>
 		public DrawGraphicsEventArgs(Graphics graphics)
-        {
-            Graphics = graphics ?? throw new ArgumentNullException(nameof(graphics));
-        }
+            => Graphics = graphics ?? throw new ArgumentNullException(nameof(graphics));
     }
 
     /// <summary>
@@ -37,11 +34,10 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Gets the Graphics surface.
         /// </summary>
-        public Graphics Graphics { get; private set; }
+        public Graphics Graphics { get; }
 
         private SetupGraphicsEventArgs()
         {
-
         }
 
         /// <summary>
@@ -49,9 +45,7 @@ namespace GameOverlay.Windows
         /// </summary>
         /// <param name="graphics"></param>
         public SetupGraphicsEventArgs(Graphics graphics)
-        {
-            Graphics = graphics ?? throw new ArgumentNullException(nameof(graphics));
-        }
+            => Graphics = graphics ?? throw new ArgumentNullException(nameof(graphics));
     }
 
     /// <summary>
@@ -62,11 +56,10 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Gets the Graphics surface.
         /// </summary>
-        public Graphics Graphics { get; private set; }
+        public Graphics Graphics { get; }
 
         private DestroyGraphicsEventArgs()
         {
-
         }
 
         /// <summary>
@@ -74,8 +67,6 @@ namespace GameOverlay.Windows
         /// </summary>
         /// <param name="graphics"></param>
         public DestroyGraphicsEventArgs(Graphics graphics)
-        {
-            Graphics = graphics ?? throw new ArgumentNullException(nameof(graphics));
-        }
+            => Graphics = graphics ?? throw new ArgumentNullException(nameof(graphics));
     }
 }

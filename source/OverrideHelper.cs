@@ -16,7 +16,7 @@ namespace GameOverlay
 
                 foreach (int code in hashCodes)
                 {
-                    hash = hash * 23 + code;
+                    hash = (hash * 23) + code;
                 }
 
                 return hash;
@@ -50,11 +50,11 @@ namespace GameOverlay
                 }
                 else if (value == null)
                 {
-                    sb.Append(name + ": null");
+                    sb.Append(name).Append(": null");
                 }
                 else
                 {
-                    sb.Append(name + ": " + value);
+                    sb.Append(name).Append(": ").Append(value);
                 }
 
                 sb.Append(", ");

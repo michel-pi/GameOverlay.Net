@@ -16,7 +16,7 @@ namespace GameOverlay.Windows
         private static readonly Random _random = new Random();
         private static readonly object _blacklistLock = new object();
 
-        private static List<string> _windowClassesBlacklist = new List<string>();
+        private static readonly List<string> _windowClassesBlacklist = new List<string>();
 
         /// <summary>
         /// Generates a random window title.
@@ -26,6 +26,7 @@ namespace GameOverlay.Windows
         {
             return GenerateRandomAsciiString(MinRandomStringLen, MaxRandomStringLen);
         }
+
         /// <summary>
         /// Generates a random window class name.
         /// </summary>
@@ -57,6 +58,7 @@ namespace GameOverlay.Windows
         /// </summary>
         /// <param name="hwnd">A IntPtr representing the handle of a window.</param>
         public static void MakeTopmost(IntPtr hwnd) => User32.SetWindowPos(hwnd, User32.HwndInsertTopMost, 0, 0, 0, 0, SwpFlags.ShowWindow | SwpFlags.NoActivate | SwpFlags.NoMove | SwpFlags.NoSize);
+
         /// <summary>
         /// Removes the topmost flag from a window.
         /// </summary>
@@ -85,11 +87,12 @@ namespace GameOverlay.Windows
             }
             else
             {
-                bounds = default(WindowBounds);
+                bounds = default;
 
                 return false;
             }
         }
+
         /// <summary>
         /// Returns the boundaries of a windows client area.
         /// </summary>
@@ -112,12 +115,12 @@ namespace GameOverlay.Windows
             }
             else
             {
-                bounds = default(WindowBounds);
+                bounds = default;
 
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Extends a windows frame into the client area of the window.
         /// </summary>
@@ -138,8 +141,6 @@ namespace GameOverlay.Windows
         private static bool GetWindowClientInternal(IntPtr hwnd, out NativeRect rect)
         {
             // calculates the window bounds based on the difference of the client and the window rect
-
-            rect = new NativeRect();
 
             if (!User32.GetWindowRect(hwnd, out rect)) return false;
             if (!User32.GetClientRect(hwnd, out var clientRect)) return true;

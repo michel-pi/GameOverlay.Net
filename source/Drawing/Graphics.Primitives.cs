@@ -15,12 +15,12 @@ namespace GameOverlay.Drawing
         /// The position of this Circle.
         /// </summary>
         public Point Location;
-        
+
         /// <summary>
         /// The Radius of this Circle.
         /// </summary>
         public float Radius;
-        
+
         /// <summary>
         /// Initializes a new Circle by using the given location and radius.
         /// </summary>
@@ -149,11 +149,12 @@ namespace GameOverlay.Drawing
         /// The position of this ellipse.
         /// </summary>
         public Point Location;
-        
+
         /// <summary>
         /// The radius on the x-axis of this ellipse.
         /// </summary>
         public float RadiusX;
+
         /// <summary>
         /// The radius on the y-axis of this ellipse.
         /// </summary>
@@ -255,7 +256,7 @@ namespace GameOverlay.Drawing
                 "RadiusX", RadiusX.ToString(),
                 "RadiusY", RadiusY.ToString());
         }
-        
+
         /// <summary>
         /// Converts an Ellipse to a SharpDX Ellipse.
         /// </summary>
@@ -298,6 +299,7 @@ namespace GameOverlay.Drawing
         /// The staring Point of this Line.
         /// </summary>
         public Point Start;
+
         /// <summary>
         /// The ending Point of this Line.
         /// </summary>
@@ -413,6 +415,7 @@ namespace GameOverlay.Drawing
         /// The x-coordinate of this Point.
         /// </summary>
         public float X;
+
         /// <summary>
         /// The y-coordinate of this Point.
         /// </summary>
@@ -531,14 +534,17 @@ namespace GameOverlay.Drawing
         /// The x-coordinate of the upper-left corner of the Rectangle.
         /// </summary>
         public float Left;
+
         /// <summary>
         /// The y-coordinate of the upper-left corner of the Rectangle.
         /// </summary>
         public float Top;
+
         /// <summary>
         /// The x-coordinate of the bottom-right corner of the Rectangle.
         /// </summary>
         public float Right;
+
         /// <summary>
         /// The y-coordinate of the bottom-right corner of the Rectangle.
         /// </summary>
@@ -548,6 +554,7 @@ namespace GameOverlay.Drawing
         /// Gets the width of this Rectangle.
         /// </summary>
         public float Width => Right - Left;
+
         /// <summary>
         /// Gets the height of this Rectangle.
         /// </summary>
@@ -654,7 +661,7 @@ namespace GameOverlay.Drawing
                 "Right", Right.ToString(),
                 "Bottom", Bottom.ToString());
         }
-        
+
         /// <summary>
         /// Converts a Rectangle structure to a SharpDX RawRectangleF.
         /// </summary>
@@ -702,11 +709,12 @@ namespace GameOverlay.Drawing
         /// The radius on the x-axis of this RoundedRectangle.
         /// </summary>
         public float RadiusX;
+
         /// <summary>
         /// The radius on the y-axis of this RoundedRectangle.
         /// </summary>
         public float RadiusY;
-        
+
         /// <summary>
         /// Initializes a new RoundedRectangle structure using then given dimension and radius.
         /// </summary>
@@ -871,7 +879,7 @@ namespace GameOverlay.Drawing
             return !left.Equals(right);
         }
     }
-    
+
     /// <summary>
     /// Represents the dimension of a triangle.
     /// </summary>
@@ -882,10 +890,12 @@ namespace GameOverlay.Drawing
         /// The lower-left Point of this Triangle.
         /// </summary>
         public Point A;
+
         /// <summary>
         /// The lower-right Point of this Triangle.
         /// </summary>
         public Point B;
+
         /// <summary>
         /// The upper-center Point of this Triangle.
         /// </summary>

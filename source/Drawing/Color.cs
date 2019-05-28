@@ -15,14 +15,17 @@ namespace GameOverlay.Drawing
         /// Returns a transparent Color.
         /// </summary>
         public static Color Transparent => new Color(0.0f, 0.0f, 0.0f, 0.0f);
+
         /// <summary>
         /// Returns a red Color.
         /// </summary>
         public static Color Red => new Color(1.0f, 0.0f, 0.0f);
+
         /// <summary>
         /// Returns a green Color.
         /// </summary>
         public static Color Green => new Color(0.0f, 1.0f, 0.0f);
+
         /// <summary>
         /// Returns a blue Color.
         /// </summary>
@@ -32,14 +35,17 @@ namespace GameOverlay.Drawing
         /// Gets the alpha component value of this Color.
         /// </summary>
         public float A;
+
         /// <summary>
         /// Gets the red component value of this Color.
         /// </summary>
         public float R;
+
         /// <summary>
         /// Gets the green component value of this Color.
         /// </summary>
         public float G;
+
         /// <summary>
         /// Gets the blue component value of this Color.
         /// </summary>
@@ -142,10 +148,8 @@ namespace GameOverlay.Drawing
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a Color and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is Color)
+            if (obj is Color clr)
             {
-                var clr = (Color)obj;
-
                 return clr.R == R
                     && clr.G == G
                     && clr.B == B
@@ -238,7 +242,7 @@ namespace GameOverlay.Drawing
 
             return color / 255.0f;
         }
-        
+
         /// <summary>
         /// Converts a SharpDX RawColor4 to a Color
         /// </summary>

@@ -20,6 +20,7 @@ namespace GameOverlay.Drawing
         /// Gets a value that indicates whether this Font is bold.
         /// </summary>
         public bool Bold => TextFormat.FontWeight == FontWeight.Bold;
+
         /// <summary>
         /// Gets a value that indicates whether this Font is italic.
         /// </summary>
@@ -33,7 +34,7 @@ namespace GameOverlay.Drawing
             get => TextFormat.WordWrapping == WordWrapping.Wrap;
             set => TextFormat.WordWrapping = value ? WordWrapping.Wrap : WordWrapping.NoWrap;
         }
-        
+
         /// <summary>
         /// Gets the size of this Font measured in pixels.
         /// </summary>
@@ -46,7 +47,6 @@ namespace GameOverlay.Drawing
 
         private Font()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -54,9 +54,7 @@ namespace GameOverlay.Drawing
         /// </summary>
         /// <param name="textFormat"></param>
         public Font(TextFormat textFormat)
-        {
-            TextFormat = textFormat ?? throw new ArgumentNullException();
-        }
+            => TextFormat = textFormat ?? throw new ArgumentNullException();
 
         /// <summary>
         /// Initializes a new Font by using the specified name and style.
@@ -81,10 +79,7 @@ namespace GameOverlay.Drawing
         /// <summary>
         /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
         /// </summary>
-        ~Font()
-        {
-            Dispose(false);
-        }
+        ~Font() => Dispose(false);
 
         /// <summary>
         /// Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and value.
@@ -93,19 +88,17 @@ namespace GameOverlay.Drawing
         /// <returns><see langword="true" /> if <paramref name="obj" /> is a Font and equal to this instance; otherwise, <see langword="false" />.</returns>
         public override bool Equals(object obj)
         {
-            var font = obj as Font;
-
-            if (font == null)
-            {
-                return false;
-            }
-            else
+            if (obj is Font font)
             {
                 return font.Bold == Bold
                     && font.Italic == Italic
                     && font.WordWeapping == WordWeapping
                     && font.FontSize == FontSize
                     && font.FontFamilyName == FontFamilyName;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -163,7 +156,7 @@ namespace GameOverlay.Drawing
         {
             if (!disposedValue)
             {
-                if (TextFormat != null) TextFormat.Dispose();
+                TextFormat?.Dispose();
 
                 disposedValue = true;
             }
@@ -198,8 +191,7 @@ namespace GameOverlay.Drawing
         /// <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         public static bool Equals(Font left, Font right)
         {
-            return left != null
-                && left.Equals(right);
+            return left?.Equals(right) == true;
         }
     }
 }
