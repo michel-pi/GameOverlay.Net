@@ -1,8 +1,7 @@
 var class_game_overlay_1_1_drawing_1_1_graphics =
 [
     [ "Graphics", "class_game_overlay_1_1_drawing_1_1_graphics.html#a213929a043b26828175ca9f53e396123", null ],
-    [ "Graphics", "class_game_overlay_1_1_drawing_1_1_graphics.html#ab4a5b7cca65634de84dff2def2e73813", null ],
-    [ "Graphics", "class_game_overlay_1_1_drawing_1_1_graphics.html#ae414f8ac40a0da01ccec866880cd035e", null ],
+    [ "Graphics", "class_game_overlay_1_1_drawing_1_1_graphics.html#aba95c93f689f3a2df89c71971a8aff14", null ],
     [ "BeginScene", "class_game_overlay_1_1_drawing_1_1_graphics.html#a90236b216ad3fb396b6e19bea4d0ae10", null ],
     [ "ClearScene", "class_game_overlay_1_1_drawing_1_1_graphics.html#a2c357812a35b98880c6ba8cfffcd6372", null ],
     [ "ClearScene", "class_game_overlay_1_1_drawing_1_1_graphics.html#afd8ceee38e5d47d939a4e8d380940315", null ],

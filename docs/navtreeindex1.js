@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"class_game_overlay_1_1_windows_1_1_graphics_window.html#af456dd85bbc115c1814e301388b3e15a":[1,0,0,1,2,4],
 "class_game_overlay_1_1_windows_1_1_graphics_window.html#af5de3a5f9e8b685995aabccd36bf20fa":[1,0,0,1,2,9],
 "class_game_overlay_1_1_windows_1_1_graphics_window.html#aff4124ee7580b4c6d5f5bf685eebd031":[1,0,0,1,2,8],
 "class_game_overlay_1_1_windows_1_1_overlay_position_event_args.html":[1,0,0,1,3],
@@ -71,16 +70,16 @@ var NAVTREEINDEX1 =
 "class_game_overlay_1_1_windows_1_1_window_helper.html#a8ae625592ed1b1ee779fb353a971a65d":[1,0,0,1,10,5],
 "class_game_overlay_1_1_windows_1_1_window_helper.html#ae4df1df4bf09504a718ad349aadbb3e0":[1,0,0,1,10,2],
 "classes.html":[1,1],
-"functions.html":[1,3,0,0],
 "functions.html":[1,3,0],
+"functions.html":[1,3,0,0],
 "functions_b.html":[1,3,0,1],
 "functions_c.html":[1,3,0,2],
 "functions_d.html":[1,3,0,3],
 "functions_e.html":[1,3,0,4],
 "functions_evnt.html":[1,3,4],
 "functions_f.html":[1,3,0,5],
-"functions_func.html":[1,3,1,0],
 "functions_func.html":[1,3,1],
+"functions_func.html":[1,3,1,0],
 "functions_func_b.html":[1,3,1,1],
 "functions_func_c.html":[1,3,1,2],
 "functions_func_d.html":[1,3,1,3],
@@ -122,8 +121,8 @@ var NAVTREEINDEX1 =
 "interface_game_overlay_1_1_drawing_1_1_i_brush.html#aceae7356829560ae68f158a5efe77e40":[1,0,0,0,6,0],
 "namespace_game_overlay.html":[1,0,0],
 "namespace_game_overlay.html":[0,0,0],
-"namespace_game_overlay_1_1_drawing.html":[1,0,0,0],
 "namespace_game_overlay_1_1_drawing.html":[0,0,0,0],
+"namespace_game_overlay_1_1_drawing.html":[1,0,0,0],
 "namespace_game_overlay_1_1_p_invoke.html":[0,0,0,1],
 "namespace_game_overlay_1_1_windows.html":[1,0,0,1],
 "namespace_game_overlay_1_1_windows.html":[0,0,0,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX1 =
 "struct_game_overlay_1_1_drawing_1_1_triangle.html#a68a945a0abd5979fd743e1a016bf426d":[1,0,0,0,15,8],
 "struct_game_overlay_1_1_drawing_1_1_triangle.html#a6cd3373b8a2a720851167818fd92e843":[1,0,0,0,15,0],
 "struct_game_overlay_1_1_drawing_1_1_triangle.html#a893c93b902493e2896ab7fbf9c892ffd":[1,0,0,0,15,1],
-"struct_game_overlay_1_1_drawing_1_1_triangle.html#aa13966af2b45b1326773406e2cb5860e":[1,0,0,0,15,4]
+"struct_game_overlay_1_1_drawing_1_1_triangle.html#aa13966af2b45b1326773406e2cb5860e":[1,0,0,0,15,4],
+"struct_game_overlay_1_1_drawing_1_1_triangle.html#ad991ae8452e875634fb11d9214085d54":[1,0,0,0,15,2]
 };
