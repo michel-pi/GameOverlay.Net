@@ -184,6 +184,8 @@ namespace GameOverlay.Drawing
                 {
                     renderProperties.PixelFormat = new PixelFormat(Format.Unknown, AlphaMode.Premultiplied); // supports hardware & software rendering
                     _device = new WindowRenderTarget(_factory, renderProperties, _deviceProperties);
+
+                    throw;
                 }
             }
 
@@ -250,7 +252,7 @@ namespace GameOverlay.Drawing
         /// </summary>
         public void BeginScene()
         {
-            if (!IsInitialized) throw new InvalidOperationException("The DirectX device is not initialized");
+            if (!IsInitialized) throw ThrowHelper.DeviceNotInitialized();
             if (IsDrawing) return;
 
             if (_resize)
@@ -282,7 +284,7 @@ namespace GameOverlay.Drawing
         /// </summary>
         public void ClearScene()
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.Clear(null);
         }
@@ -293,7 +295,7 @@ namespace GameOverlay.Drawing
         /// <param name="color">The background color of this Scene.</param>
         public void ClearScene(Color color)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.Clear(color);
         }
@@ -304,7 +306,7 @@ namespace GameOverlay.Drawing
         /// <param name="brush">The brush used to draw the background of this Scene.</param>
         public void ClearScene(SolidBrush brush)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.Clear(brush.Color);
         }
@@ -452,7 +454,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
         public void DrawCircle(IBrush brush, float x, float y, float radius, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) ThrowHelper.UseBeginScene();
 
             _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), brush.Brush, stroke);
         }
@@ -487,7 +489,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
         public void OutlineCircle(IBrush outline, IBrush fill, float x, float y, float radius, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) ThrowHelper.UseBeginScene();
 
             var ellipse = new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius);
 
@@ -537,7 +539,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
         public void DashedCircle(IBrush brush, float x, float y, float radius, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) ThrowHelper.UseBeginScene();
 
             _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), brush.Brush, stroke, _strokeStyle);
         }
@@ -570,7 +572,7 @@ namespace GameOverlay.Drawing
         /// <param name="radius">The radius of the circle.</param>
         public void FillCircle(IBrush brush, float x, float y, float radius)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) ThrowHelper.UseBeginScene();
 
             _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radius, radius), brush.Brush);
         }
@@ -653,7 +655,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the circle.</param>
         public void DrawEllipse(IBrush brush, float x, float y, float radiusX, float radiusY, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radiusX, radiusY), brush.Brush, stroke);
         }
@@ -690,7 +692,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the ellipse.</param>
         public void OutlineEllipse(IBrush outline, IBrush fill, float x, float y, float radiusX, float radiusY, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var ellipse = new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radiusX, radiusY);
 
@@ -742,7 +744,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the ellipse.</param>
         public void DashedEllipse(IBrush brush, float x, float y, float radiusX, float radiusY, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radiusX, radiusY), brush.Brush, stroke, _strokeStyle);
         }
@@ -777,7 +779,7 @@ namespace GameOverlay.Drawing
         /// <param name="radiusY">The radius of the ellipse on the y-axis.</param>
         public void FillEllipse(IBrush brush, float x, float y, float radiusX, float radiusY)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.FillEllipse(new SharpDX.Direct2D1.Ellipse(new RawVector2(x, y), radiusX, radiusY), brush.Brush);
         }
@@ -863,7 +865,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DrawLine(IBrush brush, float startX, float startY, float endX, float endY, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawLine(new RawVector2(startX, startY), new RawVector2(endX, endY), brush.Brush, stroke);
         }
@@ -899,7 +901,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void OutlineLine(IBrush outline, IBrush fill, float startX, float startY, float endX, float endY, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var geometry = new PathGeometry(_factory);
 
@@ -954,7 +956,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DashedLine(IBrush brush, float startX, float startY, float endX, float endY, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawLine(new RawVector2(startX, startY), new RawVector2(endX, endY), brush.Brush, stroke, _strokeStyle);
         }
@@ -989,7 +991,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DrawRectangle(IBrush brush, float left, float top, float right, float bottom, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawRectangle(new RawRectangleF(left, top, right, bottom), brush.Brush, stroke);
         }
@@ -1015,7 +1017,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void OutlineRectangle(IBrush outline, IBrush fill, float left, float top, float right, float bottom, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             float halfStroke = stroke / 2.0f;
 
@@ -1050,7 +1052,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DashedRectangle(IBrush brush, float left, float top, float right, float bottom, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawRectangle(new RawRectangleF(left, top, right, bottom), brush.Brush, stroke, _strokeStyle);
         }
@@ -1074,7 +1076,7 @@ namespace GameOverlay.Drawing
         /// <param name="bottom">The y-coordinate of the lower-right corner of the rectangle.</param>
         public void FillRectangle(IBrush brush, float left, float top, float right, float bottom)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.FillRectangle(new RawRectangleF(left, top, right, bottom), brush.Brush);
         }
@@ -1099,7 +1101,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void OutlineFillRectangle(IBrush outline, IBrush fill, float left, float top, float right, float bottom, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var rectangleGeometry = new RectangleGeometry(_factory, new RawRectangleF(left, top, right, bottom));
 
@@ -1142,7 +1144,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DrawRoundedRectangle(IBrush brush, float left, float top, float right, float bottom, float radius, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var rect = new SharpDX.Direct2D1.RoundedRectangle()
             {
@@ -1162,7 +1164,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DrawRoundedRectangle(IBrush brush, RoundedRectangle rectangle, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawRoundedRectangle(rectangle, brush.Brush, stroke);
         }
@@ -1179,7 +1181,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DashedRoundedRectangle(IBrush brush, float left, float top, float right, float bottom, float radius, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var rect = new SharpDX.Direct2D1.RoundedRectangle()
             {
@@ -1199,7 +1201,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DashedRoundedRectangle(IBrush brush, RoundedRectangle rectangle, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawRoundedRectangle(rectangle, brush.Brush, stroke, _strokeStyle);
         }
@@ -1215,7 +1217,7 @@ namespace GameOverlay.Drawing
         /// <param name="radius">A value that determines radius of corners.</param>
         public void FillRoundedRectangle(IBrush brush, float left, float top, float right, float bottom, float radius)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var rect = new SharpDX.Direct2D1.RoundedRectangle()
             {
@@ -1234,7 +1236,7 @@ namespace GameOverlay.Drawing
         /// <param name="rectangle">A RoundedRectangle structure including the dimension of the rounded rectangle.</param>
         public void FillRoundedRectangle(IBrush brush, RoundedRectangle rectangle)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.FillRoundedRectangle(rectangle, brush.Brush);
         }
@@ -1252,7 +1254,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DrawTriangle(IBrush brush, float aX, float aY, float bX, float bY, float cX, float cY, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var geometry = new PathGeometry(_factory);
 
@@ -1304,7 +1306,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DashedTriangle(IBrush brush, float aX, float aY, float bX, float bY, float cX, float cY, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var geometry = new PathGeometry(_factory);
 
@@ -1355,7 +1357,7 @@ namespace GameOverlay.Drawing
         /// <param name="cY">The y-coordinate upper-center corner of the triangle.</param>
         public void FillTriangle(IBrush brush, float aX, float aY, float bX, float bY, float cX, float cY)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var geometry = new PathGeometry(_factory);
 
@@ -1405,7 +1407,7 @@ namespace GameOverlay.Drawing
         /// <param name="percentage">A value indicating the progress in percent.</param>
         public void DrawHorizontalProgressBar(IBrush outline, IBrush fill, float left, float top, float right, float bottom, float stroke, float percentage)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var outer = new RawRectangleF(left, top, right, bottom);
 
@@ -1451,7 +1453,7 @@ namespace GameOverlay.Drawing
         /// <param name="percentage">A value indicating the progress in percent.</param>
         public void DrawVerticalProgressBar(IBrush outline, IBrush fill, float left, float top, float right, float bottom, float stroke, float percentage)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             var outer = new RawRectangleF(left, top, right, bottom);
 
@@ -1495,7 +1497,7 @@ namespace GameOverlay.Drawing
         /// <param name="style">A value that determines the appearance of the crosshair.</param>
         public void DrawCrosshair(IBrush brush, float x, float y, float size, float stroke, CrosshairStyle style)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             if (style == CrosshairStyle.Dot)
             {
@@ -1548,7 +1550,7 @@ namespace GameOverlay.Drawing
         /// <param name="size">A value determining the size of the arrow line.</param>
         public void DrawArrowLine(IBrush brush, float startX, float startY, float endX, float endY, float size)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             float deltaX = endX >= startX ? endX - startX : startX - endX;
             float deltaY = endY >= startY ? endY - startY : startY - endY;
@@ -1606,7 +1608,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DrawBox2D(IBrush outline, IBrush fill, float left, float top, float right, float bottom, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             float width = right - left;
             float height = bottom - top;
@@ -1650,7 +1652,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the line.</param>
         public void DrawRectangleEdges(IBrush brush, float left, float top, float right, float bottom, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             float width = right - left;
             float height = bottom - top;
@@ -1712,7 +1714,7 @@ namespace GameOverlay.Drawing
         /// <param name="text">The string to be drawn.</param>
         public void DrawText(Font font, float fontSize, IBrush brush, float x, float y, string text)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             if (text == null) throw new ArgumentNullException(nameof(text));
             if (text.Length == 0) return;
@@ -1785,7 +1787,7 @@ namespace GameOverlay.Drawing
         /// <param name="text">The string to be drawn.</param>
         public void DrawTextWithBackground(Font font, float fontSize, IBrush brush, IBrush background, float x, float y, string text)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             if (text == null) throw new ArgumentNullException(nameof(text));
             if (text.Length == 0) return;
@@ -1863,7 +1865,7 @@ namespace GameOverlay.Drawing
         /// <param name="opacity">A value indicating the opacity of the image. (alpha)</param>
         public void DrawImage(Image image, float x, float y, float opacity = 1.0f)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             float destRight = x + image.Bitmap.PixelSize.Width;
             float destBottom = y + image.Bitmap.PixelSize.Height;
@@ -1893,7 +1895,7 @@ namespace GameOverlay.Drawing
         /// <param name="linearScale">A Boolean indicating whether linear scaling should be applied</param>
         public void DrawImage(Image image, Rectangle rectangle, float opacity = 1.0f, bool linearScale = true)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawBitmap(
                 image.Bitmap,
@@ -1924,7 +1926,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the lines.</param>
         public void DrawGeometry(Geometry geometry, IBrush brush, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawGeometry(geometry, brush.Brush, stroke);
         }
@@ -1937,7 +1939,7 @@ namespace GameOverlay.Drawing
         /// <param name="stroke">A value that determines the width/thickness of the lines.</param>
         public void DashedGeometry(Geometry geometry, IBrush brush, float stroke)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.DrawGeometry(geometry, brush.Brush, stroke, _strokeStyle);
         }
@@ -1949,7 +1951,7 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the text.</param>
         public void FillGeometry(Geometry geometry, IBrush brush)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.FillGeometry(geometry, brush.Brush);
         }
@@ -1961,7 +1963,7 @@ namespace GameOverlay.Drawing
         /// <param name="brush">A brush that determines the color of the text.</param>
         public void FillMesh(Mesh mesh, IBrush brush)
         {
-            if (!IsDrawing) throw new InvalidOperationException("Use BeginScene before drawing anything");
+            if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
             _device.FillMesh(mesh, brush.Brush);
         }
