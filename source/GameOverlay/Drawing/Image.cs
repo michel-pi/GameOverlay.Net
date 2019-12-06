@@ -4,6 +4,8 @@ using System.IO;
 using SharpDX.WIC;
 using SharpDX.Direct2D1;
 
+using GameOverlay.Drawing.Imaging;
+
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using PixelFormat = SharpDX.WIC.PixelFormat;
 
@@ -14,7 +16,7 @@ namespace GameOverlay.Drawing
     /// </summary>
     public class Image : IDisposable
     {
-        private static readonly ImagingFactory ImageFactory = new ImagingFactory();
+        internal static readonly ImagingFactory ImageFactory = new ImagingFactory();
 
         /// <summary>
         /// The SharpDX Bitmap
@@ -191,29 +193,31 @@ namespace GameOverlay.Drawing
                 stream = new MemoryStream(bytes);
                 decoder = new BitmapDecoder(ImageFactory, stream, DecodeOptions.CacheOnDemand);
 
-                var pixelFormat = ImagePixelFormats.GetBestPixelFormat(decoder.DecoderInfo?.PixelFormats);
+				bmp = ImageDecoder.Decode(device, decoder);
 
-                frame = decoder.GetFrame(0);
+				//var pixelFormat = ImagePixelFormats.GetBestPixelFormat(decoder.DecoderInfo?.PixelFormats);
 
-                converter = new FormatConverter(ImageFactory);
+				//frame = decoder.GetFrame(0);
 
-                try
-                {
-                    converter.Initialize(frame, pixelFormat);
-                    bmp = Bitmap.FromWicBitmap(device, converter);
-                }
-                catch
-                {
-                    TryCatch(() => converter.Dispose());
+				//converter = new FormatConverter(ImageFactory);
 
-                    converter = new FormatConverter(ImageFactory);
-                    converter.Initialize(frame, PixelFormat.Format32bppRGB);
-                    bmp = Bitmap.FromWicBitmap(device, converter);
-                }
+				//try
+				//{
+				//    converter.Initialize(frame, pixelFormat);
+				//    bmp = Bitmap.FromWicBitmap(device, converter);
+				//}
+				//catch
+				//{
+				//    TryCatch(() => converter.Dispose());
 
-                converter.Dispose();
-                frame.Dispose();
-                decoder.Dispose();
+				//    converter = new FormatConverter(ImageFactory);
+				//    converter.Initialize(frame, PixelFormat.Format32bppRGB);
+				//    bmp = Bitmap.FromWicBitmap(device, converter);
+				//}
+
+				//converter.Dispose();
+				//frame.Dispose();
+				decoder.Dispose();
                 stream.Dispose();
 
                 return bmp;
