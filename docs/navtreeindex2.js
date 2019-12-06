@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"struct_game_overlay_1_1_drawing_1_1_triangle.html#aa13966af2b45b1326773406e2cb5860e":[1,0,0,0,15,4],
+"struct_game_overlay_1_1_drawing_1_1_triangle.html#ad991ae8452e875634fb11d9214085d54":[1,0,0,0,15,2],
 "struct_game_overlay_1_1_drawing_1_1_triangle.html#ae256dde04da0f854a7e3610fd58b7391":[1,0,0,0,15,10],
 "struct_game_overlay_1_1_windows_1_1_window_bounds.html":[1,0,0,1,9],
 "struct_game_overlay_1_1_windows_1_1_window_bounds.html#a2a0427dc741eac37ceafa6e1dfa37b56":[1,0,0,1,9,0],
