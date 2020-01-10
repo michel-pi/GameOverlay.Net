@@ -195,28 +195,6 @@ namespace GameOverlay.Drawing
 
 				bmp = ImageDecoder.Decode(device, decoder);
 
-				//var pixelFormat = ImagePixelFormats.GetBestPixelFormat(decoder.DecoderInfo?.PixelFormats);
-
-				//frame = decoder.GetFrame(0);
-
-				//converter = new FormatConverter(ImageFactory);
-
-				//try
-				//{
-				//    converter.Initialize(frame, pixelFormat);
-				//    bmp = Bitmap.FromWicBitmap(device, converter);
-				//}
-				//catch
-				//{
-				//    TryCatch(() => converter.Dispose());
-
-				//    converter = new FormatConverter(ImageFactory);
-				//    converter.Initialize(frame, PixelFormat.Format32bppRGB);
-				//    bmp = Bitmap.FromWicBitmap(device, converter);
-				//}
-
-				//converter.Dispose();
-				//frame.Dispose();
 				decoder.Dispose();
                 stream.Dispose();
 
