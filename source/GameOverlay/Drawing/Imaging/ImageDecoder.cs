@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using SharpDX.WIC;
 using SharpDX.Direct2D1;
@@ -11,21 +12,14 @@ namespace GameOverlay.Drawing.Imaging
     internal static class ImageDecoder
     {
         // PixelFormat sorted in a best compatibility and best color accuracy order
-        private static readonly Guid[] _orderedPixelFormats = new Guid[]
+        private static readonly Guid[] _standardPixelFormats = new Guid[]
         {
 			PixelFormat.Format144bpp8ChannelsAlpha,
-			PixelFormat.Format128bppRGBAFloat,
-			PixelFormat.Format128bppRGBAFixedPoint,
-			PixelFormat.Format128bppPRGBAFloat,
-			PixelFormat.Format128bppRGBFloat,
-			PixelFormat.Format128bppRGBFixedPoint,
 			PixelFormat.Format128bpp8Channels,
 			PixelFormat.Format128bpp7ChannelsAlpha,
 			PixelFormat.Format112bpp7Channels,
 			PixelFormat.Format112bpp6ChannelsAlpha,
 			PixelFormat.Format96bpp6Channels,
-			PixelFormat.Format96bppRGBFixedPoint,
-			PixelFormat.Format96bppRGBFloat,
 			PixelFormat.Format96bpp5ChannelsAlpha,
 			PixelFormat.Format80bpp5Channels,
 			PixelFormat.Format80bppCMYKAlpha,
@@ -35,8 +29,6 @@ namespace GameOverlay.Drawing.Imaging
 			PixelFormat.Format64bppRGBA,
 			PixelFormat.Format64bppPBGRA,
 			PixelFormat.Format64bppPRGBA,
-			PixelFormat.Format64bppBGRAFixedPoint,
-			PixelFormat.Format64bppRGBAFixedPoint,
 			PixelFormat.Format64bpp8Channels,
 			PixelFormat.Format64bpp4Channels,
 			PixelFormat.Format64bppRGBAHalf,
@@ -44,7 +36,6 @@ namespace GameOverlay.Drawing.Imaging
 			PixelFormat.Format64bpp7ChannelsAlpha,
 			PixelFormat.Format64bpp3ChannelsAlpha,
 			PixelFormat.Format64bppRGB,
-			PixelFormat.Format64bppRGBFixedPoint,
 			PixelFormat.Format64bppCMYK,
 			PixelFormat.Format64bppRGBHalf,
 			PixelFormat.Format56bpp7Channels,
@@ -52,8 +43,6 @@ namespace GameOverlay.Drawing.Imaging
 			PixelFormat.Format48bpp6Channels,
 			PixelFormat.Format48bppRGB,
 			PixelFormat.Format48bppBGR,
-			PixelFormat.Format48bppRGBFixedPoint,
-			PixelFormat.Format48bppBGRFixedPoint,
 			PixelFormat.Format48bpp3Channels,
 			PixelFormat.Format48bppRGBHalf,
 			PixelFormat.Format48bpp5ChannelsAlpha,
@@ -73,8 +62,6 @@ namespace GameOverlay.Drawing.Imaging
 			PixelFormat.Format32bppRGB,
 			PixelFormat.Format32bppRGBE,
 			PixelFormat.Format32bppBGR101010,
-			PixelFormat.Format32bppGrayFixedPoint,
-			PixelFormat.Format32bppGrayFloat,
 			PixelFormat.Format24bppBGR,
 			PixelFormat.Format24bppRGB,
 			PixelFormat.Format24bpp3Channels,
@@ -82,7 +69,6 @@ namespace GameOverlay.Drawing.Imaging
 			PixelFormat.Format16bppBGR565,
 			PixelFormat.Format16bppBGRA5551,
 			PixelFormat.Format16bppGray,
-			PixelFormat.Format16bppGrayFixedPoint,
 			PixelFormat.Format16bppGrayHalf,
 			PixelFormat.Format16bppCbCr,
 			PixelFormat.Format16bppYQuantizedDctCoefficients,
@@ -93,7 +79,30 @@ namespace GameOverlay.Drawing.Imaging
 			PixelFormat.Format8bppY,
 			PixelFormat.Format8bppCb,
 			PixelFormat.Format8bppCr,
-			PixelFormat.Format8bppGray,
+			PixelFormat.Format8bppGray
+		};
+
+		private static readonly Guid[] _floatingPointFormats = new Guid[]
+		{
+			PixelFormat.Format128bppRGBAFloat,
+			PixelFormat.Format128bppRGBAFixedPoint,
+			PixelFormat.Format128bppPRGBAFloat,
+			PixelFormat.Format128bppRGBFloat,
+			PixelFormat.Format128bppRGBFixedPoint,
+			PixelFormat.Format96bppRGBFixedPoint,
+			PixelFormat.Format96bppRGBFloat,
+			PixelFormat.Format64bppBGRAFixedPoint,
+			PixelFormat.Format64bppRGBAFixedPoint,
+			PixelFormat.Format64bppRGBFixedPoint,
+			PixelFormat.Format48bppRGBFixedPoint,
+			PixelFormat.Format48bppBGRFixedPoint,
+			PixelFormat.Format32bppGrayFixedPoint,
+			PixelFormat.Format32bppGrayFloat,
+			PixelFormat.Format16bppGrayFixedPoint
+		};
+
+		private static readonly Guid[] _uncommonFormats = new Guid[]
+		{
 			PixelFormat.Format4bppIndexed,
 			PixelFormat.Format2bppIndexed,
 			PixelFormat.Format1bppIndexed,
@@ -103,12 +112,33 @@ namespace GameOverlay.Drawing.Imaging
 			PixelFormat.FormatBlackWhite
 		};
 
+		private static IEnumerable<Guid> _pixelFormatEnumerator
+		{
+			get
+			{
+				foreach (var format in _standardPixelFormats)
+				{
+					yield return format;
+				}
+
+				foreach (var format in _floatingPointFormats)
+				{
+					yield return format;
+				}
+
+				foreach (var format in _uncommonFormats)
+				{
+					yield return format;
+				}
+			}
+		}
+
 		public static Bitmap Decode(RenderTarget device, BitmapDecoder decoder)
 		{
 			var frame = decoder.GetFrame(0);
 			var converter = new FormatConverter(Image.ImageFactory);
 
-			foreach (var format in _orderedPixelFormats)
+			foreach (var format in _pixelFormatEnumerator)
 			{
 				try
 				{
