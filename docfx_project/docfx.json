@@ -16,7 +16,8 @@
       ],
       "dest": "api",
       "disableGitFeatures": false,
-      "disableDefaultFilter": false
+      "disableDefaultFilter": false,
+      "force": true
     }
   ],
   "build": {
@@ -63,7 +64,11 @@
     "globalMetadata": {
       "_appTitle": "GameOverlay.Net Documentation",
       "_appFooter": "GameOverlay.Net (c) 2020",
-      "_enableSearch": true
+      "_enableSearch": true,
+      "_gitContribute": {
+        "repo": "https://github.com/michel-pi/GameOverlay.Net",
+        "branch": "master"
+      }
     },
     "postProcessors": [
       "ExtractSearchIndex"
@@ -71,7 +76,7 @@
     "markdownEngineName": "markdig",
     "noLangKeyword": false,
     "keepFileLink": false,
-    "cleanupCacheHistory": false,
+    "cleanupCacheHistory": true,
     "disableGitFeatures": false
   }
 }
