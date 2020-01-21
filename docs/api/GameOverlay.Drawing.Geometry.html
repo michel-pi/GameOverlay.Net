@@ -1,0 +1,878 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Geometry
+   | GameOverlay.Net Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Geometry
+   | GameOverlay.Net Documentation ">
+    <meta name="generator" content="docfx 2.48.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="GameOverlay.Drawing.Geometry">
+  
+  
+  <h1 id="GameOverlay_Drawing_Geometry" data-uid="GameOverlay.Drawing.Geometry" class="text-break">Class Geometry
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a Geometry which can be drawn by a Graphics device.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Geometry</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.IDisposable</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="GameOverlay.Drawing.html">GameOverlay.Drawing</a></h6>
+  <h6><strong>Assembly</strong>: GameOverlay.dll</h6>
+  <h5 id="GameOverlay_Drawing_Geometry_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Geometry : IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry__ctor_GameOverlay_Drawing_Graphics_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.%23ctor(GameOverlay.Drawing.Graphics)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L30">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry__ctor_" data-uid="GameOverlay.Drawing.Geometry.#ctor*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry__ctor_GameOverlay_Drawing_Graphics_" data-uid="GameOverlay.Drawing.Geometry.#ctor(GameOverlay.Drawing.Graphics)">Geometry(Graphics)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new Geometry using a Graphics device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Geometry(Graphics device)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Graphics.html">Graphics</a></td>
+        <td><span class="parametername">device</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_IsOpen.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.IsOpen%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L20">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_IsOpen_" data-uid="GameOverlay.Drawing.Geometry.IsOpen*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_IsOpen" data-uid="GameOverlay.Drawing.Geometry.IsOpen">IsOpen</h4>
+  <div class="markdown level1 summary"><p>Determines whether this Geometry is open.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOpen { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_AddCurve_GameOverlay_Drawing_Point_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.AddCurve(GameOverlay.Drawing.Point%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L105">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_AddCurve_" data-uid="GameOverlay.Drawing.Geometry.AddCurve*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_AddCurve_GameOverlay_Drawing_Point_System_Single_System_Single_" data-uid="GameOverlay.Drawing.Geometry.AddCurve(GameOverlay.Drawing.Point,System.Single,System.Single)">AddCurve(Point, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Adds a curved line to the currently open figure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddCurve(Point point, float radius, float rotationAngle = 0F)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Point.html">Point</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The end point of the curved line.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">radius</span></td>
+        <td><p>The radius of the resulting arc in degrees.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">rotationAngle</span></td>
+        <td><p>A value determining the rotation angle this curve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_AddCurve_GameOverlay_Drawing_Point_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.AddCurve(GameOverlay.Drawing.Point%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L130">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_AddCurve_" data-uid="GameOverlay.Drawing.Geometry.AddCurve*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_AddCurve_GameOverlay_Drawing_Point_System_Single_System_Single_System_Single_" data-uid="GameOverlay.Drawing.Geometry.AddCurve(GameOverlay.Drawing.Point,System.Single,System.Single,System.Single)">AddCurve(Point, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"><p>Adds a curved line to the currently open figure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddCurve(Point point, float radius_x, float radius_y, float rotationAngle = 0F)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Point.html">Point</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The end point of the curved line.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">radius_x</span></td>
+        <td><p>The radius on the X-Axis of the resulting arc in degrees.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">radius_y</span></td>
+        <td><p>The radius on the Y-Axis of the resulting arc in degrees.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">rotationAngle</span></td>
+        <td><p>A value determining the rotation angle this curve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_AddPoint_GameOverlay_Drawing_Point_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.AddPoint(GameOverlay.Drawing.Point)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L80">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_AddPoint_" data-uid="GameOverlay.Drawing.Geometry.AddPoint*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_AddPoint_GameOverlay_Drawing_Point_" data-uid="GameOverlay.Drawing.Geometry.AddPoint(GameOverlay.Drawing.Point)">AddPoint(Point)</h4>
+  <div class="markdown level1 summary"><p>Adds a new Point within the current figure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddPoint(Point point)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Point.html">Point</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>A Point which will be added to this figure</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_AddRectangle_GameOverlay_Drawing_Rectangle_System_Boolean_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.AddRectangle(GameOverlay.Drawing.Rectangle%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L90">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_AddRectangle_" data-uid="GameOverlay.Drawing.Geometry.AddRectangle*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_AddRectangle_GameOverlay_Drawing_Rectangle_System_Boolean_" data-uid="GameOverlay.Drawing.Geometry.AddRectangle(GameOverlay.Drawing.Rectangle,System.Boolean)">AddRectangle(Rectangle, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Creates a new figure from a Rectangle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddRectangle(Rectangle rectangle, bool fill = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Rectangle.html">Rectangle</a></td>
+        <td><span class="parametername">rectangle</span></td>
+        <td><p>The Rectangle used to create a new figure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">fill</span></td>
+        <td><p>A Boolean value determining whether this figure can be filled by a Graphics device.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_BeginFigure_GameOverlay_Drawing_Line_System_Boolean_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.BeginFigure(GameOverlay.Drawing.Line%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L61">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_BeginFigure_" data-uid="GameOverlay.Drawing.Geometry.BeginFigure*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_BeginFigure_GameOverlay_Drawing_Line_System_Boolean_" data-uid="GameOverlay.Drawing.Geometry.BeginFigure(GameOverlay.Drawing.Line,System.Boolean)">BeginFigure(Line, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Starts a new figure within this Geometry using a starting line.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BeginFigure(Line line, bool fill = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Line.html">Line</a></td>
+        <td><span class="parametername">line</span></td>
+        <td><p>The first line within this figure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">fill</span></td>
+        <td><p>A Boolean value determining whether this figure can be filled by a Graphics device.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_BeginFigure_GameOverlay_Drawing_Point_System_Boolean_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.BeginFigure(GameOverlay.Drawing.Point%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L51">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_BeginFigure_" data-uid="GameOverlay.Drawing.Geometry.BeginFigure*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_BeginFigure_GameOverlay_Drawing_Point_System_Boolean_" data-uid="GameOverlay.Drawing.Geometry.BeginFigure(GameOverlay.Drawing.Point,System.Boolean)">BeginFigure(Point, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Starts a new figure within this Geometry using a starting point.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BeginFigure(Point point, bool fill = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Point.html">Point</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The start point for this figure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">fill</span></td>
+        <td><p>A Boolean value determining whether this figure can be filled by a Graphics device.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_Close.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L143">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_Close_" data-uid="GameOverlay.Drawing.Geometry.Close*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_Close" data-uid="GameOverlay.Drawing.Geometry.Close">Close()</h4>
+  <div class="markdown level1 summary"><p>Closes this Geometry and prevents further manipulation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Close()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_Dispose.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L233">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_Dispose_" data-uid="GameOverlay.Drawing.Geometry.Dispose*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_Dispose" data-uid="GameOverlay.Drawing.Geometry.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Releases all resources used by this Geometry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L213">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_Dispose_" data-uid="GameOverlay.Drawing.Geometry.Dispose*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_Dispose_System_Boolean_" data-uid="GameOverlay.Drawing.Geometry.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Releases all resources used by this Geometry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">disposing</span></td>
+        <td><p>A Boolean value indicating whether this is called from the destructor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_EndFigure_System_Boolean_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.EndFigure(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L71">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_EndFigure_" data-uid="GameOverlay.Drawing.Geometry.EndFigure*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_EndFigure_System_Boolean_" data-uid="GameOverlay.Drawing.Geometry.EndFigure(System.Boolean)">EndFigure(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Ends the currently started figure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void EndFigure(bool closed = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">closed</span></td>
+        <td><p>A Boolean value indicating whether this figure should automatically be closen by the Graphics device.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_Equals_GameOverlay_Drawing_Geometry_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.Equals(GameOverlay.Drawing.Geometry)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L175">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_Equals_" data-uid="GameOverlay.Drawing.Geometry.Equals*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_Equals_GameOverlay_Drawing_Geometry_" data-uid="GameOverlay.Drawing.Geometry.Equals(GameOverlay.Drawing.Geometry)">Equals(Geometry)</h4>
+  <div class="markdown level1 summary"><p>Returns a value indicating whether two specified instances of Geometry represent the same value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(Geometry value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Geometry.html">Geometry</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>An object to compare to this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><span class="xref">true</span> if <code data-dev-comment-type="paramref" class="paramref">value</code> is equal to this instance; otherwise, <span class="xref">false</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_Equals_GameOverlay_Drawing_Geometry_GameOverlay_Drawing_Geometry_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.Equals(GameOverlay.Drawing.Geometry%2CGameOverlay.Drawing.Geometry)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L255">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_Equals_" data-uid="GameOverlay.Drawing.Geometry.Equals*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_Equals_GameOverlay_Drawing_Geometry_GameOverlay_Drawing_Geometry_" data-uid="GameOverlay.Drawing.Geometry.Equals(GameOverlay.Drawing.Geometry,GameOverlay.Drawing.Geometry)">Equals(Geometry, Geometry)</h4>
+  <div class="markdown level1 summary"><p>Returns a value indicating whether two specified instances of Geometry represent the same value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Equals(Geometry left, Geometry right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Geometry.html">Geometry</a></td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first object to compare.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Geometry.html">Geometry</a></td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second object to compare.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><span class="xref">true</span> if <code data-dev-comment-type="paramref" class="paramref">left</code> and <code data-dev-comment-type="paramref" class="paramref">right</code> are equal; otherwise, <span class="xref">false</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_Equals_System_Object_.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L157">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_Equals_" data-uid="GameOverlay.Drawing.Geometry.Equals*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_Equals_System_Object_" data-uid="GameOverlay.Drawing.Geometry.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"><p>Returns a value indicating whether this instance and a specified <span class="xref">System.Object</span> represent the same type and value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object to compare with this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><span class="xref">true</span> if <code data-dev-comment-type="paramref" class="paramref">obj</code> is a Geometry and equal to this instance; otherwise, <span class="xref">false</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.Equals(System.Object)</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_Finalize.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.Finalize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L44">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_Finalize_" data-uid="GameOverlay.Drawing.Geometry.Finalize*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_Finalize" data-uid="GameOverlay.Drawing.Geometry.Finalize">Finalize()</h4>
+  <div class="markdown level1 summary"><p>Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Finalize()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_GetHashCode.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L186">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_GetHashCode_" data-uid="GameOverlay.Drawing.Geometry.GetHashCode*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_GetHashCode" data-uid="GameOverlay.Drawing.Geometry.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Returns the hash code for this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>A 32-bit signed integer hash code.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.GetHashCode()</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_ToString.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L197">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_ToString_" data-uid="GameOverlay.Drawing.Geometry.ToString*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_ToString" data-uid="GameOverlay.Drawing.Geometry.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Converts this Geometry instance to a human-readable string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A string representation of this Geometry.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.ToString()</span></div>
+  <h3 id="operators">Operators
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry_op_Implicit_GameOverlay_Drawing_Geometry__SharpDX_Direct2D1_Geometry.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry.op_Implicit(GameOverlay.Drawing.Geometry)~SharpDX.Direct2D1.Geometry%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L244">View Source</a>
+  </span>
+  <a id="GameOverlay_Drawing_Geometry_op_Implicit_" data-uid="GameOverlay.Drawing.Geometry.op_Implicit*"></a>
+  <h4 id="GameOverlay_Drawing_Geometry_op_Implicit_GameOverlay_Drawing_Geometry__SharpDX_Direct2D1_Geometry" data-uid="GameOverlay.Drawing.Geometry.op_Implicit(GameOverlay.Drawing.Geometry)~SharpDX.Direct2D1.Geometry">Implicit(Geometry to Geometry)</h4>
+  <div class="markdown level1 summary"><p>Returns the Direct2D Geometry used by this object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator Geometry(Geometry geometry)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GameOverlay.Drawing.Geometry.html">Geometry</a></td>
+        <td><span class="parametername">geometry</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">SharpDX.Direct2D1.Geometry</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.IDisposable</span>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/new/doc-fx/apiSpec/new?filename=GameOverlay_Drawing_Geometry.md&amp;value=---%0Auid%3A%20GameOverlay.Drawing.Geometry%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/YatoDev/Yato.DirectXOverlay/blob/doc-fx/source/GameOverlay/Drawing/Geometry.cs/#L12" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            GameOverlay.Net (c) 2020
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
