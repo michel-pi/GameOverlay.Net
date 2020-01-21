@@ -1,0 +1,495 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/Users/Michel/Documents/Github/Public/GameOverlay.Net/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Circle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Circle.html",
+          "hash": "T8G1+amVgqltf6eoA0pOxQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Color.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Color.html",
+          "hash": "zDfC0hEh9SLD8TweoXDltg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.CrosshairStyle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.CrosshairStyle.html",
+          "hash": "Vpc+3YFvQ5pccowS2Fwf+Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Ellipse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Ellipse.html",
+          "hash": "veTHbPNq89ZvV6DkquZi8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Font.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Font.html",
+          "hash": "o3CSEYcFu4o25ALOAqxvpg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Geometry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Geometry.html",
+          "hash": "0xizvDiI5LyRM1vKoZS/1g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Graphics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Graphics.html",
+          "hash": "72c2Xz/9RyWxPVtbvUveSA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.IBrush.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.IBrush.html",
+          "hash": "IyXeNJTiKZUBBTuH2VFntw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Image.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Image.html",
+          "hash": "Jiwj89zZFQlcpGZAViBbpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Line.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Line.html",
+          "hash": "o0Z8K/YxgC4waBGxEw157Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.LinearGradientBrush.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.LinearGradientBrush.html",
+          "hash": "ADXxJulsvBM/xItzScOHww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Point.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Point.html",
+          "hash": "YGsoa0ZptRnoZBj+DlmpwQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Rectangle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Rectangle.html",
+          "hash": "fqZsy6zZ5ntX/tmFu52QAw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.RoundedRectangle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.RoundedRectangle.html",
+          "hash": "+bp/Vx7g8IPPpkwOsDJEOA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Scene.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Scene.html",
+          "hash": "fUgPN6dsxB1EzHOgICupwQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.SolidBrush.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.SolidBrush.html",
+          "hash": "G0PAAPwaDm4BcRwUhUM+Xw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.Triangle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.Triangle.html",
+          "hash": "3dfOklCYbA/ewqwRP+DfOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.html",
+          "hash": "KH0u9g6yXyUT6VRDyK0hUQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.DestroyGraphicsEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.DestroyGraphicsEventArgs.html",
+          "hash": "GJ7DQeX+UnqPwvyB53vchw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.DrawGraphicsEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.DrawGraphicsEventArgs.html",
+          "hash": "EFFmyxDoXfDtm84A3EzahA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.GraphicsWindow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.GraphicsWindow.html",
+          "hash": "I/79H+Typrj2CO8biCbQYA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.OverlayPositionEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.OverlayPositionEventArgs.html",
+          "hash": "WR4+IsQGf7xJWai+8mhmuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.OverlaySizeEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.OverlaySizeEventArgs.html",
+          "hash": "CW4fikqglAjhMgLkleVC/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.OverlayVisibilityEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.OverlayVisibilityEventArgs.html",
+          "hash": "pdWgCNAYi+HDLClKDRnI5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.OverlayWindow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.OverlayWindow.html",
+          "hash": "SZOzrkk14tPfd2Bpdq3wYQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.SetupGraphicsEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.SetupGraphicsEventArgs.html",
+          "hash": "puJpfIZAvXTe04j7OgFSHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.StickyWindow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.StickyWindow.html",
+          "hash": "tcz0aty71Rdt4c45pnXnRg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.WindowBounds.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.WindowBounds.html",
+          "hash": "UQZEBjZyUR5sX5hs2sZLrA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.WindowHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.WindowHelper.html",
+          "hash": "MXBTuPNUF/frkAuMsMSo4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Windows.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Windows.html",
+          "hash": "/IrkaRz32eR2oG4TREJ+2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "eLe8CTIhx5NJmMpv382BXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "cBXa7QbZ030OIWmvReFNcQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "VEIymrTKGzQ562IJRQs42g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "gB8AESyvNru97tzIZofEEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "mhPriCkKzQTeJYYA4s3XgA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "EIhwD2+o19OxxQFCB6JJTg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 30,
+          "skipped_file_count": 30
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 2
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
