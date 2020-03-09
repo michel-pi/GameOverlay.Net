@@ -88,35 +88,35 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">System.EventArgs</span></div>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></div>
     <div class="level2"><span class="xref">SetupGraphicsEventArgs</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.EventArgs.Empty</span>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs.empty">EventArgs.Empty</a>
     </div>
     <div>
-      <span class="xref">System.Object.ToString()</span>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
     </div>
     <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
     </div>
     <div>
-      <span class="xref">System.Object.GetType()</span>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
     </div>
     <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="GameOverlay.Windows.html">GameOverlay.Windows</a></h6>
@@ -129,19 +129,19 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_SetupGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.SetupGraphicsEventArgs.%23ctor(GameOverlay.Drawing.Graphics)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_SetupGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_System_Boolean_.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.SetupGraphicsEventArgs.%23ctor(GameOverlay.Drawing.Graphics%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/master/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L47">View Source</a>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L53">View Source</a>
   </span>
   <a id="GameOverlay_Windows_SetupGraphicsEventArgs__ctor_" data-uid="GameOverlay.Windows.SetupGraphicsEventArgs.#ctor*"></a>
-  <h4 id="GameOverlay_Windows_SetupGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_" data-uid="GameOverlay.Windows.SetupGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics)">SetupGraphicsEventArgs(Graphics)</h4>
+  <h4 id="GameOverlay_Windows_SetupGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_System_Boolean_" data-uid="GameOverlay.Windows.SetupGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics,System.Boolean)">SetupGraphicsEventArgs(Graphics, Boolean)</h4>
   <div class="markdown level1 summary"><p>Initializes a new SetupGraphicsEventArgs with a Graphics surface.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SetupGraphicsEventArgs(Graphics graphics)</code></pre>
+    <pre><code class="lang-csharp hljs">public SetupGraphicsEventArgs(Graphics graphics, bool recreateResources = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -158,6 +158,11 @@
         <td><span class="parametername">graphics</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">recreateResources</span></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
   <h3 id="properties">Properties
@@ -167,7 +172,7 @@
     <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_SetupGraphicsEventArgs_Graphics.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.SetupGraphicsEventArgs.Graphics%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/master/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L37">View Source</a>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L37">View Source</a>
   </span>
   <a id="GameOverlay_Windows_SetupGraphicsEventArgs_Graphics_" data-uid="GameOverlay.Windows.SetupGraphicsEventArgs.Graphics*"></a>
   <h4 id="GameOverlay_Windows_SetupGraphicsEventArgs_Graphics" data-uid="GameOverlay.Windows.SetupGraphicsEventArgs.Graphics">Graphics</h4>
@@ -193,6 +198,37 @@
       </tr>
     </tbody>
   </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_SetupGraphicsEventArgs_RecreateResources.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.SetupGraphicsEventArgs.RecreateResources%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L42">View Source</a>
+  </span>
+  <a id="GameOverlay_Windows_SetupGraphicsEventArgs_RecreateResources_" data-uid="GameOverlay.Windows.SetupGraphicsEventArgs.RecreateResources*"></a>
+  <h4 id="GameOverlay_Windows_SetupGraphicsEventArgs_RecreateResources" data-uid="GameOverlay.Windows.SetupGraphicsEventArgs.RecreateResources">RecreateResources</h4>
+  <div class="markdown level1 summary"><p>Gets a boolean determining whether resources (brushes and images) have to be created again since the underlying device has changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RecreateResources { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -204,7 +240,7 @@
                     <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_SetupGraphicsEventArgs.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.SetupGraphicsEventArgs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/master/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L32" class="contribution-link">View Source</a>
+                    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L32" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
