@@ -7,7 +7,7 @@
     <Product>GameOverlay.Net</Product>
     <Company />
     <Authors>michel-pi</Authors>
-    <Version>4.0.8</Version>
+    <Version>4.1.0</Version>
     <Description>An easy to use Direct2D1 drawing library with the ability to create transparent click-through windows.</Description>
     <PackageTags>GameOverlay.Net overlay game click-through direct2d sharpdx drawing window directx transparent michel-pi yato yatodev</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -22,9 +22,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants />
-    <DocumentationFile>C:\Users\Michel\Documents\Github\Public\GameOverlay.Net\source\GameOverlay\GameOverlay.xml</DocumentationFile>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+    <DocumentationFile>C:\Users\Michel\Documents\Github\Public\GameOverlay.Net\source\GameOverlay\GameOverlay.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
