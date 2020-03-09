@@ -1,19 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SharpDX.WIC;
 using SharpDX.Direct2D1;
+using SharpDX.WIC;
 
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using PixelFormat = SharpDX.WIC.PixelFormat;
 
 namespace GameOverlay.Drawing.Imaging
 {
-    internal static class ImageDecoder
-    {
-        // PixelFormat sorted in a best compatibility and best color accuracy order
-        private static readonly Guid[] _standardPixelFormats = new Guid[]
-        {
+	internal static class ImageDecoder
+	{
+		private static readonly Guid[] _floatingPointFormats = new Guid[]
+		{
+			PixelFormat.Format128bppRGBAFloat,
+			PixelFormat.Format128bppRGBAFixedPoint,
+			PixelFormat.Format128bppPRGBAFloat,
+			PixelFormat.Format128bppRGBFloat,
+			PixelFormat.Format128bppRGBFixedPoint,
+			PixelFormat.Format96bppRGBFixedPoint,
+			PixelFormat.Format96bppRGBFloat,
+			PixelFormat.Format64bppBGRAFixedPoint,
+			PixelFormat.Format64bppRGBAFixedPoint,
+			PixelFormat.Format64bppRGBFixedPoint,
+			PixelFormat.Format48bppRGBFixedPoint,
+			PixelFormat.Format48bppBGRFixedPoint,
+			PixelFormat.Format32bppGrayFixedPoint,
+			PixelFormat.Format32bppGrayFloat,
+			PixelFormat.Format16bppGrayFixedPoint
+		};
+
+		// PixelFormat sorted in a best compatibility and best color accuracy order
+		private static readonly Guid[] _standardPixelFormats = new Guid[]
+		{
 			PixelFormat.Format144bpp8ChannelsAlpha,
 			PixelFormat.Format128bpp8Channels,
 			PixelFormat.Format128bpp7ChannelsAlpha,
@@ -82,25 +101,6 @@ namespace GameOverlay.Drawing.Imaging
 			PixelFormat.Format8bppGray
 		};
 
-		private static readonly Guid[] _floatingPointFormats = new Guid[]
-		{
-			PixelFormat.Format128bppRGBAFloat,
-			PixelFormat.Format128bppRGBAFixedPoint,
-			PixelFormat.Format128bppPRGBAFloat,
-			PixelFormat.Format128bppRGBFloat,
-			PixelFormat.Format128bppRGBFixedPoint,
-			PixelFormat.Format96bppRGBFixedPoint,
-			PixelFormat.Format96bppRGBFloat,
-			PixelFormat.Format64bppBGRAFixedPoint,
-			PixelFormat.Format64bppRGBAFixedPoint,
-			PixelFormat.Format64bppRGBFixedPoint,
-			PixelFormat.Format48bppRGBFixedPoint,
-			PixelFormat.Format48bppBGRFixedPoint,
-			PixelFormat.Format32bppGrayFixedPoint,
-			PixelFormat.Format32bppGrayFloat,
-			PixelFormat.Format16bppGrayFixedPoint
-		};
-
 		private static readonly Guid[] _uncommonFormats = new Guid[]
 		{
 			PixelFormat.Format4bppIndexed,
@@ -133,6 +133,17 @@ namespace GameOverlay.Drawing.Imaging
 			}
 		}
 
+		private static void TryCatch(Action action)
+		{
+			if (action == null) throw new ArgumentNullException(nameof(action));
+
+			try
+			{
+				action();
+			}
+			catch { }
+		}
+
 		public static Bitmap Decode(RenderTarget device, BitmapDecoder decoder)
 		{
 			var frame = decoder.GetFrame(0);
@@ -162,17 +173,6 @@ namespace GameOverlay.Drawing.Imaging
 			TryCatch(() => frame.Dispose());
 
 			throw new Exception("Unsupported Image Format!");
-		}
-
-		private static void TryCatch(Action action)
-		{
-			if (action == null) throw new ArgumentNullException(nameof(action));
-
-			try
-			{
-				action();
-			}
-			catch { }
 		}
 	}
 }
