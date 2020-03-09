@@ -55,7 +55,7 @@ namespace GameOverlay.PInvoke
 
         public static readonly GetForegroundWindowDelegate GetForegroundWindow;
 
-        public delegate IntPtr GetWindowDelegate(IntPtr hwnd, uint cmd);
+        public delegate IntPtr GetWindowDelegate(IntPtr hwnd, WindowCommand cmd);
         public static readonly GetWindowDelegate GetWindow;
 
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -136,6 +136,34 @@ namespace GameOverlay.PInvoke
 
         public static readonly PostMessageWDelegate PostMessage;
 
+        public delegate IntPtr GenericGetWindowDelegate();
+
+        public static readonly GenericGetWindowDelegate GetDesktopWindow;
+
+        public static readonly GenericGetWindowDelegate GetShellWindow;
+
+        public static readonly GenericGetWindowDelegate GetActiveWindow;
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+        public delegate IntPtr FindWindowExWDelegate(IntPtr parent, IntPtr childAfter, string className, string windowName);
+
+        public static readonly FindWindowExWDelegate FindWindowEx;
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+        public delegate IntPtr GenericGetWindowLongDelegate(IntPtr handle, int index);
+
+        public static readonly GenericGetWindowLongDelegate GetClassLongPtr;
+        public static readonly GenericGetWindowLongDelegate GetWindowLongPtr;
+
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public delegate bool GetWindowInfoDelegate(IntPtr handle, ref WindowInfo windowInfo);
+
+        public static readonly GetWindowInfoDelegate GetWindowInfo;
+
+        public delegate uint GetWindowThreadProcessIdDelegate(IntPtr handle, [In, Out] ref uint processId);
+        
+        public static readonly GetWindowThreadProcessIdDelegate GetWindowThreadProcessId;
+
         static User32()
         {
             IntPtr library = DynamicImport.ImportLibrary("user32.dll");
@@ -162,6 +190,24 @@ namespace GameOverlay.PInvoke
             WaitMessage = DynamicImport.Import<WaitMessageDelegate>(library, "WaitMessage");
             PostMessage = DynamicImport.Import<PostMessageWDelegate>(library, "PostMessageW");
             GetForegroundWindow = DynamicImport.Import<GetForegroundWindowDelegate>(library, "GetForegroundWindow");
+
+            GetDesktopWindow = DynamicImport.Import<GenericGetWindowDelegate>(library, "GetDesktopWindow");
+            GetShellWindow = DynamicImport.Import<GenericGetWindowDelegate>(library, "GetShellWindow");
+            GetActiveWindow = DynamicImport.Import<GenericGetWindowDelegate>(library, "GetActiveWindow");
+            FindWindowEx = DynamicImport.Import<FindWindowExWDelegate>(library, "FindWindowExW");
+            GetWindowInfo = DynamicImport.Import<GetWindowInfoDelegate>(library, "GetWindowInfo");
+            GetWindowThreadProcessId = DynamicImport.Import<GetWindowThreadProcessIdDelegate>(library, "GetWindowThreadProcessId");
+
+            if (IntPtr.Size == 4)
+            {
+                GetClassLongPtr = DynamicImport.Import<GenericGetWindowLongDelegate>(library, "GetClassLongW");
+                GetWindowLongPtr = DynamicImport.Import<GenericGetWindowLongDelegate>(library, "GetWindowLongW");
+            }
+            else
+            {
+                GetClassLongPtr = DynamicImport.Import<GenericGetWindowLongDelegate>(library, "GetClassLongPtrW");
+                GetWindowLongPtr = DynamicImport.Import<GenericGetWindowLongDelegate>(library, "GetWindowLongPtrW");
+            }
 
             try
             {

@@ -6,6 +6,34 @@ namespace GameOverlay.PInvoke
     // An application-defined function that processes messages sent to a window.
     internal delegate IntPtr WindowProc(IntPtr hWnd, WindowMessage msg, IntPtr wParam, IntPtr lParam);
 
+    internal enum WindowClassStyle : uint
+    {
+        None = 0,
+        VerticalReDraw = 0x0001,
+        HorizontalReDraw = 0x0002,
+        DoubleClicks = 0x0008,
+        OwnDC = 0x0020,
+        ClassDC = 0x0040,
+        ParentDC = 0x0080,
+        NoClose = 0x0200,
+        SaveBits = 0x0800,
+        ByteAlignClient = 0x1000,
+        ByteAlignWindow = 0x2000,
+        GlobalClass = 0x4000,
+        DropShadow = 0x00020000
+    }
+
+    internal enum WindowCommand : uint
+    {
+        First,
+        Last,
+        Next,
+        Previous,
+        Owner,
+        Child,
+        EnabledPopup
+    }
+
     // Identifies the dots per inch (dpi) setting for a thread, process, or window.
     internal enum DpiAwareness
     {
@@ -375,6 +403,23 @@ namespace GameOverlay.PInvoke
         App = 0x8000
     }
 
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct WindowInfo
+    {
+        public static readonly uint MemorySize = (uint)Marshal.SizeOf(typeof(WindowInfo));
+
+        public uint Size;
+        public NativeRect WindowBounds;
+        public NativeRect ClientBounds;
+        public WindowStyle Style;
+        public ExtendedWindowStyle ExtendedStyle;
+        public uint Status;
+        public uint HorizontalWindowBorders;
+        public uint VerticalWindowBorders;
+        public ushort Type;
+        public ushort CreatorVersion;
+    }
+
     // Contains a WindowsMessage
     [StructLayout(LayoutKind.Sequential)]
     internal struct Message
@@ -413,8 +458,10 @@ namespace GameOverlay.PInvoke
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     internal struct WindowClassEx
     {
+        public static readonly uint MemorySize = (uint)Marshal.SizeOf(typeof(WindowClassEx));
+
         public uint Size;
-        public uint Style;
+        public WindowClassStyle Style;
         public IntPtr WindowProc;
         public int ClsExtra;
         public int WindowExtra;
@@ -425,10 +472,5 @@ namespace GameOverlay.PInvoke
         public string MenuName;
         public string ClassName;
         public IntPtr IconSm;
-
-        public static uint NativeSize()
-        {
-            return (uint)Marshal.SizeOf(typeof(WindowClassEx));
-        }
     }
 }

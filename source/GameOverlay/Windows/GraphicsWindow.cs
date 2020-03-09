@@ -183,6 +183,8 @@ namespace GameOverlay.Windows
                 Graphics.Setup();
             }
 
+            Graphics.RecreateResources += Graphics_RecreateDevice;
+
             OnSetupGraphics(Graphics);
 
             while (_isRunning)
@@ -218,6 +220,11 @@ namespace GameOverlay.Windows
             }
 
             OnDestroyGraphics(Graphics);
+        }
+
+        private void Graphics_RecreateDevice(object sender, RecreateResourcesEventArgs e)
+        {
+            SetupGraphics?.Invoke(this, new SetupGraphicsEventArgs(e.Graphics, true));
         }
 
         private void GraphicsWindow_SizeChanged(object sender, OverlaySizeEventArgs e)

@@ -36,6 +36,11 @@ namespace GameOverlay.Windows
         /// </summary>
         public Graphics Graphics { get; }
 
+        /// <summary>
+        /// Gets a boolean determining whether resources (brushes and images) have to be created again since the underlying device has changed.
+        /// </summary>
+        public bool RecreateResources { get; }
+
         private SetupGraphicsEventArgs()
         {
         }
@@ -44,8 +49,12 @@ namespace GameOverlay.Windows
         /// Initializes a new SetupGraphicsEventArgs with a Graphics surface.
         /// </summary>
         /// <param name="graphics"></param>
-        public SetupGraphicsEventArgs(Graphics graphics)
-            => Graphics = graphics ?? throw new ArgumentNullException(nameof(graphics));
+        /// <param name="recreateResources"></param>
+        public SetupGraphicsEventArgs(Graphics graphics, bool recreateResources = false)
+        {
+            Graphics = graphics ?? throw new ArgumentNullException(nameof(graphics));
+            RecreateResources = recreateResources;
+        }
     }
 
     /// <summary>
