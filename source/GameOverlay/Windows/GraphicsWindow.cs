@@ -251,9 +251,13 @@ namespace GameOverlay.Windows
         /// <param name="graphics">A Graphics surface.</param>
         protected virtual void OnDrawGraphics(Graphics graphics)
         {
+            var handler = DrawGraphics;
+
+            if (handler == null) return;
+
             graphics.BeginScene();
 
-            DrawGraphics?.Invoke(this, new DrawGraphicsEventArgs(graphics));
+            handler.Invoke(this, new DrawGraphicsEventArgs(graphics));
 
             graphics.EndScene();
         }
