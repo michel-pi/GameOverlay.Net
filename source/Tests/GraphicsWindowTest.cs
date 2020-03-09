@@ -65,9 +65,12 @@ namespace Tests
 		{
 			var gfx = e.Graphics;
 
-			_brushes.Add("black", gfx.CreateSolidBrush(0, 0, 0));
-			_brushes.Add("white", gfx.CreateSolidBrush(255, 255, 255));
-			_brushes.Add("background", gfx.CreateSolidBrush(0, 0x27, 0x31, 255.0f * 0.8f));
+			_brushes["black"] = gfx.CreateSolidBrush(0, 0, 0);
+			_brushes["white"] = gfx.CreateSolidBrush(255, 255, 255);
+			_brushes["background"] = gfx.CreateSolidBrush(0, 0x27, 0x31, 255.0f * 0.8f);
+
+			// fonts don't need to be recreated since they are owned by the font factory and not the drawing device
+			if (e.RecreateResources) return;
 
 			_fonts.Add("arial", gfx.CreateFont("Arial", 14));
 		}
