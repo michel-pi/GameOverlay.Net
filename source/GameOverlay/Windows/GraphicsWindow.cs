@@ -119,7 +119,7 @@ namespace GameOverlay.Windows
         }
 
         /// <summary>
-        /// Pauses the timer thread.
+        /// Pauses the graphics thread.
         /// </summary>
         public void Pause()
         {
@@ -129,7 +129,7 @@ namespace GameOverlay.Windows
         }
 
         /// <summary>
-        /// Resumes the timer thread.
+        /// Resumes the graphics thread.
         /// </summary>
         public void Unpause()
         {
