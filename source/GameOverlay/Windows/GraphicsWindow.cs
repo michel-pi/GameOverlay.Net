@@ -119,23 +119,6 @@ namespace GameOverlay.Windows
         }
 
         /// <summary>
-        /// Stops the graphics thread but leaves the window initialized.
-        /// </summary>
-        public void StopThread()
-        {
-            if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
-
-            _isRunning = false;
-            _isPaused = false;
-
-            try
-            {
-                _thread.Join();
-            }
-            catch { } // ignore "already exited" exception
-        }
-
-        /// <summary>
         /// Pauses the timer thread.
         /// </summary>
         public void Pause()
@@ -286,7 +269,14 @@ namespace GameOverlay.Windows
         {
             if (_isRunning)
             {
-                StopThread();
+                _isRunning = false;
+                _isPaused = false;
+
+                try
+                {
+                    _thread.Join();
+                }
+                catch { } // ignore "already exited" exception
             }
 
             Graphics?.Dispose();
