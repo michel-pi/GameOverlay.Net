@@ -22,14 +22,10 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants />
+    <DocumentationFile>C:\Users\Michel\Documents\Github\Public\GameOverlay.Net\source\GameOverlay\GameOverlay.xml</DocumentationFile>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <DocumentationFile>C:\Users\Michel\Documents\Github\Public\GameOverlay.Net\source\GameOverlay\GameOverlay.xml</DocumentationFile>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="SharpDX.Direct2D1" Version="4.2.0" />
   </ItemGroup>
