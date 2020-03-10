@@ -55,7 +55,7 @@ namespace Tests
 
 		public void Run()
 		{
-			_window.StartThread();
+			_window.Create();
 
 			_window.JoinGraphicsThread();
 			_window.Join();

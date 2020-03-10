@@ -87,11 +87,10 @@ namespace GameOverlay.Windows
         /// </summary>
         ~GraphicsWindow() => Dispose(false);
 
-        /// <summary>
-        /// Runs a timer thread which invokes the DrawGraphics event and measures frames per second.
-        /// </summary>
-        public void StartThread()
+        public override void Create()
         {
+            base.Create();
+
             if (_isRunning) throw new InvalidOperationException("Graphics window is already running");
 
             _isRunning = true;
@@ -166,11 +165,6 @@ namespace GameOverlay.Windows
 
         private void GraphicsWindowThread()
         {
-            if (!IsInitialized)
-            {
-                Create();
-            }
-
             if (!Graphics.IsInitialized)
             {
                 Graphics.Width = Width;
@@ -178,6 +172,13 @@ namespace GameOverlay.Windows
                 Graphics.WindowHandle = Handle;
 
                 Graphics.Setup();
+            }
+            else
+            {
+                if (Graphics.Width != Width || Graphics.Height != Height)
+                {
+                    Graphics.Resize(Width, Height);
+                }
             }
 
             Graphics.RecreateResources += Graphics_RecreateDevice;
