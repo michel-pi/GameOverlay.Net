@@ -609,7 +609,7 @@ namespace GameOverlay.Windows
 		/// <summary>
 		/// Waits until the Thread used by this instance has exited.
 		/// </summary>
-		public void Join()
+		public virtual void Join()
 		{
 			try
 			{
