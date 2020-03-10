@@ -1,287 +1,284 @@
 ﻿using System;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
 
 using GameOverlay.Drawing;
-using GameOverlay.PInvoke;
 
 namespace GameOverlay.Windows
 {
-    /// <summary>
-    /// Represents an OverlayWindow which is used to draw at any given frame rate.
-    /// </summary>
-    public class GraphicsWindow : OverlayWindow
-    {
-        private Thread _thread;
-        private readonly Stopwatch _watch;
+	/// <summary>
+	/// Represents an OverlayWindow which is used to draw at any given frame rate.
+	/// </summary>
+	public class GraphicsWindow : OverlayWindow
+	{
+		private readonly Stopwatch _watch;
+		private volatile int _fps;
+		private volatile bool _isPaused;
+		private volatile bool _isRunning;
+		private Thread _thread;
 
-        private volatile bool _isRunning;
-        private volatile bool _isPaused;
+		/// <summary>
+		/// Gets or sets the frames per second (frame rate) at which this instance invokes its DrawGraphics event.
+		/// </summary>
+		public int FPS { get => _fps; set => _fps = value; }
 
-        private volatile int _fps;
+		/// <summary>
+		/// Gets or sets the used Graphics surface.
+		/// </summary>
+		public Graphics Graphics { get; }
 
-        /// <summary>
-        /// Gets or sets the used Graphics surface.
-        /// </summary>
-        public Graphics Graphics { get; }
+		/// <summary>
+		/// Gets or sets a Boolean which determines whether this instance is paused.
+		/// </summary>
+		public bool IsPaused { get => _isPaused; set => _isPaused = value; }
 
-        /// <summary>
-        /// Gets or sets a Boolean which determines whether this instance is running.
-        /// </summary>
-        public bool IsRunning { get => _isRunning; set => _isRunning = value; }
+		/// <summary>
+		/// Gets or sets a Boolean which determines whether this instance is running.
+		/// </summary>
+		public bool IsRunning { get => _isRunning; set => _isRunning = value; }
 
-        /// <summary>
-        /// Gets or sets a Boolean which determines whether this instance is paused.
-        /// </summary>
-        public bool IsPaused { get => _isPaused; set => _isPaused = value; }
+		/// <summary>
+		/// Fires when you should free any resources used for drawing with this instance.
+		/// </summary>
+		public event EventHandler<DestroyGraphicsEventArgs> DestroyGraphics;
 
-        /// <summary>
-        /// Gets or sets the frames per second (frame rate) at which this instance invokes its DrawGraphics event.
-        /// </summary>
-        public int FPS { get => _fps; set => _fps = value; }
+		/// <summary>
+		/// Fires when a new Scene / frame needs to be rendered.
+		/// </summary>
+		public event EventHandler<DrawGraphicsEventArgs> DrawGraphics;
 
-        /// <summary>
-        /// Fires when a new Scene / frame needs to be rendered.
-        /// </summary>
-        public event EventHandler<DrawGraphicsEventArgs> DrawGraphics;
+		/// <summary>
+		/// Fires when you should allocate any resources you use to draw using this instance.
+		/// </summary>
+		public event EventHandler<SetupGraphicsEventArgs> SetupGraphics;
 
-        /// <summary>
-        /// Fires when you should free any resources used for drawing with this instance.
-        /// </summary>
-        public event EventHandler<DestroyGraphicsEventArgs> DestroyGraphics;
+		/// <summary>
+		/// Initializes a new GraphicsWindow.
+		/// </summary>
+		/// <param name="device">Optionally specify a Graphics device to use.</param>
+		public GraphicsWindow(Graphics device = null)
+		{
+			Graphics = device ?? new Graphics();
 
-        /// <summary>
-        /// Fires when you should allocate any resources you use to draw using this instance.
-        /// </summary>
-        public event EventHandler<SetupGraphicsEventArgs> SetupGraphics;
+			_watch = Stopwatch.StartNew();
+		}
 
-        /// <summary>
-        /// Initializes a new GraphicsWindow.
-        /// </summary>
-        /// <param name="device">Optionally specify a Graphics device to use.</param>
-        public GraphicsWindow(Graphics device = null)
-        {
-            Graphics = device ?? new Graphics();
+		/// <summary>
+		/// Initializes a new GraphicsWindow with the specified window position and size.
+		/// </summary>
+		/// <param name="x">The window position on the X-Axis.</param>
+		/// <param name="y">The window position on the Y-Axis.</param>
+		/// <param name="width">The width of the window.</param>
+		/// <param name="height">The height of the window.</param>
+		/// <param name="device">Optionally specify a Graphics device to use.</param>
+		public GraphicsWindow(int x, int y, int width, int height, Graphics device = null) : this(device)
+		{
+			X = x;
+			Y = y;
+			Width = width;
+			Height = height;
+		}
 
-            _watch = Stopwatch.StartNew();
-        }
+		/// <summary>
+		/// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
+		/// </summary>
+		~GraphicsWindow() => Dispose(false);
 
-        /// <summary>
-        /// Initializes a new GraphicsWindow with the specified window position and size.
-        /// </summary>
-        /// <param name="x">The window position on the X-Axis.</param>
-        /// <param name="y">The window position on the Y-Axis.</param>
-        /// <param name="width">The width of the window.</param>
-        /// <param name="height">The height of the window.</param>
-        /// <param name="device">Optionally specify a Graphics device to use.</param>
-        public GraphicsWindow(int x, int y, int width, int height, Graphics device = null) : this(device)
-        {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
-        }
+		private void Graphics_RecreateDevice(object sender, RecreateResourcesEventArgs e)
+		{
+			SetupGraphics?.Invoke(this, new SetupGraphicsEventArgs(e.Graphics, true));
+		}
 
-        /// <summary>
-        /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
-        /// </summary>
-        ~GraphicsWindow() => Dispose(false);
+		private void GraphicsWindowThread()
+		{
+			if (!Graphics.IsInitialized)
+			{
+				Graphics.Width = Width;
+				Graphics.Height = Height;
+				Graphics.WindowHandle = Handle;
 
-        public override void Create()
-        {
-            base.Create();
+				Graphics.Setup();
+			}
+			else
+			{
+				if (Graphics.Width != Width || Graphics.Height != Height)
+				{
+					Graphics.Resize(Width, Height);
+				}
+			}
 
-            if (_isRunning) throw new InvalidOperationException("Graphics window is already running");
+			Graphics.RecreateResources += Graphics_RecreateDevice;
 
-            _isRunning = true;
-            _isPaused = !IsVisible;
+			OnSetupGraphics(Graphics);
 
-            _thread = new Thread(GraphicsWindowThread)
-            {
-                IsBackground = true
-            };
+			while (_isRunning)
+			{
+				int currentFPS = _fps;
 
-            _thread.Start();
-        }
+				if (currentFPS > 0)
+				{
+					long startTime = _watch.ElapsedMilliseconds;
 
-        public override void Join()
-        {
-            if (_isRunning)
-            {
-                try
-                {
-                    _thread.Join();
-                }
-                catch { }
-            }
+					OnDrawGraphics(Graphics);
 
-            base.Join();
-        }
+					long endTime = _watch.ElapsedMilliseconds;
 
-        /// <summary>
-        /// Pauses the graphics thread.
-        /// </summary>
-        public void Pause()
-        {
-            if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
+					int sleepTimePerFrame = 1000 / currentFPS;
 
-            _isPaused = true;
-        }
+					int remainingTime = (int)(sleepTimePerFrame - (endTime - startTime));
 
-        /// <summary>
-        /// Resumes the graphics thread.
-        /// </summary>
-        public void Unpause()
-        {
-            if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
+					if (remainingTime > 0)
+					{
+						Thread.Sleep(remainingTime);
+					}
+					else
+					{
+						Thread.Yield();
+					}
+				}
+				else
+				{
+					OnDrawGraphics(Graphics);
+				}
 
-            _isPaused = false;
-        }
+				while (_isPaused)
+				{
+					Thread.Sleep(10);
+				}
+			}
 
-        private void GraphicsWindowThread()
-        {
-            if (!Graphics.IsInitialized)
-            {
-                Graphics.Width = Width;
-                Graphics.Height = Height;
-                Graphics.WindowHandle = Handle;
+			OnDestroyGraphics(Graphics);
+		}
 
-                Graphics.Setup();
-            }
-            else
-            {
-                if (Graphics.Width != Width || Graphics.Height != Height)
-                {
-                    Graphics.Resize(Width, Height);
-                }
-            }
+		/// <summary>
+		/// Releases all resources used by this GraphicsWindow.
+		/// </summary>
+		/// <param name="disposing">A Boolean value indicating whether this is called from the destructor.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (_isRunning)
+			{
+				_isRunning = false;
+				_isPaused = false;
 
-            Graphics.RecreateResources += Graphics_RecreateDevice;
+				try
+				{
+					_thread.Join();
+				}
+				catch { } // ignore "already exited" exception
+			}
 
-            OnSetupGraphics(Graphics);
+			Graphics?.Dispose();
 
-            while (_isRunning)
-            {
-                int currentFPS = _fps;
+			base.Dispose(disposing);
+		}
 
-                if (currentFPS > 0)
-                {
-                    long startTime = _watch.ElapsedMilliseconds;
+		/// <summary>
+		/// Gets called when the timer thread destorys the Graphics surface.
+		/// </summary>
+		/// <param name="graphics">A Graphics surface.</param>
+		protected virtual void OnDestroyGraphics(Graphics graphics)
+		{
+			DestroyGraphics?.Invoke(this, new DestroyGraphicsEventArgs(graphics));
+		}
 
-                    OnDrawGraphics(Graphics);
+		/// <summary>
+		/// Gets called when the timer thread needs to render a new Scene / frame.
+		/// </summary>
+		/// <param name="graphics">A Graphics surface.</param>
+		protected virtual void OnDrawGraphics(Graphics graphics)
+		{
+			var handler = DrawGraphics;
 
-                    long endTime = _watch.ElapsedMilliseconds;
+			if (handler == null) return;
 
-                    int sleepTimePerFrame = 1000 / currentFPS;
+			graphics.BeginScene();
 
-                    int remainingTime = (int)(sleepTimePerFrame - (endTime - startTime));
+			handler.Invoke(this, new DrawGraphicsEventArgs(graphics));
 
-                    if (remainingTime > 0)
-                    {
-                        Thread.Sleep(remainingTime);
-                    }
-                    else
-                    {
-                        Thread.Yield();
-                    }
-                }
-                else
-                {
-                    OnDrawGraphics(Graphics);
-                }
+			graphics.EndScene();
+		}
 
-                while (_isPaused)
-                {
-                    Thread.Sleep(10);
-                }
-            }
+		/// <summary>
+		/// Gets called when the timer thread setups the Graphics surface.
+		/// </summary>
+		/// <param name="graphics">A Graphics surface.</param>
+		protected virtual void OnSetupGraphics(Graphics graphics)
+		{
+			SetupGraphics?.Invoke(this, new SetupGraphicsEventArgs(graphics));
+		}
 
-            OnDestroyGraphics(Graphics);
-        }
+		protected override void OnSizeChanged(int width, int height)
+		{
+			if (Graphics.IsInitialized)
+			{
+				Graphics.Resize(width, height);
+			}
+			else
+			{
+				Graphics.Width = width;
+				Graphics.Height = height;
+			}
 
-        private void Graphics_RecreateDevice(object sender, RecreateResourcesEventArgs e)
-        {
-            SetupGraphics?.Invoke(this, new SetupGraphicsEventArgs(e.Graphics, true));
-        }
+			base.OnSizeChanged(width, height);
+		}
 
-        protected override void OnSizeChanged(int width, int height)
-        {
-            if (Graphics.IsInitialized)
-            {
-                Graphics.Resize(width, height);
-            }
-            else
-            {
-                Graphics.Width = width;
-                Graphics.Height = height;
-            }
+		protected override void OnVisibilityChanged(bool isVisible)
+		{
+			_isPaused = !isVisible;
 
-            base.OnSizeChanged(width, height);
-        }
+			base.OnVisibilityChanged(isVisible);
+		}
 
-        protected override void OnVisibilityChanged(bool isVisible)
-        {
-            _isPaused = !isVisible;
+		public override void Create()
+		{
+			base.Create();
 
-            base.OnVisibilityChanged(isVisible);
-        }
+			if (_isRunning) throw new InvalidOperationException("Graphics window is already running");
 
-        /// <summary>
-        /// Gets called when the timer thread needs to render a new Scene / frame.
-        /// </summary>
-        /// <param name="graphics">A Graphics surface.</param>
-        protected virtual void OnDrawGraphics(Graphics graphics)
-        {
-            var handler = DrawGraphics;
+			_isRunning = true;
+			_isPaused = !IsVisible;
 
-            if (handler == null) return;
+			_thread = new Thread(GraphicsWindowThread)
+			{
+				IsBackground = true
+			};
 
-            graphics.BeginScene();
+			_thread.Start();
+		}
 
-            handler.Invoke(this, new DrawGraphicsEventArgs(graphics));
+		public override void Join()
+		{
+			if (_isRunning)
+			{
+				try
+				{
+					_thread.Join();
+				}
+				catch { }
+			}
 
-            graphics.EndScene();
-        }
+			base.Join();
+		}
 
-        /// <summary>
-        /// Gets called when the timer thread setups the Graphics surface.
-        /// </summary>
-        /// <param name="graphics">A Graphics surface.</param>
-        protected virtual void OnSetupGraphics(Graphics graphics)
-        {
-            SetupGraphics?.Invoke(this, new SetupGraphicsEventArgs(graphics));
-        }
+		/// <summary>
+		/// Pauses the graphics thread.
+		/// </summary>
+		public void Pause()
+		{
+			if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
 
-        /// <summary>
-        /// Gets called when the timer thread destorys the Graphics surface.
-        /// </summary>
-        /// <param name="graphics">A Graphics surface.</param>
-        protected virtual void OnDestroyGraphics(Graphics graphics)
-        {
-            DestroyGraphics?.Invoke(this, new DestroyGraphicsEventArgs(graphics));
-        }
+			_isPaused = true;
+		}
 
-        /// <summary>
-        /// Releases all resources used by this GraphicsWindow.
-        /// </summary>
-        /// <param name="disposing">A Boolean value indicating whether this is called from the destructor.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (_isRunning)
-            {
-                _isRunning = false;
-                _isPaused = false;
+		/// <summary>
+		/// Resumes the graphics thread.
+		/// </summary>
+		public void Unpause()
+		{
+			if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
 
-                try
-                {
-                    _thread.Join();
-                }
-                catch { } // ignore "already exited" exception
-            }
-
-            Graphics?.Dispose();
-
-            base.Dispose(disposing);
-        }
-    }
+			_isPaused = false;
+		}
+	}
 }
