@@ -58,7 +58,7 @@ namespace Tests
 			_window.StartThread();
 
 			_window.JoinGraphicsThread();
-			_window.JoinWindowThread();
+			_window.Join();
 		}
 
 		private void _window_SetupGraphics(object sender, SetupGraphicsEventArgs e)

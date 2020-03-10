@@ -168,7 +168,7 @@ namespace GameOverlay.Windows
         {
             if (!IsInitialized)
             {
-                CreateWindow();
+                Create();
             }
 
             if (!Graphics.IsInitialized)

@@ -504,7 +504,7 @@ namespace GameOverlay.Windows
 		/// <summary>
 		/// Setup and initializes the window.
 		/// </summary>
-		public virtual void CreateWindow()
+		public virtual void Create()
 		{
 			lock (_lock)
 			{
@@ -560,7 +560,7 @@ namespace GameOverlay.Windows
 		/// </summary>
 		/// <param name="windowHandle">The target window handle.</param>
 		/// <param name="attachToClientArea">A Boolean determining whether to fit to the client area of the target window.</param>
-		public void FitToWindow(IntPtr windowHandle, bool attachToClientArea = false)
+		public void FitTo(IntPtr windowHandle, bool attachToClientArea = false)
 		{
 			bool result = attachToClientArea ? WindowHelper.GetWindowClientBounds(windowHandle, out WindowBounds rect) : WindowHelper.GetWindowBounds(windowHandle, out rect);
 
@@ -609,7 +609,7 @@ namespace GameOverlay.Windows
 		/// <summary>
 		/// Waits until the Thread used by this instance has exited.
 		/// </summary>
-		public void JoinWindowThread()
+		public void Join()
 		{
 			try
 			{
@@ -641,7 +641,7 @@ namespace GameOverlay.Windows
 		/// Places the OverlayWindow above the target window according to the windows z-order.
 		/// </summary>
 		/// <param name="windowHandle">The target window handle.</param>
-		public void PlaceAboveWindow(IntPtr windowHandle)
+		public void PlaceAbove(IntPtr windowHandle)
 		{
 			var windowAboveParentWindow = User32.GetWindow(windowHandle, WindowCommand.Previous);
 
@@ -658,7 +658,7 @@ namespace GameOverlay.Windows
 		/// <summary>
 		/// Destroys the current window and creates a new one using the same attributes.
 		/// </summary>
-		public void RecreateWindow()
+		public void Recreate()
 		{
 			lock (_lock)
 			{

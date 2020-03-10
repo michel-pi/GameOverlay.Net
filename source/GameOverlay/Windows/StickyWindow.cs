@@ -92,9 +92,9 @@ namespace GameOverlay.Windows
 
             if (_watch.ElapsedMilliseconds > 34) // executes 30 times per second
             {
-                if (BypassTopmost) PlaceAboveWindow(ParentWindowHandle);
+                if (BypassTopmost) PlaceAbove(ParentWindowHandle);
 
-                FitToWindow(ParentWindowHandle, AttachToClientArea);
+                FitTo(ParentWindowHandle, AttachToClientArea);
 
                 _watch.Restart();
             }
