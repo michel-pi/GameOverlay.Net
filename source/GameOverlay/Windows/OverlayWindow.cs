@@ -504,7 +504,7 @@ namespace GameOverlay.Windows
 		/// <summary>
 		/// Setup and initializes the window.
 		/// </summary>
-		public void CreateWindow()
+		public virtual void CreateWindow()
 		{
 			lock (_lock)
 			{
