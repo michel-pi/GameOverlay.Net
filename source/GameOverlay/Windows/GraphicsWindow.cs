@@ -59,14 +59,11 @@ namespace GameOverlay.Windows
         /// Initializes a new GraphicsWindow.
         /// </summary>
         /// <param name="device">Optionally specify a Graphics device to use.</param>
-        public GraphicsWindow(Graphics device = null) : base()
+        public GraphicsWindow(Graphics device = null)
         {
-            _watch = Stopwatch.StartNew();
-
-            SizeChanged += GraphicsWindow_SizeChanged;
-            VisibilityChanged += GraphicsWindow_VisibilityChanged;
-
             Graphics = device ?? new Graphics();
+
+            _watch = Stopwatch.StartNew();
         }
 
         /// <summary>
@@ -231,22 +228,26 @@ namespace GameOverlay.Windows
             SetupGraphics?.Invoke(this, new SetupGraphicsEventArgs(e.Graphics, true));
         }
 
-        private void GraphicsWindow_SizeChanged(object sender, OverlaySizeEventArgs e)
+        protected override void OnSizeChanged(int width, int height)
         {
             if (Graphics.IsInitialized)
             {
-                Graphics.Resize(e.Width, e.Height);
+                Graphics.Resize(width, height);
             }
             else
             {
-                Graphics.Width = e.Width;
-                Graphics.Height = e.Height;
+                Graphics.Width = width;
+                Graphics.Height = height;
             }
+
+            base.OnSizeChanged(width, height);
         }
 
-        private void GraphicsWindow_VisibilityChanged(object sender, OverlayVisibilityEventArgs e)
+        protected override void OnVisibilityChanged(bool isVisible)
         {
-            _isPaused = !e.IsVisible;
+            _isPaused = !isVisible;
+
+            base.OnVisibilityChanged(isVisible);
         }
 
         /// <summary>
