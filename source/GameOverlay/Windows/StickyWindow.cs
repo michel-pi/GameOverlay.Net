@@ -32,7 +32,7 @@ namespace GameOverlay.Windows
         /// <summary>
         /// Initializes a new StickyWindow with a default window position and size.
         /// </summary>
-        public StickyWindow() : base()
+        public StickyWindow()
         {
             X = 0;
             Y = 0;
