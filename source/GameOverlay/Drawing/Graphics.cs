@@ -207,12 +207,12 @@ namespace GameOverlay.Drawing
 			{
 				try
 				{
-					_resize = false;
+					_device.Resize(new Size2(_resizeWidth, _resizeHeight));
 
 					Width = _resizeWidth;
 					Height = _resizeHeight;
 
-					_device.Resize(new Size2(_resizeWidth, _resizeHeight));
+					_resize = false;
 				}
 				catch { } // idk sometimes fails?
 			}
