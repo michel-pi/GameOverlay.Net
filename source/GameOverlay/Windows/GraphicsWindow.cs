@@ -104,6 +104,20 @@ namespace GameOverlay.Windows
             _thread.Start();
         }
 
+        public override void Join()
+        {
+            if (_isRunning)
+            {
+                try
+                {
+                    _thread.Join();
+                }
+                catch { }
+            }
+
+            base.Join();
+        }
+
         /// <summary>
         /// Stops the timer thread.
         /// </summary>
@@ -147,20 +161,6 @@ namespace GameOverlay.Windows
             if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
 
             _isPaused = false;
-        }
-
-        /// <summary>
-        /// Waits until the Thread used by this instance has exited.
-        /// </summary>
-        public void JoinGraphicsThread()
-        {
-            if (!_isRunning) throw new InvalidOperationException("Graphics window is not running");
-
-            try
-            {
-                _thread.Join();
-            }
-            catch { }
         }
 
         private void GraphicsWindowThread()

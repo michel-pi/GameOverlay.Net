@@ -57,7 +57,6 @@ namespace Tests
 		{
 			_window.Create();
 
-			_window.JoinGraphicsThread();
 			_window.Join();
 		}
 
