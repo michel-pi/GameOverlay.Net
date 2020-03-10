@@ -207,6 +207,10 @@ namespace GameOverlay.Windows
                     {
                         Thread.Sleep(remainingTime);
                     }
+                    else
+                    {
+                        Thread.Yield();
+                    }
                 }
                 else
                 {

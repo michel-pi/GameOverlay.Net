@@ -1376,8 +1376,6 @@ namespace GameOverlay.Drawing
 
 			if (MeasureFPS && _watch.IsRunning)
 			{
-				_fpsCount++;
-
 				if (_watch.ElapsedMilliseconds >= 1000)
 				{
 					FPS = _fpsCount;
@@ -1385,6 +1383,10 @@ namespace GameOverlay.Drawing
 					_fpsCount = 0;
 
 					_watch.Stop();
+				}
+				else
+				{
+					_fpsCount++;
 				}
 			}
 		}
