@@ -14,7 +14,7 @@ You can install this library using the NuGet Package Manager.
 
 You can find all relevant classes in our api documentation.
 
-@api
+[Api Documentation](https://michel-pi.github.io/GameOverlay.Net/api/index.html "Api Documentation")
 
 ## Additional Resources
 
