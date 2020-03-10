@@ -89,6 +89,10 @@ namespace Tests
 
 			gfx.DrawText(_fonts["arial"], 22, _brushes["white"], 20, 20, $"FPS: {gfx.FPS}");
 			gfx.DrawRectangle(_brushes["white"], 20, 60, 400, 400, 1.0f);
+
+			gfx.DrawText(_fonts["arial"], 22, _brushes["white"], 40, 100, $"Count: {e.FrameCount}");
+			gfx.DrawText(_fonts["arial"], 22, _brushes["white"], 40, 130, $"Time: {e.FrameTime}");
+			gfx.DrawText(_fonts["arial"], 22, _brushes["white"], 40, 160, $"Delta: {e.DeltaTime}");
 		}
 	}
 }
