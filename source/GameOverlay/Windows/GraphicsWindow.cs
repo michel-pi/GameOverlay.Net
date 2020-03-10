@@ -111,21 +111,29 @@ namespace GameOverlay.Windows
 
 			OnSetupGraphics(Graphics);
 
+			int frameCount = 0;
+			long lastStartTime = 0L;
+
 			while (_isRunning)
 			{
+				frameCount++;
+
 				int currentFPS = _fps;
+
+				var curTime = _watch.ElapsedMilliseconds;
+				var deltaTime = curTime - lastStartTime;
+
+				if (deltaTime == 0L) deltaTime = 1;
 
 				if (currentFPS > 0)
 				{
-					long startTime = _watch.ElapsedMilliseconds;
-
-					OnDrawGraphics(Graphics);
+					OnDrawGraphics(frameCount, curTime, deltaTime);
 
 					long endTime = _watch.ElapsedMilliseconds;
 
 					int sleepTimePerFrame = 1000 / currentFPS;
 
-					int remainingTime = (int)(sleepTimePerFrame - (endTime - startTime));
+					int remainingTime = (int)(sleepTimePerFrame - (endTime - curTime));
 
 					if (remainingTime > 0)
 					{
@@ -138,13 +146,20 @@ namespace GameOverlay.Windows
 				}
 				else
 				{
-					OnDrawGraphics(Graphics);
+					OnDrawGraphics(frameCount, curTime, deltaTime);
 				}
 
 				while (_isPaused)
 				{
 					Thread.Sleep(10);
 				}
+
+				if (frameCount == currentFPS)
+				{
+					frameCount = 0;
+				}
+
+				lastStartTime = curTime;
 			}
 
 			OnDestroyGraphics(Graphics);
@@ -174,7 +189,7 @@ namespace GameOverlay.Windows
 		}
 
 		/// <summary>
-		/// Gets called when the timer thread destorys the Graphics surface.
+		/// Gets called when the graphics thread destorys the Graphics surface.
 		/// </summary>
 		/// <param name="graphics">A Graphics surface.</param>
 		protected virtual void OnDestroyGraphics(Graphics graphics)
@@ -183,24 +198,26 @@ namespace GameOverlay.Windows
 		}
 
 		/// <summary>
-		/// Gets called when the timer thread needs to render a new Scene / frame.
+		/// Gets called when the graphics thread needs to render a new Scene / frame.
 		/// </summary>
-		/// <param name="graphics">A Graphics surface.</param>
-		protected virtual void OnDrawGraphics(Graphics graphics)
+		/// <param name="frameCount">The number of the currently rendered frame. Starting at 1.</param>
+		/// <param name="frameTime">The current time in milliseconds.</param>
+		/// <param name="deltaTime">The elapsed time in milliseconds since the last frame.</param>
+		protected virtual void OnDrawGraphics(int frameCount, long frameTime, long deltaTime)
 		{
 			var handler = DrawGraphics;
 
 			if (handler == null) return;
 
-			graphics.BeginScene();
+			Graphics.BeginScene();
 
-			handler.Invoke(this, new DrawGraphicsEventArgs(graphics));
+			handler.Invoke(this, new DrawGraphicsEventArgs(Graphics, frameCount, frameTime, deltaTime));
 
-			graphics.EndScene();
+			Graphics.EndScene();
 		}
 
 		/// <summary>
-		/// Gets called when the timer thread setups the Graphics surface.
+		/// Gets called when the graphics thread setups the Graphics surface.
 		/// </summary>
 		/// <param name="graphics">A Graphics surface.</param>
 		protected virtual void OnSetupGraphics(Graphics graphics)
