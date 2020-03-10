@@ -11,8 +11,6 @@ namespace GameOverlay.Windows
 	/// </summary>
 	public class StickyWindow : GraphicsWindow
 	{
-		private Stopwatch _watch;
-
 		/// <summary>
 		/// Gets or sets a Boolean which indicates wether to stick to the parents client area.
 		/// </summary>
@@ -82,19 +80,14 @@ namespace GameOverlay.Windows
 		/// Gets called when the timer thread needs to render a new Scene / frame.
 		/// </summary>
 		protected override void OnDrawGraphics(int frameCount, long frameTime, long deltaTime)
-	{
-			if (_watch == null)
-			{
-				_watch = Stopwatch.StartNew();
-			}
+		{
+			var elapsedTime = frameCount * deltaTime;
 
-			if (_watch.ElapsedMilliseconds > 34) // executes 30 times per second
+			if (elapsedTime > 34) // executes 30 times per second
 			{
 				if (BypassTopmost) PlaceAbove(ParentWindowHandle);
 
 				FitTo(ParentWindowHandle, AttachToClientArea);
-
-				_watch.Restart();
 			}
 
 			base.OnDrawGraphics(frameCount, frameTime, deltaTime);
