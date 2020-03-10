@@ -3733,12 +3733,12 @@ references:
   commentId: T:GameOverlay.Windows.DrawGraphicsEventArgs
   fullName: GameOverlay.Windows.DrawGraphicsEventArgs
   nameWithType: DrawGraphicsEventArgs
-- uid: GameOverlay.Windows.DrawGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics)
-  name: DrawGraphicsEventArgs(Graphics)
-  href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_
-  commentId: M:GameOverlay.Windows.DrawGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics)
-  fullName: GameOverlay.Windows.DrawGraphicsEventArgs.DrawGraphicsEventArgs(GameOverlay.Drawing.Graphics)
-  nameWithType: DrawGraphicsEventArgs.DrawGraphicsEventArgs(Graphics)
+- uid: GameOverlay.Windows.DrawGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics,System.Int32,System.Int64,System.Int64)
+  name: DrawGraphicsEventArgs(Graphics, Int32, Int64, Int64)
+  href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_System_Int32_System_Int64_System_Int64_
+  commentId: M:GameOverlay.Windows.DrawGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics,System.Int32,System.Int64,System.Int64)
+  fullName: GameOverlay.Windows.DrawGraphicsEventArgs.DrawGraphicsEventArgs(GameOverlay.Drawing.Graphics, System.Int32, System.Int64, System.Int64)
+  nameWithType: DrawGraphicsEventArgs.DrawGraphicsEventArgs(Graphics, Int32, Int64, Int64)
 - uid: GameOverlay.Windows.DrawGraphicsEventArgs.#ctor*
   name: DrawGraphicsEventArgs
   href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs__ctor_
@@ -3746,6 +3746,45 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.DrawGraphicsEventArgs.DrawGraphicsEventArgs
   nameWithType: DrawGraphicsEventArgs.DrawGraphicsEventArgs
+- uid: GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime
+  name: DeltaTime
+  href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs_DeltaTime
+  commentId: P:GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime
+  fullName: GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime
+  nameWithType: DrawGraphicsEventArgs.DeltaTime
+- uid: GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime*
+  name: DeltaTime
+  href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs_DeltaTime_
+  commentId: Overload:GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime
+  isSpec: "True"
+  fullName: GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime
+  nameWithType: DrawGraphicsEventArgs.DeltaTime
+- uid: GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount
+  name: FrameCount
+  href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs_FrameCount
+  commentId: P:GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount
+  fullName: GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount
+  nameWithType: DrawGraphicsEventArgs.FrameCount
+- uid: GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount*
+  name: FrameCount
+  href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs_FrameCount_
+  commentId: Overload:GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount
+  isSpec: "True"
+  fullName: GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount
+  nameWithType: DrawGraphicsEventArgs.FrameCount
+- uid: GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime
+  name: FrameTime
+  href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs_FrameTime
+  commentId: P:GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime
+  fullName: GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime
+  nameWithType: DrawGraphicsEventArgs.FrameTime
+- uid: GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime*
+  name: FrameTime
+  href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs_FrameTime_
+  commentId: Overload:GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime
+  isSpec: "True"
+  fullName: GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime
+  nameWithType: DrawGraphicsEventArgs.FrameTime
 - uid: GameOverlay.Windows.DrawGraphicsEventArgs.Graphics
   name: Graphics
   href: api/GameOverlay.Windows.DrawGraphicsEventArgs.html#GameOverlay_Windows_DrawGraphicsEventArgs_Graphics
@@ -3784,6 +3823,19 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.GraphicsWindow.GraphicsWindow
   nameWithType: GraphicsWindow.GraphicsWindow
+- uid: GameOverlay.Windows.GraphicsWindow.Create
+  name: Create()
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_Create
+  commentId: M:GameOverlay.Windows.GraphicsWindow.Create
+  fullName: GameOverlay.Windows.GraphicsWindow.Create()
+  nameWithType: GraphicsWindow.Create()
+- uid: GameOverlay.Windows.GraphicsWindow.Create*
+  name: Create
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_Create_
+  commentId: Overload:GameOverlay.Windows.GraphicsWindow.Create
+  isSpec: "True"
+  fullName: GameOverlay.Windows.GraphicsWindow.Create
+  nameWithType: GraphicsWindow.Create
 - uid: GameOverlay.Windows.GraphicsWindow.DestroyGraphics
   name: DestroyGraphics
   href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_DestroyGraphics
@@ -3874,19 +3926,19 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.GraphicsWindow.IsRunning
   nameWithType: GraphicsWindow.IsRunning
-- uid: GameOverlay.Windows.GraphicsWindow.JoinGraphicsThread
-  name: JoinGraphicsThread()
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_JoinGraphicsThread
-  commentId: M:GameOverlay.Windows.GraphicsWindow.JoinGraphicsThread
-  fullName: GameOverlay.Windows.GraphicsWindow.JoinGraphicsThread()
-  nameWithType: GraphicsWindow.JoinGraphicsThread()
-- uid: GameOverlay.Windows.GraphicsWindow.JoinGraphicsThread*
-  name: JoinGraphicsThread
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_JoinGraphicsThread_
-  commentId: Overload:GameOverlay.Windows.GraphicsWindow.JoinGraphicsThread
+- uid: GameOverlay.Windows.GraphicsWindow.Join
+  name: Join()
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_Join
+  commentId: M:GameOverlay.Windows.GraphicsWindow.Join
+  fullName: GameOverlay.Windows.GraphicsWindow.Join()
+  nameWithType: GraphicsWindow.Join()
+- uid: GameOverlay.Windows.GraphicsWindow.Join*
+  name: Join
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_Join_
+  commentId: Overload:GameOverlay.Windows.GraphicsWindow.Join
   isSpec: "True"
-  fullName: GameOverlay.Windows.GraphicsWindow.JoinGraphicsThread
-  nameWithType: GraphicsWindow.JoinGraphicsThread
+  fullName: GameOverlay.Windows.GraphicsWindow.Join
+  nameWithType: GraphicsWindow.Join
 - uid: GameOverlay.Windows.GraphicsWindow.OnDestroyGraphics(GameOverlay.Drawing.Graphics)
   name: OnDestroyGraphics(Graphics)
   href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_OnDestroyGraphics_GameOverlay_Drawing_Graphics_
@@ -3900,12 +3952,12 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.GraphicsWindow.OnDestroyGraphics
   nameWithType: GraphicsWindow.OnDestroyGraphics
-- uid: GameOverlay.Windows.GraphicsWindow.OnDrawGraphics(GameOverlay.Drawing.Graphics)
-  name: OnDrawGraphics(Graphics)
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_OnDrawGraphics_GameOverlay_Drawing_Graphics_
-  commentId: M:GameOverlay.Windows.GraphicsWindow.OnDrawGraphics(GameOverlay.Drawing.Graphics)
-  fullName: GameOverlay.Windows.GraphicsWindow.OnDrawGraphics(GameOverlay.Drawing.Graphics)
-  nameWithType: GraphicsWindow.OnDrawGraphics(Graphics)
+- uid: GameOverlay.Windows.GraphicsWindow.OnDrawGraphics(System.Int32,System.Int64,System.Int64)
+  name: OnDrawGraphics(Int32, Int64, Int64)
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_OnDrawGraphics_System_Int32_System_Int64_System_Int64_
+  commentId: M:GameOverlay.Windows.GraphicsWindow.OnDrawGraphics(System.Int32,System.Int64,System.Int64)
+  fullName: GameOverlay.Windows.GraphicsWindow.OnDrawGraphics(System.Int32, System.Int64, System.Int64)
+  nameWithType: GraphicsWindow.OnDrawGraphics(Int32, Int64, Int64)
 - uid: GameOverlay.Windows.GraphicsWindow.OnDrawGraphics*
   name: OnDrawGraphics
   href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_OnDrawGraphics_
@@ -3926,6 +3978,32 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.GraphicsWindow.OnSetupGraphics
   nameWithType: GraphicsWindow.OnSetupGraphics
+- uid: GameOverlay.Windows.GraphicsWindow.OnSizeChanged(System.Int32,System.Int32)
+  name: OnSizeChanged(Int32, Int32)
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_OnSizeChanged_System_Int32_System_Int32_
+  commentId: M:GameOverlay.Windows.GraphicsWindow.OnSizeChanged(System.Int32,System.Int32)
+  fullName: GameOverlay.Windows.GraphicsWindow.OnSizeChanged(System.Int32, System.Int32)
+  nameWithType: GraphicsWindow.OnSizeChanged(Int32, Int32)
+- uid: GameOverlay.Windows.GraphicsWindow.OnSizeChanged*
+  name: OnSizeChanged
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_OnSizeChanged_
+  commentId: Overload:GameOverlay.Windows.GraphicsWindow.OnSizeChanged
+  isSpec: "True"
+  fullName: GameOverlay.Windows.GraphicsWindow.OnSizeChanged
+  nameWithType: GraphicsWindow.OnSizeChanged
+- uid: GameOverlay.Windows.GraphicsWindow.OnVisibilityChanged(System.Boolean)
+  name: OnVisibilityChanged(Boolean)
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_OnVisibilityChanged_System_Boolean_
+  commentId: M:GameOverlay.Windows.GraphicsWindow.OnVisibilityChanged(System.Boolean)
+  fullName: GameOverlay.Windows.GraphicsWindow.OnVisibilityChanged(System.Boolean)
+  nameWithType: GraphicsWindow.OnVisibilityChanged(Boolean)
+- uid: GameOverlay.Windows.GraphicsWindow.OnVisibilityChanged*
+  name: OnVisibilityChanged
+  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_OnVisibilityChanged_
+  commentId: Overload:GameOverlay.Windows.GraphicsWindow.OnVisibilityChanged
+  isSpec: "True"
+  fullName: GameOverlay.Windows.GraphicsWindow.OnVisibilityChanged
+  nameWithType: GraphicsWindow.OnVisibilityChanged
 - uid: GameOverlay.Windows.GraphicsWindow.Pause
   name: Pause()
   href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_Pause
@@ -3945,45 +4023,6 @@ references:
   commentId: E:GameOverlay.Windows.GraphicsWindow.SetupGraphics
   fullName: GameOverlay.Windows.GraphicsWindow.SetupGraphics
   nameWithType: GraphicsWindow.SetupGraphics
-- uid: GameOverlay.Windows.GraphicsWindow.StartThread
-  name: StartThread()
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_StartThread
-  commentId: M:GameOverlay.Windows.GraphicsWindow.StartThread
-  fullName: GameOverlay.Windows.GraphicsWindow.StartThread()
-  nameWithType: GraphicsWindow.StartThread()
-- uid: GameOverlay.Windows.GraphicsWindow.StartThread*
-  name: StartThread
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_StartThread_
-  commentId: Overload:GameOverlay.Windows.GraphicsWindow.StartThread
-  isSpec: "True"
-  fullName: GameOverlay.Windows.GraphicsWindow.StartThread
-  nameWithType: GraphicsWindow.StartThread
-- uid: GameOverlay.Windows.GraphicsWindow.StopThread
-  name: StopThread()
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_StopThread
-  commentId: M:GameOverlay.Windows.GraphicsWindow.StopThread
-  fullName: GameOverlay.Windows.GraphicsWindow.StopThread()
-  nameWithType: GraphicsWindow.StopThread()
-- uid: GameOverlay.Windows.GraphicsWindow.StopThread*
-  name: StopThread
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_StopThread_
-  commentId: Overload:GameOverlay.Windows.GraphicsWindow.StopThread
-  isSpec: "True"
-  fullName: GameOverlay.Windows.GraphicsWindow.StopThread
-  nameWithType: GraphicsWindow.StopThread
-- uid: GameOverlay.Windows.GraphicsWindow.StopThreadAsync
-  name: StopThreadAsync()
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_StopThreadAsync
-  commentId: M:GameOverlay.Windows.GraphicsWindow.StopThreadAsync
-  fullName: GameOverlay.Windows.GraphicsWindow.StopThreadAsync()
-  nameWithType: GraphicsWindow.StopThreadAsync()
-- uid: GameOverlay.Windows.GraphicsWindow.StopThreadAsync*
-  name: StopThreadAsync
-  href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_StopThreadAsync_
-  commentId: Overload:GameOverlay.Windows.GraphicsWindow.StopThreadAsync
-  isSpec: "True"
-  fullName: GameOverlay.Windows.GraphicsWindow.StopThreadAsync
-  nameWithType: GraphicsWindow.StopThreadAsync
 - uid: GameOverlay.Windows.GraphicsWindow.Unpause
   name: Unpause()
   href: api/GameOverlay.Windows.GraphicsWindow.html#GameOverlay_Windows_GraphicsWindow_Unpause
@@ -4157,19 +4196,19 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.OverlayWindow.ClassName
   nameWithType: OverlayWindow.ClassName
-- uid: GameOverlay.Windows.OverlayWindow.CreateWindow
-  name: CreateWindow()
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_CreateWindow
-  commentId: M:GameOverlay.Windows.OverlayWindow.CreateWindow
-  fullName: GameOverlay.Windows.OverlayWindow.CreateWindow()
-  nameWithType: OverlayWindow.CreateWindow()
-- uid: GameOverlay.Windows.OverlayWindow.CreateWindow*
-  name: CreateWindow
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_CreateWindow_
-  commentId: Overload:GameOverlay.Windows.OverlayWindow.CreateWindow
+- uid: GameOverlay.Windows.OverlayWindow.Create
+  name: Create()
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Create
+  commentId: M:GameOverlay.Windows.OverlayWindow.Create
+  fullName: GameOverlay.Windows.OverlayWindow.Create()
+  nameWithType: OverlayWindow.Create()
+- uid: GameOverlay.Windows.OverlayWindow.Create*
+  name: Create
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Create_
+  commentId: Overload:GameOverlay.Windows.OverlayWindow.Create
   isSpec: "True"
-  fullName: GameOverlay.Windows.OverlayWindow.CreateWindow
-  nameWithType: OverlayWindow.CreateWindow
+  fullName: GameOverlay.Windows.OverlayWindow.Create
+  nameWithType: OverlayWindow.Create
 - uid: GameOverlay.Windows.OverlayWindow.Dispose
   name: Dispose()
   href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Dispose
@@ -4227,19 +4266,19 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.OverlayWindow.Finalize
   nameWithType: OverlayWindow.Finalize
-- uid: GameOverlay.Windows.OverlayWindow.FitToWindow(System.IntPtr,System.Boolean)
-  name: FitToWindow(IntPtr, Boolean)
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_FitToWindow_System_IntPtr_System_Boolean_
-  commentId: M:GameOverlay.Windows.OverlayWindow.FitToWindow(System.IntPtr,System.Boolean)
-  fullName: GameOverlay.Windows.OverlayWindow.FitToWindow(System.IntPtr, System.Boolean)
-  nameWithType: OverlayWindow.FitToWindow(IntPtr, Boolean)
-- uid: GameOverlay.Windows.OverlayWindow.FitToWindow*
-  name: FitToWindow
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_FitToWindow_
-  commentId: Overload:GameOverlay.Windows.OverlayWindow.FitToWindow
+- uid: GameOverlay.Windows.OverlayWindow.FitTo(System.IntPtr,System.Boolean)
+  name: FitTo(IntPtr, Boolean)
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_FitTo_System_IntPtr_System_Boolean_
+  commentId: M:GameOverlay.Windows.OverlayWindow.FitTo(System.IntPtr,System.Boolean)
+  fullName: GameOverlay.Windows.OverlayWindow.FitTo(System.IntPtr, System.Boolean)
+  nameWithType: OverlayWindow.FitTo(IntPtr, Boolean)
+- uid: GameOverlay.Windows.OverlayWindow.FitTo*
+  name: FitTo
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_FitTo_
+  commentId: Overload:GameOverlay.Windows.OverlayWindow.FitTo
   isSpec: "True"
-  fullName: GameOverlay.Windows.OverlayWindow.FitToWindow
-  nameWithType: OverlayWindow.FitToWindow
+  fullName: GameOverlay.Windows.OverlayWindow.FitTo
+  nameWithType: OverlayWindow.FitTo
 - uid: GameOverlay.Windows.OverlayWindow.GetHashCode
   name: GetHashCode()
   href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_GetHashCode
@@ -4331,19 +4370,19 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.OverlayWindow.IsVisible
   nameWithType: OverlayWindow.IsVisible
-- uid: GameOverlay.Windows.OverlayWindow.JoinWindowThread
-  name: JoinWindowThread()
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_JoinWindowThread
-  commentId: M:GameOverlay.Windows.OverlayWindow.JoinWindowThread
-  fullName: GameOverlay.Windows.OverlayWindow.JoinWindowThread()
-  nameWithType: OverlayWindow.JoinWindowThread()
-- uid: GameOverlay.Windows.OverlayWindow.JoinWindowThread*
-  name: JoinWindowThread
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_JoinWindowThread_
-  commentId: Overload:GameOverlay.Windows.OverlayWindow.JoinWindowThread
+- uid: GameOverlay.Windows.OverlayWindow.Join
+  name: Join()
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Join
+  commentId: M:GameOverlay.Windows.OverlayWindow.Join
+  fullName: GameOverlay.Windows.OverlayWindow.Join()
+  nameWithType: OverlayWindow.Join()
+- uid: GameOverlay.Windows.OverlayWindow.Join*
+  name: Join
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Join_
+  commentId: Overload:GameOverlay.Windows.OverlayWindow.Join
   isSpec: "True"
-  fullName: GameOverlay.Windows.OverlayWindow.JoinWindowThread
-  nameWithType: OverlayWindow.JoinWindowThread
+  fullName: GameOverlay.Windows.OverlayWindow.Join
+  nameWithType: OverlayWindow.Join
 - uid: GameOverlay.Windows.OverlayWindow.MenuName
   name: MenuName
   href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_MenuName
@@ -4409,38 +4448,38 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.OverlayWindow.OnVisibilityChanged
   nameWithType: OverlayWindow.OnVisibilityChanged
-- uid: GameOverlay.Windows.OverlayWindow.PlaceAboveWindow(System.IntPtr)
-  name: PlaceAboveWindow(IntPtr)
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_PlaceAboveWindow_System_IntPtr_
-  commentId: M:GameOverlay.Windows.OverlayWindow.PlaceAboveWindow(System.IntPtr)
-  fullName: GameOverlay.Windows.OverlayWindow.PlaceAboveWindow(System.IntPtr)
-  nameWithType: OverlayWindow.PlaceAboveWindow(IntPtr)
-- uid: GameOverlay.Windows.OverlayWindow.PlaceAboveWindow*
-  name: PlaceAboveWindow
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_PlaceAboveWindow_
-  commentId: Overload:GameOverlay.Windows.OverlayWindow.PlaceAboveWindow
+- uid: GameOverlay.Windows.OverlayWindow.PlaceAbove(System.IntPtr)
+  name: PlaceAbove(IntPtr)
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_PlaceAbove_System_IntPtr_
+  commentId: M:GameOverlay.Windows.OverlayWindow.PlaceAbove(System.IntPtr)
+  fullName: GameOverlay.Windows.OverlayWindow.PlaceAbove(System.IntPtr)
+  nameWithType: OverlayWindow.PlaceAbove(IntPtr)
+- uid: GameOverlay.Windows.OverlayWindow.PlaceAbove*
+  name: PlaceAbove
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_PlaceAbove_
+  commentId: Overload:GameOverlay.Windows.OverlayWindow.PlaceAbove
   isSpec: "True"
-  fullName: GameOverlay.Windows.OverlayWindow.PlaceAboveWindow
-  nameWithType: OverlayWindow.PlaceAboveWindow
+  fullName: GameOverlay.Windows.OverlayWindow.PlaceAbove
+  nameWithType: OverlayWindow.PlaceAbove
 - uid: GameOverlay.Windows.OverlayWindow.PositionChanged
   name: PositionChanged
   href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_PositionChanged
   commentId: E:GameOverlay.Windows.OverlayWindow.PositionChanged
   fullName: GameOverlay.Windows.OverlayWindow.PositionChanged
   nameWithType: OverlayWindow.PositionChanged
-- uid: GameOverlay.Windows.OverlayWindow.RecreateWindow
-  name: RecreateWindow()
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_RecreateWindow
-  commentId: M:GameOverlay.Windows.OverlayWindow.RecreateWindow
-  fullName: GameOverlay.Windows.OverlayWindow.RecreateWindow()
-  nameWithType: OverlayWindow.RecreateWindow()
-- uid: GameOverlay.Windows.OverlayWindow.RecreateWindow*
-  name: RecreateWindow
-  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_RecreateWindow_
-  commentId: Overload:GameOverlay.Windows.OverlayWindow.RecreateWindow
+- uid: GameOverlay.Windows.OverlayWindow.Recreate
+  name: Recreate()
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Recreate
+  commentId: M:GameOverlay.Windows.OverlayWindow.Recreate
+  fullName: GameOverlay.Windows.OverlayWindow.Recreate()
+  nameWithType: OverlayWindow.Recreate()
+- uid: GameOverlay.Windows.OverlayWindow.Recreate*
+  name: Recreate
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Recreate_
+  commentId: Overload:GameOverlay.Windows.OverlayWindow.Recreate
   isSpec: "True"
-  fullName: GameOverlay.Windows.OverlayWindow.RecreateWindow
-  nameWithType: OverlayWindow.RecreateWindow
+  fullName: GameOverlay.Windows.OverlayWindow.Recreate
+  nameWithType: OverlayWindow.Recreate
 - uid: GameOverlay.Windows.OverlayWindow.Resize(System.Int32,System.Int32)
   name: Resize(Int32, Int32)
   href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Resize_System_Int32_System_Int32_
@@ -4658,12 +4697,12 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.StickyWindow.BypassTopmost
   nameWithType: StickyWindow.BypassTopmost
-- uid: GameOverlay.Windows.StickyWindow.OnDrawGraphics(GameOverlay.Drawing.Graphics)
-  name: OnDrawGraphics(Graphics)
-  href: api/GameOverlay.Windows.StickyWindow.html#GameOverlay_Windows_StickyWindow_OnDrawGraphics_GameOverlay_Drawing_Graphics_
-  commentId: M:GameOverlay.Windows.StickyWindow.OnDrawGraphics(GameOverlay.Drawing.Graphics)
-  fullName: GameOverlay.Windows.StickyWindow.OnDrawGraphics(GameOverlay.Drawing.Graphics)
-  nameWithType: StickyWindow.OnDrawGraphics(Graphics)
+- uid: GameOverlay.Windows.StickyWindow.OnDrawGraphics(System.Int32,System.Int64,System.Int64)
+  name: OnDrawGraphics(Int32, Int64, Int64)
+  href: api/GameOverlay.Windows.StickyWindow.html#GameOverlay_Windows_StickyWindow_OnDrawGraphics_System_Int32_System_Int64_System_Int64_
+  commentId: M:GameOverlay.Windows.StickyWindow.OnDrawGraphics(System.Int32,System.Int64,System.Int64)
+  fullName: GameOverlay.Windows.StickyWindow.OnDrawGraphics(System.Int32, System.Int64, System.Int64)
+  nameWithType: StickyWindow.OnDrawGraphics(Int32, Int64, Int64)
 - uid: GameOverlay.Windows.StickyWindow.OnDrawGraphics*
   name: OnDrawGraphics
   href: api/GameOverlay.Windows.StickyWindow.html#GameOverlay_Windows_StickyWindow_OnDrawGraphics_

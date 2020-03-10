@@ -2659,14 +2659,14 @@
             Represents an OverlayWindow which is used to draw at any given frame rate.
             </summary>
         </member>
+        <member name="P:GameOverlay.Windows.GraphicsWindow.FPS">
+            <summary>
+            Gets or sets the frames per second (frame rate) at which this instance invokes its DrawGraphics event.
+            </summary>
+        </member>
         <member name="P:GameOverlay.Windows.GraphicsWindow.Graphics">
             <summary>
             Gets or sets the used Graphics surface.
-            </summary>
-        </member>
-        <member name="P:GameOverlay.Windows.GraphicsWindow.IsRunning">
-            <summary>
-            Gets or sets a Boolean which determines whether this instance is running.
             </summary>
         </member>
         <member name="P:GameOverlay.Windows.GraphicsWindow.IsPaused">
@@ -2674,19 +2674,19 @@
             Gets or sets a Boolean which determines whether this instance is paused.
             </summary>
         </member>
-        <member name="P:GameOverlay.Windows.GraphicsWindow.FPS">
+        <member name="P:GameOverlay.Windows.GraphicsWindow.IsRunning">
             <summary>
-            Gets or sets the frames per second (frame rate) at which this instance invokes its DrawGraphics event.
-            </summary>
-        </member>
-        <member name="E:GameOverlay.Windows.GraphicsWindow.DrawGraphics">
-            <summary>
-            Fires when a new Scene / frame needs to be rendered.
+            Gets or sets a Boolean which determines whether this instance is running.
             </summary>
         </member>
         <member name="E:GameOverlay.Windows.GraphicsWindow.DestroyGraphics">
             <summary>
             Fires when you should free any resources used for drawing with this instance.
+            </summary>
+        </member>
+        <member name="E:GameOverlay.Windows.GraphicsWindow.DrawGraphics">
+            <summary>
+            Fires when a new Scene / frame needs to be rendered.
             </summary>
         </member>
         <member name="E:GameOverlay.Windows.GraphicsWindow.SetupGraphics">
@@ -2715,59 +2715,41 @@
             Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
             </summary>
         </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.StartThread">
-            <summary>
-            Runs a timer thread which invokes the DrawGraphics event and measures frames per second.
-            </summary>
-        </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.StopThread">
-            <summary>
-            Stops the timer thread.
-            </summary>
-        </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.StopThreadAsync">
-            <summary>
-            Stops the timer thread and does not wait for it to finish execution.
-            </summary>
-        </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.Pause">
-            <summary>
-            Pauses the timer thread.
-            </summary>
-        </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.Unpause">
-            <summary>
-            Resumes the timer thread.
-            </summary>
-        </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.JoinGraphicsThread">
-            <summary>
-            Waits until the Thread used by this instance has exited.
-            </summary>
-        </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.OnDrawGraphics(GameOverlay.Drawing.Graphics)">
-            <summary>
-            Gets called when the timer thread needs to render a new Scene / frame.
-            </summary>
-            <param name="graphics">A Graphics surface.</param>
-        </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.OnSetupGraphics(GameOverlay.Drawing.Graphics)">
-            <summary>
-            Gets called when the timer thread setups the Graphics surface.
-            </summary>
-            <param name="graphics">A Graphics surface.</param>
-        </member>
-        <member name="M:GameOverlay.Windows.GraphicsWindow.OnDestroyGraphics(GameOverlay.Drawing.Graphics)">
-            <summary>
-            Gets called when the timer thread destorys the Graphics surface.
-            </summary>
-            <param name="graphics">A Graphics surface.</param>
-        </member>
         <member name="M:GameOverlay.Windows.GraphicsWindow.Dispose(System.Boolean)">
             <summary>
             Releases all resources used by this GraphicsWindow.
             </summary>
             <param name="disposing">A Boolean value indicating whether this is called from the destructor.</param>
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.OnDestroyGraphics(GameOverlay.Drawing.Graphics)">
+            <summary>
+            Gets called when the graphics thread destorys the Graphics surface.
+            </summary>
+            <param name="graphics">A Graphics surface.</param>
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.OnDrawGraphics(System.Int32,System.Int64,System.Int64)">
+            <summary>
+            Gets called when the graphics thread needs to render a new Scene / frame.
+            </summary>
+            <param name="frameCount">The number of the currently rendered frame. Starting at 1.</param>
+            <param name="frameTime">The current time in milliseconds.</param>
+            <param name="deltaTime">The elapsed time in milliseconds since the last frame.</param>
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.OnSetupGraphics(GameOverlay.Drawing.Graphics)">
+            <summary>
+            Gets called when the graphics thread setups the Graphics surface.
+            </summary>
+            <param name="graphics">A Graphics surface.</param>
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.Pause">
+            <summary>
+            Pauses the graphics thread.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.Unpause">
+            <summary>
+            Resumes the graphics thread.
+            </summary>
         </member>
         <member name="T:GameOverlay.Windows.DrawGraphicsEventArgs">
             <summary>
@@ -2779,11 +2761,29 @@
             Gets the Graphics surface.
             </summary>
         </member>
-        <member name="M:GameOverlay.Windows.DrawGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics)">
+        <member name="P:GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount">
+            <summary>
+            Gets the number of frames rendered in the current loop.
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime">
+            <summary>
+            Gets the current time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime">
+            <summary>
+            Gets the elapsed time in milliseconds since the last frame.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.Windows.DrawGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics,System.Int32,System.Int64,System.Int64)">
             <summary>
             Initializes a new DrawGraphicsEventArgs with a Graphics surface.
             </summary>
-            <param name="graphics"></param>
+            <param name="graphics">A graphics surface.</param>
+            <param name="frameCount">The number of the currently rendered frame. Starting at 1.</param>
+            <param name="frameTime">The current time in milliseconds.</param>
+            <param name="deltaTime">The elapsed time in milliseconds since the last frame.</param>
         </member>
         <member name="T:GameOverlay.Windows.SetupGraphicsEventArgs">
             <summary>
@@ -2947,7 +2947,7 @@
             <see langword="true"/> if <paramref name="left"/> and <paramref name="right"/> are equal; otherwise, <see langword="false"/>.
             </returns>
         </member>
-        <member name="M:GameOverlay.Windows.OverlayWindow.CreateWindow">
+        <member name="M:GameOverlay.Windows.OverlayWindow.Create">
             <summary>
             Setup and initializes the window.
             </summary>
@@ -2968,7 +2968,7 @@
             <param name="value">An object to compare to this instance.</param>
             <returns><see langword="true"/> if <paramref name="value"/> is equal to this instance; otherwise, <see langword="false"/>.</returns>
         </member>
-        <member name="M:GameOverlay.Windows.OverlayWindow.FitToWindow(System.IntPtr,System.Boolean)">
+        <member name="M:GameOverlay.Windows.OverlayWindow.FitTo(System.IntPtr,System.Boolean)">
             <summary>
             Adapts to another window in the postion and size.
             </summary>
@@ -2986,7 +2986,7 @@
             Makes the window invisible.
             </summary>
         </member>
-        <member name="M:GameOverlay.Windows.OverlayWindow.JoinWindowThread">
+        <member name="M:GameOverlay.Windows.OverlayWindow.Join">
             <summary>
             Waits until the Thread used by this instance has exited.
             </summary>
@@ -2998,13 +2998,13 @@
             <param name="x">The new x-coordinate of the window.</param>
             <param name="y">The new y-coordinate of the window.</param>
         </member>
-        <member name="M:GameOverlay.Windows.OverlayWindow.PlaceAboveWindow(System.IntPtr)">
+        <member name="M:GameOverlay.Windows.OverlayWindow.PlaceAbove(System.IntPtr)">
             <summary>
             Places the OverlayWindow above the target window according to the windows z-order.
             </summary>
             <param name="windowHandle">The target window handle.</param>
         </member>
-        <member name="M:GameOverlay.Windows.OverlayWindow.RecreateWindow">
+        <member name="M:GameOverlay.Windows.OverlayWindow.Recreate">
             <summary>
             Destroys the current window and creates a new one using the same attributes.
             </summary>
@@ -3112,9 +3112,9 @@
             Represents a StickyWindow which uses a GraphicsWindow sticks to a parent window.
             </summary>
         </member>
-        <member name="P:GameOverlay.Windows.StickyWindow.ParentWindowHandle">
+        <member name="P:GameOverlay.Windows.StickyWindow.AttachToClientArea">
             <summary>
-            Gets or Sets an IntPtr which is used to identify the parent window.
+            Gets or sets a Boolean which indicates wether to stick to the parents client area.
             </summary>
         </member>
         <member name="P:GameOverlay.Windows.StickyWindow.BypassTopmost">
@@ -3122,9 +3122,9 @@
             Gets or sets a Boolean which indicates wether to bypass the need of the windows Topmost flag.
             </summary>
         </member>
-        <member name="P:GameOverlay.Windows.StickyWindow.AttachToClientArea">
+        <member name="P:GameOverlay.Windows.StickyWindow.ParentWindowHandle">
             <summary>
-            Gets or sets a Boolean which indicates wether to stick to the parents client area.
+            Gets or Sets an IntPtr which is used to identify the parent window.
             </summary>
         </member>
         <member name="M:GameOverlay.Windows.StickyWindow.#ctor">
@@ -3159,11 +3159,10 @@
             <param name="parentWindow">An IntPtr representing the parent windows handle.</param>
             <param name="device">Optionally specify a Graphics device to use.</param>
         </member>
-        <member name="M:GameOverlay.Windows.StickyWindow.OnDrawGraphics(GameOverlay.Drawing.Graphics)">
+        <member name="M:GameOverlay.Windows.StickyWindow.OnDrawGraphics(System.Int32,System.Int64,System.Int64)">
             <summary>
             Gets called when the timer thread needs to render a new Scene / frame.
             </summary>
-            <param name="graphics">A Graphics surface.</param>
         </member>
         <member name="T:GameOverlay.Windows.WindowBounds">
             <summary>

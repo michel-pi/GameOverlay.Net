@@ -129,19 +129,19 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_DrawGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.DrawGraphicsEventArgs.%23ctor(GameOverlay.Drawing.Graphics)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_DrawGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_System_Int32_System_Int64_System_Int64_.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.DrawGraphicsEventArgs.%23ctor(GameOverlay.Drawing.Graphics%2CSystem.Int32%2CSystem.Int64%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L25">View Source</a>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L43">View Source</a>
   </span>
   <a id="GameOverlay_Windows_DrawGraphicsEventArgs__ctor_" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.#ctor*"></a>
-  <h4 id="GameOverlay_Windows_DrawGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics)">DrawGraphicsEventArgs(Graphics)</h4>
+  <h4 id="GameOverlay_Windows_DrawGraphicsEventArgs__ctor_GameOverlay_Drawing_Graphics_System_Int32_System_Int64_System_Int64_" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.#ctor(GameOverlay.Drawing.Graphics,System.Int32,System.Int64,System.Int64)">DrawGraphicsEventArgs(Graphics, Int32, Int64, Int64)</h4>
   <div class="markdown level1 summary"><p>Initializes a new DrawGraphicsEventArgs with a Graphics surface.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DrawGraphicsEventArgs(Graphics graphics)</code></pre>
+    <pre><code class="lang-csharp hljs">public DrawGraphicsEventArgs(Graphics graphics, int frameCount, long frameTime, long deltaTime)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -156,12 +156,124 @@
       <tr>
         <td><a class="xref" href="GameOverlay.Drawing.Graphics.html">Graphics</a></td>
         <td><span class="parametername">graphics</span></td>
-        <td></td>
+        <td><p>A graphics surface.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">frameCount</span></td>
+        <td><p>The number of the currently rendered frame. Starting at 1.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td><span class="parametername">frameTime</span></td>
+        <td><p>The current time in milliseconds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td><span class="parametername">deltaTime</span></td>
+        <td><p>The elapsed time in milliseconds since the last frame.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <h3 id="properties">Properties
   </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_DrawGraphicsEventArgs_DeltaTime.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L30">View Source</a>
+  </span>
+  <a id="GameOverlay_Windows_DrawGraphicsEventArgs_DeltaTime_" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime*"></a>
+  <h4 id="GameOverlay_Windows_DrawGraphicsEventArgs_DeltaTime" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.DeltaTime">DeltaTime</h4>
+  <div class="markdown level1 summary"><p>Gets the elapsed time in milliseconds since the last frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DeltaTime { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_DrawGraphicsEventArgs_FrameCount.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L20">View Source</a>
+  </span>
+  <a id="GameOverlay_Windows_DrawGraphicsEventArgs_FrameCount_" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount*"></a>
+  <h4 id="GameOverlay_Windows_DrawGraphicsEventArgs_FrameCount" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.FrameCount">FrameCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of frames rendered in the current loop.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int FrameCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_DrawGraphicsEventArgs_FrameTime.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/michel-pi/GameOverlay.Net/blob/utility-update/source/GameOverlay/Windows/GraphicsWindow.EventArgs.cs/#L25">View Source</a>
+  </span>
+  <a id="GameOverlay_Windows_DrawGraphicsEventArgs_FrameTime_" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime*"></a>
+  <h4 id="GameOverlay_Windows_DrawGraphicsEventArgs_FrameTime" data-uid="GameOverlay.Windows.DrawGraphicsEventArgs.FrameTime">FrameTime</h4>
+  <div class="markdown level1 summary"><p>Gets the current time in milliseconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long FrameTime { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/michel-pi/GameOverlay.Net/new/master/apiSpec/new?filename=GameOverlay_Windows_DrawGraphicsEventArgs_Graphics.md&amp;value=---%0Auid%3A%20GameOverlay.Windows.DrawGraphicsEventArgs.Graphics%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
