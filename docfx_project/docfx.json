@@ -9,7 +9,8 @@
           "exclude": [
             "**/bin/**",
             "**/obj/**",
-            "**/Tests/**"
+            "**/Tests/**",
+            "**/Examples/**"
           ],
           "src": "../source"
         }
