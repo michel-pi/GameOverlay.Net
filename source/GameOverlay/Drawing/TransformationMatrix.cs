@@ -843,11 +843,11 @@ namespace GameOverlay.Drawing
 		}
 
 		/// <summary>
-		/// Determines whether the specified <see cref="Matrix3x2"/> is equal to this instance.
+		/// Determines whether the specified <see cref="TransformationMatrix"/> is equal to this instance.
 		/// </summary>
-		/// <param name="other">The <see cref="Matrix3x2"/> to compare with this instance.</param>
+		/// <param name="other">The <see cref="TransformationMatrix"/> to compare with this instance.</param>
 		/// <returns>
-		/// <c>true</c> if the specified <see cref="Matrix3x2"/> is equal to this instance; otherwise, <c>false</c>.
+		/// <c>true</c> if the specified <see cref="TransformationMatrix"/> is equal to this instance; otherwise, <c>false</c>.
 		/// </returns>
 		public bool Equals(ref TransformationMatrix other)
 		{
@@ -859,11 +859,11 @@ namespace GameOverlay.Drawing
 				MathUtil.NearEqual(other.M32, M32);
 		}
 		/// <summary>
-		/// Determines whether the specified <see cref="Matrix3x2"/> is equal to this instance.
+		/// Determines whether the specified <see cref="TransformationMatrix"/> is equal to this instance.
 		/// </summary>
-		/// <param name="other">The <see cref="Matrix3x2"/> to compare with this instance.</param>
+		/// <param name="other">The <see cref="TransformationMatrix"/> to compare with this instance.</param>
 		/// <returns>
-		/// <c>true</c> if the specified <see cref="Matrix3x2"/> is equal to this instance; otherwise, <c>false</c>.
+		/// <c>true</c> if the specified <see cref="TransformationMatrix"/> is equal to this instance; otherwise, <c>false</c>.
 		/// </returns>
 		[MethodImpl((MethodImplOptions)0x100)] // MethodImplOptions.AggressiveInlining
 		public bool Equals(TransformationMatrix other)
