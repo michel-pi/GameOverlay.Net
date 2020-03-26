@@ -1100,6 +1100,23 @@
             <param name="rectangle">A RoundedRectangle structure including the dimension of the rounded rectangle.</param>
             <param name="stroke">A value that determines the width/thickness of the line.</param>
         </member>
+        <member name="M:GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.Single,System.String)">
+            <summary>
+            Measures the specified string when drawn with the specified Font.
+            </summary>
+            <param name="font">Font that defines the text format of the string.</param>
+            <param name="fontSize">The size of the Font. (does not need to be the same as in Font.FontSize)</param>
+            <param name="text">String to measure.</param>
+            <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.String)">
+            <summary>
+            Measures the specified string when drawn with the specified Font.
+            </summary>
+            <param name="font">Font that defines the text format of the string.</param>
+            <param name="text">String to measure.</param>
+            <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
+        </member>
         <member name="M:GameOverlay.Drawing.Graphics.DrawText(GameOverlay.Drawing.Font,System.Single,GameOverlay.Drawing.IBrush,System.Single,System.Single,System.String)">
             <summary>
             Draws a string using the given font, size and position.
@@ -1151,23 +1168,6 @@
             <param name="x">The x-coordinate of the starting position.</param>
             <param name="y">The y-coordinate of the starting position.</param>
             <param name="text">The string to be drawn.</param>
-        </member>
-        <member name="M:GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.Single,System.String)">
-            <summary>
-            Measures the specified string when drawn with the specified Font.
-            </summary>
-            <param name="font">Font that defines the text format of the string.</param>
-            <param name="fontSize">The size of the Font. (does not need to be the same as in Font.FontSize)</param>
-            <param name="text">String to measure.</param>
-            <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
-        </member>
-        <member name="M:GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.String)">
-            <summary>
-            Measures the specified string when drawn with the specified Font.
-            </summary>
-            <param name="font">Font that defines the text format of the string.</param>
-            <param name="text">String to measure.</param>
-            <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
         </member>
         <member name="M:GameOverlay.Drawing.Graphics.DrawTextWithBackground(GameOverlay.Drawing.Font,System.Single,GameOverlay.Drawing.IBrush,GameOverlay.Drawing.IBrush,GameOverlay.Drawing.Point,System.String)">
             <summary>

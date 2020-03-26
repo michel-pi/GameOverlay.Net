@@ -1062,6 +1062,38 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Drawing.Graphics.ClearScene
   nameWithType: Graphics.ClearScene
+- uid: GameOverlay.Drawing.Graphics.ClipRegionEnd
+  name: ClipRegionEnd()
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_ClipRegionEnd
+  commentId: M:GameOverlay.Drawing.Graphics.ClipRegionEnd
+  fullName: GameOverlay.Drawing.Graphics.ClipRegionEnd()
+  nameWithType: Graphics.ClipRegionEnd()
+- uid: GameOverlay.Drawing.Graphics.ClipRegionEnd*
+  name: ClipRegionEnd
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_ClipRegionEnd_
+  commentId: Overload:GameOverlay.Drawing.Graphics.ClipRegionEnd
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.Graphics.ClipRegionEnd
+  nameWithType: Graphics.ClipRegionEnd
+- uid: GameOverlay.Drawing.Graphics.ClipRegionStart(GameOverlay.Drawing.Rectangle)
+  name: ClipRegionStart(Rectangle)
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_ClipRegionStart_GameOverlay_Drawing_Rectangle_
+  commentId: M:GameOverlay.Drawing.Graphics.ClipRegionStart(GameOverlay.Drawing.Rectangle)
+  fullName: GameOverlay.Drawing.Graphics.ClipRegionStart(GameOverlay.Drawing.Rectangle)
+  nameWithType: Graphics.ClipRegionStart(Rectangle)
+- uid: GameOverlay.Drawing.Graphics.ClipRegionStart(System.Single,System.Single,System.Single,System.Single)
+  name: ClipRegionStart(Single, Single, Single, Single)
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_ClipRegionStart_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:GameOverlay.Drawing.Graphics.ClipRegionStart(System.Single,System.Single,System.Single,System.Single)
+  fullName: GameOverlay.Drawing.Graphics.ClipRegionStart(System.Single, System.Single, System.Single, System.Single)
+  nameWithType: Graphics.ClipRegionStart(Single, Single, Single, Single)
+- uid: GameOverlay.Drawing.Graphics.ClipRegionStart*
+  name: ClipRegionStart
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_ClipRegionStart_
+  commentId: Overload:GameOverlay.Drawing.Graphics.ClipRegionStart
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.Graphics.ClipRegionStart
+  nameWithType: Graphics.ClipRegionStart
 - uid: GameOverlay.Drawing.Graphics.CreateFont(System.String,System.Single,System.Boolean,System.Boolean,System.Boolean)
   name: CreateFont(String, Single, Boolean, Boolean, Boolean)
   href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_CreateFont_System_String_System_Single_System_Boolean_System_Boolean_System_Boolean_
@@ -2002,6 +2034,25 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Drawing.Graphics.MeasureFPS
   nameWithType: Graphics.MeasureFPS
+- uid: GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.Single,System.String)
+  name: MeasureString(Font, Single, String)
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_MeasureString_GameOverlay_Drawing_Font_System_Single_System_String_
+  commentId: M:GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.Single,System.String)
+  fullName: GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font, System.Single, System.String)
+  nameWithType: Graphics.MeasureString(Font, Single, String)
+- uid: GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.String)
+  name: MeasureString(Font, String)
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_MeasureString_GameOverlay_Drawing_Font_System_String_
+  commentId: M:GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.String)
+  fullName: GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font, System.String)
+  nameWithType: Graphics.MeasureString(Font, String)
+- uid: GameOverlay.Drawing.Graphics.MeasureString*
+  name: MeasureString
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_MeasureString_
+  commentId: Overload:GameOverlay.Drawing.Graphics.MeasureString
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.Graphics.MeasureString
+  nameWithType: Graphics.MeasureString
 - uid: GameOverlay.Drawing.Graphics.OutlineCircle(GameOverlay.Drawing.IBrush,GameOverlay.Drawing.IBrush,GameOverlay.Drawing.Circle,System.Single)
   name: OutlineCircle(IBrush, IBrush, Circle, Single)
   href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_OutlineCircle_GameOverlay_Drawing_IBrush_GameOverlay_Drawing_IBrush_GameOverlay_Drawing_Circle_System_Single_
@@ -2249,6 +2300,32 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Drawing.Graphics.ToString
   nameWithType: Graphics.ToString
+- uid: GameOverlay.Drawing.Graphics.TransformEnd
+  name: TransformEnd()
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_TransformEnd
+  commentId: M:GameOverlay.Drawing.Graphics.TransformEnd
+  fullName: GameOverlay.Drawing.Graphics.TransformEnd()
+  nameWithType: Graphics.TransformEnd()
+- uid: GameOverlay.Drawing.Graphics.TransformEnd*
+  name: TransformEnd
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_TransformEnd_
+  commentId: Overload:GameOverlay.Drawing.Graphics.TransformEnd
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.Graphics.TransformEnd
+  nameWithType: Graphics.TransformEnd
+- uid: GameOverlay.Drawing.Graphics.TransformStart(GameOverlay.Drawing.TransformationMatrix)
+  name: TransformStart(TransformationMatrix)
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_TransformStart_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.Graphics.TransformStart(GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.Graphics.TransformStart(GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: Graphics.TransformStart(TransformationMatrix)
+- uid: GameOverlay.Drawing.Graphics.TransformStart*
+  name: TransformStart
+  href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_TransformStart_
+  commentId: Overload:GameOverlay.Drawing.Graphics.TransformStart
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.Graphics.TransformStart
+  nameWithType: Graphics.TransformStart
 - uid: GameOverlay.Drawing.Graphics.UseMultiThreadedFactories
   name: UseMultiThreadedFactories
   href: api/GameOverlay.Drawing.Graphics.html#GameOverlay_Drawing_Graphics_UseMultiThreadedFactories
@@ -3575,6 +3652,732 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Drawing.SolidBrush.ToString
   nameWithType: SolidBrush.ToString
+- uid: GameOverlay.Drawing.TransformationMatrix
+  name: TransformationMatrix
+  href: api/GameOverlay.Drawing.TransformationMatrix.html
+  commentId: T:GameOverlay.Drawing.TransformationMatrix
+  fullName: GameOverlay.Drawing.TransformationMatrix
+  nameWithType: TransformationMatrix
+- uid: GameOverlay.Drawing.TransformationMatrix.#ctor(SharpDX.Mathematics.Interop.RawMatrix3x2)
+  name: TransformationMatrix(RawMatrix3x2)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix__ctor_SharpDX_Mathematics_Interop_RawMatrix3x2_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.#ctor(SharpDX.Mathematics.Interop.RawMatrix3x2)
+  fullName: GameOverlay.Drawing.TransformationMatrix.TransformationMatrix(SharpDX.Mathematics.Interop.RawMatrix3x2)
+  nameWithType: TransformationMatrix.TransformationMatrix(RawMatrix3x2)
+- uid: GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single)
+  name: TransformationMatrix(Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix__ctor_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.TransformationMatrix(System.Single)
+  nameWithType: TransformationMatrix.TransformationMatrix(Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)
+  name: TransformationMatrix(Single, Single, Single, Single, Single, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix__ctor_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.TransformationMatrix(System.Single, System.Single, System.Single, System.Single, System.Single, System.Single)
+  nameWithType: TransformationMatrix.TransformationMatrix(Single, Single, Single, Single, Single, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single[])
+  name: TransformationMatrix(Single[])
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix__ctor_System_Single___
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single[])
+  name.vb: TransformationMatrix(Single())
+  fullName: GameOverlay.Drawing.TransformationMatrix.TransformationMatrix(System.Single[])
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.TransformationMatrix(System.Single())
+  nameWithType: TransformationMatrix.TransformationMatrix(Single[])
+  nameWithType.vb: TransformationMatrix.TransformationMatrix(Single())
+- uid: GameOverlay.Drawing.TransformationMatrix.#ctor*
+  name: TransformationMatrix
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix__ctor_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.#ctor
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.TransformationMatrix
+  nameWithType: TransformationMatrix.TransformationMatrix
+- uid: GameOverlay.Drawing.TransformationMatrix.Add(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)
+  name: Add(ref TransformationMatrix, ref TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Add_GameOverlay_Drawing_TransformationMatrix__GameOverlay_Drawing_TransformationMatrix__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Add(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)
+  name.vb: Add(ByRef TransformationMatrix, ByRef TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Add(ref GameOverlay.Drawing.TransformationMatrix, ref GameOverlay.Drawing.TransformationMatrix)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Add(ByRef GameOverlay.Drawing.TransformationMatrix, ByRef GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Add(ref TransformationMatrix, ref TransformationMatrix)
+  nameWithType.vb: TransformationMatrix.Add(ByRef TransformationMatrix, ByRef TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Add*
+  name: Add
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Add_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Add
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Add
+  nameWithType: TransformationMatrix.Add
+- uid: GameOverlay.Drawing.TransformationMatrix.Determinant
+  name: Determinant()
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Determinant
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Determinant
+  fullName: GameOverlay.Drawing.TransformationMatrix.Determinant()
+  nameWithType: TransformationMatrix.Determinant()
+- uid: GameOverlay.Drawing.TransformationMatrix.Determinant*
+  name: Determinant
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Determinant_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Determinant
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Determinant
+  nameWithType: TransformationMatrix.Determinant
+- uid: GameOverlay.Drawing.TransformationMatrix.Divide(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)
+  name: Divide(ref TransformationMatrix, ref TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Divide_GameOverlay_Drawing_TransformationMatrix__GameOverlay_Drawing_TransformationMatrix__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Divide(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)
+  name.vb: Divide(ByRef TransformationMatrix, ByRef TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Divide(ref GameOverlay.Drawing.TransformationMatrix, ref GameOverlay.Drawing.TransformationMatrix)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Divide(ByRef GameOverlay.Drawing.TransformationMatrix, ByRef GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Divide(ref TransformationMatrix, ref TransformationMatrix)
+  nameWithType.vb: TransformationMatrix.Divide(ByRef TransformationMatrix, ByRef TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Divide(GameOverlay.Drawing.TransformationMatrix@,System.Single)
+  name: Divide(ref TransformationMatrix, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Divide_GameOverlay_Drawing_TransformationMatrix__System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Divide(GameOverlay.Drawing.TransformationMatrix@,System.Single)
+  name.vb: Divide(ByRef TransformationMatrix, Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Divide(ref GameOverlay.Drawing.TransformationMatrix, System.Single)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Divide(ByRef GameOverlay.Drawing.TransformationMatrix, System.Single)
+  nameWithType: TransformationMatrix.Divide(ref TransformationMatrix, Single)
+  nameWithType.vb: TransformationMatrix.Divide(ByRef TransformationMatrix, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Divide*
+  name: Divide
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Divide_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Divide
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Divide
+  nameWithType: TransformationMatrix.Divide
+- uid: GameOverlay.Drawing.TransformationMatrix.Empty
+  name: Empty
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Empty
+  commentId: F:GameOverlay.Drawing.TransformationMatrix.Empty
+  fullName: GameOverlay.Drawing.TransformationMatrix.Empty
+  nameWithType: TransformationMatrix.Empty
+- uid: GameOverlay.Drawing.TransformationMatrix.Equals(GameOverlay.Drawing.TransformationMatrix)
+  name: Equals(TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Equals_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Equals(GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Equals(GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Equals(TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Equals(GameOverlay.Drawing.TransformationMatrix@)
+  name: Equals(ref TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Equals_GameOverlay_Drawing_TransformationMatrix__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Equals(GameOverlay.Drawing.TransformationMatrix@)
+  name.vb: Equals(ByRef TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Equals(ref GameOverlay.Drawing.TransformationMatrix)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Equals(ByRef GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Equals(ref TransformationMatrix)
+  nameWithType.vb: TransformationMatrix.Equals(ByRef TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Equals(System.Object)
+  name: Equals(Object)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Equals_System_Object_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Equals(System.Object)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Equals(System.Object)
+  nameWithType: TransformationMatrix.Equals(Object)
+- uid: GameOverlay.Drawing.TransformationMatrix.Equals*
+  name: Equals
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Equals_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Equals
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Equals
+  nameWithType: TransformationMatrix.Equals
+- uid: GameOverlay.Drawing.TransformationMatrix.GetHashCode
+  name: GetHashCode()
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_GetHashCode
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.GetHashCode
+  fullName: GameOverlay.Drawing.TransformationMatrix.GetHashCode()
+  nameWithType: TransformationMatrix.GetHashCode()
+- uid: GameOverlay.Drawing.TransformationMatrix.GetHashCode*
+  name: GetHashCode
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_GetHashCode_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.GetHashCode
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.GetHashCode
+  nameWithType: TransformationMatrix.GetHashCode
+- uid: GameOverlay.Drawing.TransformationMatrix.Identity
+  name: Identity
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Identity
+  commentId: F:GameOverlay.Drawing.TransformationMatrix.Identity
+  fullName: GameOverlay.Drawing.TransformationMatrix.Identity
+  nameWithType: TransformationMatrix.Identity
+- uid: GameOverlay.Drawing.TransformationMatrix.Invert
+  name: Invert()
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Invert
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Invert
+  fullName: GameOverlay.Drawing.TransformationMatrix.Invert()
+  nameWithType: TransformationMatrix.Invert()
+- uid: GameOverlay.Drawing.TransformationMatrix.Invert(GameOverlay.Drawing.TransformationMatrix)
+  name: Invert(TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Invert_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Invert(GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Invert(GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Invert(TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Invert(GameOverlay.Drawing.TransformationMatrix@)
+  name: Invert(ref TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Invert_GameOverlay_Drawing_TransformationMatrix__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Invert(GameOverlay.Drawing.TransformationMatrix@)
+  name.vb: Invert(ByRef TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Invert(ref GameOverlay.Drawing.TransformationMatrix)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Invert(ByRef GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Invert(ref TransformationMatrix)
+  nameWithType.vb: TransformationMatrix.Invert(ByRef TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Invert*
+  name: Invert
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Invert_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Invert
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Invert
+  nameWithType: TransformationMatrix.Invert
+- uid: GameOverlay.Drawing.TransformationMatrix.IsIdentity
+  name: IsIdentity
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_IsIdentity
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.IsIdentity
+  fullName: GameOverlay.Drawing.TransformationMatrix.IsIdentity
+  nameWithType: TransformationMatrix.IsIdentity
+- uid: GameOverlay.Drawing.TransformationMatrix.IsIdentity*
+  name: IsIdentity
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_IsIdentity_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.IsIdentity
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.IsIdentity
+  nameWithType: TransformationMatrix.IsIdentity
+- uid: GameOverlay.Drawing.TransformationMatrix.Item(System.Int32)
+  name: Item[Int32]
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Item_System_Int32_
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.Item(System.Int32)
+  name.vb: Item(Int32)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Item[System.Int32]
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Item(System.Int32)
+  nameWithType: TransformationMatrix.Item[Int32]
+  nameWithType.vb: TransformationMatrix.Item(Int32)
+- uid: GameOverlay.Drawing.TransformationMatrix.Item(System.Int32,System.Int32)
+  name: Item[Int32, Int32]
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Item_System_Int32_System_Int32_
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.Item(System.Int32,System.Int32)
+  name.vb: Item(Int32, Int32)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Item[System.Int32, System.Int32]
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Item(System.Int32, System.Int32)
+  nameWithType: TransformationMatrix.Item[Int32, Int32]
+  nameWithType.vb: TransformationMatrix.Item(Int32, Int32)
+- uid: GameOverlay.Drawing.TransformationMatrix.Item*
+  name: Item
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Item_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Item
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Item
+  nameWithType: TransformationMatrix.Item
+- uid: GameOverlay.Drawing.TransformationMatrix.Lerp(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@,System.Single)
+  name: Lerp(ref TransformationMatrix, ref TransformationMatrix, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Lerp_GameOverlay_Drawing_TransformationMatrix__GameOverlay_Drawing_TransformationMatrix__System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Lerp(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@,System.Single)
+  name.vb: Lerp(ByRef TransformationMatrix, ByRef TransformationMatrix, Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Lerp(ref GameOverlay.Drawing.TransformationMatrix, ref GameOverlay.Drawing.TransformationMatrix, System.Single)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Lerp(ByRef GameOverlay.Drawing.TransformationMatrix, ByRef GameOverlay.Drawing.TransformationMatrix, System.Single)
+  nameWithType: TransformationMatrix.Lerp(ref TransformationMatrix, ref TransformationMatrix, Single)
+  nameWithType.vb: TransformationMatrix.Lerp(ByRef TransformationMatrix, ByRef TransformationMatrix, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Lerp*
+  name: Lerp
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Lerp_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Lerp
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Lerp
+  nameWithType: TransformationMatrix.Lerp
+- uid: GameOverlay.Drawing.TransformationMatrix.M11
+  name: M11
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M11
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.M11
+  fullName: GameOverlay.Drawing.TransformationMatrix.M11
+  nameWithType: TransformationMatrix.M11
+- uid: GameOverlay.Drawing.TransformationMatrix.M11*
+  name: M11
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M11_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.M11
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.M11
+  nameWithType: TransformationMatrix.M11
+- uid: GameOverlay.Drawing.TransformationMatrix.M12
+  name: M12
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M12
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.M12
+  fullName: GameOverlay.Drawing.TransformationMatrix.M12
+  nameWithType: TransformationMatrix.M12
+- uid: GameOverlay.Drawing.TransformationMatrix.M12*
+  name: M12
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M12_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.M12
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.M12
+  nameWithType: TransformationMatrix.M12
+- uid: GameOverlay.Drawing.TransformationMatrix.M21
+  name: M21
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M21
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.M21
+  fullName: GameOverlay.Drawing.TransformationMatrix.M21
+  nameWithType: TransformationMatrix.M21
+- uid: GameOverlay.Drawing.TransformationMatrix.M21*
+  name: M21
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M21_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.M21
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.M21
+  nameWithType: TransformationMatrix.M21
+- uid: GameOverlay.Drawing.TransformationMatrix.M22
+  name: M22
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M22
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.M22
+  fullName: GameOverlay.Drawing.TransformationMatrix.M22
+  nameWithType: TransformationMatrix.M22
+- uid: GameOverlay.Drawing.TransformationMatrix.M22*
+  name: M22
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M22_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.M22
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.M22
+  nameWithType: TransformationMatrix.M22
+- uid: GameOverlay.Drawing.TransformationMatrix.M31
+  name: M31
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M31
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.M31
+  fullName: GameOverlay.Drawing.TransformationMatrix.M31
+  nameWithType: TransformationMatrix.M31
+- uid: GameOverlay.Drawing.TransformationMatrix.M31*
+  name: M31
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M31_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.M31
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.M31
+  nameWithType: TransformationMatrix.M31
+- uid: GameOverlay.Drawing.TransformationMatrix.M32
+  name: M32
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M32
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.M32
+  fullName: GameOverlay.Drawing.TransformationMatrix.M32
+  nameWithType: TransformationMatrix.M32
+- uid: GameOverlay.Drawing.TransformationMatrix.M32*
+  name: M32
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_M32_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.M32
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.M32
+  nameWithType: TransformationMatrix.M32
+- uid: GameOverlay.Drawing.TransformationMatrix.Multiply(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)
+  name: Multiply(ref TransformationMatrix, ref TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Multiply_GameOverlay_Drawing_TransformationMatrix__GameOverlay_Drawing_TransformationMatrix__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Multiply(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)
+  name.vb: Multiply(ByRef TransformationMatrix, ByRef TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Multiply(ref GameOverlay.Drawing.TransformationMatrix, ref GameOverlay.Drawing.TransformationMatrix)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Multiply(ByRef GameOverlay.Drawing.TransformationMatrix, ByRef GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Multiply(ref TransformationMatrix, ref TransformationMatrix)
+  nameWithType.vb: TransformationMatrix.Multiply(ByRef TransformationMatrix, ByRef TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Multiply(GameOverlay.Drawing.TransformationMatrix@,System.Single)
+  name: Multiply(ref TransformationMatrix, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Multiply_GameOverlay_Drawing_TransformationMatrix__System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Multiply(GameOverlay.Drawing.TransformationMatrix@,System.Single)
+  name.vb: Multiply(ByRef TransformationMatrix, Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Multiply(ref GameOverlay.Drawing.TransformationMatrix, System.Single)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Multiply(ByRef GameOverlay.Drawing.TransformationMatrix, System.Single)
+  nameWithType: TransformationMatrix.Multiply(ref TransformationMatrix, Single)
+  nameWithType.vb: TransformationMatrix.Multiply(ByRef TransformationMatrix, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Multiply*
+  name: Multiply
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Multiply_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Multiply
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Multiply
+  nameWithType: TransformationMatrix.Multiply
+- uid: GameOverlay.Drawing.TransformationMatrix.Negate(GameOverlay.Drawing.TransformationMatrix@)
+  name: Negate(ref TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Negate_GameOverlay_Drawing_TransformationMatrix__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Negate(GameOverlay.Drawing.TransformationMatrix@)
+  name.vb: Negate(ByRef TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Negate(ref GameOverlay.Drawing.TransformationMatrix)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Negate(ByRef GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Negate(ref TransformationMatrix)
+  nameWithType.vb: TransformationMatrix.Negate(ByRef TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Negate*
+  name: Negate
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Negate_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Negate
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Negate
+  nameWithType: TransformationMatrix.Negate
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Addition(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  name: Addition(TransformationMatrix, TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Addition_GameOverlay_Drawing_TransformationMatrix_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Addition(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Addition(GameOverlay.Drawing.TransformationMatrix, GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Addition(TransformationMatrix, TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Addition*
+  name: Addition
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Addition_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_Addition
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Addition
+  nameWithType: TransformationMatrix.Addition
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Division(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  name: Division(TransformationMatrix, TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Division_GameOverlay_Drawing_TransformationMatrix_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Division(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Division(GameOverlay.Drawing.TransformationMatrix, GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Division(TransformationMatrix, TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Division(GameOverlay.Drawing.TransformationMatrix,System.Single)
+  name: Division(TransformationMatrix, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Division_GameOverlay_Drawing_TransformationMatrix_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Division(GameOverlay.Drawing.TransformationMatrix,System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Division(GameOverlay.Drawing.TransformationMatrix, System.Single)
+  nameWithType: TransformationMatrix.Division(TransformationMatrix, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Division*
+  name: Division
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Division_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_Division
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Division
+  nameWithType: TransformationMatrix.Division
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Equality(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  name: Equality(TransformationMatrix, TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Equality_GameOverlay_Drawing_TransformationMatrix_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Equality(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Equality(GameOverlay.Drawing.TransformationMatrix, GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Equality(TransformationMatrix, TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Equality*
+  name: Equality
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Equality_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_Equality
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Equality
+  nameWithType: TransformationMatrix.Equality
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Explicit(SharpDX.Mathematics.Interop.RawMatrix3x2)~GameOverlay.Drawing.TransformationMatrix
+  name: Explicit(RawMatrix3x2 to TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Explicit_SharpDX_Mathematics_Interop_RawMatrix3x2__GameOverlay_Drawing_TransformationMatrix
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Explicit(SharpDX.Mathematics.Interop.RawMatrix3x2)~GameOverlay.Drawing.TransformationMatrix
+  name.vb: Narrowing(RawMatrix3x2 to TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Explicit(SharpDX.Mathematics.Interop.RawMatrix3x2 to GameOverlay.Drawing.TransformationMatrix)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Narrowing(SharpDX.Mathematics.Interop.RawMatrix3x2 to GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Explicit(RawMatrix3x2 to TransformationMatrix)
+  nameWithType.vb: TransformationMatrix.Narrowing(RawMatrix3x2 to TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Explicit*
+  name: Explicit
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Explicit_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_Explicit
+  isSpec: "True"
+  name.vb: Narrowing
+  fullName: GameOverlay.Drawing.TransformationMatrix.Explicit
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Narrowing
+  nameWithType: TransformationMatrix.Explicit
+  nameWithType.vb: TransformationMatrix.Narrowing
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Implicit(GameOverlay.Drawing.TransformationMatrix)~SharpDX.Mathematics.Interop.RawMatrix3x2
+  name: Implicit(TransformationMatrix to RawMatrix3x2)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Implicit_GameOverlay_Drawing_TransformationMatrix__SharpDX_Mathematics_Interop_RawMatrix3x2
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Implicit(GameOverlay.Drawing.TransformationMatrix)~SharpDX.Mathematics.Interop.RawMatrix3x2
+  name.vb: Widening(TransformationMatrix to RawMatrix3x2)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Implicit(GameOverlay.Drawing.TransformationMatrix to SharpDX.Mathematics.Interop.RawMatrix3x2)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Widening(GameOverlay.Drawing.TransformationMatrix to SharpDX.Mathematics.Interop.RawMatrix3x2)
+  nameWithType: TransformationMatrix.Implicit(TransformationMatrix to RawMatrix3x2)
+  nameWithType.vb: TransformationMatrix.Widening(TransformationMatrix to RawMatrix3x2)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Implicit*
+  name: Implicit
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Implicit_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_Implicit
+  isSpec: "True"
+  name.vb: Widening
+  fullName: GameOverlay.Drawing.TransformationMatrix.Implicit
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Widening
+  nameWithType: TransformationMatrix.Implicit
+  nameWithType.vb: TransformationMatrix.Widening
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Inequality(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  name: Inequality(TransformationMatrix, TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Inequality_GameOverlay_Drawing_TransformationMatrix_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Inequality(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Inequality(GameOverlay.Drawing.TransformationMatrix, GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Inequality(TransformationMatrix, TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Inequality*
+  name: Inequality
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Inequality_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_Inequality
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Inequality
+  nameWithType: TransformationMatrix.Inequality
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Multiply(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  name: Multiply(TransformationMatrix, TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Multiply_GameOverlay_Drawing_TransformationMatrix_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Multiply(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Multiply(GameOverlay.Drawing.TransformationMatrix, GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Multiply(TransformationMatrix, TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Multiply(GameOverlay.Drawing.TransformationMatrix,System.Single)
+  name: Multiply(TransformationMatrix, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Multiply_GameOverlay_Drawing_TransformationMatrix_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Multiply(GameOverlay.Drawing.TransformationMatrix,System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Multiply(GameOverlay.Drawing.TransformationMatrix, System.Single)
+  nameWithType: TransformationMatrix.Multiply(TransformationMatrix, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Multiply*
+  name: Multiply
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Multiply_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_Multiply
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Multiply
+  nameWithType: TransformationMatrix.Multiply
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Subtraction(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  name: Subtraction(TransformationMatrix, TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Subtraction_GameOverlay_Drawing_TransformationMatrix_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_Subtraction(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Subtraction(GameOverlay.Drawing.TransformationMatrix, GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Subtraction(TransformationMatrix, TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_Subtraction*
+  name: Subtraction
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_Subtraction_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_Subtraction
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Subtraction
+  nameWithType: TransformationMatrix.Subtraction
+- uid: GameOverlay.Drawing.TransformationMatrix.op_UnaryNegation(GameOverlay.Drawing.TransformationMatrix)
+  name: UnaryNegation(TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_UnaryNegation_GameOverlay_Drawing_TransformationMatrix_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.op_UnaryNegation(GameOverlay.Drawing.TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.UnaryNegation(GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.UnaryNegation(TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.op_UnaryNegation*
+  name: UnaryNegation
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_op_UnaryNegation_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.op_UnaryNegation
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.UnaryNegation
+  nameWithType: TransformationMatrix.UnaryNegation
+- uid: GameOverlay.Drawing.TransformationMatrix.Rotation(System.Single)
+  name: Rotation(Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Rotation_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Rotation(System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Rotation(System.Single)
+  nameWithType: TransformationMatrix.Rotation(Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Rotation(System.Single,GameOverlay.Drawing.Point)
+  name: Rotation(Single, Point)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Rotation_System_Single_GameOverlay_Drawing_Point_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Rotation(System.Single,GameOverlay.Drawing.Point)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Rotation(System.Single, GameOverlay.Drawing.Point)
+  nameWithType: TransformationMatrix.Rotation(Single, Point)
+- uid: GameOverlay.Drawing.TransformationMatrix.Rotation*
+  name: Rotation
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Rotation_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Rotation
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Rotation
+  nameWithType: TransformationMatrix.Rotation
+- uid: GameOverlay.Drawing.TransformationMatrix.ScaleVector
+  name: ScaleVector
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ScaleVector
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.ScaleVector
+  fullName: GameOverlay.Drawing.TransformationMatrix.ScaleVector
+  nameWithType: TransformationMatrix.ScaleVector
+- uid: GameOverlay.Drawing.TransformationMatrix.ScaleVector*
+  name: ScaleVector
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ScaleVector_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.ScaleVector
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.ScaleVector
+  nameWithType: TransformationMatrix.ScaleVector
+- uid: GameOverlay.Drawing.TransformationMatrix.Scaling(GameOverlay.Drawing.Point)
+  name: Scaling(Point)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Scaling_GameOverlay_Drawing_Point_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Scaling(GameOverlay.Drawing.Point)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Scaling(GameOverlay.Drawing.Point)
+  nameWithType: TransformationMatrix.Scaling(Point)
+- uid: GameOverlay.Drawing.TransformationMatrix.Scaling(GameOverlay.Drawing.Point@)
+  name: Scaling(ref Point)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Scaling_GameOverlay_Drawing_Point__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Scaling(GameOverlay.Drawing.Point@)
+  name.vb: Scaling(ByRef Point)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Scaling(ref GameOverlay.Drawing.Point)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Scaling(ByRef GameOverlay.Drawing.Point)
+  nameWithType: TransformationMatrix.Scaling(ref Point)
+  nameWithType.vb: TransformationMatrix.Scaling(ByRef Point)
+- uid: GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single)
+  name: Scaling(Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Scaling_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single)
+  nameWithType: TransformationMatrix.Scaling(Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single,System.Single)
+  name: Scaling(Single, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Scaling_System_Single_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single,System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single, System.Single)
+  nameWithType: TransformationMatrix.Scaling(Single, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single,System.Single,GameOverlay.Drawing.Point)
+  name: Scaling(Single, Single, Point)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Scaling_System_Single_System_Single_GameOverlay_Drawing_Point_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single,System.Single,GameOverlay.Drawing.Point)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single, System.Single, GameOverlay.Drawing.Point)
+  nameWithType: TransformationMatrix.Scaling(Single, Single, Point)
+- uid: GameOverlay.Drawing.TransformationMatrix.Scaling*
+  name: Scaling
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Scaling_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Scaling
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Scaling
+  nameWithType: TransformationMatrix.Scaling
+- uid: GameOverlay.Drawing.TransformationMatrix.Skew(System.Single,System.Single)
+  name: Skew(Single, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Skew_System_Single_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Skew(System.Single,System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Skew(System.Single, System.Single)
+  nameWithType: TransformationMatrix.Skew(Single, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Skew*
+  name: Skew
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Skew_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Skew
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Skew
+  nameWithType: TransformationMatrix.Skew
+- uid: GameOverlay.Drawing.TransformationMatrix.SmoothStep(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@,System.Single)
+  name: SmoothStep(ref TransformationMatrix, ref TransformationMatrix, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_SmoothStep_GameOverlay_Drawing_TransformationMatrix__GameOverlay_Drawing_TransformationMatrix__System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.SmoothStep(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@,System.Single)
+  name.vb: SmoothStep(ByRef TransformationMatrix, ByRef TransformationMatrix, Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.SmoothStep(ref GameOverlay.Drawing.TransformationMatrix, ref GameOverlay.Drawing.TransformationMatrix, System.Single)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.SmoothStep(ByRef GameOverlay.Drawing.TransformationMatrix, ByRef GameOverlay.Drawing.TransformationMatrix, System.Single)
+  nameWithType: TransformationMatrix.SmoothStep(ref TransformationMatrix, ref TransformationMatrix, Single)
+  nameWithType.vb: TransformationMatrix.SmoothStep(ByRef TransformationMatrix, ByRef TransformationMatrix, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.SmoothStep*
+  name: SmoothStep
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_SmoothStep_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.SmoothStep
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.SmoothStep
+  nameWithType: TransformationMatrix.SmoothStep
+- uid: GameOverlay.Drawing.TransformationMatrix.Subtract(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)
+  name: Subtract(ref TransformationMatrix, ref TransformationMatrix)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Subtract_GameOverlay_Drawing_TransformationMatrix__GameOverlay_Drawing_TransformationMatrix__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Subtract(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)
+  name.vb: Subtract(ByRef TransformationMatrix, ByRef TransformationMatrix)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Subtract(ref GameOverlay.Drawing.TransformationMatrix, ref GameOverlay.Drawing.TransformationMatrix)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Subtract(ByRef GameOverlay.Drawing.TransformationMatrix, ByRef GameOverlay.Drawing.TransformationMatrix)
+  nameWithType: TransformationMatrix.Subtract(ref TransformationMatrix, ref TransformationMatrix)
+  nameWithType.vb: TransformationMatrix.Subtract(ByRef TransformationMatrix, ByRef TransformationMatrix)
+- uid: GameOverlay.Drawing.TransformationMatrix.Subtract*
+  name: Subtract
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Subtract_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Subtract
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Subtract
+  nameWithType: TransformationMatrix.Subtract
+- uid: GameOverlay.Drawing.TransformationMatrix.ToArray
+  name: ToArray()
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ToArray
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.ToArray
+  fullName: GameOverlay.Drawing.TransformationMatrix.ToArray()
+  nameWithType: TransformationMatrix.ToArray()
+- uid: GameOverlay.Drawing.TransformationMatrix.ToArray*
+  name: ToArray
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ToArray_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.ToArray
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.ToArray
+  nameWithType: TransformationMatrix.ToArray
+- uid: GameOverlay.Drawing.TransformationMatrix.ToString
+  name: ToString()
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ToString
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.ToString
+  fullName: GameOverlay.Drawing.TransformationMatrix.ToString()
+  nameWithType: TransformationMatrix.ToString()
+- uid: GameOverlay.Drawing.TransformationMatrix.ToString(System.IFormatProvider)
+  name: ToString(IFormatProvider)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ToString_System_IFormatProvider_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.ToString(System.IFormatProvider)
+  fullName: GameOverlay.Drawing.TransformationMatrix.ToString(System.IFormatProvider)
+  nameWithType: TransformationMatrix.ToString(IFormatProvider)
+- uid: GameOverlay.Drawing.TransformationMatrix.ToString(System.String)
+  name: ToString(String)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ToString_System_String_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.ToString(System.String)
+  fullName: GameOverlay.Drawing.TransformationMatrix.ToString(System.String)
+  nameWithType: TransformationMatrix.ToString(String)
+- uid: GameOverlay.Drawing.TransformationMatrix.ToString(System.String,System.IFormatProvider)
+  name: ToString(String, IFormatProvider)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ToString_System_String_System_IFormatProvider_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.ToString(System.String,System.IFormatProvider)
+  fullName: GameOverlay.Drawing.TransformationMatrix.ToString(System.String, System.IFormatProvider)
+  nameWithType: TransformationMatrix.ToString(String, IFormatProvider)
+- uid: GameOverlay.Drawing.TransformationMatrix.ToString*
+  name: ToString
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_ToString_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.ToString
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.ToString
+  nameWithType: TransformationMatrix.ToString
+- uid: GameOverlay.Drawing.TransformationMatrix.Transformation(System.Single,System.Single,System.Single,System.Single,System.Single)
+  name: Transformation(Single, Single, Single, Single, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Transformation_System_Single_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Transformation(System.Single,System.Single,System.Single,System.Single,System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Transformation(System.Single, System.Single, System.Single, System.Single, System.Single)
+  nameWithType: TransformationMatrix.Transformation(Single, Single, Single, Single, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Transformation*
+  name: Transformation
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Transformation_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Transformation
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Transformation
+  nameWithType: TransformationMatrix.Transformation
+- uid: GameOverlay.Drawing.TransformationMatrix.TransformPoint(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.Point)
+  name: TransformPoint(TransformationMatrix, Point)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_TransformPoint_GameOverlay_Drawing_TransformationMatrix_GameOverlay_Drawing_Point_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.TransformPoint(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.Point)
+  fullName: GameOverlay.Drawing.TransformationMatrix.TransformPoint(GameOverlay.Drawing.TransformationMatrix, GameOverlay.Drawing.Point)
+  nameWithType: TransformationMatrix.TransformPoint(TransformationMatrix, Point)
+- uid: GameOverlay.Drawing.TransformationMatrix.TransformPoint(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.Point@)
+  name: TransformPoint(ref TransformationMatrix, ref Point)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_TransformPoint_GameOverlay_Drawing_TransformationMatrix__GameOverlay_Drawing_Point__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.TransformPoint(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.Point@)
+  name.vb: TransformPoint(ByRef TransformationMatrix, ByRef Point)
+  fullName: GameOverlay.Drawing.TransformationMatrix.TransformPoint(ref GameOverlay.Drawing.TransformationMatrix, ref GameOverlay.Drawing.Point)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.TransformPoint(ByRef GameOverlay.Drawing.TransformationMatrix, ByRef GameOverlay.Drawing.Point)
+  nameWithType: TransformationMatrix.TransformPoint(ref TransformationMatrix, ref Point)
+  nameWithType.vb: TransformationMatrix.TransformPoint(ByRef TransformationMatrix, ByRef Point)
+- uid: GameOverlay.Drawing.TransformationMatrix.TransformPoint*
+  name: TransformPoint
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_TransformPoint_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.TransformPoint
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.TransformPoint
+  nameWithType: TransformationMatrix.TransformPoint
+- uid: GameOverlay.Drawing.TransformationMatrix.Translation(GameOverlay.Drawing.Point)
+  name: Translation(Point)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Translation_GameOverlay_Drawing_Point_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Translation(GameOverlay.Drawing.Point)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Translation(GameOverlay.Drawing.Point)
+  nameWithType: TransformationMatrix.Translation(Point)
+- uid: GameOverlay.Drawing.TransformationMatrix.Translation(GameOverlay.Drawing.Point@)
+  name: Translation(ref Point)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Translation_GameOverlay_Drawing_Point__
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Translation(GameOverlay.Drawing.Point@)
+  name.vb: Translation(ByRef Point)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Translation(ref GameOverlay.Drawing.Point)
+  fullName.vb: GameOverlay.Drawing.TransformationMatrix.Translation(ByRef GameOverlay.Drawing.Point)
+  nameWithType: TransformationMatrix.Translation(ref Point)
+  nameWithType.vb: TransformationMatrix.Translation(ByRef Point)
+- uid: GameOverlay.Drawing.TransformationMatrix.Translation(System.Single,System.Single)
+  name: Translation(Single, Single)
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Translation_System_Single_System_Single_
+  commentId: M:GameOverlay.Drawing.TransformationMatrix.Translation(System.Single,System.Single)
+  fullName: GameOverlay.Drawing.TransformationMatrix.Translation(System.Single, System.Single)
+  nameWithType: TransformationMatrix.Translation(Single, Single)
+- uid: GameOverlay.Drawing.TransformationMatrix.Translation*
+  name: Translation
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_Translation_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.Translation
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.Translation
+  nameWithType: TransformationMatrix.Translation
+- uid: GameOverlay.Drawing.TransformationMatrix.TranslationVector
+  name: TranslationVector
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_TranslationVector
+  commentId: P:GameOverlay.Drawing.TransformationMatrix.TranslationVector
+  fullName: GameOverlay.Drawing.TransformationMatrix.TranslationVector
+  nameWithType: TransformationMatrix.TranslationVector
+- uid: GameOverlay.Drawing.TransformationMatrix.TranslationVector*
+  name: TranslationVector
+  href: api/GameOverlay.Drawing.TransformationMatrix.html#GameOverlay_Drawing_TransformationMatrix_TranslationVector_
+  commentId: Overload:GameOverlay.Drawing.TransformationMatrix.TranslationVector
+  isSpec: "True"
+  fullName: GameOverlay.Drawing.TransformationMatrix.TranslationVector
+  nameWithType: TransformationMatrix.TranslationVector
 - uid: GameOverlay.Drawing.Triangle
   name: Triangle
   href: api/GameOverlay.Drawing.Triangle.html

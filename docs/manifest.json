@@ -90,7 +90,7 @@
       "output": {
         ".html": {
           "relative_path": "api/GameOverlay.Drawing.Graphics.html",
-          "hash": "VLL0p3tvmSEnwY74tG3wMg=="
+          "hash": "I6ynlQaW4uWh1xAq4D/5SQ=="
         }
       },
       "is_incremental": false,
@@ -138,7 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "api/GameOverlay.Drawing.LinearGradientBrush.html",
-          "hash": "uOlhwBcClZuai7b9QtQspA=="
+          "hash": "AtUaiN8IJfOiiNJhuANj7w=="
         }
       },
       "is_incremental": false,
@@ -218,6 +218,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/GameOverlay.Drawing.TransformationMatrix.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/GameOverlay.Drawing.TransformationMatrix.html",
+          "hash": "IdglG3xbnQumHExwJN3pLA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/GameOverlay.Drawing.Triangle.yml",
       "output": {
         ".html": {
@@ -234,7 +246,7 @@
       "output": {
         ".html": {
           "relative_path": "api/GameOverlay.Drawing.html",
-          "hash": "yMm9qGk3wPTKpv+S8vuDsw=="
+          "hash": "CT3D0zKmFEv9Tv8eAFbCqQ=="
         }
       },
       "is_incremental": false,
@@ -270,7 +282,7 @@
       "output": {
         ".html": {
           "relative_path": "api/GameOverlay.Windows.GraphicsWindow.html",
-          "hash": "hemvWYS7KFfaDkHBQ8wJTg=="
+          "hash": "5/FBCxuuUdoT1elPMurJGg=="
         }
       },
       "is_incremental": false,
@@ -402,7 +414,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "nG8edQGA8mhJ3E4rGw67xQ=="
+          "hash": "QwDpbb7+Cw51kLYup1WMrA=="
         }
       },
       "is_incremental": false,
@@ -500,8 +512,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 31,
-          "skipped_file_count": 31
+          "total_file_count": 32,
+          "skipped_file_count": 32
         }
       }
     },
