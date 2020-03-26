@@ -13,7 +13,6 @@ namespace GameOverlay.Drawing
     public class LinearGradientBrush : IDisposable, IBrush
     {
         private SharpDXGradientBrush _brush;
-        private GradientStopCollection _stopCollection;
 
         /// <summary>
         /// Gets or sets the underlying Brush.
@@ -60,11 +59,9 @@ namespace GameOverlay.Drawing
                 position += stepSize;
             }
 
-            _stopCollection = new GradientStopCollection(device, gradientStops, ExtendMode.Clamp);
-
             Brush = new SharpDXGradientBrush(device,
                 new LinearGradientBrushProperties(),
-                _stopCollection);
+                new GradientStopCollection(device, gradientStops, ExtendMode.Clamp));
         }
 
         /// <summary>
@@ -157,7 +154,7 @@ namespace GameOverlay.Drawing
         }
 
         #region IDisposable Support
-        private bool disposedValue;
+        private bool disposedValue = false;
 
         /// <summary>
         /// Releases all resources used by this LinearGradientBrush.
@@ -167,11 +164,9 @@ namespace GameOverlay.Drawing
         {
             if (!disposedValue)
             {
-                _brush?.Dispose();
-                _stopCollection?.Dispose();
-
-                _brush = null;
-                _stopCollection = null;
+                if (disposing)
+                {
+                }
 
                 disposedValue = true;
             }
