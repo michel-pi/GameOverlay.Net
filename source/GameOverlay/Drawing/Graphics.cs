@@ -351,6 +351,58 @@ namespace GameOverlay.Drawing
 		}
 
 		/// <summary>
+		/// Specifies a matrix to which all subsequent drawing operations are transformed.
+		/// </summary>
+		/// <param name="matrix">The matrix used for the transformation.</param>
+		public void TransformStart(TransformationMatrix matrix)
+		{
+			if (!IsDrawing) ThrowHelper.UseBeginScene();
+
+			_device.Transform = matrix;
+		}
+
+		/// <summary>
+		/// Removes the transformation matrix. it does not change the position, shape, or size of any drawing operations anymore.
+		/// </summary>
+		public void TransformEnd()
+		{
+			if (!IsDrawing) ThrowHelper.UseBeginScene();
+
+			_device.Transform = TransformationMatrix.Identity;
+		}
+
+		/// <summary>
+		/// Specifies a rectangle to which all subsequent drawing operations are clipped.
+		/// </summary>
+		/// <param name="left">The x-coordinate of the upper-left corner of the rectangle.</param>
+		/// <param name="top">The y-coordinate of the upper-left corner of the rectangle.</param>
+		/// <param name="right">The x-coordinate of the lower-right corner of the rectangle.</param>
+		/// <param name="bottom">The y-coordinate of the lower-right corner of the rectangle.</param>
+		public void ClipRegionStart(float left, float top, float right, float bottom)
+		{
+			if (!IsDrawing) ThrowHelper.UseBeginScene();
+
+			_device.PushAxisAlignedClip(new RawRectangleF(left, top, right, bottom), PerPrimitiveAntiAliasing ? AntialiasMode.PerPrimitive : AntialiasMode.Aliased);
+		}
+
+		/// <summary>
+		/// Specifies a rectangle to which all subsequent drawing operations are clipped.
+		/// </summary>
+		/// <param name="region">A Rectangle representing the size and position of the clipping area.</param>
+		public void ClipRegionStart(Rectangle region)
+			=> ClipRegionStart(region.Left, region.Top, region.Right, region.Bottom);
+
+		/// <summary>
+		/// Removes the last clip from the render target. After this method is called, the clip is no longer applied to subsequent drawing operations.
+		/// </summary>
+		public void ClipRegionEnd()
+		{
+			if (!IsDrawing) ThrowHelper.UseBeginScene();
+
+			_device.PopAxisAlignedClip();
+		}
+
+		/// <summary>
 		/// Draws a circle with a dashed line by using the given brush and dimension.
 		/// </summary>
 		/// <param name="brush">A brush that determines the color of the circle.</param>

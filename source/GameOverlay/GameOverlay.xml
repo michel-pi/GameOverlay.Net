@@ -621,6 +621,37 @@
             <param name="color">A value representing the ARGB components used to create a SolidBrush.</param>
             <returns>The SolidBrush this method creates.</returns>
         </member>
+        <member name="M:GameOverlay.Drawing.Graphics.TransformStart(GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Specifies a matrix to which all subsequent drawing operations are transformed.
+            </summary>
+            <param name="matrix">The matrix used for the transformation.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.Graphics.TransformEnd">
+            <summary>
+            Removes the transformation matrix. it does not change the position, shape, or size of any drawing operations anymore.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.Drawing.Graphics.ClipRegionStart(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Specifies a rectangle to which all subsequent drawing operations are clipped.
+            </summary>
+            <param name="left">The x-coordinate of the upper-left corner of the rectangle.</param>
+            <param name="top">The y-coordinate of the upper-left corner of the rectangle.</param>
+            <param name="right">The x-coordinate of the lower-right corner of the rectangle.</param>
+            <param name="bottom">The y-coordinate of the lower-right corner of the rectangle.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.Graphics.ClipRegionStart(GameOverlay.Drawing.Rectangle)">
+            <summary>
+            Specifies a rectangle to which all subsequent drawing operations are clipped.
+            </summary>
+            <param name="region">A Rectangle representing the size and position of the clipping area.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.Graphics.ClipRegionEnd">
+            <summary>
+            Removes the last clip from the render target. After this method is called, the clip is no longer applied to subsequent drawing operations.
+            </summary>
+        </member>
         <member name="M:GameOverlay.Drawing.Graphics.DashedCircle(GameOverlay.Drawing.IBrush,System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Draws a circle with a dashed line by using the given brush and dimension.
@@ -1120,6 +1151,23 @@
             <param name="x">The x-coordinate of the starting position.</param>
             <param name="y">The y-coordinate of the starting position.</param>
             <param name="text">The string to be drawn.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.Single,System.String)">
+            <summary>
+            Measures the specified string when drawn with the specified Font.
+            </summary>
+            <param name="font">Font that defines the text format of the string.</param>
+            <param name="fontSize">The size of the Font. (does not need to be the same as in Font.FontSize)</param>
+            <param name="text">String to measure.</param>
+            <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.Graphics.MeasureString(GameOverlay.Drawing.Font,System.String)">
+            <summary>
+            Measures the specified string when drawn with the specified Font.
+            </summary>
+            <param name="font">Font that defines the text format of the string.</param>
+            <param name="text">String to measure.</param>
+            <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
         </member>
         <member name="M:GameOverlay.Drawing.Graphics.DrawTextWithBackground(GameOverlay.Drawing.Font,System.Single,GameOverlay.Drawing.IBrush,GameOverlay.Drawing.IBrush,GameOverlay.Drawing.Point,System.String)">
             <summary>
@@ -2654,6 +2702,479 @@
             <param name="right">The second object to compare.</param>
             <returns> <see langword="true" /> if <paramref name="left" /> and <paramref name="right" /> are equal; otherwise, <see langword="false" />.</returns>
         </member>
+        <member name="T:GameOverlay.Drawing.TransformationMatrix">
+            <summary>
+            Represents a 3x2 matrix which is used to apply transformations on a render target and geometry.
+            </summary>
+        </member>
+        <member name="F:GameOverlay.Drawing.TransformationMatrix.Empty">
+            <summary>
+            Gets an empty matrix.
+            </summary>
+        </member>
+        <member name="F:GameOverlay.Drawing.TransformationMatrix.Identity">
+            <summary>
+            Gets the identity matrix.
+            </summary>
+            <value>The identity matrix.</value>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.M11">
+            <summary>
+            Element (1,1)
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.M12">
+            <summary>
+            Element (1,2)
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.M21">
+            <summary>
+            Element (2,1)
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.M22">
+            <summary>
+            Element (2,2)
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.M31">
+            <summary>
+            Element (3,1)
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.M32">
+            <summary>
+            Element (3,2)
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.Item(System.Int32)">
+            <summary>
+            Gets or sets the component at the specified index.
+            </summary>
+            <value>The value of the matrix component, depending on the index.</value>
+            <param name="index">The zero-based index of the component to access.</param>
+            <returns>The value of the component at the specified index.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 5].</exception>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.Item(System.Int32,System.Int32)">
+            <summary>
+            Gets or sets the component at the specified index.
+            </summary>
+            <value>The value of the matrix component, depending on the index.</value>
+            <param name="row">The row of the matrix to access.</param>
+            <param name="column">The column of the matrix to access.</param>
+            <returns>The value of the component at the specified index.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="row"/> or <paramref name="column"/>is out of the range [0, 3].</exception>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.TranslationVector">
+            <summary>
+            Gets or sets the translation of the matrix; that is M31 and M32.
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.ScaleVector">
+            <summary>
+            Gets or sets the scale of the matrix; that is M11 and M22.
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Drawing.TransformationMatrix.IsIdentity">
+            <summary>
+            Gets a value indicating whether this instance is an identity matrix.
+            </summary>
+            <value>
+            <c>true</c> if this instance is an identity matrix; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> struct.
+            </summary>
+            <param name="value">The value that will be assigned to all components.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.#ctor(SharpDX.Mathematics.Interop.RawMatrix3x2)">
+            <summary>
+            Initializes a new TransformationMatrix using the given RawMatrix3x2.
+            </summary>
+            <param name="matrix"></param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> struct.
+            </summary>
+            <param name="m11">The value to assign at row 1 column 1 of the matrix.</param>
+            <param name="m12">The value to assign at row 1 column 2 of the matrix.</param>
+            <param name="m21">The value to assign at row 2 column 1 of the matrix.</param>
+            <param name="m22">The value to assign at row 2 column 2 of the matrix.</param>
+            <param name="m31">The value to assign at row 3 column 1 of the matrix.</param>
+            <param name="m32">The value to assign at row 3 column 2 of the matrix.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.#ctor(System.Single[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> struct.
+            </summary>
+            <param name="values">The values to assign to the components of the matrix. This must be an array with six elements.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="values"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when <paramref name="values"/> contains more or less than six elements.</exception>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.ToArray">
+            <summary>
+            Creates an array containing the elements of the matrix.
+            </summary>
+            <returns>A six-element array containing the components of the matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Add(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)">
+            <summary>
+            Determines the sum of two matrices.
+            </summary>
+            <param name="left">The first matrix to add.</param>
+            <param name="right">The second matrix to add.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Subtract(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)">
+            <summary>
+            Determines the difference between two matrices.
+            </summary>
+            <param name="left">The first matrix to subtract.</param>
+            <param name="right">The second matrix to subtract.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Multiply(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)">
+            <summary>
+            Scales a matrix by the given value.
+            </summary>
+            <param name="left">The matrix to scale.</param>
+            <param name="right">The amount by which to scale.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Multiply(GameOverlay.Drawing.TransformationMatrix@,System.Single)">
+            <summary>
+            Scales a matrix by the given value.
+            </summary>
+            <param name="left">The matrix to scale.</param>
+            <param name="right">The amount by which to scale.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Divide(GameOverlay.Drawing.TransformationMatrix@,System.Single)">
+            <summary>
+            Scales a matrix by the given value.
+            </summary>
+            <param name="left">The matrix to scale.</param>
+            <param name="right">The amount by which to scale.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Divide(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)">
+            <summary>
+            Scales a matrix by the given value.
+            </summary>
+            <param name="left">The matrix to scale.</param>
+            <param name="right">The amount by which to scale.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Negate(GameOverlay.Drawing.TransformationMatrix@)">
+            <summary>
+            Negates a matrix.
+            </summary>
+            <param name="value">The matrix to be negated.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Addition(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Adds two matrices.
+            </summary>
+            <param name="left">The first matrix to add.</param>
+            <param name="right">The second matrix to add.</param>
+            <returns>The sum of the two matrices.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Subtraction(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Subtracts two matrices.
+            </summary>
+            <param name="left">The first matrix to subtract.</param>
+            <param name="right">The second matrix to subtract.</param>
+            <returns>The difference between the two matrices.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_UnaryNegation(GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Negates a matrix.
+            </summary>
+            <param name="value">The matrix to negate.</param>
+            <returns>The negated matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Multiply(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Scales a matrix by a given value.
+            </summary>
+            <param name="left">The matrix to scale.</param>
+            <param name="right">The amount by which to scale.</param>
+            <returns>The scaled matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Multiply(GameOverlay.Drawing.TransformationMatrix,System.Single)">
+            <summary>
+            Scales a matrix by a given value.
+            </summary>
+            <param name="left">The amount by which to scale.</param>
+            <param name="right">The matrix to scale.</param>
+            <returns>The scaled matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Division(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Divides two matrices.
+            </summary>
+            <param name="left">The first matrix to divide.</param>
+            <param name="right">The second matrix to divide.</param>
+            <returns>The quotient of the two matrices.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Division(GameOverlay.Drawing.TransformationMatrix,System.Single)">
+            <summary>
+            Scales a matrix by a given value.
+            </summary>
+            <param name="left">The matrix to scale.</param>
+            <param name="right">The amount by which to scale.</param>
+            <returns>The scaled matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Lerp(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@,System.Single)">
+            <summary>
+            Performs a linear interpolation between two matrices.
+            </summary>
+            <param name="start">Start matrix.</param>
+            <param name="end">End matrix.</param>
+            <param name="amount">Value between 0 and 1 indicating the weight of <paramref name="end"/>.</param>
+            <remarks>
+            Passing <paramref name="amount"/> a value of 0 will cause <paramref name="start"/> to be returned; a value of 1 will cause <paramref name="end"/> to be returned.
+            </remarks>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.SmoothStep(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@,System.Single)">
+            <summary>
+            Performs a cubic interpolation between two matrices.
+            </summary>
+            <param name="start">Start matrix.</param>
+            <param name="end">End matrix.</param>
+            <param name="amount">Value between 0 and 1 indicating the weight of <paramref name="end"/>.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Scaling(GameOverlay.Drawing.Point@)">
+            <summary>
+            Creates a matrix that scales along the x-axis and y-axis.
+            </summary>
+            <param name="scale">Scaling factor for both axes.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Scaling(GameOverlay.Drawing.Point)">
+            <summary>
+            Creates a matrix that scales along the x-axis and y-axis.
+            </summary>
+            <param name="scale">Scaling factor for both axes.</param>
+            <returns>The created scaling matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single,System.Single)">
+            <summary>
+            Creates a matrix that scales along the x-axis and y-axis.
+            </summary>
+            <param name="x">Scaling factor that is applied along the x-axis.</param>
+            <param name="y">Scaling factor that is applied along the y-axis.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single)">
+            <summary>
+            Creates a matrix that uniformly scales along both axes.
+            </summary>
+            <param name="scale">The uniform scale that is applied along both axes.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Scaling(System.Single,System.Single,GameOverlay.Drawing.Point)">
+            <summary>
+            Creates a matrix that is scaling from a specified center.
+            </summary>
+            <param name="x">Scaling factor that is applied along the x-axis.</param>
+            <param name="y">Scaling factor that is applied along the y-axis.</param>
+            <param name="center">The center of the scaling.</param>
+            <returns>The created scaling matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Determinant">
+            <summary>
+            Calculates the determinant of this matrix.
+            </summary>
+            <returns>Result of the determinant.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Rotation(System.Single)">
+            <summary>
+            Creates a matrix that rotates.
+            </summary>
+            <param name="angle">Angle of rotation in radians. Angles are measured clockwise when looking along the rotation axis.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Rotation(System.Single,GameOverlay.Drawing.Point)">
+            <summary>
+            Creates a matrix that rotates about a specified center.
+            </summary>
+            <param name="angle">Angle of rotation in radians. Angles are measured clockwise when looking along the rotation axis.</param>
+            <param name="center">The center of the rotation.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Transformation(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates a transformation matrix.
+            </summary>
+            <param name="xScale">Scaling factor that is applied along the x-axis.</param>
+            <param name="yScale">Scaling factor that is applied along the y-axis.</param>
+            <param name="angle">Angle of rotation in radians. Angles are measured clockwise when looking along the rotation axis.</param>
+            <param name="xOffset">X-coordinate offset.</param>
+            <param name="yOffset">Y-coordinate offset.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Translation(GameOverlay.Drawing.Point@)">
+            <summary>
+            Creates a translation matrix using the specified offsets.
+            </summary>
+            <param name="value">The offset for both coordinate planes.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Translation(GameOverlay.Drawing.Point)">
+            <summary>
+            Creates a translation matrix using the specified offsets.
+            </summary>
+            <param name="value">The offset for both coordinate planes.</param>
+            <returns>The created translation matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Translation(System.Single,System.Single)">
+            <summary>
+            Creates a translation matrix using the specified offsets.
+            </summary>
+            <param name="x">X-coordinate offset.</param>
+            <param name="y">Y-coordinate offset.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.TransformPoint(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.Point)">
+            <summary>
+            Transforms a vector by this matrix.
+            </summary>
+            <param name="matrix">The matrix to use as a transformation matrix.</param>
+            <param name="point">The original vector to apply the transformation.</param>
+            <returns>The result of the transformation for the input vector.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.TransformPoint(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.Point@)">
+            <summary>
+            Transforms a vector by this matrix.
+            </summary>
+            <param name="matrix">The matrix to use as a transformation matrix.</param>
+            <param name="point">The original vector to apply the transformation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Invert">
+            <summary>
+            Calculates the inverse of this matrix instance.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.InvertHelper(GameOverlay.Drawing.TransformationMatrix@,GameOverlay.Drawing.TransformationMatrix@)">
+            <summary>
+            Calculates the inverse of the specified matrix.
+            </summary>
+            <param name="value">The matrix whose inverse is to be calculated.</param>
+            <param name="result">When the method completes, contains the inverse of the specified matrix.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Invert(GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Calculates the inverse of the specified matrix.
+            </summary>
+            <param name="value">The matrix whose inverse is to be calculated.</param>
+            <returns>the inverse of the specified matrix.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Skew(System.Single,System.Single)">
+            <summary>
+            Creates a skew matrix.
+            </summary>
+            <param name="angleX">Angle of skew along the X-axis in radians.</param>
+            <param name="angleY">Angle of skew along the Y-axis in radians.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Invert(GameOverlay.Drawing.TransformationMatrix@)">
+            <summary>
+            Calculates the inverse of the specified matrix.
+            </summary>
+            <param name="value">The matrix whose inverse is to be calculated.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Equality(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Tests for equality between two objects.
+            </summary>
+            <param name="left">The first value to compare.</param>
+            <param name="right">The second value to compare.</param>
+            <returns><c>true</c> if <paramref name="left"/> has the same value as <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Inequality(GameOverlay.Drawing.TransformationMatrix,GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Tests for inequality between two objects.
+            </summary>
+            <param name="left">The first value to compare.</param>
+            <param name="right">The second value to compare.</param>
+            <returns><c>true</c> if <paramref name="left"/> has a different value than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.ToString(System.String)">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.ToString(System.IFormatProvider)">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <param name="formatProvider">The format provider.</param>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <param name="format">The format.</param>
+            <param name="formatProvider">The format provider.</param>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+            </returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Equals(GameOverlay.Drawing.TransformationMatrix@)">
+            <summary>
+            Determines whether the specified <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> is equal to this instance.
+            </summary>
+            <param name="other">The <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> to compare with this instance.</param>
+            <returns>
+            <c>true</c> if the specified <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Equals(GameOverlay.Drawing.TransformationMatrix)">
+            <summary>
+            Determines whether the specified <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> is equal to this instance.
+            </summary>
+            <param name="other">The <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> to compare with this instance.</param>
+            <returns>
+            <c>true</c> if the specified <see cref="T:GameOverlay.Drawing.TransformationMatrix"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="value">The <see cref="T:System.Object"/> to compare with this instance.</param>
+            <returns>
+            <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Implicit(GameOverlay.Drawing.TransformationMatrix)~SharpDX.Mathematics.Interop.RawMatrix3x2">
+            <summary>
+            Converts the given TransformationMatrix to a RawMatrix3x2.
+            </summary>
+            <param name="value">The TransformationMatrix to convert.</param>
+        </member>
+        <member name="M:GameOverlay.Drawing.TransformationMatrix.op_Explicit(SharpDX.Mathematics.Interop.RawMatrix3x2)~GameOverlay.Drawing.TransformationMatrix">
+            <summary>
+            Converts the given RawMatrix3x2 to a TransformationMatrix.
+            </summary>
+            <param name="value">The RawMatrix3x2 to convert.</param>
+        </member>
         <member name="T:GameOverlay.Windows.GraphicsWindow">
             <summary>
             Represents an OverlayWindow which is used to draw at any given frame rate.
@@ -2740,6 +3261,18 @@
             Gets called when the graphics thread setups the Graphics surface.
             </summary>
             <param name="graphics">A Graphics surface.</param>
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.OnSizeChanged(System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.OnVisibilityChanged(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.Create">
+            <inheritdoc />
+        </member>
+        <member name="M:GameOverlay.Windows.GraphicsWindow.Join">
+            <inheritdoc />
         </member>
         <member name="M:GameOverlay.Windows.GraphicsWindow.Pause">
             <summary>
@@ -3449,6 +3982,282 @@
             Removes the topmost flag from a window.
             </summary>
             <param name="hwnd">A IntPtr representing the handle of a window.</param>
+        </member>
+        <member name="F:SharpDX.MathUtil.ZeroTolerance">
+            <summary>
+            The value for which all absolute numbers smaller than are considered equal to zero.
+            </summary>
+        </member>
+        <member name="F:SharpDX.MathUtil.Pi">
+            <summary>
+            A value specifying the approximation of π which is 180 degrees.
+            </summary>
+        </member>
+        <member name="F:SharpDX.MathUtil.TwoPi">
+            <summary>
+            A value specifying the approximation of 2π which is 360 degrees.
+            </summary>
+        </member>
+        <member name="F:SharpDX.MathUtil.PiOverTwo">
+            <summary>
+            A value specifying the approximation of π/2 which is 90 degrees.
+            </summary>
+        </member>
+        <member name="F:SharpDX.MathUtil.PiOverFour">
+            <summary>
+            A value specifying the approximation of π/4 which is 45 degrees.
+            </summary>
+        </member>
+        <member name="M:SharpDX.MathUtil.NearEqual(System.Single,System.Single)">
+            <summary>
+            Checks if a and b are almost equals, taking into account the magnitude of floating point numbers (unlike <see cref="M:SharpDX.MathUtil.WithinEpsilon(System.Single,System.Single,System.Single)"/> method). See Remarks.
+            See remarks.
+            </summary>
+            <param name="a">The left value to compare.</param>
+            <param name="b">The right value to compare.</param>
+            <returns><c>true</c> if a almost equal to b, <c>false</c> otherwise</returns>
+            <remarks>
+            The code is using the technique described by Bruce Dawson in
+            <a href="http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/">Comparing Floating point numbers 2012 edition</a>.
+            </remarks>
+        </member>
+        <member name="M:SharpDX.MathUtil.IsZero(System.Single)">
+            <summary>
+            Determines whether the specified value is close to zero (0.0f).
+            </summary>
+            <param name="a">The floating value.</param>
+            <returns><c>true</c> if the specified value is close to zero (0.0f); otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.IsOne(System.Single)">
+            <summary>
+            Determines whether the specified value is close to one (1.0f).
+            </summary>
+            <param name="a">The floating value.</param>
+            <returns><c>true</c> if the specified value is close to one (1.0f); otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.WithinEpsilon(System.Single,System.Single,System.Single)">
+            <summary>
+            Checks if a - b are almost equals within a float epsilon.
+            </summary>
+            <param name="a">The left value to compare.</param>
+            <param name="b">The right value to compare.</param>
+            <param name="epsilon">Epsilon value</param>
+            <returns><c>true</c> if a almost equal to b within a float epsilon, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.RevolutionsToDegrees(System.Single)">
+            <summary>
+            Converts revolutions to degrees.
+            </summary>
+            <param name="revolution">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.RevolutionsToRadians(System.Single)">
+            <summary>
+            Converts revolutions to radians.
+            </summary>
+            <param name="revolution">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.RevolutionsToGradians(System.Single)">
+            <summary>
+            Converts revolutions to gradians.
+            </summary>
+            <param name="revolution">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.DegreesToRevolutions(System.Single)">
+            <summary>
+            Converts degrees to revolutions.
+            </summary>
+            <param name="degree">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.DegreesToRadians(System.Single)">
+            <summary>
+            Converts degrees to radians.
+            </summary>
+            <param name="degree">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.RadiansToRevolutions(System.Single)">
+            <summary>
+            Converts radians to revolutions.
+            </summary>
+            <param name="radian">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.RadiansToGradians(System.Single)">
+            <summary>
+            Converts radians to gradians.
+            </summary>
+            <param name="radian">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.GradiansToRevolutions(System.Single)">
+            <summary>
+            Converts gradians to revolutions.
+            </summary>
+            <param name="gradian">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.GradiansToDegrees(System.Single)">
+            <summary>
+            Converts gradians to degrees.
+            </summary>
+            <param name="gradian">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.GradiansToRadians(System.Single)">
+            <summary>
+            Converts gradians to radians.
+            </summary>
+            <param name="gradian">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.RadiansToDegrees(System.Single)">
+            <summary>
+            Converts radians to degrees.
+            </summary>
+            <param name="radian">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.Clamp(System.Single,System.Single,System.Single)">
+            <summary>
+            Clamps the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="min">The min.</param>
+            <param name="max">The max.</param>
+            <returns>The result of clamping a value between min and max</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.Clamp(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Clamps the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="min">The min.</param>
+            <param name="max">The max.</param>
+            <returns>The result of clamping a value between min and max</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.Lerp(System.Double,System.Double,System.Double)">
+            <summary>
+            Interpolates between two values using a linear function by a given amount.
+            </summary>
+            <remarks>
+            See http://www.encyclopediaofmath.org/index.php/Linear_interpolation and
+            http://fgiesen.wordpress.com/2012/08/15/linear-interpolation-past-present-and-future/
+            </remarks>
+            <param name="from">Value to interpolate from.</param>
+            <param name="to">Value to interpolate to.</param>
+            <param name="amount">Interpolation amount.</param>
+            <returns>The result of linear interpolation of values based on the amount.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.Lerp(System.Single,System.Single,System.Single)">
+            <summary>
+            Interpolates between two values using a linear function by a given amount.
+            </summary>
+            <remarks>
+            See http://www.encyclopediaofmath.org/index.php/Linear_interpolation and
+            http://fgiesen.wordpress.com/2012/08/15/linear-interpolation-past-present-and-future/
+            </remarks>
+            <param name="from">Value to interpolate from.</param>
+            <param name="to">Value to interpolate to.</param>
+            <param name="amount">Interpolation amount.</param>
+            <returns>The result of linear interpolation of values based on the amount.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.Lerp(System.Byte,System.Byte,System.Single)">
+            <summary>
+            Interpolates between two values using a linear function by a given amount.
+            </summary>
+            <remarks>
+            See http://www.encyclopediaofmath.org/index.php/Linear_interpolation and
+            http://fgiesen.wordpress.com/2012/08/15/linear-interpolation-past-present-and-future/
+            </remarks>
+            <param name="from">Value to interpolate from.</param>
+            <param name="to">Value to interpolate to.</param>
+            <param name="amount">Interpolation amount.</param>
+            <returns>The result of linear interpolation of values based on the amount.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.SmoothStep(System.Single)">
+            <summary>
+            Performs smooth (cubic Hermite) interpolation between 0 and 1.
+            </summary>
+            <remarks>
+            See https://en.wikipedia.org/wiki/Smoothstep
+            </remarks>
+            <param name="amount">Value between 0 and 1 indicating interpolation amount.</param>
+        </member>
+        <member name="M:SharpDX.MathUtil.SmootherStep(System.Single)">
+            <summary>
+            Performs a smooth(er) interpolation between 0 and 1 with 1st and 2nd order derivatives of zero at endpoints.
+            </summary>
+            <remarks>
+            See https://en.wikipedia.org/wiki/Smoothstep
+            </remarks>
+            <param name="amount">Value between 0 and 1 indicating interpolation amount.</param>
+        </member>
+        <member name="M:SharpDX.MathUtil.Mod(System.Single,System.Single)">
+            <summary>
+            Calculates the modulo of the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="modulo">The modulo.</param>
+            <returns>The result of the modulo applied to value</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.Mod2PI(System.Single)">
+            <summary>
+            Calculates the modulo 2*PI of the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The result of the modulo applied to value</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.Wrap(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Wraps the specified value into a range [min, max]
+            </summary>
+            <param name="value">The value to wrap.</param>
+            <param name="min">The min.</param>
+            <param name="max">The max.</param>
+            <returns>Result of the wrapping.</returns>
+            <exception cref="T:System.ArgumentException">Is thrown when <paramref name="min"/> is greater than <paramref name="max"/>.</exception>
+        </member>
+        <member name="M:SharpDX.MathUtil.Wrap(System.Single,System.Single,System.Single)">
+            <summary>
+            Wraps the specified value into a range [min, max[
+            </summary>
+            <param name="value">The value.</param>
+            <param name="min">The min.</param>
+            <param name="max">The max.</param>
+            <returns>Result of the wrapping.</returns>
+            <exception cref="T:System.ArgumentException">Is thrown when <paramref name="min"/> is greater than <paramref name="max"/>.</exception>
+        </member>
+        <member name="M:SharpDX.MathUtil.Gauss(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Gauss function.
+            http://en.wikipedia.org/wiki/Gaussian_function#Two-dimensional_Gaussian_function
+            </summary>
+            <param name="amplitude">Curve amplitude.</param>
+            <param name="x">Position X.</param>
+            <param name="y">Position Y</param>
+            <param name="centerX">Center X.</param>
+            <param name="centerY">Center Y.</param>
+            <param name="sigmaX">Curve sigma X.</param>
+            <param name="sigmaY">Curve sigma Y.</param>
+            <returns>The result of Gaussian function.</returns>
+        </member>
+        <member name="M:SharpDX.MathUtil.Gauss(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Gauss function.
+            http://en.wikipedia.org/wiki/Gaussian_function#Two-dimensional_Gaussian_function
+            </summary>
+            <param name="amplitude">Curve amplitude.</param>
+            <param name="x">Position X.</param>
+            <param name="y">Position Y</param>
+            <param name="centerX">Center X.</param>
+            <param name="centerY">Center Y.</param>
+            <param name="sigmaX">Curve sigma X.</param>
+            <param name="sigmaY">Curve sigma Y.</param>
+            <returns>The result of Gaussian function.</returns>
         </member>
     </members>
 </doc>
