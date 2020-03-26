@@ -1277,43 +1277,6 @@ namespace GameOverlay.Drawing
 		}
 
 		/// <summary>
-		/// Measures the specified string when drawn with the specified Font.
-		/// </summary>
-		/// <param name="font">Font that defines the text format of the string.</param>
-		/// <param name="fontSize">The size of the Font. (does not need to be the same as in Font.FontSize)</param>
-		/// <param name="text">String to measure.</param>
-		/// <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
-		public Point MeasureString(Font font, float fontSize, string text)
-		{
-			if (!IsDrawing) throw ThrowHelper.UseBeginScene();
-
-			if (text == null) throw new ArgumentNullException(nameof(text));
-			if (text.Length == 0) return default;
-
-			var layout = new TextLayout(_fontFactory, text, font.TextFormat, Width, Height);
-
-			if (fontSize != font.FontSize)
-			{
-				layout.SetFontSize(fontSize, new TextRange(0, text.Length));
-			}
-
-			var result = new Point(layout.Metrics.Width, layout.Metrics.Height);
-
-			layout.Dispose();
-
-			return result;
-		}
-
-		/// <summary>
-		/// Measures the specified string when drawn with the specified Font.
-		/// </summary>
-		/// <param name="font">Font that defines the text format of the string.</param>
-		/// <param name="text">String to measure.</param>
-		/// <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
-		public Point MeasureString(Font font, string text)
-			=> MeasureString(font, font.FontSize, text);
-
-		/// <summary>
 		/// Draws a string with a background box in behind using the given font, size and position.
 		/// </summary>
 		/// <param name="font">The Font to be used to draw the string.</param>
