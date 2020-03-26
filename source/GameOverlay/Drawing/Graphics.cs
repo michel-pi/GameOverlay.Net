@@ -351,6 +351,27 @@ namespace GameOverlay.Drawing
 		}
 
 		/// <summary>
+		/// Specifies a matrix to which all subsequent drawing operations are transformed.
+		/// </summary>
+		/// <param name="matrix">The matrix used for the transformation.</param>
+		public void TransformStart(TransformationMatrix matrix)
+		{
+			if (!IsDrawing) ThrowHelper.UseBeginScene();
+
+			_device.Transform = matrix;
+		}
+
+		/// <summary>
+		/// Removes the transformation matrix. it does not change the position, shape, or size of any drawing operations anymore.
+		/// </summary>
+		public void TransformEnd()
+		{
+			if (!IsDrawing) ThrowHelper.UseBeginScene();
+
+			_device.Transform = TransformationMatrix.Identity;
+		}
+
+		/// <summary>
 		/// Specifies a rectangle to which all subsequent drawing operations are clipped.
 		/// </summary>
 		/// <param name="left">The x-coordinate of the upper-left corner of the rectangle.</param>
