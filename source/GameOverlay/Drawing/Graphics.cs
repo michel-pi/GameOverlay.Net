@@ -351,6 +351,37 @@ namespace GameOverlay.Drawing
 		}
 
 		/// <summary>
+		/// Specifies a rectangle to which all subsequent drawing operations are clipped.
+		/// </summary>
+		/// <param name="left">The x-coordinate of the upper-left corner of the rectangle.</param>
+		/// <param name="top">The y-coordinate of the upper-left corner of the rectangle.</param>
+		/// <param name="right">The x-coordinate of the lower-right corner of the rectangle.</param>
+		/// <param name="bottom">The y-coordinate of the lower-right corner of the rectangle.</param>
+		public void ClipRegionStart(float left, float top, float right, float bottom)
+		{
+			if (!IsDrawing) ThrowHelper.UseBeginScene();
+
+			_device.PushAxisAlignedClip(new RawRectangleF(left, top, right, bottom), PerPrimitiveAntiAliasing ? AntialiasMode.PerPrimitive : AntialiasMode.Aliased);
+		}
+
+		/// <summary>
+		/// Specifies a rectangle to which all subsequent drawing operations are clipped.
+		/// </summary>
+		/// <param name="region">A Rectangle representing the size and position of the clipping area.</param>
+		public void ClipRegionStart(Rectangle region)
+			=> ClipRegionStart(region.Left, region.Top, region.Right, region.Bottom);
+
+		/// <summary>
+		/// Removes the last clip from the render target. After this method is called, the clip is no longer applied to subsequent drawing operations.
+		/// </summary>
+		public void ClipRegionEnd()
+		{
+			if (!IsDrawing) ThrowHelper.UseBeginScene();
+
+			_device.PopAxisAlignedClip();
+		}
+
+		/// <summary>
 		/// Draws a circle with a dashed line by using the given brush and dimension.
 		/// </summary>
 		/// <param name="brush">A brush that determines the color of the circle.</param>
@@ -1223,6 +1254,43 @@ namespace GameOverlay.Drawing
 
 			layout.Dispose();
 		}
+
+		/// <summary>
+		/// Measures the specified string when drawn with the specified Font.
+		/// </summary>
+		/// <param name="font">Font that defines the text format of the string.</param>
+		/// <param name="fontSize">The size of the Font. (does not need to be the same as in Font.FontSize)</param>
+		/// <param name="text">String to measure.</param>
+		/// <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
+		public Point MeasureString(Font font, float fontSize, string text)
+		{
+			if (!IsDrawing) throw ThrowHelper.UseBeginScene();
+
+			if (text == null) throw new ArgumentNullException(nameof(text));
+			if (text.Length == 0) return default;
+
+			var layout = new TextLayout(_fontFactory, text, font.TextFormat, Width, Height);
+
+			if (fontSize != font.FontSize)
+			{
+				layout.SetFontSize(fontSize, new TextRange(0, text.Length));
+			}
+
+			var result = new Point(layout.Metrics.Width, layout.Metrics.Height);
+
+			layout.Dispose();
+
+			return result;
+		}
+
+		/// <summary>
+		/// Measures the specified string when drawn with the specified Font.
+		/// </summary>
+		/// <param name="font">Font that defines the text format of the string.</param>
+		/// <param name="text">String to measure.</param>
+		/// <returns>This method returns a Point containing the width (x) and height (y) of the given text.</returns>
+		public Point MeasureString(Font font, string text)
+			=> MeasureString(font, font.FontSize, text);
 
 		/// <summary>
 		/// Draws a string with a background box in behind using the given font, size and position.
