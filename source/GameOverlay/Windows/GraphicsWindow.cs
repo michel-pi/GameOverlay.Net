@@ -225,6 +225,7 @@ namespace GameOverlay.Windows
 			SetupGraphics?.Invoke(this, new SetupGraphicsEventArgs(graphics));
 		}
 
+		/// <inheritdoc />
 		protected override void OnSizeChanged(int width, int height)
 		{
 			if (Graphics.IsInitialized)
@@ -240,6 +241,7 @@ namespace GameOverlay.Windows
 			base.OnSizeChanged(width, height);
 		}
 
+		/// <inheritdoc />
 		protected override void OnVisibilityChanged(bool isVisible)
 		{
 			_isPaused = !isVisible;
@@ -247,6 +249,7 @@ namespace GameOverlay.Windows
 			base.OnVisibilityChanged(isVisible);
 		}
 
+		/// <inheritdoc />
 		public override void Create()
 		{
 			base.Create();
@@ -264,6 +267,7 @@ namespace GameOverlay.Windows
 			_thread.Start();
 		}
 
+		/// <inheritdoc />
 		public override void Join()
 		{
 			if (_isRunning)
