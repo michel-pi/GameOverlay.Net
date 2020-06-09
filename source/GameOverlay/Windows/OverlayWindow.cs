@@ -29,6 +29,7 @@ namespace GameOverlay.Windows
 		private Thread _windowThread;
 		private volatile int _x;
 		private volatile int _y;
+		private volatile int _supressDestroyMessages;
 
 		/// <summary>
 		/// Gets or sets the windows class name.
@@ -387,8 +388,19 @@ namespace GameOverlay.Windows
 
 				case WindowMessage.DpiChanged:
 					return (IntPtr)0; // block DPI changed message
+                    
+                case WindowMessage.Destroy:
+                    if (_supressDestroyMessages == 0)
+                    {
+                        User32.PostQuitMessage(0);
+                    }
+                    else
+                    {
+                        _supressDestroyMessages--;
+                    }
+                    break;
 
-				default: break;
+                default: break;
 			}
 
 			return User32.DefWindowProc(hwnd, msg, wParam, lParam);
@@ -402,58 +414,48 @@ namespace GameOverlay.Windows
 
 			_isInitialized = true;
 
-			int supressDestroyMessages = 0;
+            bool isRunning = true;
+            do
+            {
+                User32.WaitMessage();
 
-			while (true)
-			{
-				User32.WaitMessage();
+                var message = default(Message);
 
-				var message = default(Message);
+                if (User32.PeekMessage(ref message, IntPtr.Zero, 0, 0, 1))
+                {
+                    switch (message.Msg)
+                    {
+                        //case WindowMessage.Quit:
+                        //    continue; // TODO: test
+                        case CustomDestroyWindowMessage:
+                            User32.DestroyWindow(_handle);
+                            break;
 
-				if (User32.PeekMessage(ref message, _handle, 0, 0, 1))
-				{
-					switch (message.Msg)
-					{
-						//case WindowMessage.Quit:
-						//    continue; // TODO: test
-						case CustomDestroyWindowMessage:
-							User32.DestroyWindow(_handle);
-							break;
+                        case CustomRecreateWindowMessage:
+                            _supressDestroyMessages = 2;
 
-						case CustomRecreateWindowMessage:
-							supressDestroyMessages = 2;
+                            User32.DestroyWindow(_handle);
 
-							User32.DestroyWindow(_handle);
+                            InstantiateNewWindow();
 
-							InstantiateNewWindow();
+                            break;
+                        case WindowMessage.Quit:
+                            isRunning = false;
+                            break;
+                        default: break;
+                    }
 
-							break;
+                    User32.TranslateMessage(ref message);
+                    User32.DispatchMessage(ref message);
+                }
+            }
+            while (isRunning);
 
-						default: break;
-					}
+            User32.UnregisterClass(_className, IntPtr.Zero);
 
-					User32.TranslateMessage(ref message);
-					User32.DispatchMessage(ref message);
+            _isInitialized = false;
 
-					if (message.Msg == WindowMessage.Destroy || message.Msg == WindowMessage.Ncdestroy)
-					{
-						if (supressDestroyMessages == 0)
-						{
-							break;
-						}
-						else
-						{
-							supressDestroyMessages--;
-						}
-					}
-				}
-			}
-
-			User32.UnregisterClass(_className, IntPtr.Zero);
-
-			_isInitialized = false;
-
-			_handle = IntPtr.Zero;
+            _handle = IntPtr.Zero;
 
 			IsVisible = false;
 			IsTopmost = false;

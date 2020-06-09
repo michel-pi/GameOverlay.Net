@@ -135,6 +135,10 @@ namespace GameOverlay.PInvoke
         public delegate bool PostMessageWDelegate(IntPtr hwnd, WindowMessage message, IntPtr wparam, IntPtr lparam);
 
         public static readonly PostMessageWDelegate PostMessage;
+        
+        public delegate void PostQuitMessageDelegate(int nExitCode);
+
+        public static readonly PostQuitMessageDelegate PostQuitMessage;
 
         public delegate IntPtr GenericGetWindowDelegate();
 
@@ -189,6 +193,8 @@ namespace GameOverlay.PInvoke
             UpdateWindow = DynamicImport.Import<UpdateWindowDelegate>(library, "UpdateWindow");
             WaitMessage = DynamicImport.Import<WaitMessageDelegate>(library, "WaitMessage");
             PostMessage = DynamicImport.Import<PostMessageWDelegate>(library, "PostMessageW");
+            PostQuitMessage = DynamicImport.Import<PostQuitMessageDelegate>(library, "PostQuitMessage");
+
             GetForegroundWindow = DynamicImport.Import<GetForegroundWindowDelegate>(library, "GetForegroundWindow");
 
             GetDesktopWindow = DynamicImport.Import<GenericGetWindowDelegate>(library, "GetDesktopWindow");
