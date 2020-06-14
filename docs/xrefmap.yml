@@ -4884,6 +4884,51 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.OverlayPositionEventArgs.Y
   nameWithType: OverlayPositionEventArgs.Y
+- uid: GameOverlay.Windows.OverlayPropertyChangedEventArgs
+  name: OverlayPropertyChangedEventArgs
+  href: api/GameOverlay.Windows.OverlayPropertyChangedEventArgs.html
+  commentId: T:GameOverlay.Windows.OverlayPropertyChangedEventArgs
+  fullName: GameOverlay.Windows.OverlayPropertyChangedEventArgs
+  nameWithType: OverlayPropertyChangedEventArgs
+- uid: GameOverlay.Windows.OverlayPropertyChangedEventArgs.#ctor(System.String,System.Object)
+  name: OverlayPropertyChangedEventArgs(String, Object)
+  href: api/GameOverlay.Windows.OverlayPropertyChangedEventArgs.html#GameOverlay_Windows_OverlayPropertyChangedEventArgs__ctor_System_String_System_Object_
+  commentId: M:GameOverlay.Windows.OverlayPropertyChangedEventArgs.#ctor(System.String,System.Object)
+  fullName: GameOverlay.Windows.OverlayPropertyChangedEventArgs.OverlayPropertyChangedEventArgs(System.String, System.Object)
+  nameWithType: OverlayPropertyChangedEventArgs.OverlayPropertyChangedEventArgs(String, Object)
+- uid: GameOverlay.Windows.OverlayPropertyChangedEventArgs.#ctor*
+  name: OverlayPropertyChangedEventArgs
+  href: api/GameOverlay.Windows.OverlayPropertyChangedEventArgs.html#GameOverlay_Windows_OverlayPropertyChangedEventArgs__ctor_
+  commentId: Overload:GameOverlay.Windows.OverlayPropertyChangedEventArgs.#ctor
+  isSpec: "True"
+  fullName: GameOverlay.Windows.OverlayPropertyChangedEventArgs.OverlayPropertyChangedEventArgs
+  nameWithType: OverlayPropertyChangedEventArgs.OverlayPropertyChangedEventArgs
+- uid: GameOverlay.Windows.OverlayPropertyChangedEventArgs.PropertyName
+  name: PropertyName
+  href: api/GameOverlay.Windows.OverlayPropertyChangedEventArgs.html#GameOverlay_Windows_OverlayPropertyChangedEventArgs_PropertyName
+  commentId: P:GameOverlay.Windows.OverlayPropertyChangedEventArgs.PropertyName
+  fullName: GameOverlay.Windows.OverlayPropertyChangedEventArgs.PropertyName
+  nameWithType: OverlayPropertyChangedEventArgs.PropertyName
+- uid: GameOverlay.Windows.OverlayPropertyChangedEventArgs.PropertyName*
+  name: PropertyName
+  href: api/GameOverlay.Windows.OverlayPropertyChangedEventArgs.html#GameOverlay_Windows_OverlayPropertyChangedEventArgs_PropertyName_
+  commentId: Overload:GameOverlay.Windows.OverlayPropertyChangedEventArgs.PropertyName
+  isSpec: "True"
+  fullName: GameOverlay.Windows.OverlayPropertyChangedEventArgs.PropertyName
+  nameWithType: OverlayPropertyChangedEventArgs.PropertyName
+- uid: GameOverlay.Windows.OverlayPropertyChangedEventArgs.Value
+  name: Value
+  href: api/GameOverlay.Windows.OverlayPropertyChangedEventArgs.html#GameOverlay_Windows_OverlayPropertyChangedEventArgs_Value
+  commentId: P:GameOverlay.Windows.OverlayPropertyChangedEventArgs.Value
+  fullName: GameOverlay.Windows.OverlayPropertyChangedEventArgs.Value
+  nameWithType: OverlayPropertyChangedEventArgs.Value
+- uid: GameOverlay.Windows.OverlayPropertyChangedEventArgs.Value*
+  name: Value
+  href: api/GameOverlay.Windows.OverlayPropertyChangedEventArgs.html#GameOverlay_Windows_OverlayPropertyChangedEventArgs_Value_
+  commentId: Overload:GameOverlay.Windows.OverlayPropertyChangedEventArgs.Value
+  isSpec: "True"
+  fullName: GameOverlay.Windows.OverlayPropertyChangedEventArgs.Value
+  nameWithType: OverlayPropertyChangedEventArgs.Value
 - uid: GameOverlay.Windows.OverlaySizeEventArgs
   name: OverlaySizeEventArgs
   href: api/GameOverlay.Windows.OverlaySizeEventArgs.html
@@ -5225,6 +5270,19 @@ references:
   isSpec: "True"
   fullName: GameOverlay.Windows.OverlayWindow.OnPositionChanged
   nameWithType: OverlayWindow.OnPositionChanged
+- uid: GameOverlay.Windows.OverlayWindow.OnPropertyChanged(System.String,System.Object)
+  name: OnPropertyChanged(String, Object)
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_OnPropertyChanged_System_String_System_Object_
+  commentId: M:GameOverlay.Windows.OverlayWindow.OnPropertyChanged(System.String,System.Object)
+  fullName: GameOverlay.Windows.OverlayWindow.OnPropertyChanged(System.String, System.Object)
+  nameWithType: OverlayWindow.OnPropertyChanged(String, Object)
+- uid: GameOverlay.Windows.OverlayWindow.OnPropertyChanged*
+  name: OnPropertyChanged
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_OnPropertyChanged_
+  commentId: Overload:GameOverlay.Windows.OverlayWindow.OnPropertyChanged
+  isSpec: "True"
+  fullName: GameOverlay.Windows.OverlayWindow.OnPropertyChanged
+  nameWithType: OverlayWindow.OnPropertyChanged
 - uid: GameOverlay.Windows.OverlayWindow.OnSizeChanged(System.Int32,System.Int32)
   name: OnSizeChanged(Int32, Int32)
   href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_OnSizeChanged_System_Int32_System_Int32_
@@ -5270,6 +5328,12 @@ references:
   commentId: E:GameOverlay.Windows.OverlayWindow.PositionChanged
   fullName: GameOverlay.Windows.OverlayWindow.PositionChanged
   nameWithType: OverlayWindow.PositionChanged
+- uid: GameOverlay.Windows.OverlayWindow.PropertyChanged
+  name: PropertyChanged
+  href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_PropertyChanged
+  commentId: E:GameOverlay.Windows.OverlayWindow.PropertyChanged
+  fullName: GameOverlay.Windows.OverlayWindow.PropertyChanged
+  nameWithType: OverlayWindow.PropertyChanged
 - uid: GameOverlay.Windows.OverlayWindow.Recreate
   name: Recreate()
   href: api/GameOverlay.Windows.OverlayWindow.html#GameOverlay_Windows_OverlayWindow_Recreate
