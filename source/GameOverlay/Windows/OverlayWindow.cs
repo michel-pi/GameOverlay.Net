@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -388,13 +388,14 @@ namespace GameOverlay.Windows
 
 				case WindowMessage.DpiChanged:
 					return (IntPtr)0; // block DPI changed message
-                    
+
                 case WindowMessage.Destroy:
-                    if (_supressDestroyMessages == 0)
+				case WindowMessage.Ncdestroy:
+                    if (_supressDestroyMessages == -1)
                     {
                         User32.PostQuitMessage(0);
                     }
-                    else
+                    else if (_supressDestroyMessages > 0)
                     {
                         _supressDestroyMessages--;
                     }
@@ -428,7 +429,9 @@ namespace GameOverlay.Windows
                         //case WindowMessage.Quit:
                         //    continue; // TODO: test
                         case CustomDestroyWindowMessage:
-                            User32.DestroyWindow(_handle);
+							_supressDestroyMessages = -1;
+
+							User32.DestroyWindow(_handle);
                             break;
 
                         case CustomRecreateWindowMessage:
