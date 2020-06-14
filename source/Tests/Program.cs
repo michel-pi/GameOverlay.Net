@@ -9,6 +9,20 @@ namespace Tests
 			var overlay = new GraphicsWindowTest();
 
 			overlay.Run();
+
+			Console.ReadLine();
+
+			overlay.ReCreate();
+
+			Console.WriteLine("Recreated");
+
+			Console.ReadLine();
+
+			overlay.Stop();
+
+			Console.WriteLine("Stopped");
+
+			Console.ReadLine();
 		}
 	}
 }

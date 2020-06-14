@@ -51,15 +51,31 @@ namespace Tests
 
 		~GraphicsWindowTest()
 		{
-			_window.Dispose();
-			_graphics.Dispose();
+			//_window.Dispose();
+			//_graphics.Dispose();
 		}
 
 		public void Run()
 		{
 			_window.Create();
 
+			Console.WriteLine(_window.Handle.ToString("X"));
+		}
+
+		public void Join()
+		{
 			_window.Join();
+		}
+
+		public void Stop()
+		{
+			_window.Dispose();
+			_graphics.Dispose();
+		}
+
+		public void ReCreate()
+		{
+			_window.Recreate();
 		}
 
 		private void _window_SetupGraphics(object sender, SetupGraphicsEventArgs e)
@@ -69,6 +85,8 @@ namespace Tests
 			_brushes["black"] = gfx.CreateSolidBrush(0, 0, 0);
 			_brushes["white"] = gfx.CreateSolidBrush(255, 255, 255);
 			_brushes["background"] = gfx.CreateSolidBrush(0, 0x27, 0x31, 255.0f * 0.8f);
+
+			Console.WriteLine(_window.Handle.ToString("X"));
 
 			// fonts don't need to be recreated since they are owned by the font factory and not the drawing device
 			if (e.RecreateResources) return;
