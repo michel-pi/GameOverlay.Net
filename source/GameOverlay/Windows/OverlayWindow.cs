@@ -301,7 +301,7 @@ namespace GameOverlay.Windows
 			var windowStyle = WindowStyle.Popup;
 			if (_isVisible) windowStyle |= WindowStyle.Visible;
 
-			_handle = User32.CreateWindowEx(
+			Handle = User32.CreateWindowEx(
 				extendedWindowStyle,
 				_className,
 				_title,
@@ -680,6 +680,8 @@ namespace GameOverlay.Windows
 			WindowHelper.ExtendFrameIntoClientArea(_handle);
 
 			OnPositionChanged(x, y);
+			OnPropertyChanged(nameof(X), x);
+			OnPropertyChanged(nameof(Y), y);
 		}
 
 		/// <summary>
@@ -759,6 +761,8 @@ namespace GameOverlay.Windows
 
 			OnPositionChanged(x, y);
 			OnSizeChanged(width, height);
+			OnPropertyChanged(nameof(X), x);
+			OnPropertyChanged(nameof(Y), y);
 		}
 
 		/// <summary>
