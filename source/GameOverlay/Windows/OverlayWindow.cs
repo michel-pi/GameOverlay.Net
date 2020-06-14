@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -42,13 +42,24 @@ namespace GameOverlay.Windows
 				if (_isInitialized) throw new InvalidOperationException("OverlayWindow already running");
 
 				_className = value;
+
+				OnPropertyChanged(nameof(ClassName), value);
 			}
 		}
 
 		/// <summary>
 		/// Gets the window handle of this instance.
 		/// </summary>
-		public IntPtr Handle { get => _handle; private set => _handle = value; }
+		public IntPtr Handle
+		{
+			get => _handle;
+			private set
+			{
+				_handle = value;
+
+				OnPropertyChanged(nameof(Handle), value);
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the height of the window.
@@ -66,6 +77,8 @@ namespace GameOverlay.Windows
 				{
 					_height = value;
 				}
+
+				OnPropertyChanged(nameof(Height), value);
 			}
 		}
 
@@ -97,6 +110,8 @@ namespace GameOverlay.Windows
 				{
 					_isTopmost = value;
 				}
+
+				OnPropertyChanged(nameof(IsTopmost), value);
 			}
 		}
 
@@ -123,13 +138,15 @@ namespace GameOverlay.Windows
 				{
 					_isVisible = value;
 				}
+
+				OnPropertyChanged(nameof(IsVisible), value);
 			}
 		}
 
 		/// <summary>
 		/// Gets the windows menu name.
 		/// </summary>
-		public string MenuName { get; private set; }
+		public string MenuName { get; set; }
 
 		/// <summary>
 		/// Gets or sets the windows title.
@@ -142,6 +159,8 @@ namespace GameOverlay.Windows
 				if (_isInitialized) throw new InvalidOperationException("OverlayWindow already running");
 
 				_title = value;
+
+				OnPropertyChanged(nameof(Title), value);
 			}
 		}
 
@@ -161,6 +180,8 @@ namespace GameOverlay.Windows
 				{
 					_width = value;
 				}
+
+				OnPropertyChanged(nameof(Width), value);
 			}
 		}
 
@@ -180,6 +201,8 @@ namespace GameOverlay.Windows
 				{
 					_x = value;
 				}
+
+				OnPropertyChanged(nameof(X), value);
 			}
 		}
 
@@ -199,6 +222,8 @@ namespace GameOverlay.Windows
 				{
 					_y = value;
 				}
+
+				OnPropertyChanged(nameof(Y), value);
 			}
 		}
 
@@ -216,6 +241,11 @@ namespace GameOverlay.Windows
 		/// Fires when the visibility of the window has changed.
 		/// </summary>
 		public event EventHandler<OverlayVisibilityEventArgs> VisibilityChanged;
+
+		/// <summary>
+		/// Fires when a property of this class changed it's value.
+		/// </summary>
+		public event EventHandler<OverlayPropertyChangedEventArgs> PropertyChanged;
 
 		/// <summary>
 		/// Initializes a new OverlayWindow.
@@ -491,6 +521,16 @@ namespace GameOverlay.Windows
 		protected virtual void OnVisibilityChanged(bool isVisible)
 		{
 			VisibilityChanged?.Invoke(this, new OverlayVisibilityEventArgs(isVisible));
+		}
+
+		/// <summary>
+		/// Gets called whenever a property of this instance changes.
+		/// </summary>
+		/// <param name="propertyName">The name of the changed property. (case-sensitive)</param>
+		/// <param name="value">The new value of the changed property.</param>
+		protected virtual void OnPropertyChanged(string propertyName, object value)
+		{
+			PropertyChanged?.Invoke(this, new OverlayPropertyChangedEventArgs(propertyName, value));
 		}
 
 		/// <summary>

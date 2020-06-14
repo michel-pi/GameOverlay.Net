@@ -24,6 +24,34 @@ namespace GameOverlay.Windows
             => IsVisible = isVisible;
     }
 
+    public class OverlayPropertyChangedEventArgs : EventArgs
+	{
+        /// <summary>
+        /// Contains the name of the changed property. (case-sensitive)
+        /// </summary>
+        public string PropertyName { get; }
+
+        /// <summary>
+        /// Contains the new value of the property.
+        /// </summary>
+        public object Value { get; }
+
+        private OverlayPropertyChangedEventArgs()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new OverlayPropertyChangedEventArgs using the given arguments.
+        /// </summary>
+        /// <param name="propertyName">The name of a property. (nameof(x))</param>
+        /// <param name="value">The new value of the property.</param>
+        public OverlayPropertyChangedEventArgs(string propertyName, object value)
+		{
+            PropertyName = propertyName;
+            Value = value;
+		}
+    }
+
     /// <summary>
     /// Provides data for the PositionChanged event.
     /// </summary>
