@@ -7,7 +7,7 @@
     <Product>GameOverlay.Net</Product>
     <Company />
     <Authors>michel-pi</Authors>
-    <Version>4.2.0</Version>
+    <Version>4.3.0</Version>
     <Description>An easy to use Direct2D1 drawing library with the ability to create transparent click-through windows.</Description>
     <PackageTags>GameOverlay.Net overlay game click-through direct2d sharpdx drawing window directx transparent michel-pi yato yatodev</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
