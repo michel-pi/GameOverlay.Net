@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using GameOverlay.Drawing;
 using GameOverlay.Windows;
 
+using SharpDX.Direct2D1;
+
 namespace Tests
 {
 	public class GraphicsWindowTest
@@ -13,13 +15,13 @@ namespace Tests
 
 		private readonly Dictionary<string, SolidBrush> _brushes;
 		private readonly Dictionary<string, Font> _fonts;
-		private readonly Dictionary<string, Image> _images;
+		private readonly Dictionary<string, GameOverlay.Drawing.Image> _images;
 
 		public GraphicsWindowTest()
 		{
 			_brushes = new Dictionary<string, SolidBrush>();
 			_fonts = new Dictionary<string, Font>();
-			_images = new Dictionary<string, Image>();
+			_images = new Dictionary<string, GameOverlay.Drawing.Image>();
 
 			_graphics = new Graphics()
 			{
@@ -88,11 +90,65 @@ namespace Tests
 			gfx.ClearScene(_brushes["background"]);
 
 			gfx.DrawText(_fonts["arial"], 22, _brushes["white"], 20, 20, $"FPS: {gfx.FPS}");
-			gfx.DrawRectangle(_brushes["white"], 20, 60, 400, 400, 1.0f);
 
-			gfx.DrawText(_fonts["arial"], 22, _brushes["white"], 40, 100, $"Count: {e.FrameCount}");
-			gfx.DrawText(_fonts["arial"], 22, _brushes["white"], 40, 130, $"Time: {e.FrameTime}");
-			gfx.DrawText(_fonts["arial"], 22, _brushes["white"], 40, 160, $"Delta: {e.DeltaTime}");
+			var device = gfx.GetRenderTarget() as WindowRenderTarget;
+			var factory = gfx.GetFactory();
+
+			//var region = new SharpDX.Direct2D1.RoundedRectangle()
+			//{
+			//	RadiusX = 16.0f,
+			//	RadiusY = 16.0f,
+			//	Rect = new SharpDX.Mathematics.Interop.RawRectangleF(200, 200, 300, 300)
+			//};
+
+			var geometry = new PathGeometry(factory);
+
+			var sink = geometry.Open();
+			sink.SetFillMode(FillMode.Winding);
+			sink.BeginFigure(new SharpDX.Mathematics.Interop.RawVector2(200, 200), FigureBegin.Filled);
+
+			sink.AddLine(new SharpDX.Mathematics.Interop.RawVector2(300 , 200));
+			sink.AddArc(new ArcSegment()
+			{
+				ArcSize = ArcSize.Small,
+				Point = new SharpDX.Mathematics.Interop.RawVector2(300, 300),
+				RotationAngle = 0.0f,
+				Size = new SharpDX.Size2F(16.0f, 16.0f),
+				SweepDirection = SweepDirection.Clockwise
+			});
+			sink.AddLine(new SharpDX.Mathematics.Interop.RawVector2(200, 300));
+			sink.AddArc(new ArcSegment()
+			{
+				ArcSize = ArcSize.Small,
+				Point = new SharpDX.Mathematics.Interop.RawVector2(200, 200),
+				RotationAngle = 0.0f,
+				Size = new SharpDX.Size2F(16.0f, 16.0f),
+				SweepDirection = SweepDirection.Clockwise
+			});
+
+			sink.EndFigure(FigureEnd.Open);
+			sink.Close();
+			sink.Dispose();
+
+			// device.FillGeometry(geometry, _brushes["white"]);
+
+			var options = new LayerParameters()
+			{
+				//ContentBounds = new SharpDX.Mathematics.Interop.RawRectangleF(float.NegativeInfinity, float.NegativeInfinity, float.PositiveInfinity, float.PositiveInfinity),
+				GeometricMask = geometry,
+				//Opacity = 1.0f
+			};
+
+			var layer = new Layer(device, new SharpDX.Size2F(gfx.Width, gfx.Height));
+
+			device.PushLayer(ref options, layer);
+
+			gfx.FillRectangle(_brushes["white"], 100, 100, 400, 400);
+
+			device.PopLayer();
+
+			layer.Dispose();
+			geometry.Dispose();
 		}
 	}
 }
