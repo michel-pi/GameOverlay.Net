@@ -15,6 +15,7 @@ namespace GameOverlay.Windows
 		private volatile int _fps;
 		private volatile bool _isPaused;
 		private volatile bool _isRunning;
+		private volatile bool _recreateGraphics;
 		private Thread _thread;
 
 		/// <summary>
@@ -111,6 +112,8 @@ namespace GameOverlay.Windows
 
 			OnSetupGraphics(Graphics);
 
+			PropertyChanged += GraphicsWindow_PropertyChanged;
+
 			int frameCount = 0;
 			long lastStartTime = 0L;
 
@@ -154,6 +157,16 @@ namespace GameOverlay.Windows
 					Thread.Sleep(10);
 				}
 
+				if (_recreateGraphics)
+				{
+					lock (_thread)
+					{
+						Graphics.Recreate(Handle);
+
+						_recreateGraphics = false;
+					}
+				}
+
 				if (frameCount == currentFPS)
 				{
 					frameCount = 0;
@@ -163,6 +176,24 @@ namespace GameOverlay.Windows
 			}
 
 			OnDestroyGraphics(Graphics);
+
+			PropertyChanged -= GraphicsWindow_PropertyChanged;
+		}
+
+		private void GraphicsWindow_PropertyChanged(object sender, OverlayPropertyChangedEventArgs e)
+		{
+			if (e == null) return;
+
+			if (e.PropertyName == nameof(Handle))
+			{
+				lock (_thread)
+				{
+					if (!_recreateGraphics)
+					{
+						_recreateGraphics = true;
+					}
+				}
+			}
 		}
 
 		/// <summary>
