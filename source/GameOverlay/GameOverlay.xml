@@ -3431,6 +3431,11 @@
             Fires when the visibility of the window has changed.
             </summary>
         </member>
+        <member name="E:GameOverlay.Windows.OverlayWindow.PropertyChanged">
+            <summary>
+            Fires when a property of this class changed it's value.
+            </summary>
+        </member>
         <member name="M:GameOverlay.Windows.OverlayWindow.#ctor">
             <summary>
             Initializes a new OverlayWindow.
@@ -3469,6 +3474,13 @@
             Gets called whenever the visibility of the window changes.
             </summary>
             <param name="isVisible">A Boolean indicating the new visibility of the window.</param>
+        </member>
+        <member name="M:GameOverlay.Windows.OverlayWindow.OnPropertyChanged(System.String,System.Object)">
+            <summary>
+            Gets called whenever a property of this instance changes.
+            </summary>
+            <param name="propertyName">The name of the changed property. (case-sensitive)</param>
+            <param name="value">The new value of the changed property.</param>
         </member>
         <member name="M:GameOverlay.Windows.OverlayWindow.Equals(GameOverlay.Windows.OverlayWindow,GameOverlay.Windows.OverlayWindow)">
             <summary>
@@ -3595,6 +3607,23 @@
             Initializes a new OverlayVisibilityEventArgs using the given visibility.
             </summary>
             <param name="isVisible"></param>
+        </member>
+        <member name="P:GameOverlay.Windows.OverlayPropertyChangedEventArgs.PropertyName">
+            <summary>
+            Contains the name of the changed property. (case-sensitive)
+            </summary>
+        </member>
+        <member name="P:GameOverlay.Windows.OverlayPropertyChangedEventArgs.Value">
+            <summary>
+            Contains the new value of the property.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.Windows.OverlayPropertyChangedEventArgs.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new OverlayPropertyChangedEventArgs using the given arguments.
+            </summary>
+            <param name="propertyName">The name of a property. (nameof(x))</param>
+            <param name="value">The new value of the property.</param>
         </member>
         <member name="T:GameOverlay.Windows.OverlayPositionEventArgs">
             <summary>
