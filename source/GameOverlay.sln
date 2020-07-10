@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28729.10
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOverlay", "GameOverlay\GameOverlay.csproj", "{ED6A9D37-995F-4457-A814-997D4BA29FC2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{938B17EA-46A2-4251-ADAF-2C0D0355FACD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{D3786839-3187-4D78-A17C-81E6C461FD9C}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBExample", "VBExample\VBExample.vbproj", "{8F517F52-8EA3-4D6C-8882-099B4E22A3EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{D3786839-3187-4D78-A17C-81E6C461FD9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3786839-3187-4D78-A17C-81E6C461FD9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3786839-3187-4D78-A17C-81E6C461FD9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F517F52-8EA3-4D6C-8882-099B4E22A3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F517F52-8EA3-4D6C-8882-099B4E22A3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F517F52-8EA3-4D6C-8882-099B4E22A3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F517F52-8EA3-4D6C-8882-099B4E22A3EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
