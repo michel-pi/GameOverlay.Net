@@ -27,7 +27,7 @@ This library offers a comprehensive interface for drawing hardware accelerated g
 - Already implemented render loop with fps limitation
 
 ### [Documentation](https://michel-pi.github.io/GameOverlay.Net/ "GameOverlay.Net Documentation")
-### [Examples](https://github.com/michel-pi/GameOverlay.Net/tree/master/source/Examples "GameOverlay.Net examples")
+### [Examples](https://github.com/michel-pi/GameOverlay.Net/tree/master/source/ "GameOverlay.Net examples") | C# and VB
 
 # Contribute
 
