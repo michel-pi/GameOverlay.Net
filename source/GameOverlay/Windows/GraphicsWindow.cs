@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-
+#if NET5_0
+using System.Runtime.Versioning;
+#endif
 using GameOverlay.Drawing;
 
 namespace GameOverlay.Windows
@@ -280,6 +282,9 @@ namespace GameOverlay.Windows
 			base.OnVisibilityChanged(isVisible);
 		}
 
+#if NET5_0
+		[SupportedOSPlatform("windows")]
+#endif
 		/// <inheritdoc />
 		public override void Create()
 		{

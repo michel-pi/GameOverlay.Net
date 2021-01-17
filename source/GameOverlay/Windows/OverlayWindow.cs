@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-
+#if NET5_0
+using System.Runtime.Versioning;
+#endif
 using GameOverlay.PInvoke;
 
 namespace GameOverlay.Windows
@@ -142,6 +144,8 @@ namespace GameOverlay.Windows
 				OnPropertyChanged(nameof(IsVisible), value);
 			}
 		}
+
+		public bool ClickThrough { get; set; } = true;
 
 		/// <summary>
 		/// Gets the windows menu name.
@@ -295,8 +299,9 @@ namespace GameOverlay.Windows
 
 		private void InstantiateNewWindow()
 		{
-			var extendedWindowStyle = ExtendedWindowStyle.Transparent | ExtendedWindowStyle.Layered | ExtendedWindowStyle.NoActivate;
+			var extendedWindowStyle = ExtendedWindowStyle.Transparent | ExtendedWindowStyle.NoActivate;
 			if (_isTopmost) extendedWindowStyle |= ExtendedWindowStyle.Topmost;
+			if (this.ClickThrough) extendedWindowStyle |= ExtendedWindowStyle.Layered;
 
 			var windowStyle = WindowStyle.Popup;
 			if (_isVisible) windowStyle |= WindowStyle.Visible;
@@ -546,6 +551,9 @@ namespace GameOverlay.Windows
 			return left?.Equals(right) == true;
 		}
 
+#if NET5_0
+		[SupportedOSPlatform("windows")]
+#endif
 		/// <summary>
 		/// Setup and initializes the window.
 		/// </summary>
@@ -798,7 +806,7 @@ namespace GameOverlay.Windows
 				"Height", Height.ToString());
 		}
 
-		#region IDisposable Support
+#region IDisposable Support
 
 		private bool disposedValue;
 
@@ -838,6 +846,6 @@ namespace GameOverlay.Windows
 			GC.SuppressFinalize(this);
 		}
 
-		#endregion IDisposable Support
+#endregion IDisposable Support
 	}
 }
