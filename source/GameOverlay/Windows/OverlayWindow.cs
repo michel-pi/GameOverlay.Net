@@ -146,6 +146,7 @@ namespace GameOverlay.Windows
 		}
 
 		public bool ClickThrough { get; set; } = true;
+		public bool NoActive { get; set; } = true;
 
 		/// <summary>
 		/// Gets the windows menu name.
@@ -299,9 +300,10 @@ namespace GameOverlay.Windows
 
 		private void InstantiateNewWindow()
 		{
-			var extendedWindowStyle = ExtendedWindowStyle.Transparent | ExtendedWindowStyle.NoActivate;
+			var extendedWindowStyle = ExtendedWindowStyle.Transparent;
 			if (_isTopmost) extendedWindowStyle |= ExtendedWindowStyle.Topmost;
 			if (this.ClickThrough) extendedWindowStyle |= ExtendedWindowStyle.Layered;
+			if (this.NoActive) extendedWindowStyle |= ExtendedWindowStyle.NoActivate;
 
 			var windowStyle = WindowStyle.Popup;
 			if (_isVisible) windowStyle |= WindowStyle.Visible;

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net461;net5</TargetFrameworks>
+    <TargetFrameworks>net5.0;net45;net461</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>GameOverlay.Net</PackageId>
     <Product>GameOverlay.Net</Product>
@@ -30,8 +30,8 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="4.1.0">
-      <PrivateAssets>All</PrivateAssets>
+    <PackageReference Include="Costura.Fody" Version="5.0.2">
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Fody" Version="6.3.0">
       <PrivateAssets>all</PrivateAssets>
