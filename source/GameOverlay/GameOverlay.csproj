@@ -1,22 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net45;net461</TargetFrameworks>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <TargetFrameworks>net5.0;net45;net461;net48</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>GameOverlay.Net</PackageId>
     <Product>GameOverlay.Net</Product>
     <Company />
     <Authors>michel-pi</Authors>
-    <Version>4.3.0</Version>
+    <Version>4.3.1</Version>
     <Description>An easy to use Direct2D1 drawing library with the ability to create transparent click-through windows.</Description>
     <PackageTags>GameOverlay.Net overlay game click-through direct2d sharpdx drawing window directx transparent michel-pi yato yatodev</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Copyright>Copyright (c) 2019 michel-pi</Copyright>
-    <PackageProjectUrl>https://github.com/michel-pi/GameOverlay.Net</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/michel-pi/GameOverlay.Net</RepositoryUrl>
+    <Copyright>Copyright (c) 2021 Markus Wackermann</Copyright>
+    <PackageProjectUrl>https://github.com/spreedated/GameOverlay.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/spreedated/GameOverlay.Net.git</RepositoryUrl>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>wackermann.snk</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>4.3.1.0</AssemblyVersion>
+    <FileVersion>4.3.1.0</FileVersion>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Configurations>Debug;Release;Release_wo_Tests</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,9 +29,24 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants />
-    <DocumentationFile>C:\Users\Michel\Documents\Github\Public\GameOverlay.Net\source\GameOverlay\GameOverlay.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\GameOverlay.xml</DocumentationFile>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_wo_Tests|AnyCPU'">
+    <DefineConstants />
+    <DocumentationFile>bin\Release\GameOverlay.xml</DocumentationFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net5.0|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_wo_Tests|net5.0|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="5.0.2">
