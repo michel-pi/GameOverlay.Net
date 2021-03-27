@@ -110,7 +110,7 @@ namespace GameOverlay.Drawing
 
             var arc = new ArcSegment()
             {
-                ArcSize = radius > 179.0f ? ArcSize.Large : ArcSize.Small,
+                ArcSize = radius >= 180.0f ? ArcSize.Large : ArcSize.Small,
                 Point = point,
                 RotationAngle = rotationAngle,
                 Size = new Size2F(radius, radius),
