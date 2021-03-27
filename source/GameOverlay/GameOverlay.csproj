@@ -22,7 +22,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants />
-    <DocumentationFile>C:\Users\Michel\Documents\Github\Public\GameOverlay.Net\source\GameOverlay\GameOverlay.xml</DocumentationFile>
+    <DocumentationFile>GameOverlay.xml</DocumentationFile>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>

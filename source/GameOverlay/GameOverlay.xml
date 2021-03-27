@@ -3175,6 +3175,59 @@
             </summary>
             <param name="value">The RawMatrix3x2 to convert.</param>
         </member>
+        <member name="T:GameOverlay.TimerService">
+            <summary>
+            Adds support for high precision timers and sleep throughout the overlay.
+            </summary>
+        </member>
+        <member name="P:GameOverlay.TimerService.IsHighPrecision">
+            <summary>
+            Gets or sets a Boolean which determines whether high precision timers are currently enabled.
+            </summary>
+        </member>
+        <member name="P:GameOverlay.TimerService.UseDefaultTimers">
+            <summary>
+            Gets or sets a Boolean which determines whether the use of high precision timers is allowed.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.TimerService.EnsureHighPrecisionTimers">
+            <summary>
+            Ensures that high precision timers are enabled and enables them otherwise.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.TimerService.EnableHighPrecisionTimers">
+            <summary>
+            Enables high precision timers. Use before calling anything else.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.TimerService.DisableHighPrecisionTimers">
+            <summary>
+            Disables high precision timers. Use before exiting the app.
+            </summary>
+        </member>
+        <member name="T:GameOverlay.TimerService.Methods">
+            <summary>
+            Defines different methods to sleep for a given time.
+            </summary>
+        </member>
+        <member name="M:GameOverlay.TimerService.Methods.Sleep(System.Int32)">
+            <summary>
+            Default Thread.Sleep
+            </summary>
+            <param name="milliseconds"></param>
+        </member>
+        <member name="M:GameOverlay.TimerService.Methods.DelayExecution(System.Int32)">
+            <summary>
+            NtDelayExecution implementation.
+            </summary>
+            <param name="milliseconds"></param>
+        </member>
+        <member name="M:GameOverlay.TimerService.Methods.Loop(System.Int32)">
+            <summary>
+            A more precise Thread.Sleep.
+            </summary>
+            <param name="milliseconds"></param>
+        </member>
         <member name="T:GameOverlay.Windows.GraphicsWindow">
             <summary>
             Represents an OverlayWindow which is used to draw at any given frame rate.
@@ -3607,6 +3660,11 @@
             Initializes a new OverlayVisibilityEventArgs using the given visibility.
             </summary>
             <param name="isVisible"></param>
+        </member>
+        <member name="T:GameOverlay.Windows.OverlayPropertyChangedEventArgs">
+            <summary>
+            Provides data for the OverlayPropertyChanged event
+            </summary>
         </member>
         <member name="P:GameOverlay.Windows.OverlayPropertyChangedEventArgs.PropertyName">
             <summary>
