@@ -51,6 +51,8 @@ Then maybe consider to donate any amount you like.
 [![Donate via PayPal](https://media.wtf/assets/img/pp.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YJDWMDUSM8KKQ "Donate via PayPal")
 
 ```
+BTC     1LmbzgQd1dbzgsGhZgWmydKqkYcd32f9VV
+or segwit
 BTC     bc1qp6zc73vy8pmr6lfe4cxa6eqzvkuer9hrjwpzza
 ```
 
