@@ -128,7 +128,12 @@ namespace Examples
 
 			gfx.ClearScene(_brushes["background"]);
 
-			gfx.DrawTextWithBackground(_fonts["consolas"], _brushes["green"], _brushes["black"], 58, 20, infoText);
+			DrawingEffect[] drawingEffects = {
+				new DrawingEffect(_brushes["blue"], 0, 5),
+				new DrawingEffect(_brushes["red"], 5, 16)
+			};
+
+			gfx.DrawTextWithBackground(_fonts["consolas"], _brushes["green"], _brushes["black"], 58, 20, infoText, drawingEffects);
 
 			gfx.DrawGeometry(_gridGeometry, _brushes["grid"], 1.0f);
 
