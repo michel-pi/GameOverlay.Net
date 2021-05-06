@@ -1204,7 +1204,8 @@ namespace GameOverlay.Drawing
 		/// <param name="x">The x-coordinate of the starting position.</param>
 		/// <param name="y">The y-coordinate of the starting position.</param>
 		/// <param name="text">The string to be drawn.</param>
-		public void DrawText(Font font, float fontSize, IBrush brush, float x, float y, string text)
+		/// <param name="drawingEffects">Effects to be applied to the text.</param>
+		public void DrawText(Font font, float fontSize, IBrush brush, float x, float y, string text, params DrawingEffect[] drawingEffects)
 		{
 			if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
@@ -1229,7 +1230,10 @@ namespace GameOverlay.Drawing
 			{
 				layout.SetFontSize(fontSize, new TextRange(0, text.Length));
 			}
-
+			foreach(var drawingEffect in drawingEffects)
+            {
+				layout.SetDrawingEffect(drawingEffect.Brush.Brush.NativePointer, drawingEffect.TextRange);
+			}
 			_device.DrawTextLayout(new RawVector2(x, y), layout, brush.Brush, DrawTextOptions.Clip);
 
 			layout.Dispose();
@@ -1245,6 +1249,18 @@ namespace GameOverlay.Drawing
 		/// <param name="text">The string to be drawn.</param>
 		public void DrawText(Font font, float fontSize, IBrush brush, Point location, string text)
 			=> DrawText(font, fontSize, brush, location.X, location.Y, text);
+
+		/// <summary>
+		/// Draws a string using the given font and position.
+		/// </summary>
+		/// <param name="font">The Font to be used to draw the string.</param>
+		/// <param name="brush">A brush that determines the color of the text.</param>
+		/// <param name="x">The x-coordinate of the starting position.</param>
+		/// <param name="y">The y-coordinate of the starting position.</param>
+		/// <param name="text">The string to be drawn.</param>
+		/// <param name="drawingEffects">Effects to be applied to the text.</param>
+		public void DrawText(Font font, IBrush brush, float x, float y, string text, params DrawingEffect[] drawingEffects)
+			=> DrawText(font, font.FontSize, brush, x, y, text, drawingEffects);
 
 		/// <summary>
 		/// Draws a string using the given font and position.
@@ -1277,7 +1293,8 @@ namespace GameOverlay.Drawing
 		/// <param name="x">The x-coordinate of the starting position.</param>
 		/// <param name="y">The y-coordinate of the starting position.</param>
 		/// <param name="text">The string to be drawn.</param>
-		public void DrawTextWithBackground(Font font, float fontSize, IBrush brush, IBrush background, float x, float y, string text)
+		/// <param name="drawingEffects">Effects to be applied to the text.</param>
+		public void DrawTextWithBackground(Font font, float fontSize, IBrush brush, IBrush background, float x, float y, string text, params DrawingEffect[] drawingEffects)
 		{
 			if (!IsDrawing) throw ThrowHelper.UseBeginScene();
 
@@ -1308,6 +1325,10 @@ namespace GameOverlay.Drawing
 
 			_device.FillRectangle(rectangle, background.Brush);
 
+			foreach (var drawingEffect in drawingEffects)
+			{
+				layout.SetDrawingEffect(drawingEffect.Brush.Brush.NativePointer, drawingEffect.TextRange);
+			}
 			_device.DrawTextLayout(new RawVector2(x, y), layout, brush.Brush, DrawTextOptions.Clip);
 
 			layout.Dispose();
@@ -1324,6 +1345,19 @@ namespace GameOverlay.Drawing
 		/// <param name="text">The string to be drawn.</param>
 		public void DrawTextWithBackground(Font font, float fontSize, IBrush brush, IBrush background, Point location, string text)
 			=> DrawTextWithBackground(font, fontSize, brush, background, location.X, location.Y, text);
+
+		/// <summary>
+		/// Draws a string with a background box in behind using the given font, size and position.
+		/// </summary>
+		/// <param name="font">The Font to be used to draw the string.</param>
+		/// <param name="brush">A brush that determines the color of the text.</param>
+		/// <param name="background">A brush that determines the color of the background box.</param>
+		/// <param name="x">The x-coordinate of the starting position.</param>
+		/// <param name="y">The y-coordinate of the starting position.</param>
+		/// <param name="text">The string to be drawn.</param>
+		/// <param name="drawingEffects">Effects to be applied to the text.</param>
+		public void DrawTextWithBackground(Font font, IBrush brush, IBrush background, float x, float y, string text, params DrawingEffect[] drawingEffects)
+			=> DrawTextWithBackground(font, font.FontSize, brush, background, x, y, text, drawingEffects);
 
 		/// <summary>
 		/// Draws a string with a background box in behind using the given font, size and position.
