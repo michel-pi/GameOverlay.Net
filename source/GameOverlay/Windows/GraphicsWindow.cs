@@ -142,7 +142,7 @@ namespace GameOverlay.Windows
 
 					if (remainingTime > 0)
 					{
-						Thread.Sleep(remainingTime);
+						TimerService.Methods.DelayExecution(remainingTime);
 					}
 					else
 					{
@@ -156,7 +156,7 @@ namespace GameOverlay.Windows
 
 				while (_isPaused)
 				{
-					Thread.Sleep(10);
+					TimerService.Methods.DelayExecution(10);
 				}
 
 				if (_recreateGraphics)

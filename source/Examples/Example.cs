@@ -128,7 +128,7 @@ namespace Examples
 
 			gfx.ClearScene(_brushes["background"]);
 
-			gfx.DrawTextWithBackground(_fonts["consolas"], _brushes["green"], _brushes["black"], 20, 20, infoText);
+			gfx.DrawTextWithBackground(_fonts["consolas"], _brushes["green"], _brushes["black"], 58, 20, infoText);
 
 			gfx.DrawGeometry(_gridGeometry, _brushes["grid"], 1.0f);
 

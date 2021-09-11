@@ -570,11 +570,12 @@ namespace GameOverlay.Windows
 					IsBackground = true
 				};
 
-				_windowThread.SetApartmentState(ApartmentState.STA);
+				_windowThread.TrySetApartmentState(ApartmentState.STA);
+				//_windowThread.SetApartmentState(ApartmentState.STA);
 
 				_windowThread.Start();
 
-				while (!_isInitialized) Thread.Sleep(10);
+				while (!_isInitialized) TimerService.Methods.DelayExecution(10);
 			}
 		}
 
@@ -725,7 +726,7 @@ namespace GameOverlay.Windows
 
 				User32.PostMessage(Handle, CustomRecreateWindowMessage, IntPtr.Zero, IntPtr.Zero);
 
-				while (previousHandle == Handle) Thread.Sleep(10);
+				while (previousHandle == Handle) TimerService.Methods.DelayExecution(10);
 			}
 		}
 

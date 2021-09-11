@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Examples
 {
@@ -10,6 +6,8 @@ namespace Examples
 	{
 		public static void Main(string[] _)
 		{
+			GameOverlay.TimerService.EnableHighPrecisionTimers();
+
 			using (var example = new Example())
 			{
 				example.Run();

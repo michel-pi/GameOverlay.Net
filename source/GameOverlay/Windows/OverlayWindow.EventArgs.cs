@@ -24,6 +24,9 @@ namespace GameOverlay.Windows
             => IsVisible = isVisible;
     }
 
+    /// <summary>
+    /// Provides data for the OverlayPropertyChanged event
+    /// </summary>
     public class OverlayPropertyChangedEventArgs : EventArgs
 	{
         /// <summary>
